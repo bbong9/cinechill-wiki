@@ -6,7 +6,7 @@
   <title>Telegram 监听 | CineChill Wiki</title>
   <meta name="description" content="监听 Telegram 会话或频道，把消息中的资源线索接入 CineChill 自动化。">
   <link rel="icon" type="image/png" href="/cinechill-wiki/cinechill/chill.png">
-  <link rel="stylesheet" href="/cinechill-wiki/cinechill/wiki.css?v=20260609-sidebar-v2">
+  <link rel="stylesheet" href="/cinechill-wiki/cinechill/wiki.css?v=20260609-outline-v1">
   <script>
     (() => {
       const key = 'cinechill-wiki-theme';
@@ -255,17 +255,9 @@
   </div>
   <div class="layout has-sidebar">
     <aside class="sidebar" aria-label="侧边栏导航">
-      <nav>
-        <section class="sidebar-group">
-          <h2>入门</h2>
-          <a class="sidebar-link " href="/cinechill-wiki/">总览</a>
-          <a class="sidebar-link " href="/cinechill-wiki/wiki/login.html">登录页</a>
-          <a class="sidebar-link " href="/cinechill-wiki/wiki/quickstart.html">快速开始</a>
-          <a class="sidebar-link " href="/cinechill-wiki/wiki/install.html">部署与首次配置</a>
-          <a class="sidebar-link " href="/cinechill-wiki/wiki/workflow.html">常用工作流</a>
-          <a class="sidebar-link " href="/cinechill-wiki/wiki/changelog.html">更新日志</a>
-        </section>
-        <section class="sidebar-group"><h2>首页</h2><a class="sidebar-link " href="/cinechill-wiki/wiki/dashboard.html">仪表盘</a></section><section class="sidebar-group"><h2>快捷入口</h2><a class="sidebar-link " href="/cinechill-wiki/wiki/operations_console.html">实时日志</a></section><section class="sidebar-group"><h2>媒体发现</h2><a class="sidebar-link " href="/cinechill-wiki/wiki/media_subscribe.html">发现推荐</a><a class="sidebar-link " href="/cinechill-wiki/wiki/missing_episode_stats.html">缺集统计</a><a class="sidebar-link " href="/cinechill-wiki/wiki/resource_transfer.html">资源转存</a><a class="sidebar-link " href="/cinechill-wiki/wiki/rss.html">真实库</a></section><section class="sidebar-group"><h2>媒体整理</h2><a class="sidebar-link " href="/cinechill-wiki/wiki/media_organize.html">一条龙菜单</a><a class="sidebar-link " href="/cinechill-wiki/wiki/organize_history.html">整理记录</a><a class="sidebar-link " href="/cinechill-wiki/wiki/rename_template.html">重命名模板</a><a class="sidebar-link " href="/cinechill-wiki/wiki/media_organize_rules.html">二级分类</a></section><section class="sidebar-group"><h2>封面系统</h2><a class="sidebar-link " href="/cinechill-wiki/wiki/manual.html">手动封面</a><a class="sidebar-link " href="/cinechill-wiki/wiki/auto.html">自动封面</a><a class="sidebar-link " href="/cinechill-wiki/wiki/custom.html">封面设计</a><a class="sidebar-link " href="/cinechill-wiki/wiki/cover_resources.html">资源配置</a></section><section class="sidebar-group"><h2>115 工具</h2><a class="sidebar-link " href="/cinechill-wiki/wiki/config_115.html">115 配置</a><a class="sidebar-link " href="/cinechill-wiki/wiki/drive115_upload.html">115 秒传/上传</a></section><section class="sidebar-group"><h2>通知自动化</h2><a class="sidebar-link " href="/cinechill-wiki/wiki/config_notification.html">通知配置</a><a class="sidebar-link active" href="/cinechill-wiki/wiki/telegram_monitor.html">Telegram 监听</a><a class="sidebar-link " href="/cinechill-wiki/wiki/webhook.html">Webhook</a><a class="sidebar-link " href="/cinechill-wiki/wiki/emby_tasks.html">Emby 任务中心</a></section><section class="sidebar-group"><h2>系统配置</h2><a class="sidebar-link " href="/cinechill-wiki/wiki/server.html">Emby 配置</a><a class="sidebar-link " href="/cinechill-wiki/wiki/config_moviepilot.html">MoviePilot</a><a class="sidebar-link " href="/cinechill-wiki/wiki/config_proxy.html">代理配置</a><a class="sidebar-link " href="/cinechill-wiki/wiki/config_tmdb.html">TMDB 配置</a><a class="sidebar-link " href="/cinechill-wiki/wiki/docker_manager.html">Docker 管理</a><a class="sidebar-link " href="/cinechill-wiki/wiki/forward_aiying.html">Forward 模块</a><a class="sidebar-link " href="/cinechill-wiki/wiki/system_health.html">系统健康</a><a class="sidebar-link " href="/cinechill-wiki/wiki/account.html">账户管理</a></section>
+      <nav class="sidebar-tree" id="VPSidebarNav" aria-label="文档导航">
+        <section class="sidebar-item level-0"><div class="sidebar-entry"><div class="indicator"></div><h2 class="text">入门</h2></div><div class="items"><div class="sidebar-item level-1 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/"><p class="text">总览</p></a></div></div><div class="sidebar-item level-1 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/login.html"><p class="text">登录页</p></a></div></div><div class="sidebar-item level-1 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/quickstart.html"><p class="text">快速开始</p></a></div></div><div class="sidebar-item level-1 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/install.html"><p class="text">部署与首次配置</p></a></div></div><div class="sidebar-item level-1 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/workflow.html"><p class="text">常用工作流</p></a></div></div><div class="sidebar-item level-1 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/changelog.html"><p class="text">更新日志</p></a></div></div></div></section>
+        <section class="sidebar-item level-0 has-active"><div class="sidebar-entry"><div class="indicator"></div><h2 class="text">页面教程</h2></div><div class="items"><section class="sidebar-item level-1"><div class="sidebar-entry"><div class="indicator"></div><h3 class="text">首页</h3></div><div class="items"><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/dashboard.html"><p class="text">仪表盘</p></a></div></div></div></section><section class="sidebar-item level-1"><div class="sidebar-entry"><div class="indicator"></div><h3 class="text">快捷入口</h3></div><div class="items"><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/operations_console.html"><p class="text">实时日志</p></a></div></div></div></section><section class="sidebar-item level-1"><div class="sidebar-entry"><div class="indicator"></div><h3 class="text">媒体发现</h3></div><div class="items"><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/media_subscribe.html"><p class="text">发现推荐</p></a></div></div><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/missing_episode_stats.html"><p class="text">缺集统计</p></a></div></div><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/resource_transfer.html"><p class="text">资源转存</p></a></div></div><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/rss.html"><p class="text">真实库</p></a></div></div></div></section><section class="sidebar-item level-1"><div class="sidebar-entry"><div class="indicator"></div><h3 class="text">媒体整理</h3></div><div class="items"><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/media_organize.html"><p class="text">一条龙菜单</p></a></div></div><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/organize_history.html"><p class="text">整理记录</p></a></div></div><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/rename_template.html"><p class="text">重命名模板</p></a></div></div><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/media_organize_rules.html"><p class="text">二级分类</p></a></div></div></div></section><section class="sidebar-item level-1"><div class="sidebar-entry"><div class="indicator"></div><h3 class="text">封面系统</h3></div><div class="items"><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/manual.html"><p class="text">手动封面</p></a></div></div><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/auto.html"><p class="text">自动封面</p></a></div></div><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/custom.html"><p class="text">封面设计</p></a></div></div><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/cover_resources.html"><p class="text">资源配置</p></a></div></div></div></section><section class="sidebar-item level-1"><div class="sidebar-entry"><div class="indicator"></div><h3 class="text">115 工具</h3></div><div class="items"><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/config_115.html"><p class="text">115 配置</p></a></div></div><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/drive115_upload.html"><p class="text">115 秒传/上传</p></a></div></div></div></section><section class="sidebar-item level-1 has-active"><div class="sidebar-entry"><div class="indicator"></div><h3 class="text">通知自动化</h3></div><div class="items"><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/config_notification.html"><p class="text">通知配置</p></a></div></div><div class="sidebar-item level-2 is-link is-active has-active"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/telegram_monitor.html"><p class="text">Telegram 监听</p></a></div></div><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/webhook.html"><p class="text">Webhook</p></a></div></div><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/emby_tasks.html"><p class="text">Emby 任务中心</p></a></div></div></div></section><section class="sidebar-item level-1"><div class="sidebar-entry"><div class="indicator"></div><h3 class="text">系统配置</h3></div><div class="items"><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/server.html"><p class="text">Emby 配置</p></a></div></div><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/config_moviepilot.html"><p class="text">MoviePilot</p></a></div></div><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/config_proxy.html"><p class="text">代理配置</p></a></div></div><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/config_tmdb.html"><p class="text">TMDB 配置</p></a></div></div><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/docker_manager.html"><p class="text">Docker 管理</p></a></div></div><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/forward_aiying.html"><p class="text">Forward 模块</p></a></div></div><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/system_health.html"><p class="text">系统健康</p></a></div></div><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/account.html"><p class="text">账户管理</p></a></div></div></div></section></div></section>
       </nav>
     </aside>
     <main id="VPContent" class="content">
@@ -305,7 +297,67 @@
       <ul><li>先只填必要配置，不要一开始就打开所有自动化开关。</li><li>每次保存后先点测试、刷新或手动运行一次，确认链路正常再进入下一步。</li><li>遇到红色错误提示时，先看当前页的状态卡片，再去“实时日志”按时间搜索。</li><li>涉及 Cookie、Token、API Key 的输入框只需要填写自己的值，Wiki 不会展示真实密钥。</li></ul>
     </section>
   </article>
+      <aside class="doc-aside" aria-label="本页目录">
+        <div class="doc-aside-container">
+          <nav class="doc-outline" aria-labelledby="doc-outline-title">
+            <div class="doc-outline-content">
+              <div class="outline-marker" aria-hidden="true"></div>
+              <div class="outline-title" id="doc-outline-title" role="heading" aria-level="2">本页目录</div>
+              <ul class="doc-outline-list" data-page-outline></ul>
+            </div>
+          </nav>
+        </div>
+      </aside>
     </main>
   </div>
+  <script data-page-outline-script>
+    (() => {
+      const article = document.querySelector('article.doc');
+      const aside = document.querySelector('.doc-aside');
+      const list = document.querySelector('[data-page-outline]');
+      if (!article || !aside || !list) return;
+      const headings = Array.from(article.querySelectorAll('h2, h3')).filter((heading) => heading.textContent.trim());
+      if (!headings.length) {
+        aside.hidden = true;
+        return;
+      }
+      const counts = new Map();
+      const slugify = (text) => {
+        const raw = text.trim().toLowerCase().replace(/\s+/g, '-').replace(/[^\w\u4e00-\u9fff-]+/g, '').replace(/^-+|-+$/g, '') || 'section';
+        const count = counts.get(raw) || 0;
+        counts.set(raw, count + 1);
+        return count ? raw + '-' + count : raw;
+      };
+      const links = headings.map((heading) => {
+        if (!heading.id) heading.id = slugify(heading.textContent);
+        const item = document.createElement('li');
+        item.className = 'doc-outline-item ' + heading.tagName.toLowerCase();
+        const link = document.createElement('a');
+        link.className = 'outline-link' + (heading.tagName === 'H3' ? ' nested' : '');
+        link.href = '#' + heading.id;
+        link.textContent = heading.textContent.trim();
+        item.appendChild(link);
+        list.appendChild(item);
+        return link;
+      });
+      const marker = aside.querySelector('.outline-marker');
+      const setActive = () => {
+        const threshold = window.scrollY + 128;
+        let activeIndex = 0;
+        headings.forEach((heading, index) => {
+          if (heading.getBoundingClientRect().top + window.scrollY <= threshold) activeIndex = index;
+        });
+        links.forEach((link, index) => link.classList.toggle('active', index === activeIndex));
+        const active = links[activeIndex];
+        if (marker && active) {
+          marker.style.opacity = '1';
+          marker.style.top = active.offsetTop + 7 + 'px';
+        }
+      };
+      window.addEventListener('scroll', setActive, { passive: true });
+      window.addEventListener('resize', setActive);
+      setActive();
+    })();
+  </script>
 </body>
 </html>
