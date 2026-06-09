@@ -68,35 +68,65 @@
     <h1>CineChill Wiki</h1>
     <p class="lead">基于真实 CineChill 管理端截图和电影海报墙生成，覆盖 28 个功能页。每页都按“这页干什么、什么时候用、第一次怎么点、字段怎么看、出错怎么排查”来写。</p>
     <div class="hero-actions">
-      <a class="primary" href="/cinechill-wiki/wiki/quickstart.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19c1.2-.4 2.4-1.2 3.2-2.2"/><path d="M14 4c2.2-.7 4.2-.6 5.6.2.8 1.4.9 3.4.2 5.6-1.1 3.4-4.2 6.5-8.7 8.7L5.5 13C7.8 8.2 10.8 5.1 14 4Z"/><path d="M9 14 5 18.1"/><path d="m11.5 6.7 5.8 5.8"/><circle cx="15.2" cy="8.8" r="1.6"/></svg>立即开始</a>
-      <a href="/cinechill-wiki/wiki/dashboard.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5.5A2.5 2.5 0 0 1 7.5 3H19v15H7.5A2.5 2.5 0 0 0 5 20.5Z"/><path d="M5 5.5v15"/><path d="M9 7h6M9 10h5"/></svg>功能概览</a>
+      <a class="primary" href="/cinechill-wiki/wiki/quickstart.html"><span class="cta-icon" aria-hidden="true">🚀</span>立即开始</a>
+      <a href="/cinechill-wiki/wiki/dashboard.html"><span class="cta-icon" aria-hidden="true">📖</span>功能概览</a>
     </div>
   </section>
-  <section class="home-features"><a class="feature-card theme-blue" href="/cinechill-wiki/wiki/media_organize.html">
-    <span class="feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19.5V6.75A2.75 2.75 0 0 1 7.75 4H19v14H7.75A2.75 2.75 0 0 0 5 20.75"/><path d="M8 7h8M8 10h6"/></svg></span>
-    <strong>媒体整理</strong>
-    <small>115 转存、刮削、重命名、分类与入库，串起资源到 Emby 的完整流程。</small>
-  </a><a class="feature-card theme-cyan" href="/cinechill-wiki/wiki/media_subscribe.html">
-    <span class="feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m13.6 13.6 3.8 3.8"/><circle cx="10.5" cy="10.5" r="5.5"/><path d="M10.5 7.5v3l2 1.2"/></svg></span>
-    <strong>发现订阅</strong>
-    <small>从推荐、真实库和缺集统计出发，快速找到需要补齐和整理的内容。</small>
-  </a><a class="feature-card theme-purple" href="/cinechill-wiki/wiki/manual.html">
-    <span class="feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="14" rx="2.5"/><path d="m7 16 3.2-3.2a1.4 1.4 0 0 1 2 0L15 15.6l1-1a1.4 1.4 0 0 1 2 0L20 16.6"/><circle cx="8.5" cy="9" r="1.2"/></svg></span>
-    <strong>封面系统</strong>
-    <small>手动封面、自动封面和模板设计，让媒体库保持统一漂亮的视觉风格。</small>
-  </a><a class="feature-card theme-green" href="/cinechill-wiki/wiki/missing_episode_stats.html">
-    <span class="feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h16M7 4v4M17 4v4"/><rect x="5" y="6" width="14" height="16" rx="2"/><path d="M8 12h8M8 16h5"/></svg></span>
-    <strong>缺集补齐</strong>
-    <small>对照 Emby 与 TMDB，找出缺季缺集，再联动资源搜索和整理流程。</small>
-  </a><a class="feature-card theme-orange" href="/cinechill-wiki/wiki/config_notification.html">
-    <span class="feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 9a6 6 0 0 0-12 0c0 7-2 7-2 7h16s-2 0-2-7"/><path d="M10 20a2 2 0 0 0 4 0"/></svg></span>
-    <strong>通知自动化</strong>
-    <small>企业微信、Telegram、Webhook 与后台任务联动，失败和完成都能及时提醒。</small>
-  </a><a class="feature-card theme-indigo" href="/cinechill-wiki/wiki/system_health.html">
-    <span class="feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="6" rx="2"/><rect x="4" y="13" width="16" height="6" rx="2"/><path d="M8 8h.01M8 16h.01M12 8h6M12 16h6"/></svg></span>
-    <strong>运维配置</strong>
-    <small>Emby、115、TMDB、代理、Docker 与系统健康集中管理，部署后更容易排障。</small>
-  </a></section>
+  <section class="home-features"><div class="feature-grid"><a class="feature-card theme-blue" href="/cinechill-wiki/wiki/media_organize.html" style="animation-delay:0.0s;">
+    <div class="feature-content">
+      <div class="feature-icon-wrapper">
+        <div class="feature-icon" aria-hidden="true">📚</div>
+      </div>
+      <h3 class="feature-title">媒体整理</h3>
+      <p class="feature-details">115 转存、刮削、重命名、分类与入库，串起资源到 Emby 的完整流程。</p>
+    </div>
+    <div class="card-bg"></div>
+  </a><a class="feature-card theme-cyan" href="/cinechill-wiki/wiki/media_subscribe.html" style="animation-delay:0.1s;">
+    <div class="feature-content">
+      <div class="feature-icon-wrapper">
+        <div class="feature-icon" aria-hidden="true">☁️</div>
+      </div>
+      <h3 class="feature-title">发现订阅</h3>
+      <p class="feature-details">从推荐、真实库和缺集统计出发，快速找到需要补齐和整理的内容。</p>
+    </div>
+    <div class="card-bg"></div>
+  </a><a class="feature-card theme-purple" href="/cinechill-wiki/wiki/manual.html" style="animation-delay:0.2s;">
+    <div class="feature-content">
+      <div class="feature-icon-wrapper">
+        <div class="feature-icon" aria-hidden="true">🎧</div>
+      </div>
+      <h3 class="feature-title">封面系统</h3>
+      <p class="feature-details">手动封面、自动封面和模板设计，让媒体库保持统一漂亮的视觉风格。</p>
+    </div>
+    <div class="card-bg"></div>
+  </a><a class="feature-card theme-green" href="/cinechill-wiki/wiki/missing_episode_stats.html" style="animation-delay:0.3s;">
+    <div class="feature-content">
+      <div class="feature-icon-wrapper">
+        <div class="feature-icon" aria-hidden="true">🔐</div>
+      </div>
+      <h3 class="feature-title">缺集补齐</h3>
+      <p class="feature-details">对照 Emby 与 TMDB，找出缺季缺集，再联动资源搜索和整理流程。</p>
+    </div>
+    <div class="card-bg"></div>
+  </a><a class="feature-card theme-orange" href="/cinechill-wiki/wiki/config_notification.html" style="animation-delay:0.4s;">
+    <div class="feature-content">
+      <div class="feature-icon-wrapper">
+        <div class="feature-icon" aria-hidden="true">🛠️</div>
+      </div>
+      <h3 class="feature-title">通知自动化</h3>
+      <p class="feature-details">企业微信、Telegram、Webhook 与后台任务联动，失败和完成都能及时提醒。</p>
+    </div>
+    <div class="card-bg"></div>
+  </a><a class="feature-card theme-indigo" href="/cinechill-wiki/wiki/system_health.html" style="animation-delay:0.5s;">
+    <div class="feature-content">
+      <div class="feature-icon-wrapper">
+        <div class="feature-icon" aria-hidden="true">🐳</div>
+      </div>
+      <h3 class="feature-title">运维配置</h3>
+      <p class="feature-details">Emby、115、TMDB、代理、Docker 与系统健康集中管理，部署后更容易排障。</p>
+    </div>
+    <div class="card-bg"></div>
+  </a></div></section>
   <section class="desktop-experience">
     <div class="desktop-section-header">
       <h2>桌面端体验</h2>
