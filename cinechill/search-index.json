@@ -27,7 +27,7 @@
       "快速开始"
     ],
     "excerpt": "第一次接触 CineChill 时，按连接、测试、小范围成功的顺序完成配置。",
-    "text": "Emby 115 TMDB 代理 通知 一条龙 整理记录 先只填必要配置，不要一开始就打开所有自动化开关。 每次保存后先点测试、刷新或手动运行一次，确认链路正常再进入下一步。 遇到红色错误提示时，先看当前页的状态卡片，再去“实时日志”按时间搜索。 涉及 Cookie、Token、API Key 的输入框只需要填写自己的值，Wiki 不会展示真实密钥。"
+    "text": "Docker run Docker Compose chillne/chillposter latest 5256 CINECHILL_DIR WEB_PORT docker-compose.yml /app/config /app/fonts /app/templates /app/layouts /app/backups config fonts templates layouts backups TZ Asia/Shanghai 302 网关 8011 宿主机目录 容器内目录 Emby 115 TMDB 代理 通知 一条龙 整理记录 先只填必要配置，不要一开始就打开所有自动化开关。 每次保存后先点测试、刷新或手动运行一次，确认链路正常再进入下一步。 遇到红色错误提示时，先看当前页的状态卡片，再去“实时日志”按时间搜索。 涉及 Cookie、Token、API Key 的输入框只需要填写自己的值，Wiki 不会展示真实密钥。"
   },
   {
     "title": "部署与首次配置",

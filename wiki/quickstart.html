@@ -6,7 +6,7 @@
   <title>快速开始 | CineChill Wiki</title>
   <meta name="description" content="CineChill 快速开始">
   <link rel="icon" type="image/png" href="/cinechill-wiki/cinechill/chill.png">
-  <link rel="stylesheet" href="/cinechill-wiki/cinechill/wiki.css?v=20260609-outline-v1">
+  <link rel="stylesheet" href="/cinechill-wiki/cinechill/wiki.css?v=20260609-docker-v1">
   <script>
     (() => {
       const key = 'cinechill-wiki-theme';
@@ -265,6 +265,84 @@
     <p class="eyebrow">入门</p>
     <h1>快速开始</h1>
     <p class="lead">如果你是第一次接触 CineChill，请先按这条路线走。不要一开始就开启所有自动化，先把“能连接、能测试、能小范围成功”做好。</p>
+    <section class="card">
+      <h2>Docker run 快速启动</h2>
+      <p>只想先跑起来，可以用 <code>docker run</code>。下面的 <code>CINECHILL_DIR</code> 是宿主机保存数据的目录，左边路径按你的 NAS 或服务器实际目录填写，右边 <code>/app/...</code> 是容器内固定目录，不要改。</p>
+      <pre><code class="language-bash"># CineChill 数据根目录：填写你 NAS / 服务器上准备用来保存配置和素材的目录
+# 群晖示例：/volume1/docker/chillposter
+# Linux 示例：/opt/chillposter
+CINECHILL_DIR="/volume1/docker/chillposter"
+
+# WEB_PORT 是宿主机访问端口；左边可改，右边容器内端口固定是 5256
+WEB_PORT="5256"
+
+# 先创建宿主机目录，避免 Docker 自动创建成权限不清晰的目录
+mkdir -p "$CINECHILL_DIR"/{config,fonts,templates,layouts,backups}
+
+docker run -d \
+  --name chillposter \
+  --restart unless-stopped \
+  -p "${WEB_PORT}:5256" \
+  -e TZ=Asia/Shanghai \
+  -v "$CINECHILL_DIR/config:/app/config" \
+  -v "$CINECHILL_DIR/fonts:/app/fonts" \
+  -v "$CINECHILL_DIR/templates:/app/templates" \
+  -v "$CINECHILL_DIR/layouts:/app/layouts" \
+  -v "$CINECHILL_DIR/backups:/app/backups" \
+  chillne/chillposter:latest</code></pre>
+      <ul><li><code>/app/config</code>：保存账号、Emby、115、TMDB、代理等运行配置。</li><li><code>/app/fonts</code>：放自定义字体，封面设计会读取这里。</li><li><code>/app/templates</code>：保存封面模板。</li><li><code>/app/layouts</code>：保存自定义布局。</li><li><code>/app/backups</code>：保存备份文件，建议持久化。</li></ul>
+      <p>启动后访问 <code>http://你的服务器IP:5256</code>。如果你把 <code>WEB_PORT</code> 改成了其他端口，例如 <code>10039</code>，访问地址就是 <code>http://你的服务器IP:10039</code>。</p>
+    </section>
+    <section class="card">
+      <h2>Docker Compose 示例</h2>
+      <p>长期运行更推荐 <code>docker compose</code>，目录结构清楚，也方便后续升级。把下面内容保存为 <code>docker-compose.yml</code>，再按注释修改左侧宿主机路径或端口。</p>
+      <pre><code class="language-yaml"># docker-compose.yml
+services:
+  chillposter:
+    # CineChill 当前正式镜像；一般不需要改
+    image: chillne/chillposter:latest
+    container_name: chillposter
+    restart: unless-stopped
+
+    ports:
+      # 左边 5256 是宿主机端口，可按你的环境改；右边 5256 是容器内端口，不要改
+      - "5256:5256"
+      # 如果启用了 302 网关，并且网关端口填的是 8011，就取消下一行注释
+      # - "8011:8011"
+
+    environment:
+      # 容器时区；国内 NAS / Linux 主机通常这样填
+      TZ: Asia/Shanghai
+      # 可选：只有外部元数据请求必须走代理时才填写，平时可以不写
+      # CHILLPOSTER_PROXY_URL: http://192.168.50.2:7890
+
+    volumes:
+      # 左边 ./config 表示 docker-compose.yml 所在目录下的 config
+      # 也可以改成绝对路径，例如 /volume1/docker/chillposter/config
+      # 右边 /app/config 是容器内固定目录，不要改
+      - ./config:/app/config
+
+      # 自定义字体目录；没有字体也建议保留，后续直接放文件即可
+      - ./fonts:/app/fonts
+
+      # 封面模板目录；模板导入、编辑和恢复都会用到
+      - ./templates:/app/templates
+
+      # 自定义布局目录；封面设计相关布局会保存在这里
+      - ./layouts:/app/layouts
+
+      # 备份目录；升级或迁移前建议先生成备份
+      - ./backups:/app/backups</code></pre>
+      <p>在 <code>docker-compose.yml</code> 所在目录执行：</p>
+      <pre><code class="language-bash"># 首次启动或更新镜像后重建容器
+docker compose up -d
+
+# 查看服务状态
+docker compose ps
+
+# 查看日志，排查启动失败或端口占用
+docker compose logs -f chillposter</code></pre>
+    </section>
     <section class="card">
       <h2>最短上手路线</h2>
       <ol><li>登录后先进入“账户管理”，修改默认用户名和密码。</li><li>进入“Emby 配置”，填写 Emby 地址和 API Key，点击测试连接。</li><li>进入“115 配置”，填写 Cookie，测试能否读取目录。</li><li>进入“TMDB 配置”和“代理配置”，保证刮削和缺集统计能访问外部元数据。</li><li>进入“一条龙菜单”，只选择少量资源做手动整理测试。</li><li>进入“整理记录”，确认成功路径和失败原因。</li><li>确认流程稳定后，再配置通知、真实库、自动封面、Life 监听等自动化。</li></ol>

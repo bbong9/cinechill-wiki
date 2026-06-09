@@ -103,6 +103,8 @@ html.search-open body{overflow:hidden}
 .doc li+li,.card li+li{margin-top:8px}
 .doc li>ul,.doc li>ol,.card li>ul,.card li>ol{margin:8px 0}
 .doc code,.card code{padding:3px 6px;border-radius:4px;background:var(--vp-c-default-soft,var(--vp-c-brand-soft));color:var(--vp-c-brand-1);font-family:var(--vp-font-family-mono);font-size:.875em;line-height:1.7}
+.doc pre,.card pre{margin:16px 0;padding:16px 20px;border:1px solid var(--vp-c-divider);border-radius:8px;background:var(--vp-c-bg-alt);overflow:auto;color:var(--vp-c-text-1);font-family:var(--vp-font-family-mono);font-size:13px;line-height:22px;white-space:pre}
+.doc pre code,.card pre code{display:block;padding:0;border-radius:0;background:transparent;color:inherit;font:inherit;line-height:inherit}
 .doc hr{margin:16px 0;border:0;border-top:1px solid var(--vp-c-divider)}
 .screenshot{margin:32px 0;border:1px solid var(--vp-c-divider);border-radius:8px;background:var(--vp-c-bg);overflow:hidden}
 .screenshot img{width:100%;border-bottom:1px solid var(--vp-c-divider)}
