@@ -6,7 +6,7 @@
   <title>自动封面 | CineChill Wiki</title>
   <meta name="description" content="配置自动封面任务，让 CineChill 定时或批量为媒体生成封面。">
   <link rel="icon" type="image/png" href="/cinechill-wiki/cinechill/chill.png">
-  <link rel="stylesheet" href="/cinechill-wiki/cinechill/wiki.css">
+  <link rel="stylesheet" href="/cinechill-wiki/cinechill/wiki.css?v=20260609-sidebar-v2">
   <script>
     (() => {
       const key = 'cinechill-wiki-theme';
@@ -45,7 +45,7 @@
           "'": '&#39;',
         })[char]);
         const searchIndexUrl = () => {
-          const stylesheet = document.querySelector('link[href$="/cinechill/wiki.css"], link[href*="/cinechill/wiki.css"]');
+          const stylesheet = document.querySelector('link[href*="/cinechill/wiki.css"]');
           if (stylesheet?.href) return new URL('search-index.json', stylesheet.href).href;
           const prefix = window.location.pathname.startsWith('/cinechill-wiki/') ? '/cinechill-wiki/' : '/';
           return new URL(prefix + 'cinechill/search-index.json', window.location.origin).href;

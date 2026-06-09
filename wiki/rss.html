@@ -6,7 +6,7 @@
   <title>真实库 | CineChill Wiki</title>
   <meta name="description" content="管理真实库订阅任务，把订阅源或规则定时转换成可整理的资源任务。">
   <link rel="icon" type="image/png" href="/cinechill-wiki/cinechill/chill.png">
-  <link rel="stylesheet" href="/cinechill-wiki/cinechill/wiki.css">
+  <link rel="stylesheet" href="/cinechill-wiki/cinechill/wiki.css?v=20260609-sidebar-v2">
   <script>
     (() => {
       const key = 'cinechill-wiki-theme';
@@ -45,7 +45,7 @@
           "'": '&#39;',
         })[char]);
         const searchIndexUrl = () => {
-          const stylesheet = document.querySelector('link[href$="/cinechill/wiki.css"], link[href*="/cinechill/wiki.css"]');
+          const stylesheet = document.querySelector('link[href*="/cinechill/wiki.css"]');
           if (stylesheet?.href) return new URL('search-index.json', stylesheet.href).href;
           const prefix = window.location.pathname.startsWith('/cinechill-wiki/') ? '/cinechill-wiki/' : '/';
           return new URL(prefix + 'cinechill/search-index.json', window.location.origin).href;

@@ -6,7 +6,7 @@
   <title>封面设计 | CineChill Wiki</title>
   <meta name="description" content="设计和预览封面模板，组合素材、字体、布局和输出效果。">
   <link rel="icon" type="image/png" href="/cinechill-wiki/cinechill/chill.png">
-  <link rel="stylesheet" href="/cinechill-wiki/cinechill/wiki.css">
+  <link rel="stylesheet" href="/cinechill-wiki/cinechill/wiki.css?v=20260609-sidebar-v2">
   <script>
     (() => {
       const key = 'cinechill-wiki-theme';
@@ -45,7 +45,7 @@
           "'": '&#39;',
         })[char]);
         const searchIndexUrl = () => {
-          const stylesheet = document.querySelector('link[href$="/cinechill/wiki.css"], link[href*="/cinechill/wiki.css"]');
+          const stylesheet = document.querySelector('link[href*="/cinechill/wiki.css"]');
           if (stylesheet?.href) return new URL('search-index.json', stylesheet.href).href;
           const prefix = window.location.pathname.startsWith('/cinechill-wiki/') ? '/cinechill-wiki/' : '/';
           return new URL(prefix + 'cinechill/search-index.json', window.location.origin).href;

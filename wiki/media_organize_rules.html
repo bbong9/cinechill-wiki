@@ -6,7 +6,7 @@
   <title>二级分类 | CineChill Wiki</title>
   <meta name="description" content="维护二级分类规则，决定电影、剧集、动漫、纪录片等内容最终进入哪个目录或媒体库。">
   <link rel="icon" type="image/png" href="/cinechill-wiki/cinechill/chill.png">
-  <link rel="stylesheet" href="/cinechill-wiki/cinechill/wiki.css">
+  <link rel="stylesheet" href="/cinechill-wiki/cinechill/wiki.css?v=20260609-sidebar-v2">
   <script>
     (() => {
       const key = 'cinechill-wiki-theme';
@@ -45,7 +45,7 @@
           "'": '&#39;',
         })[char]);
         const searchIndexUrl = () => {
-          const stylesheet = document.querySelector('link[href$="/cinechill/wiki.css"], link[href*="/cinechill/wiki.css"]');
+          const stylesheet = document.querySelector('link[href*="/cinechill/wiki.css"]');
           if (stylesheet?.href) return new URL('search-index.json', stylesheet.href).href;
           const prefix = window.location.pathname.startsWith('/cinechill-wiki/') ? '/cinechill-wiki/' : '/';
           return new URL(prefix + 'cinechill/search-index.json', window.location.origin).href;
