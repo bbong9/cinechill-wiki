@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>登录页 | CineChill Wiki</title>
+  <meta name="description" content="CineChill 登录页教程">
+  <link rel="stylesheet" href="/cinechill-wiki/cinechill/wiki.css">
+  <script>
+    (() => {
+      const key = 'cinechill-wiki-theme';
+      if (localStorage.getItem(key) === 'dark') document.documentElement.classList.add('dark');
+      window.addEventListener('DOMContentLoaded', () => {
+        const button = document.querySelector('[data-theme-toggle]');
+        const sync = () => {
+          const dark = document.documentElement.classList.contains('dark');
+          button?.setAttribute('aria-checked', String(dark));
+          button?.setAttribute('title', dark ? '切换到浅色模式' : '切换到深色模式');
+        };
+        button?.addEventListener('click', () => {
+          const dark = document.documentElement.classList.toggle('dark');
+          localStorage.setItem(key, dark ? 'dark' : 'light');
+          sync();
+        });
+        sync();
+      });
+    })();
+  </script>
+</head>
+<body>
+  <header class="VPNav">
+    <div class="nav-shell">
+      <a class="brand" href="/cinechill-wiki/">
+        <span class="brand-mark">C</span>
+        <span>CineChill Wiki</span>
+      </a>
+      <div class="nav-right">
+        <button class="search-button" type="button" aria-label="搜索文档"><span class="search-icon"></span><span>Search</span></button>
+        <nav class="top-menu" aria-label="主导航">
+          <a class="" href="/cinechill-wiki/">首页</a>
+          <a class="" href="/cinechill-wiki/wiki/quickstart.html">快速开始</a>
+          <a class="active" href="/cinechill-wiki/wiki/dashboard.html">页面教程</a>
+          <a href="/cinechill-wiki/wiki/system_health.html">排障</a>
+          <a class="" href="/cinechill-wiki/wiki/changelog.html">更新日志</a>
+        </nav>
+        <button class="theme-switch" type="button" role="switch" aria-label="外观" aria-checked="false" data-theme-toggle>
+          <span class="switch-check"><span class="sun-icon"></span><span class="moon-icon"></span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+  <div class="layout has-sidebar">
+    <aside class="sidebar" aria-label="侧边栏导航">
+      <nav>
+        <section class="sidebar-group">
+          <h2>入门</h2>
+          <a class="sidebar-link " href="/cinechill-wiki/">总览</a>
+          <a class="sidebar-link active" href="/cinechill-wiki/wiki/login.html">登录页</a>
+          <a class="sidebar-link " href="/cinechill-wiki/wiki/quickstart.html">快速开始</a>
+          <a class="sidebar-link " href="/cinechill-wiki/wiki/install.html">部署与首次配置</a>
+          <a class="sidebar-link " href="/cinechill-wiki/wiki/workflow.html">常用工作流</a>
+          <a class="sidebar-link " href="/cinechill-wiki/wiki/changelog.html">更新日志</a>
+        </section>
+        <section class="sidebar-group"><h2>首页</h2><a class="sidebar-link " href="/cinechill-wiki/wiki/dashboard.html">仪表盘</a></section><section class="sidebar-group"><h2>快捷入口</h2><a class="sidebar-link " href="/cinechill-wiki/wiki/operations_console.html">实时日志</a></section><section class="sidebar-group"><h2>媒体发现</h2><a class="sidebar-link " href="/cinechill-wiki/wiki/media_subscribe.html">发现推荐</a><a class="sidebar-link " href="/cinechill-wiki/wiki/missing_episode_stats.html">缺集统计</a><a class="sidebar-link " href="/cinechill-wiki/wiki/resource_transfer.html">资源转存</a><a class="sidebar-link " href="/cinechill-wiki/wiki/rss.html">真实库</a></section><section class="sidebar-group"><h2>媒体整理</h2><a class="sidebar-link " href="/cinechill-wiki/wiki/media_organize.html">一条龙菜单</a><a class="sidebar-link " href="/cinechill-wiki/wiki/organize_history.html">整理记录</a><a class="sidebar-link " href="/cinechill-wiki/wiki/rename_template.html">重命名模板</a><a class="sidebar-link " href="/cinechill-wiki/wiki/media_organize_rules.html">二级分类</a></section><section class="sidebar-group"><h2>封面系统</h2><a class="sidebar-link " href="/cinechill-wiki/wiki/manual.html">手动封面</a><a class="sidebar-link " href="/cinechill-wiki/wiki/auto.html">自动封面</a><a class="sidebar-link " href="/cinechill-wiki/wiki/custom.html">封面设计</a><a class="sidebar-link " href="/cinechill-wiki/wiki/cover_resources.html">资源配置</a></section><section class="sidebar-group"><h2>115 工具</h2><a class="sidebar-link " href="/cinechill-wiki/wiki/config_115.html">115 配置</a><a class="sidebar-link " href="/cinechill-wiki/wiki/drive115_upload.html">115 秒传/上传</a></section><section class="sidebar-group"><h2>通知自动化</h2><a class="sidebar-link " href="/cinechill-wiki/wiki/config_notification.html">通知配置</a><a class="sidebar-link " href="/cinechill-wiki/wiki/telegram_monitor.html">Telegram 监听</a><a class="sidebar-link " href="/cinechill-wiki/wiki/webhook.html">Webhook</a><a class="sidebar-link " href="/cinechill-wiki/wiki/emby_tasks.html">Emby 任务中心</a></section><section class="sidebar-group"><h2>系统配置</h2><a class="sidebar-link " href="/cinechill-wiki/wiki/server.html">Emby 配置</a><a class="sidebar-link " href="/cinechill-wiki/wiki/config_moviepilot.html">MoviePilot</a><a class="sidebar-link " href="/cinechill-wiki/wiki/config_proxy.html">代理配置</a><a class="sidebar-link " href="/cinechill-wiki/wiki/config_tmdb.html">TMDB 配置</a><a class="sidebar-link " href="/cinechill-wiki/wiki/docker_manager.html">Docker 管理</a><a class="sidebar-link " href="/cinechill-wiki/wiki/forward_aiying.html">Forward 模块</a><a class="sidebar-link " href="/cinechill-wiki/wiki/system_health.html">系统健康</a><a class="sidebar-link " href="/cinechill-wiki/wiki/account.html">账户管理</a></section>
+      </nav>
+    </aside>
+    <main id="VPContent" class="content">
+      <article class="doc">
+    <p class="eyebrow">入口 / login</p>
+    <h1>登录页</h1>
+    <p class="lead">这是打开 CineChill 管理端后的第一屏。小白只需要确认访问地址正确，再输入管理员分配的账号和密码登录。</p>
+    <figure class="screenshot">
+      <img src="/cinechill-wiki/cinechill/screenshots/login.png" alt="CineChill 登录页截图">
+      <figcaption>截图来自 NAS 上的 CineChill 实例。登录页截图不会写入或展示密码。</figcaption>
+    </figure>
+    <section class="card">
+      <h2>这页是干什么的</h2>
+      <p>登录页用于进入 CineChill 管理端。它会验证用户名和密码，登录成功后进入仪表盘和所有管理模块。</p>
+      <h3>什么时候打开它</h3>
+      <ul><li>第一次访问 CineChill 管理地址。</li><li>浏览器登录状态过期，需要重新进入后台。</li><li>修改账号密码后，需要用新凭据重新登录。</li></ul>
+    </section>
+    <section class="card">
+      <h2>小白第一次怎么用</h2>
+      <ol><li>确认浏览器地址是你的 CineChill 管理端地址。</li><li>在用户名输入框填写管理员账号。</li><li>在密码输入框填写对应密码。</li><li>点击“登录”。</li><li>登录成功后先进入“账户管理”确认账号信息，再按快速开始配置 Emby、115 和 TMDB。</li></ol>
+    </section>
+    <section class="card">
+      <h2>页面区域怎么看</h2>
+      <ul><li>用户名：管理员或已创建用户的登录名。</li><li>密码：对应账号的登录密码，输入时不会明文展示。</li><li>登录按钮：提交凭据并进入管理端。</li><li>提示信息：如果登录失败，通常会显示账号或密码错误。</li></ul>
+    </section>
+    <section class="card">
+      <h2>常见问题和排查</h2>
+      <ul><li>如果地址打不开，先确认 NAS、Docker 容器和端口映射是否正常。</li><li>如果密码错误，确认大小写、输入法和是否使用了修改后的新密码。</li><li>如果登录后马上退出，检查浏览器缓存、反向代理和后端认证日志。</li><li>不要把账号密码写进截图、Wiki、公开仓库或群聊。</li></ul>
+    </section>
+  </article>
+    </main>
+  </div>
+</body>
+</html>
