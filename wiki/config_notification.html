@@ -35,7 +35,20 @@
         <span>CineChill Wiki</span>
       </a>
       <div class="nav-right">
-        <button class="search-button" type="button" aria-label="搜索文档"><span class="search-icon"></span><span>Search</span></button>
+        <div class="VPNavBarSearch search">
+          <div id="local-search">
+            <button type="button" aria-label="Search" aria-keyshortcuts="/ control+k meta+k" class="DocSearch DocSearch-Button">
+              <span class="DocSearch-Button-Container">
+                <span class="vpi-search DocSearch-Search-Icon"></span>
+                <span class="DocSearch-Button-Placeholder">Search</span>
+              </span>
+              <span class="DocSearch-Button-Keys">
+                <kbd class="DocSearch-Button-Key"></kbd>
+                <kbd class="DocSearch-Button-Key"></kbd>
+              </span>
+            </button>
+          </div>
+        </div>
         <nav class="top-menu" aria-label="主导航">
           <a class="" href="/cinechill-wiki/">首页</a>
           <a class="" href="/cinechill-wiki/wiki/quickstart.html">快速开始</a>
@@ -43,9 +56,16 @@
           <a href="/cinechill-wiki/wiki/system_health.html">排障</a>
           <a class="" href="/cinechill-wiki/wiki/changelog.html">更新日志</a>
         </nav>
-        <button class="theme-switch" type="button" role="switch" aria-label="外观" aria-checked="false" data-theme-toggle>
-          <span class="switch-check"><span class="sun-icon"></span><span class="moon-icon"></span></span>
-        </button>
+        <div class="VPNavBarAppearance appearance">
+          <button class="VPSwitch VPSwitchAppearance" type="button" role="switch" title aria-label="外观" aria-checked="false" data-theme-toggle>
+            <span class="check">
+              <span class="icon">
+                <span class="vpi-sun sun"></span>
+                <span class="vpi-moon moon"></span>
+              </span>
+            </span>
+          </button>
+        </div>
       </div>
     </div>
   </header>
