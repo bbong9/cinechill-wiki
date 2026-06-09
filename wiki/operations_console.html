@@ -23,6 +23,167 @@
           sync();
         });
         sync();
+
+        const searchButton = document.querySelector('.DocSearch-Button');
+        const dialog = document.querySelector('[data-search-dialog]');
+        const input = document.querySelector('[data-search-input]');
+        const results = document.querySelector('[data-search-results]');
+        const clearButton = document.querySelector('[data-search-clear]');
+        const closeTargets = document.querySelectorAll('[data-search-close]');
+        let searchIndexPromise;
+        let searchItems = [];
+        let selectedIndex = -1;
+        let lastResults = [];
+
+        const normalize = (value) => String(value || '').trim().toLocaleLowerCase();
+        const escapeClientHtml = (value) => String(value || '').replace(/[&<>"']/g, (char) => ({
+          '&': '&amp;',
+          '<': '&lt;',
+          '>': '&gt;',
+          '"': '&quot;',
+          "'": '&#39;',
+        })[char]);
+        const searchIndexUrl = () => {
+          const stylesheet = document.querySelector('link[href$="/cinechill/wiki.css"], link[href*="/cinechill/wiki.css"]');
+          if (stylesheet?.href) return new URL('search-index.json', stylesheet.href).href;
+          const prefix = window.location.pathname.startsWith('/cinechill-wiki/') ? '/cinechill-wiki/' : '/';
+          return new URL(prefix + 'cinechill/search-index.json', window.location.origin).href;
+        };
+        const loadSearchIndex = () => {
+          if (!searchIndexPromise) {
+            searchIndexPromise = fetch(searchIndexUrl())
+              .then((response) => response.ok ? response.json() : [])
+              .catch(() => []);
+          }
+          return searchIndexPromise;
+        };
+        const chunks = (query) => normalize(query).split(/\s+/).filter(Boolean);
+        const highlight = (text, terms) => {
+          let escaped = escapeClientHtml(text);
+          terms.forEach((term) => {
+            const safe = escapeClientHtml(term).replace(new RegExp('[.*+?^\\x24{}()|[\\]\\\\]', 'g'), '\\$&');
+            if (!safe) return;
+            escaped = escaped.replace(new RegExp(safe, 'gi'), (match) => '<mark>' + match + '</mark>');
+          });
+          return escaped;
+        };
+        const scoreItem = (item, terms) => {
+          const title = normalize(item.title);
+          const breadcrumb = normalize((item.breadcrumbs || []).join(' '));
+          const excerpt = normalize(item.excerpt);
+          const text = normalize(item.text);
+          let score = 0;
+          for (const term of terms) {
+            if (title === term) score += 120;
+            else if (title.startsWith(term)) score += 90;
+            else if (title.includes(term)) score += 70;
+            if (breadcrumb.includes(term)) score += 42;
+            if (excerpt.includes(term)) score += 24;
+            if (text.includes(term)) score += 12;
+            if (!title.includes(term) && !breadcrumb.includes(term) && !excerpt.includes(term) && !text.includes(term)) return 0;
+          }
+          return score;
+        };
+        const selectResult = (index) => {
+          selectedIndex = index;
+          results?.querySelectorAll('.result').forEach((node, nodeIndex) => {
+            node.classList.toggle('selected', nodeIndex === selectedIndex);
+            if (nodeIndex === selectedIndex) node.scrollIntoView({ block: 'nearest' });
+          });
+        };
+        const renderResults = (query) => {
+          const terms = chunks(query);
+          if (!results) return;
+          if (!terms.length) {
+            lastResults = [];
+            selectedIndex = -1;
+            results.hidden = true;
+            results.innerHTML = '';
+            clearButton?.setAttribute('disabled', '');
+            return;
+          }
+          clearButton?.removeAttribute('disabled');
+          lastResults = searchItems
+            .map((item) => ({ ...item, score: scoreItem(item, terms) }))
+            .filter((item) => item.score > 0)
+            .sort((a, b) => b.score - a.score || a.title.localeCompare(b.title, 'zh-CN'))
+            .slice(0, 24);
+          results.hidden = false;
+          if (!lastResults.length) {
+            selectedIndex = -1;
+            results.innerHTML = '<div class="no-results">No results for "' + escapeClientHtml(query) + '"</div>';
+            return;
+          }
+          results.innerHTML = lastResults.map((item, index) => {
+            const parts = (item.breadcrumbs || []).map((part, partIndex) => {
+              const main = partIndex === (item.breadcrumbs || []).length - 1 ? ' main' : '';
+              const icon = partIndex === 0 ? '<span class="title-icon">#</span>' : '<span class="title-icon">›</span>';
+              return '<span class="title' + main + '">' + icon + '<span>' + highlight(part, terms) + '</span></span>';
+            }).join('');
+            return '<button type="button" class="result' + (index === 0 ? ' selected' : '') + '" data-search-result="' + index + '"><div><div class="titles">' + parts + '</div><div class="excerpt-wrapper"><div class="excerpt">' + highlight(item.excerpt, terms) + '</div><div class="excerpt-gradient-bottom"></div></div></div></button>';
+          }).join('');
+          selectedIndex = 0;
+        };
+        const openSearch = async (seed = '') => {
+          if (!dialog || !input) return;
+          searchItems = await loadSearchIndex();
+          dialog.hidden = false;
+          document.documentElement.classList.add('search-open');
+          input.value = seed;
+          renderResults(input.value);
+          requestAnimationFrame(() => input.focus());
+        };
+        const closeSearch = () => {
+          if (!dialog || dialog.hidden) return;
+          dialog.hidden = true;
+          document.documentElement.classList.remove('search-open');
+          input.value = '';
+          renderResults('');
+          searchButton?.focus();
+        };
+
+        searchButton?.addEventListener('click', () => openSearch());
+        closeTargets.forEach((target) => target.addEventListener('click', closeSearch));
+        clearButton?.addEventListener('click', () => {
+          input.value = '';
+          renderResults('');
+          input.focus();
+        });
+        input?.addEventListener('input', () => renderResults(input.value));
+        results?.addEventListener('click', (event) => {
+          const item = event.target.closest('[data-search-result]');
+          if (!item) return;
+          const result = lastResults[Number(item.dataset.searchResult)];
+          if (result?.href) window.location.href = result.href;
+        });
+        document.addEventListener('keydown', (event) => {
+          const isOpen = dialog && !dialog.hidden;
+          const keyName = event.key.toLowerCase();
+          if ((event.metaKey || event.ctrlKey) && keyName === 'k') {
+            event.preventDefault();
+            openSearch();
+            return;
+          }
+          if (!isOpen && event.key === '/' && !/input|textarea|select/i.test(document.activeElement?.tagName || '')) {
+            event.preventDefault();
+            openSearch();
+            return;
+          }
+          if (!isOpen) return;
+          if (event.key === 'Escape') {
+            event.preventDefault();
+            closeSearch();
+          } else if (event.key === 'ArrowDown' && lastResults.length) {
+            event.preventDefault();
+            selectResult((selectedIndex + 1) % lastResults.length);
+          } else if (event.key === 'ArrowUp' && lastResults.length) {
+            event.preventDefault();
+            selectResult((selectedIndex - 1 + lastResults.length) % lastResults.length);
+          } else if (event.key === 'Enter' && selectedIndex >= 0 && lastResults[selectedIndex]?.href) {
+            event.preventDefault();
+            window.location.href = lastResults[selectedIndex].href;
+          }
+        });
       });
     })();
   </script>
@@ -68,6 +229,29 @@
       </div>
     </div>
   </header>
+  <div class="VPLocalSearchBox" data-search-dialog hidden>
+    <div class="backdrop" data-search-close></div>
+    <div class="shell" role="dialog" aria-modal="true" aria-label="Search">
+      <label class="search-bar">
+        <span class="vpi-search local-search-icon search-icon" aria-hidden="true"></span>
+        <input class="search-input" data-search-input type="search" placeholder="Search" autocomplete="off" spellcheck="false">
+        <span class="search-actions after">
+          <button class="toggle-layout-button detailed-list" type="button" aria-label="切换搜索结果布局" data-search-layout>
+            <span class="vpi-layout-list navigate-icon" aria-hidden="true"></span>
+          </button>
+          <button class="clear-button" type="button" aria-label="清空搜索" data-search-clear disabled>
+            <span class="vpi-delete-left navigate-icon" aria-hidden="true"></span>
+          </button>
+        </span>
+      </label>
+      <div class="results" data-search-results hidden></div>
+      <div class="search-keyboard-shortcuts" aria-hidden="true">
+        <span><kbd>↑</kbd><kbd>↓</kbd> to navigate</span>
+        <span><kbd>↵</kbd> to select</span>
+        <span><kbd>esc</kbd> to close</span>
+      </div>
+    </div>
+  </div>
   <div class="layout has-sidebar">
     <aside class="sidebar" aria-label="侧边栏导航">
       <nav>
