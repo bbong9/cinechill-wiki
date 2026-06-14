@@ -264,31 +264,41 @@
       <article class="doc update-log-page">
     <p class="eyebrow">更新日志</p>
     <h1>更新日志</h1>
-    <p class="lead">这里记录 CineChill Wiki 的页面、样式、素材和教程结构更新。首页“最近更新”展示最新一条，完整内容在这里保留。</p>
+    <p class="lead">这里记录 CineChill 正式发布版本的主要变化。当前发布线从 v1.0.0.1 开始，按最新版本向下保留完整记录。</p>
     <section class="card update-log-card">
       <div class="log-title-row">
         <span class="new-badge">NEW</span>
         <div>
-          <h2>最新更新 2026.06.09</h2>
-          <time datetime="2026-06-09">2026-06-09</time>
+          <h2>v1.0.0.3</h2>
+          <time datetime="2026-06-14">2026-06-14</time>
         </div>
       </div>
       <div class="log-grid">
         <article class="update-column">
-    <h3><span class="inline-new">NEW</span>首页视觉更新</h3>
-    <p><strong>电影海报墙上线：</strong>首页顶部改为真实 CineChill 海报墙，延续参考站首屏的沉浸式视觉效果。</p><p><strong>按钮与功能卡片重做：</strong>入口按钮、六个功能卡片、图标和色块统一为参考站的柔和卡片风格。</p><p><strong>首页侧边栏移除：</strong>首页只保留顶部导航，文档页继续保留侧边栏，结构更接近参考站。</p>
+    <h3><span class="inline-new">NEW</span>仪表盘继续观看</h3>
+    <p><strong>绑定用户生效：</strong>账户管理中绑定的 Emby 用户现在会用于仪表盘“继续观看”，播放进度不再固定读取默认用户。</p><p><strong>概览缓存隔离：</strong>仪表盘缓存按绑定用户区分，切换绑定用户后不会继续显示上一位用户的继续观看数据。</p><p><strong>统计范围保持全局：</strong>媒体库总览、最近入库和服务器信息继续使用管理员视角，避免绑定用户影响全局统计。</p>
   </article><article class="update-column">
-    <h3><span class="update-icon">🖥️</span>真实截图体验</h3>
-    <p><strong>桌面端滚动预览：</strong>新增连续横向滚动的浏览器外框截图区，使用 NAS 上 CineChill 真实页面截图。</p><p><strong>登录页单独收录：</strong>登录页面已截图并写入独立教程页，便于第一次访问时对照。</p><p><strong>素材引用校验：</strong>构建校验会检查海报、登录页截图和桌面端截图是否存在，避免页面空白。</p>
+    <h3><span class="update-icon">UI</span>页面布局调整</h3>
+    <p><strong>二级分类更清爽：</strong>移除高级 JSON 编辑区，把“Emby 同步与规则维护”移动到规则卡片上方，规则维护路径更直接。</p><p><strong>仪表盘卡片优化：</strong>继续观看卡片适当缩小，媒体库卡片保持图片铺满并稳定显示两排，减少横向滚动和视觉空洞。</p><p><strong>账户页减少无效入口：</strong>移除没有实际必要的重复刷新按钮，只保留 Emby 用户列表工具栏里的刷新动作。</p>
   </article><article class="update-column">
-    <h3><span class="update-icon">⚙️</span>文档与主题</h3>
-    <p><strong>明暗主题切换：</strong>右上角外观开关可在白色和黑色主题之间切换，并保留用户选择。</p><p><strong>28 个功能页覆盖：</strong>按真实模块整理页面教程，覆盖仪表盘、整理、封面、通知、配置和运维排障。</p><p><strong>更新日志入口：</strong>新增完整更新日志页，首页可直接跳转查看本次和后续记录。</p>
+    <h3><span class="update-icon">NAS</span>验证与发布</h3>
+    <p><strong>NAS 直测通过：</strong>本版本已通过本地镜像直传 NAS、Docker Compose 重建和版本接口校验。</p><p><strong>版本一致性校验：</strong>发布前确认 `/api/version` 与容器内 `/app/VERSION` 一致，避免镜像名不一致导致旧容器误判为已更新。</p><p><strong>更新日志同步：</strong>Wiki 更新日志补齐从 v1.0.0.1 到最新版本的正式发布记录。</p>
   </article>
       </div>
     </section>
     <section class="card">
+      <h2>v1.0.0.2</h2>
+      <time datetime="2026-06-14">2026-06-14</time>
+      <ul><li>优化移动端管理界面，改善窄屏下导航、页面内容和操作区域的适配。</li><li>显示 Emby 真实服务器名称，让仪表盘和配置页更容易确认当前连接对象。</li><li>延续 CineChill 品牌化界面调整，保持后台管理体验一致。</li></ul>
+    </section>
+    <section class="card">
+      <h2>v1.0.0.1</h2>
+      <time datetime="2026-06-14">2026-06-14</time>
+      <ul><li>CineChill 发布线起始版本，正式从 ChillPoster 镜像切换到 CineChill 发布镜像。</li><li>精简默认配置与运行时资源，降低首次部署和后续维护成本。</li><li>修复真实库建库相关问题，为 NAS、Docker 和 Emby 联动提供稳定基础。</li></ul>
+    </section>
+    <section class="card">
       <h2>后续更新记录方式</h2>
-      <ul><li>首页只展示最新一条大版本更新。</li><li>完整日志页保留每次页面结构、截图素材、样式和文档内容变化。</li><li>涉及真实 CineChill 功能变化时，会优先标注“功能页”“截图”“教程内容”三个影响面。</li></ul>
+      <ul><li>首页只展示最新一条正式版本更新。</li><li>完整日志页保留每次正式版本的功能、界面、运维和文档变化。</li><li>涉及真实 CineChill 功能变化时，会优先标注“影响页面”“后端行为”“部署验证”三个影响面。</li></ul>
     </section>
   </article>
       <aside class="doc-aside" aria-label="本页目录">
