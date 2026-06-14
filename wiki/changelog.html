@@ -264,15 +264,31 @@
       <article class="doc update-log-page">
     <p class="eyebrow">更新日志</p>
     <h1>更新日志</h1>
-    <p class="lead">这里记录 CineChill 正式发布版本的主要变化。当前发布线从 v1.0.0.1 开始，按最新版本向下保留完整记录。</p>
+    <p class="lead">这里记录 CineChill 正式发布版本和已完成 NAS 直测的开发版主要变化。正式发布线从 v1.0.0.1 开始，按最新版本向下保留完整记录。</p>
     <section class="card update-log-card">
       <div class="log-title-row">
         <span class="new-badge">NEW</span>
         <div>
-          <h2>v1.0.0.3</h2>
-          <time datetime="2026-06-14">2026-06-14</time>
+          <h2>开发版 main</h2>
+          <time datetime="2026-06-15">2026-06-15</time>
         </div>
       </div>
+      <div class="log-grid">
+        <article class="update-column">
+    <h3><span class="inline-new">NEW</span>后台界面统一整理</h3>
+    <p><strong>卡片与表格重排：</strong>优化 Webhook、资源转存、资源配置、封面资源、封面备份、自动封面、整理记录和账号管理等页面布局。</p><p><strong>侧边栏与动效：</strong>修正窄屏菜单点击区域、选中态和图标居中问题，并放慢页面切换、卡片弹出和加载动效。</p><p><strong>日志与筛选区：</strong>整理实时日志筛选工具栏和整理记录筛选区域，减少多余边框与无效说明。</p>
+  </article><article class="update-column">
+    <h3><span class="update-icon">FIX</span>交互与数据刷新</h3>
+    <p><strong>Webhook 复制：</strong>修复 Webhook 地址复制按钮无效的问题。</p><p><strong>继续观看加载：</strong>宽屏下会主动补充加载继续观看条目，避免只有窄屏横向滚动时才出现更多数据。</p><p><strong>自动封面编辑：</strong>点击编辑时会刷新 Emby 媒体库，新增媒体库后能进入目标选择。</p>
+  </article><article class="update-column">
+    <h3><span class="update-icon">NAS</span>验证状态</h3>
+    <p><strong>已推送代码：</strong>主仓库 main 已更新到提交 <code>828c832</code>，随后撤销误写文档提交到 <code>4745c5e</code>。</p><p><strong>NAS 直测通过：</strong>本地构建 <code>cinechill:dev</code>，通过 SMB 部署到 NAS 并重建 <code>chillposter</code> 服务。</p><p><strong>验证版本：</strong><code>/api/version</code> 返回 <code>vdev-828c832-20260615010152</code>。</p>
+  </article>
+      </div>
+    </section>
+    <section class="card">
+      <h2>v1.0.0.3</h2>
+      <time datetime="2026-06-14">2026-06-14</time>
       <div class="log-grid">
         <article class="update-column">
     <h3><span class="inline-new">NEW</span>仪表盘继续观看</h3>
