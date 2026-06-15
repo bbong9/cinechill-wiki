@@ -1398,13 +1398,20 @@ html.dark .doc-outline-content,
 }
 .is-home .desktop-carousel::before,
 .is-home .desktop-carousel::after{
-  width:10%;
+  width:8%;
+  opacity:.92;
 }
 .is-home .desktop-carousel::before{
-  background:linear-gradient(to right,var(--vp-c-bg),rgba(20,21,25,.72),transparent);
+  background:linear-gradient(to right,rgba(248,251,255,.94),rgba(248,251,255,.52),transparent);
 }
 .is-home .desktop-carousel::after{
-  background:linear-gradient(to left,var(--vp-c-bg),rgba(20,21,25,.72),transparent);
+  background:linear-gradient(to left,rgba(248,251,255,.94),rgba(248,251,255,.52),transparent);
+}
+.dark .is-home .desktop-carousel::before{
+  background:linear-gradient(to right,rgba(8,9,14,.58),rgba(8,9,14,.22),transparent);
+}
+.dark .is-home .desktop-carousel::after{
+  background:linear-gradient(to left,rgba(8,9,14,.58),rgba(8,9,14,.22),transparent);
 }
 .is-home .desktop-item{
   width:min(820px,64vw);
@@ -1620,4 +1627,23 @@ html.dark .doc-outline-content,
   .is-home .update-column{
     min-height:330px;
   }
+}
+
+
+/* 20260615 search shortcut icon optical centering
+   Scope: only the right-side filter glyph inside the top search pill. */
+.DocSearch-Button-Key{
+  align-items:center!important;
+  justify-items:center!important;
+  place-items:center!important;
+  line-height:1!important;
+}
+.DocSearch-Button-Key::before{
+  width:18px;
+  height:18px;
+  margin:0!important;
+  transform:translate(0.5px,2.55px);
+  transform-origin:center;
+  -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M5 5.5H19C19.55 5.5 20 5.95 20 6.5V8.15C20 8.55 19.8 9.02 19.52 9.3L14.35 14.25C14.13 14.46 14 14.76 14 15.07V18.1C14 18.43 13.82 18.74 13.52 18.9L11.52 20.02C10.86 20.39 10 19.91 10 19.15V15.08C10 14.77 9.87 14.47 9.64 14.25L4.48 9.3C4.2 9.02 4 8.55 4 8.15V6.5C4 5.95 4.45 5.5 5 5.5Z' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat center/contain;
+  mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M5 5.5H19C19.55 5.5 20 5.95 20 6.5V8.15C20 8.55 19.8 9.02 19.52 9.3L14.35 14.25C14.13 14.46 14 14.76 14 15.07V18.1C14 18.43 13.82 18.74 13.52 18.9L11.52 20.02C10.86 20.39 10 19.91 10 19.15V15.08C10 14.77 9.87 14.47 9.64 14.25L4.48 9.3C4.2 9.02 4 8.55 4 8.15V6.5C4 5.95 4.45 5.5 5 5.5Z' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat center/contain;
 }
