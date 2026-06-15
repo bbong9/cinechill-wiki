@@ -6,7 +6,7 @@
   <title>更新日志 | CineChill Wiki</title>
   <meta name="description" content="CineChill Wiki 更新日志">
   <link rel="icon" type="image/png" href="/cinechill-wiki/cinechill/chill.png?v=20260609-logo-v2">
-  <link rel="stylesheet" href="/cinechill-wiki/cinechill/wiki.css?v=20260609-outline-v1">
+  <link rel="stylesheet" href="/cinechill-wiki/cinechill/wiki.css?v=20260615-home-perf-pass2-v1">
   <script>
     (() => {
       const key = 'cinechill-wiki-theme';
@@ -44,16 +44,36 @@
           '"': '&quot;',
           "'": '&#39;',
         })[char]);
-        const searchIndexUrl = () => {
+        const siteBasePath = () => {
           const stylesheet = document.querySelector('link[href*="/cinechill/wiki.css"]');
-          if (stylesheet?.href) return new URL('search-index.json', stylesheet.href).href;
-          const prefix = window.location.pathname.startsWith('/cinechill-wiki/') ? '/cinechill-wiki/' : '/';
-          return new URL(prefix + 'cinechill/search-index.json', window.location.origin).href;
+          if (stylesheet?.href) {
+            try {
+              const stylesheetPath = new URL(stylesheet.href).pathname;
+              const marker = '/cinechill/wiki.css';
+              const markerIndex = stylesheetPath.indexOf(marker);
+              if (markerIndex >= 0) return stylesheetPath.slice(0, markerIndex + 1) || '/';
+            } catch {
+              // Fall back to the pathname heuristic below.
+            }
+          }
+          return window.location.pathname.startsWith('/cinechill-wiki/') ? '/cinechill-wiki/' : '/';
         };
+        const resolveSearchHref = (href) => {
+          if (!href) return '';
+          if (/^(?:[a-z][a-z\d+.-]*:|\/\/)/i.test(href) || href.startsWith('#')) return href;
+          const basePath = siteBasePath();
+          const normalizedHref = href.startsWith('/') ? href.slice(1) : href;
+          return new URL(basePath + normalizedHref, window.location.origin).href;
+        };
+        const searchIndexUrl = () => new URL('cinechill/search-index.json', window.location.origin + siteBasePath()).href;
         const loadSearchIndex = () => {
           if (!searchIndexPromise) {
             searchIndexPromise = fetch(searchIndexUrl())
               .then((response) => response.ok ? response.json() : [])
+              .then((items) => Array.isArray(items) ? items.map((item) => ({
+                ...item,
+                href: resolveSearchHref(item.href),
+              })) : [])
               .catch(() => []);
           }
           return searchIndexPromise;
@@ -202,7 +222,7 @@
             <button type="button" aria-label="Search" aria-keyshortcuts="/ control+k meta+k" class="DocSearch DocSearch-Button">
               <span class="DocSearch-Button-Container">
                 <span class="vpi-search DocSearch-Search-Icon"></span>
-                <span class="DocSearch-Button-Placeholder">Search</span>
+                <span class="DocSearch-Button-Placeholder">Search...</span>
               </span>
               <span class="DocSearch-Button-Keys">
                 <kbd class="DocSearch-Button-Key">⌘&nbsp;K</kbd>
@@ -265,6 +285,19 @@
     <p class="eyebrow">更新日志</p>
     <h1>更新日志</h1>
     <p class="lead">这里记录 CineChill 正式发布版本的主要变化。正式发布线从 v1.0.0.1 开始，按最新版本向下保留完整记录。</p>
+    <!-- AUTO_CINECHILL_COMMITS_LOG_START -->
+    <section class="card update-log-card">
+      <div class="log-title-row">
+        <span class="new-badge">AUTO</span>
+        <div>
+          <h2>CineChill 实时提交摘要</h2>
+          <time datetime="">等待首次同步</time>
+        </div>
+      </div>
+      <p><strong>状态：</strong>自动同步已启用占位。源仓库 <code>Chill-lucky/CineChill</code> 配置 push 通知后，本区块会自动写入最近提交摘要。</p>
+      <p><strong>公开边界：</strong>这里只展示 commit 首行摘要；包含凭据线索、敏感链接或不适合公开展示的说明会自动脱敏。</p>
+    </section>
+  <!-- AUTO_CINECHILL_COMMITS_LOG_END -->
     <section class="card update-log-card">
       <div class="log-title-row">
         <span class="new-badge">NEW</span>
@@ -370,6 +403,7 @@
       <time datetime="2026-06-14">2026-06-14</time>
       <ul><li>CineChill 发布线起始版本，正式从 ChillPoster 镜像切换到 CineChill 发布镜像。</li><li>精简默认配置与运行时资源，降低首次部署和后续维护成本。</li><li>修复真实库建库相关问题，为 NAS、Docker 和 Emby 联动提供稳定基础。</li></ul>
     </section>
+
     <section class="card">
       <h2>后续更新记录方式</h2>
       <ul><li>首页只展示最新一条正式版本更新。</li><li>完整日志页保留每次正式版本的功能、界面、运维和文档变化。</li><li>涉及真实 CineChill 功能变化时，会优先标注“影响页面”“后端行为”“部署验证”三个影响面。</li></ul>
@@ -428,8 +462,13 @@
         links.forEach((link, index) => link.classList.toggle('active', index === activeIndex));
         const active = links[activeIndex];
         if (marker && active) {
+          const content = marker.closest('.doc-outline-content');
+          const activeRect = active.getBoundingClientRect();
+          const contentRect = content ? content.getBoundingClientRect() : { top: 0 };
+          const markerHeight = marker.offsetHeight || 18;
+          const markerTop = activeRect.top - contentRect.top + (activeRect.height - markerHeight) / 2;
           marker.style.opacity = '1';
-          marker.style.top = active.offsetTop + 7 + 'px';
+          marker.style.top = Math.max(0, Math.round(markerTop)) + 'px';
         }
       };
       window.addEventListener('scroll', setActive, { passive: true });
@@ -437,5 +476,8 @@
       setActive();
     })();
   </script>
+  <script src="/cinechill-wiki/cinechill/code-copy.js?v=20260615-code-copy-v3" defer></script>
+  <script src="/cinechill-wiki/cinechill/mouse-gradient-trail.js?v=20260615-mouse-trail-thin-v1" defer></script>
+  <script src="/cinechill-wiki/cinechill/top-nav-indicator.js?v=20260615-nav-line-ratio-v2" defer></script>
 </body>
 </html>

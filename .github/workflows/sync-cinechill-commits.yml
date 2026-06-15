@@ -1,0 +1,43 @@
+name: Sync CineChill commits
+
+on:
+  repository_dispatch:
+    types:
+      - cinechill-pushed
+  workflow_dispatch:
+  schedule:
+    - cron: "17 * * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-cinechill-commits
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout wiki
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Sync CineChill commit summaries
+        env:
+          CINECHILL_REPO: Chill-lucky/CineChill
+          CINECHILL_SOURCE_TOKEN: ${{ secrets.CINECHILL_SOURCE_TOKEN }}
+          SYNC_PAYLOAD_JSON: ${{ toJson(github.event.client_payload) }}
+        run: node scripts/sync-cinechill-commits.mjs
+
+      - name: Commit wiki updates
+        run: |
+          git config user.name "cinechill-wiki-bot"
+          git config user.email "actions@github.com"
+          git add index.html wiki/changelog.html cinechill/search-index.json cinechill/commit-feed.json
+          git diff --cached --quiet || git commit -m "docs: sync CineChill commit summaries"
+          git push

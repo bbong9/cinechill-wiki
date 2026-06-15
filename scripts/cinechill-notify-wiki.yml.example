@@ -1,0 +1,60 @@
+# Copy this file into Chill-lucky/CineChill as:
+# .github/workflows/notify-wiki-commits.yml
+#
+# Required secret in Chill-lucky/CineChill:
+#   WIKI_SYNC_TOKEN
+#     Fine-grained PAT scoped to bbong9/cinechill-wiki with Contents: Read and write.
+
+name: Notify CineChill Wiki
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  notify-wiki:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build dispatch payload
+        id: payload
+        env:
+          COMMITS_JSON: ${{ toJson(github.event.commits) }}
+        run: |
+          jq -nc \
+            --arg source_repo "${{ github.repository }}" \
+            --arg ref "${{ github.ref }}" \
+            --arg before "${{ github.event.before }}" \
+            --arg after "${{ github.sha }}" \
+            --arg actor "${{ github.actor }}" \
+            --arg compare "${{ github.event.compare }}" \
+            --argjson commits "$COMMITS_JSON" \
+            '{
+              event_type: "cinechill-pushed",
+              client_payload: {
+                source_repo: $source_repo,
+                ref: $ref,
+                before: $before,
+                after: $after,
+                actor: $actor,
+                compare: $compare,
+                total_commits: ($commits | length),
+                commits: ($commits[:20] | map({
+                  id,
+                  message,
+                  timestamp,
+                  url,
+                  author: { name: (.author.name // .committer.name // "") }
+                }))
+              }
+            }' > dispatch-payload.json
+
+      - name: Trigger wiki sync
+        run: |
+          curl -fsSL -X POST \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer ${{ secrets.WIKI_SYNC_TOKEN }}" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            https://api.github.com/repos/bbong9/cinechill-wiki/dispatches \
+            --data @dispatch-payload.json

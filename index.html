@@ -5,12 +5,39 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>总览 | CineChill Wiki</title>
   <meta name="description" content="CineChill Wiki 总览">
-  <link rel="icon" type="image/png" href="/cinechill-wiki/cinechill/chill.png?v=20260609-logo-v2">
-  <link rel="stylesheet" href="/cinechill-wiki/cinechill/wiki.css?v=20260609-outline-v1">
+  <link rel="icon" type="image/png" href="/cinechill-wiki/cinechill/chill-icon.png?v=20260615-home-perf-pass3-v1">
+  <link rel="stylesheet" href="/cinechill-wiki/cinechill/wiki.css?v=20260615-home-title-gradient-fix-v1">
   <script>
     (() => {
       const key = 'cinechill-wiki-theme';
+      const introKey = 'cinechill-wiki-intro-entered-at';
+      const introSkipWindow = 5 * 60 * 1000;
+      try {
+        if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+      } catch {
+        // Keep native scroll restoration if the browser blocks access.
+      }
       if (localStorage.getItem(key) === 'dark') document.documentElement.classList.add('dark');
+      document.documentElement.classList.add('home-reveal-pending');
+      let shouldSkipIntro = false;
+      try {
+        const introEnteredAt = Number(sessionStorage.getItem(introKey) || 0);
+        shouldSkipIntro = introEnteredAt > 0 && Date.now() - introEnteredAt < introSkipWindow;
+        if (shouldSkipIntro) {
+          document.documentElement.classList.add('skip-intro');
+        }
+      } catch {
+        // Keep the intro visible if session storage is unavailable.
+      }
+      if (!shouldSkipIntro) {
+        document.documentElement.classList.add('intro-locked');
+        window.scrollTo(0, 0);
+      }
+      window.addEventListener('pageshow', () => {
+        if (document.documentElement.classList.contains('intro-locked')) {
+          window.scrollTo({ top: 0, behavior: 'auto' });
+        }
+      });
       window.addEventListener('DOMContentLoaded', () => {
         const button = document.querySelector('[data-theme-toggle]');
         const sync = () => {
@@ -44,16 +71,36 @@
           '"': '&quot;',
           "'": '&#39;',
         })[char]);
-        const searchIndexUrl = () => {
+        const siteBasePath = () => {
           const stylesheet = document.querySelector('link[href*="/cinechill/wiki.css"]');
-          if (stylesheet?.href) return new URL('search-index.json', stylesheet.href).href;
-          const prefix = window.location.pathname.startsWith('/cinechill-wiki/') ? '/cinechill-wiki/' : '/';
-          return new URL(prefix + 'cinechill/search-index.json', window.location.origin).href;
+          if (stylesheet?.href) {
+            try {
+              const stylesheetPath = new URL(stylesheet.href).pathname;
+              const marker = '/cinechill/wiki.css';
+              const markerIndex = stylesheetPath.indexOf(marker);
+              if (markerIndex >= 0) return stylesheetPath.slice(0, markerIndex + 1) || '/';
+            } catch {
+              // Fall back to the pathname heuristic below.
+            }
+          }
+          return window.location.pathname.startsWith('/cinechill-wiki/') ? '/cinechill-wiki/' : '/';
         };
+        const resolveSearchHref = (href) => {
+          if (!href) return '';
+          if (/^(?:[a-z][a-z\d+.-]*:|\/\/)/i.test(href) || href.startsWith('#')) return href;
+          const basePath = siteBasePath();
+          const normalizedHref = href.startsWith('/') ? href.slice(1) : href;
+          return new URL(basePath + normalizedHref, window.location.origin).href;
+        };
+        const searchIndexUrl = () => new URL('cinechill/search-index.json', window.location.origin + siteBasePath()).href;
         const loadSearchIndex = () => {
           if (!searchIndexPromise) {
             searchIndexPromise = fetch(searchIndexUrl())
               .then((response) => response.ok ? response.json() : [])
+              .then((items) => Array.isArray(items) ? items.map((item) => ({
+                ...item,
+                href: resolveSearchHref(item.href),
+              })) : [])
               .catch(() => []);
           }
           return searchIndexPromise;
@@ -193,7 +240,7 @@
   <header class="VPNav">
     <div class="nav-shell">
       <a class="brand" href="/cinechill-wiki/">
-        <span class="brand-mark"><img src="/cinechill-wiki/cinechill/chill.png?v=20260609-logo-v2" alt="" width="28" height="28"></span>
+        <span class="brand-mark"><img decoding="async" src="/cinechill-wiki/cinechill/chill-icon.png?v=20260615-home-perf-pass3-v1" alt="" width="28" height="28"></span>
         <span>CineChill Wiki</span>
       </a>
       <div class="nav-right">
@@ -202,7 +249,7 @@
             <button type="button" aria-label="Search" aria-keyshortcuts="/ control+k meta+k" class="DocSearch DocSearch-Button">
               <span class="DocSearch-Button-Container">
                 <span class="vpi-search DocSearch-Search-Icon"></span>
-                <span class="DocSearch-Button-Placeholder">Search</span>
+                <span class="DocSearch-Button-Placeholder">Search...</span>
               </span>
               <span class="DocSearch-Button-Keys">
                 <kbd class="DocSearch-Button-Key">⌘&nbsp;K</kbd>
@@ -253,6 +300,20 @@
       </div>
     </div>
   </div>
+  <section class="intro-start" data-intro-start aria-labelledby="intro-start-title">
+    <canvas
+      class="intro-particle-canvas"
+      data-intro-particle
+      data-words="WELCOME TO|CINECHILL-WIKI|DESIGN BY|BBONG9"
+      aria-hidden="true"
+    ></canvas>
+    <div class="intro-start-vignette" aria-hidden="true"></div>
+    <div class="intro-start-hint" aria-hidden="true">CLICK / SCROLL TO ENTER</div>
+    <h1 id="intro-start-title" class="sr-only">WELCOME TO CINECHILL-WIKI DESIGN BY BBONG9</h1>
+    <noscript>
+      <p class="intro-start-fallback">WELCOME TO<br>CINECHILL-WIKI<br>DESIGN BY<br>BBONG9</p>
+    </noscript>
+  </section>
   <div class="layout is-home">
     
     <main id="VPContent" class="content">
@@ -260,29 +321,33 @@
     <div class="poster-wall-wrapper" aria-hidden="true">
     <div class="poster-wall">
     <div class="poster-row">
-      <div class="poster-item" style="animation-delay:0.00s;"><img src="/cinechill-wiki/cinechill/posters/poster-01.jpg?v=20260609-unique-posters-v1" alt="" loading="eager" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.01s;"><img src="/cinechill-wiki/cinechill/posters/poster-02.jpg?v=20260609-unique-posters-v1" alt="" loading="eager" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.03s;"><img src="/cinechill-wiki/cinechill/posters/poster-03.jpg?v=20260609-unique-posters-v1" alt="" loading="eager" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.04s;"><img src="/cinechill-wiki/cinechill/posters/poster-04.jpg?v=20260609-unique-posters-v1" alt="" loading="eager" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.06s;"><img src="/cinechill-wiki/cinechill/posters/poster-05.jpg?v=20260609-unique-posters-v1" alt="" loading="eager" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.07s;"><img src="/cinechill-wiki/cinechill/posters/poster-06.jpg?v=20260609-unique-posters-v1" alt="" loading="eager" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.09s;"><img src="/cinechill-wiki/cinechill/posters/poster-07.jpg?v=20260609-unique-posters-v1" alt="" loading="eager" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.10s;"><img src="/cinechill-wiki/cinechill/posters/poster-08.jpg?v=20260609-unique-posters-v1" alt="" loading="eager" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.12s;"><img src="/cinechill-wiki/cinechill/posters/poster-09.jpg?v=20260609-unique-posters-v1" alt="" loading="eager" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.14s;"><img src="/cinechill-wiki/cinechill/posters/poster-10.jpg?v=20260609-unique-posters-v1" alt="" loading="eager" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.15s;"><img src="/cinechill-wiki/cinechill/posters/poster-11.jpg?v=20260609-unique-posters-v1" alt="" loading="eager" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.16s;"><img src="/cinechill-wiki/cinechill/posters/poster-12.jpg?v=20260609-unique-posters-v1" alt="" loading="eager" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.18s;"><img src="/cinechill-wiki/cinechill/posters/poster-13.jpg?v=20260609-unique-posters-v1" alt="" loading="eager" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.20s;"><img src="/cinechill-wiki/cinechill/posters/poster-14.jpg?v=20260609-unique-posters-v1" alt="" loading="eager" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.21s;"><img src="/cinechill-wiki/cinechill/posters/poster-15.jpg?v=20260609-unique-posters-v1" alt="" loading="eager" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.22s;"><img src="/cinechill-wiki/cinechill/posters/poster-16.jpg?v=20260609-unique-posters-v1" alt="" loading="eager" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.24s;"><img src="/cinechill-wiki/cinechill/posters/poster-17.jpg?v=20260609-unique-posters-v1" alt="" loading="eager" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.26s;"><img src="/cinechill-wiki/cinechill/posters/poster-18.jpg?v=20260609-unique-posters-v1" alt="" loading="eager" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.27s;"><img src="/cinechill-wiki/cinechill/posters/poster-19.jpg?v=20260609-unique-posters-v1" alt="" loading="eager" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.28s;"><img src="/cinechill-wiki/cinechill/posters/poster-20.jpg?v=20260609-unique-posters-v1" alt="" loading="eager" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.30s;"><img src="/cinechill-wiki/cinechill/posters/poster-21.jpg?v=20260609-unique-posters-v1" alt="" loading="eager" width="100" height="100"></div>
+      <div class="poster-item" style="animation-delay:0.00s;"><img decoding="async" src="/cinechill-wiki/cinechill/posters/thumbs/poster-01.jpg?v=20260615-home-poster-thumbs-v1" alt="" loading="eager" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.01s;"><img decoding="async" src="/cinechill-wiki/cinechill/posters/thumbs/poster-02.jpg?v=20260615-home-poster-thumbs-v1" alt="" loading="eager" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.03s;"><img decoding="async" src="/cinechill-wiki/cinechill/posters/thumbs/poster-03.jpg?v=20260615-home-poster-thumbs-v1" alt="" loading="eager" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.04s;"><img decoding="async" src="/cinechill-wiki/cinechill/posters/thumbs/poster-04.jpg?v=20260615-home-poster-thumbs-v1" alt="" loading="eager" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.06s;"><img decoding="async" src="/cinechill-wiki/cinechill/posters/thumbs/poster-05.jpg?v=20260615-home-poster-thumbs-v1" alt="" loading="eager" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.07s;"><img decoding="async" src="/cinechill-wiki/cinechill/posters/thumbs/poster-06.jpg?v=20260615-home-poster-thumbs-v1" alt="" loading="eager" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.09s;"><img decoding="async" src="/cinechill-wiki/cinechill/posters/thumbs/poster-07.jpg?v=20260615-home-poster-thumbs-v1" alt="" loading="eager" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.10s;"><img decoding="async" src="/cinechill-wiki/cinechill/posters/thumbs/poster-08.jpg?v=20260615-home-poster-thumbs-v1" alt="" loading="eager" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.12s;"><img decoding="async" src="/cinechill-wiki/cinechill/posters/thumbs/poster-09.jpg?v=20260615-home-poster-thumbs-v1" alt="" loading="eager" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.14s;"><img decoding="async" src="/cinechill-wiki/cinechill/posters/thumbs/poster-10.jpg?v=20260615-home-poster-thumbs-v1" alt="" loading="eager" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.15s;"><img decoding="async" src="/cinechill-wiki/cinechill/posters/thumbs/poster-11.jpg?v=20260615-home-poster-thumbs-v1" alt="" loading="eager" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.16s;"><img decoding="async" src="/cinechill-wiki/cinechill/posters/thumbs/poster-12.jpg?v=20260615-home-poster-thumbs-v1" alt="" loading="eager" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.18s;"><img decoding="async" src="/cinechill-wiki/cinechill/posters/thumbs/poster-13.jpg?v=20260615-home-poster-thumbs-v1" alt="" loading="eager" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.20s;"><img decoding="async" src="/cinechill-wiki/cinechill/posters/thumbs/poster-14.jpg?v=20260615-home-poster-thumbs-v1" alt="" loading="eager" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.21s;"><img decoding="async" src="/cinechill-wiki/cinechill/posters/thumbs/poster-15.jpg?v=20260615-home-poster-thumbs-v1" alt="" loading="eager" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.22s;"><img decoding="async" src="/cinechill-wiki/cinechill/posters/thumbs/poster-16.jpg?v=20260615-home-poster-thumbs-v1" alt="" loading="eager" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.24s;"><img decoding="async" src="/cinechill-wiki/cinechill/posters/thumbs/poster-17.jpg?v=20260615-home-poster-thumbs-v1" alt="" loading="eager" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.26s;"><img decoding="async" src="/cinechill-wiki/cinechill/posters/thumbs/poster-18.jpg?v=20260615-home-poster-thumbs-v1" alt="" loading="eager" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.27s;"><img decoding="async" src="/cinechill-wiki/cinechill/posters/thumbs/poster-19.jpg?v=20260615-home-poster-thumbs-v1" alt="" loading="eager" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.28s;"><img decoding="async" src="/cinechill-wiki/cinechill/posters/thumbs/poster-20.jpg?v=20260615-home-poster-thumbs-v1" alt="" loading="eager" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.30s;"><img decoding="async" src="/cinechill-wiki/cinechill/posters/thumbs/poster-21.jpg?v=20260615-home-poster-thumbs-v1" alt="" loading="eager" width="100" height="100"></div>
     </div>
     <div class="poster-row">
-      <div class="poster-item" style="animation-delay:0.32s;"><img src="/cinechill-wiki/cinechill/posters/poster-22.jpg?v=20260609-unique-posters-v1" alt="" loading="eager" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.33s;"><img src="/cinechill-wiki/cinechill/posters/poster-23.jpg?v=20260609-unique-posters-v1" alt="" loading="eager" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.34s;"><img src="/cinechill-wiki/cinechill/posters/poster-24.jpg?v=20260609-unique-posters-v1" alt="" loading="eager" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.36s;"><img src="/cinechill-wiki/cinechill/posters/poster-25.jpg?v=20260609-unique-posters-v1" alt="" loading="lazy" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.38s;"><img src="/cinechill-wiki/cinechill/posters/poster-26.jpg?v=20260609-unique-posters-v1" alt="" loading="lazy" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.39s;"><img src="/cinechill-wiki/cinechill/posters/poster-27.jpg?v=20260609-unique-posters-v1" alt="" loading="lazy" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.40s;"><img src="/cinechill-wiki/cinechill/posters/poster-28.jpg?v=20260609-unique-posters-v1" alt="" loading="lazy" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.42s;"><img src="/cinechill-wiki/cinechill/posters/poster-29.jpg?v=20260609-unique-posters-v1" alt="" loading="lazy" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.43s;"><img src="/cinechill-wiki/cinechill/posters/poster-30.jpg?v=20260609-unique-posters-v1" alt="" loading="lazy" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.45s;"><img src="/cinechill-wiki/cinechill/posters/poster-31.jpg?v=20260609-unique-posters-v1" alt="" loading="lazy" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.46s;"><img src="/cinechill-wiki/cinechill/posters/poster-32.jpg?v=20260609-unique-posters-v1" alt="" loading="lazy" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.48s;"><img src="/cinechill-wiki/cinechill/posters/poster-33.jpg?v=20260609-unique-posters-v1" alt="" loading="lazy" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.49s;"><img src="/cinechill-wiki/cinechill/posters/poster-34.jpg?v=20260609-unique-posters-v1" alt="" loading="lazy" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.51s;"><img src="/cinechill-wiki/cinechill/posters/poster-35.jpg?v=20260609-unique-posters-v1" alt="" loading="lazy" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.53s;"><img src="/cinechill-wiki/cinechill/posters/poster-36.jpg?v=20260609-unique-posters-v1" alt="" loading="lazy" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.54s;"><img src="/cinechill-wiki/cinechill/posters/poster-37.jpg?v=20260609-unique-posters-v1" alt="" loading="lazy" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.55s;"><img src="/cinechill-wiki/cinechill/posters/poster-38.jpg?v=20260609-unique-posters-v1" alt="" loading="lazy" width="100" height="100"></div>
+      <div class="poster-item" style="animation-delay:0.32s;"><img decoding="async" src="/cinechill-wiki/cinechill/posters/thumbs/poster-22.jpg?v=20260615-home-poster-thumbs-v1" alt="" loading="eager" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.33s;"><img decoding="async" src="/cinechill-wiki/cinechill/posters/thumbs/poster-23.jpg?v=20260615-home-poster-thumbs-v1" alt="" loading="eager" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.34s;"><img decoding="async" src="/cinechill-wiki/cinechill/posters/thumbs/poster-24.jpg?v=20260615-home-poster-thumbs-v1" alt="" loading="eager" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.36s;"><img decoding="async" src="/cinechill-wiki/cinechill/posters/thumbs/poster-25.jpg?v=20260615-home-poster-thumbs-v1" alt="" loading="lazy" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.38s;"><img decoding="async" src="/cinechill-wiki/cinechill/posters/thumbs/poster-26.jpg?v=20260615-home-poster-thumbs-v1" alt="" loading="lazy" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.39s;"><img decoding="async" src="/cinechill-wiki/cinechill/posters/thumbs/poster-27.jpg?v=20260615-home-poster-thumbs-v1" alt="" loading="lazy" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.40s;"><img decoding="async" src="/cinechill-wiki/cinechill/posters/thumbs/poster-28.jpg?v=20260615-home-poster-thumbs-v1" alt="" loading="lazy" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.42s;"><img decoding="async" src="/cinechill-wiki/cinechill/posters/thumbs/poster-29.jpg?v=20260615-home-poster-thumbs-v1" alt="" loading="lazy" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.43s;"><img decoding="async" src="/cinechill-wiki/cinechill/posters/thumbs/poster-30.jpg?v=20260615-home-poster-thumbs-v1" alt="" loading="lazy" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.45s;"><img decoding="async" src="/cinechill-wiki/cinechill/posters/thumbs/poster-31.jpg?v=20260615-home-poster-thumbs-v1" alt="" loading="lazy" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.46s;"><img decoding="async" src="/cinechill-wiki/cinechill/posters/thumbs/poster-32.jpg?v=20260615-home-poster-thumbs-v1" alt="" loading="lazy" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.48s;"><img decoding="async" src="/cinechill-wiki/cinechill/posters/thumbs/poster-33.jpg?v=20260615-home-poster-thumbs-v1" alt="" loading="lazy" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.49s;"><img decoding="async" src="/cinechill-wiki/cinechill/posters/thumbs/poster-34.jpg?v=20260615-home-poster-thumbs-v1" alt="" loading="lazy" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.51s;"><img decoding="async" src="/cinechill-wiki/cinechill/posters/thumbs/poster-35.jpg?v=20260615-home-poster-thumbs-v1" alt="" loading="lazy" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.53s;"><img decoding="async" src="/cinechill-wiki/cinechill/posters/thumbs/poster-36.jpg?v=20260615-home-poster-thumbs-v1" alt="" loading="lazy" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.54s;"><img decoding="async" src="/cinechill-wiki/cinechill/posters/thumbs/poster-37.jpg?v=20260615-home-poster-thumbs-v1" alt="" loading="lazy" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.55s;"><img decoding="async" src="/cinechill-wiki/cinechill/posters/thumbs/poster-38.jpg?v=20260615-home-poster-thumbs-v1" alt="" loading="lazy" width="100" height="100"></div>
     </div>
     <div class="poster-row">
-      <div class="poster-item" style="animation-delay:0.57s;"><img src="/cinechill-wiki/cinechill/posters/poster-39.jpg?v=20260609-unique-posters-v1" alt="" loading="lazy" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.58s;"><img src="/cinechill-wiki/cinechill/posters/poster-40.jpg?v=20260609-unique-posters-v1" alt="" loading="lazy" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.60s;"><img src="/cinechill-wiki/cinechill/posters/poster-41.jpg?v=20260609-unique-posters-v1" alt="" loading="lazy" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.61s;"><img src="/cinechill-wiki/cinechill/posters/poster-42.jpg?v=20260609-unique-posters-v1" alt="" loading="lazy" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.63s;"><img src="/cinechill-wiki/cinechill/posters/poster-43.jpg?v=20260609-unique-posters-v1" alt="" loading="lazy" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.65s;"><img src="/cinechill-wiki/cinechill/posters/poster-44.jpg?v=20260609-unique-posters-v1" alt="" loading="lazy" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.66s;"><img src="/cinechill-wiki/cinechill/posters/poster-45.jpg?v=20260609-unique-posters-v1" alt="" loading="lazy" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.67s;"><img src="/cinechill-wiki/cinechill/posters/poster-46.jpg?v=20260609-unique-posters-v1" alt="" loading="lazy" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.69s;"><img src="/cinechill-wiki/cinechill/posters/poster-47.jpg?v=20260609-unique-posters-v1" alt="" loading="lazy" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.70s;"><img src="/cinechill-wiki/cinechill/posters/poster-48.jpg?v=20260609-unique-posters-v1" alt="" loading="lazy" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.72s;"><img src="/cinechill-wiki/cinechill/posters/poster-49.jpg?v=20260609-unique-posters-v1" alt="" loading="lazy" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.73s;"><img src="/cinechill-wiki/cinechill/posters/poster-50.jpg?v=20260609-unique-posters-v1" alt="" loading="lazy" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.75s;"><img src="/cinechill-wiki/cinechill/posters/poster-51.jpg?v=20260609-unique-posters-v1" alt="" loading="lazy" width="100" height="100"></div>
+      <div class="poster-item" style="animation-delay:0.57s;"><img decoding="async" src="/cinechill-wiki/cinechill/posters/thumbs/poster-39.jpg?v=20260615-home-poster-thumbs-v1" alt="" loading="lazy" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.58s;"><img decoding="async" src="/cinechill-wiki/cinechill/posters/thumbs/poster-40.jpg?v=20260615-home-poster-thumbs-v1" alt="" loading="lazy" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.60s;"><img decoding="async" src="/cinechill-wiki/cinechill/posters/thumbs/poster-41.jpg?v=20260615-home-poster-thumbs-v1" alt="" loading="lazy" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.61s;"><img decoding="async" src="/cinechill-wiki/cinechill/posters/thumbs/poster-42.jpg?v=20260615-home-poster-thumbs-v1" alt="" loading="lazy" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.63s;"><img decoding="async" src="/cinechill-wiki/cinechill/posters/thumbs/poster-43.jpg?v=20260615-home-poster-thumbs-v1" alt="" loading="lazy" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.65s;"><img decoding="async" src="/cinechill-wiki/cinechill/posters/thumbs/poster-44.jpg?v=20260615-home-poster-thumbs-v1" alt="" loading="lazy" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.66s;"><img decoding="async" src="/cinechill-wiki/cinechill/posters/thumbs/poster-45.jpg?v=20260615-home-poster-thumbs-v1" alt="" loading="lazy" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.67s;"><img decoding="async" src="/cinechill-wiki/cinechill/posters/thumbs/poster-46.jpg?v=20260615-home-poster-thumbs-v1" alt="" loading="lazy" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.69s;"><img decoding="async" src="/cinechill-wiki/cinechill/posters/thumbs/poster-47.jpg?v=20260615-home-poster-thumbs-v1" alt="" loading="lazy" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.70s;"><img decoding="async" src="/cinechill-wiki/cinechill/posters/thumbs/poster-48.jpg?v=20260615-home-poster-thumbs-v1" alt="" loading="lazy" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.72s;"><img decoding="async" src="/cinechill-wiki/cinechill/posters/thumbs/poster-49.jpg?v=20260615-home-poster-thumbs-v1" alt="" loading="lazy" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.73s;"><img decoding="async" src="/cinechill-wiki/cinechill/posters/thumbs/poster-50.jpg?v=20260615-home-poster-thumbs-v1" alt="" loading="lazy" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.75s;"><img decoding="async" src="/cinechill-wiki/cinechill/posters/thumbs/poster-51.jpg?v=20260615-home-poster-thumbs-v1" alt="" loading="lazy" width="100" height="100"></div>
     </div>
     <div class="poster-row">
-      <div class="poster-item" style="animation-delay:0.77s;"><img src="/cinechill-wiki/cinechill/posters/poster-52.jpg?v=20260609-unique-posters-v1" alt="" loading="lazy" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.78s;"><img src="/cinechill-wiki/cinechill/posters/poster-53.jpg?v=20260609-unique-posters-v1" alt="" loading="lazy" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.79s;"><img src="/cinechill-wiki/cinechill/posters/poster-54.jpg?v=20260609-unique-posters-v1" alt="" loading="lazy" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.81s;"><img src="/cinechill-wiki/cinechill/posters/poster-55.jpg?v=20260609-unique-posters-v1" alt="" loading="lazy" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.82s;"><img src="/cinechill-wiki/cinechill/posters/poster-56.jpg?v=20260609-unique-posters-v1" alt="" loading="lazy" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.84s;"><img src="/cinechill-wiki/cinechill/posters/poster-57.jpg?v=20260609-unique-posters-v1" alt="" loading="lazy" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.85s;"><img src="/cinechill-wiki/cinechill/posters/poster-58.jpg?v=20260609-unique-posters-v1" alt="" loading="lazy" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.87s;"><img src="/cinechill-wiki/cinechill/posters/poster-59.jpg?v=20260609-unique-posters-v1" alt="" loading="lazy" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.89s;"><img src="/cinechill-wiki/cinechill/posters/poster-60.jpg?v=20260609-unique-posters-v1" alt="" loading="lazy" width="100" height="100"></div>
+      <div class="poster-item" style="animation-delay:0.77s;"><img decoding="async" src="/cinechill-wiki/cinechill/posters/thumbs/poster-52.jpg?v=20260615-home-poster-thumbs-v1" alt="" loading="lazy" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.78s;"><img decoding="async" src="/cinechill-wiki/cinechill/posters/thumbs/poster-53.jpg?v=20260615-home-poster-thumbs-v1" alt="" loading="lazy" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.79s;"><img decoding="async" src="/cinechill-wiki/cinechill/posters/thumbs/poster-54.jpg?v=20260615-home-poster-thumbs-v1" alt="" loading="lazy" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.81s;"><img decoding="async" src="/cinechill-wiki/cinechill/posters/thumbs/poster-55.jpg?v=20260615-home-poster-thumbs-v1" alt="" loading="lazy" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.82s;"><img decoding="async" src="/cinechill-wiki/cinechill/posters/thumbs/poster-56.jpg?v=20260615-home-poster-thumbs-v1" alt="" loading="lazy" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.84s;"><img decoding="async" src="/cinechill-wiki/cinechill/posters/thumbs/poster-57.jpg?v=20260615-home-poster-thumbs-v1" alt="" loading="lazy" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.85s;"><img decoding="async" src="/cinechill-wiki/cinechill/posters/thumbs/poster-58.jpg?v=20260615-home-poster-thumbs-v1" alt="" loading="lazy" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.87s;"><img decoding="async" src="/cinechill-wiki/cinechill/posters/thumbs/poster-59.jpg?v=20260615-home-poster-thumbs-v1" alt="" loading="lazy" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.89s;"><img decoding="async" src="/cinechill-wiki/cinechill/posters/thumbs/poster-60.jpg?v=20260615-home-poster-thumbs-v1" alt="" loading="lazy" width="100" height="100"></div>
     </div>
     <div class="poster-row">
-      <div class="poster-item" style="animation-delay:0.90s;"><img src="/cinechill-wiki/cinechill/posters/poster-61.jpg?v=20260609-unique-posters-v1" alt="" loading="lazy" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.91s;"><img src="/cinechill-wiki/cinechill/posters/poster-62.jpg?v=20260609-unique-posters-v1" alt="" loading="lazy" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.93s;"><img src="/cinechill-wiki/cinechill/posters/poster-63.jpg?v=20260609-unique-posters-v1" alt="" loading="lazy" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.94s;"><img src="/cinechill-wiki/cinechill/posters/poster-64.jpg?v=20260609-unique-posters-v1" alt="" loading="lazy" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.96s;"><img src="/cinechill-wiki/cinechill/posters/poster-65.jpg?v=20260609-unique-posters-v1" alt="" loading="lazy" width="100" height="100"></div>
+      <div class="poster-item" style="animation-delay:0.90s;"><img decoding="async" src="/cinechill-wiki/cinechill/posters/thumbs/poster-61.jpg?v=20260615-home-poster-thumbs-v1" alt="" loading="lazy" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.91s;"><img decoding="async" src="/cinechill-wiki/cinechill/posters/thumbs/poster-62.jpg?v=20260615-home-poster-thumbs-v1" alt="" loading="lazy" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.93s;"><img decoding="async" src="/cinechill-wiki/cinechill/posters/thumbs/poster-63.jpg?v=20260615-home-poster-thumbs-v1" alt="" loading="lazy" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.94s;"><img decoding="async" src="/cinechill-wiki/cinechill/posters/thumbs/poster-64.jpg?v=20260615-home-poster-thumbs-v1" alt="" loading="lazy" width="100" height="100"></div><div class="poster-item" style="animation-delay:0.96s;"><img decoding="async" src="/cinechill-wiki/cinechill/posters/thumbs/poster-65.jpg?v=20260615-home-poster-thumbs-v1" alt="" loading="lazy" width="100" height="100"></div>
     </div>
     </div>
   </div>
-    <div class="home-logo" aria-hidden="true"><img src="/cinechill-wiki/cinechill/chill.png?v=20260609-logo-v2" alt="" width="104" height="104"></div>
+    <div class="home-logo" aria-hidden="true"><img decoding="async" src="/cinechill-wiki/cinechill/chill-display.png?v=20260615-home-perf-pass3-v1" alt="" width="104" height="104"></div>
     <p class="eyebrow">CineChill 使用文档</p>
-    <h1>CineChill Wiki</h1>
+    <h1 class="home-animated-title" aria-label="CineChill Wiki">
+      <span class="home-title-text" aria-hidden="true">
+        <span class="home-title-letter" style="--letter-index:0">C</span><span class="home-title-letter" style="--letter-index:1">i</span><span class="home-title-letter" style="--letter-index:2">n</span><span class="home-title-letter" style="--letter-index:3">e</span><span class="home-title-letter" style="--letter-index:4">C</span><span class="home-title-letter" style="--letter-index:5">h</span><span class="home-title-letter" style="--letter-index:6">i</span><span class="home-title-letter" style="--letter-index:7">l</span><span class="home-title-letter" style="--letter-index:8">l</span><span class="home-title-letter" style="--letter-index:9">&nbsp;</span><span class="home-title-letter" style="--letter-index:10">W</span><span class="home-title-letter" style="--letter-index:11">i</span><span class="home-title-letter" style="--letter-index:12">k</span><span class="home-title-letter" style="--letter-index:13">i</span>
+      </span>
+      <span class="home-title-underline" aria-hidden="true"></span>
+    </h1>
     <p class="lead">CineChill 是面向家庭影音库的自动化管理工具，聚合媒体整理、封面生成、资源转存、订阅发现、通知联动和系统运维能力，帮助你把影视资源从入库到展示都管理得更清晰。</p>
     <div class="hero-actions">
-      <a class="primary" href="/cinechill-wiki/wiki/quickstart.html"><span class="cta-icon" aria-hidden="true">🚀</span>立即开始</a>
-      <a href="/cinechill-wiki/wiki/dashboard.html"><span class="cta-icon" aria-hidden="true">📖</span>功能概览</a>
+      <a class="primary rainbow-start-button" href="/cinechill-wiki/wiki/quickstart.html"><span class="cta-text">立即开始</span></a>
     </div>
   </section>
   <section class="home-features"><div class="feature-grid"><a class="feature-card theme-blue" href="/cinechill-wiki/wiki/media_organize.html" style="animation-delay:0.0s;">
@@ -354,7 +419,7 @@
         <span class="dot green"></span>
         <span class="address-bar"></span>
       </div>
-      <img src="/cinechill-wiki/cinechill/screenshots/dashboard.png" alt="仪表盘总览截图" loading="lazy">
+      <img decoding="async" data-lazy-src="/cinechill-wiki/cinechill/screenshots/dashboard.png" alt="仪表盘总览截图" loading="lazy">
     </div>
     <div class="desktop-caption">仪表盘总览</div>
   </div><div class="desktop-item">
@@ -365,7 +430,7 @@
         <span class="dot green"></span>
         <span class="address-bar"></span>
       </div>
-      <img src="/cinechill-wiki/cinechill/screenshots/media_organize.png" alt="一条龙整理截图" loading="lazy">
+      <img decoding="async" data-lazy-src="/cinechill-wiki/cinechill/screenshots/media_organize.png" alt="一条龙整理截图" loading="lazy">
     </div>
     <div class="desktop-caption">一条龙整理</div>
   </div><div class="desktop-item">
@@ -376,7 +441,7 @@
         <span class="dot green"></span>
         <span class="address-bar"></span>
       </div>
-      <img src="/cinechill-wiki/cinechill/screenshots/organize_history.png" alt="整理记录审阅截图" loading="lazy">
+      <img decoding="async" data-lazy-src="/cinechill-wiki/cinechill/screenshots/organize_history.png" alt="整理记录审阅截图" loading="lazy">
     </div>
     <div class="desktop-caption">整理记录审阅</div>
   </div><div class="desktop-item">
@@ -387,7 +452,7 @@
         <span class="dot green"></span>
         <span class="address-bar"></span>
       </div>
-      <img src="/cinechill-wiki/cinechill/screenshots/media_subscribe.png" alt="发现推荐截图" loading="lazy">
+      <img decoding="async" data-lazy-src="/cinechill-wiki/cinechill/screenshots/media_subscribe.png" alt="发现推荐截图" loading="lazy">
     </div>
     <div class="desktop-caption">发现推荐</div>
   </div><div class="desktop-item">
@@ -398,7 +463,7 @@
         <span class="dot green"></span>
         <span class="address-bar"></span>
       </div>
-      <img src="/cinechill-wiki/cinechill/screenshots/missing_episode_stats.png" alt="缺集统计截图" loading="lazy">
+      <img decoding="async" data-lazy-src="/cinechill-wiki/cinechill/screenshots/missing_episode_stats.png" alt="缺集统计截图" loading="lazy">
     </div>
     <div class="desktop-caption">缺集统计</div>
   </div><div class="desktop-item">
@@ -409,7 +474,7 @@
         <span class="dot green"></span>
         <span class="address-bar"></span>
       </div>
-      <img src="/cinechill-wiki/cinechill/screenshots/manual.png" alt="手动封面截图" loading="lazy">
+      <img decoding="async" data-lazy-src="/cinechill-wiki/cinechill/screenshots/manual.png" alt="手动封面截图" loading="lazy">
     </div>
     <div class="desktop-caption">手动封面</div>
   </div><div class="desktop-item">
@@ -420,7 +485,7 @@
         <span class="dot green"></span>
         <span class="address-bar"></span>
       </div>
-      <img src="/cinechill-wiki/cinechill/screenshots/system_health.png" alt="系统健康截图" loading="lazy">
+      <img decoding="async" data-lazy-src="/cinechill-wiki/cinechill/screenshots/system_health.png" alt="系统健康截图" loading="lazy">
     </div>
     <div class="desktop-caption">系统健康</div>
   </div><div class="desktop-item">
@@ -431,7 +496,7 @@
         <span class="dot green"></span>
         <span class="address-bar"></span>
       </div>
-      <img src="/cinechill-wiki/cinechill/screenshots/operations_console.png" alt="实时日志截图" loading="lazy">
+      <img decoding="async" data-lazy-src="/cinechill-wiki/cinechill/screenshots/operations_console.png" alt="实时日志截图" loading="lazy">
     </div>
     <div class="desktop-caption">实时日志</div>
   </div><div class="desktop-item">
@@ -442,7 +507,7 @@
         <span class="dot green"></span>
         <span class="address-bar"></span>
       </div>
-      <img src="/cinechill-wiki/cinechill/screenshots/dashboard.png" alt="仪表盘总览截图" loading="lazy">
+      <img decoding="async" data-lazy-src="/cinechill-wiki/cinechill/screenshots/dashboard.png" alt="仪表盘总览截图" loading="lazy">
     </div>
     <div class="desktop-caption">仪表盘总览</div>
   </div><div class="desktop-item">
@@ -453,7 +518,7 @@
         <span class="dot green"></span>
         <span class="address-bar"></span>
       </div>
-      <img src="/cinechill-wiki/cinechill/screenshots/media_organize.png" alt="一条龙整理截图" loading="lazy">
+      <img decoding="async" data-lazy-src="/cinechill-wiki/cinechill/screenshots/media_organize.png" alt="一条龙整理截图" loading="lazy">
     </div>
     <div class="desktop-caption">一条龙整理</div>
   </div><div class="desktop-item">
@@ -464,7 +529,7 @@
         <span class="dot green"></span>
         <span class="address-bar"></span>
       </div>
-      <img src="/cinechill-wiki/cinechill/screenshots/organize_history.png" alt="整理记录审阅截图" loading="lazy">
+      <img decoding="async" data-lazy-src="/cinechill-wiki/cinechill/screenshots/organize_history.png" alt="整理记录审阅截图" loading="lazy">
     </div>
     <div class="desktop-caption">整理记录审阅</div>
   </div><div class="desktop-item">
@@ -475,7 +540,7 @@
         <span class="dot green"></span>
         <span class="address-bar"></span>
       </div>
-      <img src="/cinechill-wiki/cinechill/screenshots/media_subscribe.png" alt="发现推荐截图" loading="lazy">
+      <img decoding="async" data-lazy-src="/cinechill-wiki/cinechill/screenshots/media_subscribe.png" alt="发现推荐截图" loading="lazy">
     </div>
     <div class="desktop-caption">发现推荐</div>
   </div><div class="desktop-item">
@@ -486,7 +551,7 @@
         <span class="dot green"></span>
         <span class="address-bar"></span>
       </div>
-      <img src="/cinechill-wiki/cinechill/screenshots/missing_episode_stats.png" alt="缺集统计截图" loading="lazy">
+      <img decoding="async" data-lazy-src="/cinechill-wiki/cinechill/screenshots/missing_episode_stats.png" alt="缺集统计截图" loading="lazy">
     </div>
     <div class="desktop-caption">缺集统计</div>
   </div><div class="desktop-item">
@@ -497,7 +562,7 @@
         <span class="dot green"></span>
         <span class="address-bar"></span>
       </div>
-      <img src="/cinechill-wiki/cinechill/screenshots/manual.png" alt="手动封面截图" loading="lazy">
+      <img decoding="async" data-lazy-src="/cinechill-wiki/cinechill/screenshots/manual.png" alt="手动封面截图" loading="lazy">
     </div>
     <div class="desktop-caption">手动封面</div>
   </div><div class="desktop-item">
@@ -508,7 +573,7 @@
         <span class="dot green"></span>
         <span class="address-bar"></span>
       </div>
-      <img src="/cinechill-wiki/cinechill/screenshots/system_health.png" alt="系统健康截图" loading="lazy">
+      <img decoding="async" data-lazy-src="/cinechill-wiki/cinechill/screenshots/system_health.png" alt="系统健康截图" loading="lazy">
     </div>
     <div class="desktop-caption">系统健康</div>
   </div><div class="desktop-item">
@@ -519,13 +584,14 @@
         <span class="dot green"></span>
         <span class="address-bar"></span>
       </div>
-      <img src="/cinechill-wiki/cinechill/screenshots/operations_console.png" alt="实时日志截图" loading="lazy">
+      <img decoding="async" data-lazy-src="/cinechill-wiki/cinechill/screenshots/operations_console.png" alt="实时日志截图" loading="lazy">
     </div>
     <div class="desktop-caption">实时日志</div>
   </div></div>
     </div>
   </section>
   <section class="recent-updates" id="recent-updates">
+  <!-- AUTO_CINECHILL_COMMITS_HOME_START -->
     <div class="recent-version">
       <span class="new-badge">NEW</span>
       <div>
@@ -548,8 +614,13 @@
     <div class="update-action">
       <a href="/cinechill-wiki/wiki/changelog.html">查看完整日志 <span aria-hidden="true">→</span></a>
     </div>
+  <!-- AUTO_CINECHILL_COMMITS_HOME_END -->
   </section>
     </main>
   </div>
+  <script defer src="/cinechill-wiki/cinechill/intro-particle-text.js?v=20260615-home-perf-pass2-v1"></script>
+  <script src="/cinechill-wiki/cinechill/home-performance.js?v=20260615-home-perf-pass3-v2" defer></script>
+  <script src="/cinechill-wiki/cinechill/code-copy.js?v=20260615-code-copy-v3" defer></script>
+  <script src="/cinechill-wiki/cinechill/top-nav-indicator.js?v=20260615-nav-line-ratio-v2" defer></script>
 </body>
 </html>

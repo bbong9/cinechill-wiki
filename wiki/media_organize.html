@@ -6,7 +6,7 @@
   <title>一条龙菜单 | CineChill Wiki</title>
   <meta name="description" content="CineChill 的核心自动化页：把源目录里的媒体识别、刮削、重命名、分类、整理，并触发 STRM/Emby 后续动作。">
   <link rel="icon" type="image/png" href="/cinechill-wiki/cinechill/chill.png?v=20260609-logo-v2">
-  <link rel="stylesheet" href="/cinechill-wiki/cinechill/wiki.css?v=20260609-outline-v1">
+  <link rel="stylesheet" href="/cinechill-wiki/cinechill/wiki.css?v=20260615-home-perf-pass2-v1">
   <script>
     (() => {
       const key = 'cinechill-wiki-theme';
@@ -44,16 +44,36 @@
           '"': '&quot;',
           "'": '&#39;',
         })[char]);
-        const searchIndexUrl = () => {
+        const siteBasePath = () => {
           const stylesheet = document.querySelector('link[href*="/cinechill/wiki.css"]');
-          if (stylesheet?.href) return new URL('search-index.json', stylesheet.href).href;
-          const prefix = window.location.pathname.startsWith('/cinechill-wiki/') ? '/cinechill-wiki/' : '/';
-          return new URL(prefix + 'cinechill/search-index.json', window.location.origin).href;
+          if (stylesheet?.href) {
+            try {
+              const stylesheetPath = new URL(stylesheet.href).pathname;
+              const marker = '/cinechill/wiki.css';
+              const markerIndex = stylesheetPath.indexOf(marker);
+              if (markerIndex >= 0) return stylesheetPath.slice(0, markerIndex + 1) || '/';
+            } catch {
+              // Fall back to the pathname heuristic below.
+            }
+          }
+          return window.location.pathname.startsWith('/cinechill-wiki/') ? '/cinechill-wiki/' : '/';
         };
+        const resolveSearchHref = (href) => {
+          if (!href) return '';
+          if (/^(?:[a-z][a-z\d+.-]*:|\/\/)/i.test(href) || href.startsWith('#')) return href;
+          const basePath = siteBasePath();
+          const normalizedHref = href.startsWith('/') ? href.slice(1) : href;
+          return new URL(basePath + normalizedHref, window.location.origin).href;
+        };
+        const searchIndexUrl = () => new URL('cinechill/search-index.json', window.location.origin + siteBasePath()).href;
         const loadSearchIndex = () => {
           if (!searchIndexPromise) {
             searchIndexPromise = fetch(searchIndexUrl())
               .then((response) => response.ok ? response.json() : [])
+              .then((items) => Array.isArray(items) ? items.map((item) => ({
+                ...item,
+                href: resolveSearchHref(item.href),
+              })) : [])
               .catch(() => []);
           }
           return searchIndexPromise;
@@ -202,7 +222,7 @@
             <button type="button" aria-label="Search" aria-keyshortcuts="/ control+k meta+k" class="DocSearch DocSearch-Button">
               <span class="DocSearch-Button-Container">
                 <span class="vpi-search DocSearch-Search-Icon"></span>
-                <span class="DocSearch-Button-Placeholder">Search</span>
+                <span class="DocSearch-Button-Placeholder">Search...</span>
               </span>
               <span class="DocSearch-Button-Keys">
                 <kbd class="DocSearch-Button-Key">⌘&nbsp;K</kbd>
@@ -350,8 +370,13 @@
         links.forEach((link, index) => link.classList.toggle('active', index === activeIndex));
         const active = links[activeIndex];
         if (marker && active) {
+          const content = marker.closest('.doc-outline-content');
+          const activeRect = active.getBoundingClientRect();
+          const contentRect = content ? content.getBoundingClientRect() : { top: 0 };
+          const markerHeight = marker.offsetHeight || 18;
+          const markerTop = activeRect.top - contentRect.top + (activeRect.height - markerHeight) / 2;
           marker.style.opacity = '1';
-          marker.style.top = active.offsetTop + 7 + 'px';
+          marker.style.top = Math.max(0, Math.round(markerTop)) + 'px';
         }
       };
       window.addEventListener('scroll', setActive, { passive: true });
@@ -359,5 +384,8 @@
       setActive();
     })();
   </script>
+  <script src="/cinechill-wiki/cinechill/code-copy.js?v=20260615-code-copy-v3" defer></script>
+  <script src="/cinechill-wiki/cinechill/mouse-gradient-trail.js?v=20260615-mouse-trail-thin-v1" defer></script>
+  <script src="/cinechill-wiki/cinechill/top-nav-indicator.js?v=20260615-nav-line-ratio-v2" defer></script>
 </body>
 </html>
