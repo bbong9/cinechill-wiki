@@ -269,10 +269,26 @@
       <div class="log-title-row">
         <span class="new-badge">NEW</span>
         <div>
-          <h2>v1.0.0.7</h2>
+          <h2>v1.0.0.8</h2>
           <time datetime="2026-06-15">2026-06-15</time>
         </div>
       </div>
+      <div class="log-grid">
+        <article class="update-column">
+    <h3><span class="inline-new">NEW</span>RSS 真实库榜单升级</h3>
+    <p><strong>内置榜单：</strong>TMDB、Netflix、Apple TV+、Disney+、爱奇艺、腾讯视频 / WeTV 推荐源细分更多榜单，并把推荐源集中靠前显示。</p><p><strong>读取上限：</strong>所有内置源和自定义 RSS 同步统一限制前 500 条媒体，避免热门榜单一次拉取数千页导致预览或同步超时。</p><p><strong>卡片统计：</strong>真实库订阅卡片新增榜单数量、解析数量和硬链接数，分别对应 RSS 条目、TMDB 命中和成功硬链接数量。</p>
+  </article><article class="update-column">
+    <h3><span class="update-icon">FIX</span>预览稳定性</h3>
+    <p><strong>TMDB 请求：</strong>原生 TMDB 榜单统一走共享限速、代理和重试逻辑，预览时默认缩小采样，减少 502、SSL EOF 和 20 秒超时。</p><p><strong>封面显示：</strong>预览会修正 TMDB 相对海报地址，并为爱奇艺、B 站、腾讯视频、芒果 TV、咪咕等来源提供图片代理，减少外站防盗链导致的无图。</p><p><strong>预览界面：</strong>新建订阅预览改为类似发现页的海报平铺，预览按钮移动到底部，卡片高度不再被长标题撑开。</p>
+  </article><article class="update-column">
+    <h3><span class="update-icon">REL</span>发布与升级</h3>
+    <p><strong>正式版本：</strong>本次版本号为 <code>v1.0.0.8</code>。</p><p><strong>Docker 镜像：</strong>发布 <code>chillne/cinechill:v1.0.0.8</code>、<code>chillne/cinechill:1.0.0.8</code> 和 <code>latest</code>。</p><p><strong>升级建议：</strong>使用 RSS 真实库、内置榜单或 TMDB 推荐源的用户建议更新到本版本。</p>
+  </article>
+      </div>
+    </section>
+    <section class="card">
+      <h2>v1.0.0.7</h2>
+      <time datetime="2026-06-15">2026-06-15</time>
       <div class="log-grid">
         <article class="update-column">
     <h3><span class="inline-new">FIX</span>登录页手机端热修</h3>
