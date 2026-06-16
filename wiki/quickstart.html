@@ -289,9 +289,9 @@
       <h2>Docker run 快速启动</h2>
       <p>只想先跑起来，可以用 <code>docker run</code>。下面的 <code>CINECHILL_DIR</code> 是宿主机保存数据的目录，左边路径按你的 NAS 或服务器实际目录填写，右边 <code>/app/...</code> 是容器内固定目录，不要改。</p>
       <pre><code class="language-bash"># CineChill 数据根目录：填写你 NAS / 服务器上准备用来保存配置和素材的目录
-# 群晖示例：/volume1/docker/chillposter
-# Linux 示例：/opt/chillposter
-CINECHILL_DIR="/volume1/docker/chillposter"
+# 群晖示例：/volume1/docker/cinechill
+# Linux 示例：/opt/cinechill
+CINECHILL_DIR="/volume1/docker/cinechill"
 
 # WEB_PORT 是管理端宿主机访问端口；左边可改，右边容器内端口固定是 5256
 WEB_PORT="5256"
@@ -309,7 +309,7 @@ STRM_HOST="YOUR_NAS_IP"
 mkdir -p "$CINECHILL_DIR"/{config,fonts,templates,backups}
 
 docker run -d \
-  --name chillposter \
+  --name cinechill \
   --restart always \
   -p "${WEB_PORT}:5256" \
   -p "${GATEWAY_PORT}:8011" \
@@ -333,11 +333,11 @@ docker run -d \
       <p>长期运行更推荐 <code>docker compose</code>，目录结构清楚，也方便后续升级。把下面内容保存为 <code>docker-compose.yml</code>，先按注释修改媒体库路径和 NAS / 服务器 IP，再启动。</p>
       <pre><code class="language-yaml"># docker-compose.yml
 services:
-  chillposter:
+  cinechill:
     # CineChill 最新正式镜像；默认使用 latest，升级时执行 docker compose pull 后重建容器
     image: chillne/cinechill:latest
-    # 容器名称；Wiki 和排障命令默认按 chillposter 说明，不建议随意修改
-    container_name: chillposter
+    # 容器名称；Wiki 和排障命令默认按 cinechill 说明，不建议随意修改
+    container_name: cinechill
     # Docker 服务或 NAS 重启后自动拉起容器
     restart: always
 
@@ -382,7 +382,7 @@ docker compose up -d
 docker compose ps
 
 # 查看日志，排查启动失败或端口占用
-docker compose logs -f chillposter</code></pre>
+docker compose logs -f cinechill</code></pre>
     </section>
     <section class="card">
       <h2>最短上手路线</h2>
