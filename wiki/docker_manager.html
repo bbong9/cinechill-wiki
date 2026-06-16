@@ -309,7 +309,7 @@
 
     <section class="card">
       <h2>常见问题和排查</h2>
-      <ul><li>Docker API 不通时页面为空。</li><li>不要随意停止 CineChill 自己的容器。</li><li>升级前确认数据卷挂载正确。</li></ul>
+      <ul><li>Docker API 不通时页面为空，先检查 Compose 是否挂载 <code>/var/run/docker.sock:/var/run/docker.sock</code>。</li><li><code>docker.sock</code> 属于高权限挂载，只建议在自有 NAS / 服务器上使用，不要暴露到公网。</li><li>不要随意停止 CineChill 自己的容器。</li><li>升级前确认数据卷挂载正确，尤其是 <code>./config</code>、<code>./backups</code> 和媒体库路径。</li></ul>
     </section>
 
     <section class="card">
