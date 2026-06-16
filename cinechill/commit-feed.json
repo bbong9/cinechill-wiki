@@ -1,7 +1,32 @@
 {
   "sourceRepo": "Chill-lucky/CineChill",
-  "updatedAt": "2026-06-16T01:42:21.036Z",
+  "updatedAt": "2026-06-16T01:57:13.407Z",
   "entries": [
+    {
+      "id": "push-bb2abe1bdf8e3f33e42cf97bb7145c8da68b1734",
+      "type": "push",
+      "sourceRepo": "Chill-lucky/CineChill",
+      "branch": "main",
+      "before": "294991fa7ca2852f28535b5a9ed59acd73fefd71",
+      "after": "bb2abe1bdf8e3f33e42cf97bb7145c8da68b1734",
+      "actor": "Chill-lucky",
+      "pushedAt": "2026-06-16T09:55:45+08:00",
+      "compareUrl": "https://github.com/Chill-lucky/CineChill/compare/294991fa7ca2852f28535b5a9ed59acd73fefd71...bb2abe1bdf8e3f33e42cf97bb7145c8da68b1734",
+      "commitCount": 1,
+      "totalCommits": 1,
+      "commits": [
+        {
+          "sha": "bb2abe1bdf8e3f33e42cf97bb7145c8da68b1734",
+          "shortSha": "bb2abe1",
+          "title": "优化 115 上传流程和管理界面",
+          "category": "NEW",
+          "author": "Chill",
+          "timestamp": "2026-06-16T09:55:45+08:00",
+          "url": "https://github.com/Chill-lucky/CineChill/commit/bb2abe1bdf8e3f33e42cf97bb7145c8da68b1734",
+          "redacted": false
+        }
+      ]
+    },
     {
       "id": "push-294991fa7ca2852f28535b5a9ed59acd73fefd71",
       "type": "push",
