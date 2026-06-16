@@ -536,17 +536,15 @@ async function main() {
     return;
   }
 
-  const homeHtml = renderHome(nextState);
-  const changelogHtml = renderChangelog(nextState);
-
   const changes = [];
   if (hasNewEntry) {
     writeJson(STATE_FILE, nextState);
     changes.push(STATE_FILE);
   }
-  if (replaceMarkedBlock(HOME_FILE, HOME_START, HOME_END, homeHtml)) changes.push(HOME_FILE);
-  if (replaceMarkedBlock(CHANGELOG_FILE, LOG_START, LOG_END, changelogHtml)) changes.push(CHANGELOG_FILE);
-  if (updateSearchIndex(nextState, changelogHtml, homeHtml)) changes.push(SEARCH_INDEX_FILE);
+
+  // Formal release notes are maintained by hand. The sync workflow keeps the
+  // machine-readable feed for future tooling, but no longer renders raw push
+  // summaries into the public pages.
 
   const uniqueChanges = [...new Set(changes)];
   if (DRY_RUN) {

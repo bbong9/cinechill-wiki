@@ -285,47 +285,30 @@
     <p class="eyebrow">更新日志</p>
     <h1>更新日志</h1>
     <p class="lead">这里记录 CineChill 正式发布版本的主要变化。正式发布线从 v1.0.0.1 开始，按最新版本向下保留完整记录。</p>
-    <!-- AUTO_CINECHILL_COMMITS_LOG_START -->
     <section class="card update-log-card">
       <div class="log-title-row">
-        <span class="new-badge">AUTO</span>
+        <span class="new-badge">NEW</span>
         <div>
-          <h2>CineChill 实时提交摘要</h2>
-          <time datetime="2026-06-16T01:57:13.407Z">同步于 2026-06-16 09:57</time>
+          <h2>v1.0.0.9</h2>
+          <time datetime="2026-06-16">2026-06-16</time>
         </div>
       </div>
-      <p><strong>来源仓库：</strong><a href="https://github.com/Chill-lucky/CineChill">Chill-lucky/CineChill</a>。本区块由 GitHub Actions 在源仓库 push 后自动更新，只公开经过脱敏的 commit 首行摘要。</p>
-      <p><strong>公开边界：</strong>如果提交说明包含凭据线索、敏感链接或不适合公开展示的内容，脚本会用脱敏提示替代原文。</p>
-    </section>
-    <section class="card update-log-card">
-      <h2>main 分支 push</h2>
-      <time datetime="2026-06-16T09:55:45+08:00">2026-06-16 09:55</time>
       <div class="log-grid">
         <article class="update-column">
-          <h3><span class="inline-new">PUSH</span>提交摘要</h3>
-          <p><strong>来源：</strong><a href="https://github.com/Chill-lucky/CineChill">Chill-lucky/CineChill</a> · <a href="https://github.com/Chill-lucky/CineChill/compare/294991fa7ca2852f28535b5a9ed59acd73fefd71...bb2abe1bdf8e3f33e42cf97bb7145c8da68b1734">查看本次 diff</a></p>
-          <p><strong>元信息：</strong>触发人：Chill-lucky · 时间：2026-06-16 09:55 · 提交数：1</p>
-          <ul>
-          <li><span class="inline-new">NEW</span> 优化 115 上传流程和管理界面 <a href="https://github.com/Chill-lucky/CineChill/commit/bb2abe1bdf8e3f33e42cf97bb7145c8da68b1734"><code>bb2abe1</code></a> · Chill</li>
-          </ul>
-        </article>
+    <h3><span class="inline-new">NEW</span>115 秒传/上传工作台升级</h3>
+    <p><strong>本地上传：</strong>校验、秒传和真实上传拆分为独立线程设置，后台会分别统计校验中、秒传中、上传中和队列数量，避免一个并发参数同时影响所有阶段。</p><p><strong>任务看板：</strong>当前任务表、历史数据图和失败记录按工作台重新整理，能直接看到文件进度、上传体积、秒传体积、失败原因和重试状态。</p><p><strong>网盘秒传：</strong>工具箱保留网盘资源秒传入口，本地 115 秒传/上传移动到系统配置侧，两个场景的入口更清楚。</p>
+  </article><article class="update-column">
+    <h3><span class="update-icon">FIX</span>上传与整理稳定性</h3>
+    <p><strong>目标目录确认：</strong>上传或秒传完成后会检查文件父目录，必要时等待 115 移动任务完成；位置确认接口不可用时会按场景降级处理，减少“任务成功但文件没到目标目录”的情况。</p><p><strong>失败恢复：</strong>本地文件不存在、上传前变化、哈希过程中变化、Cookie 未配置、目录缺失等预期错误会以更清晰的原因进入失败或重试记录，不再淹没在堆栈日志里。</p><p><strong>TMDB 剧集识别：</strong>剧集候选会校验目标季集是否真实存在，降低同名剧、年份接近或缺少目标集时的误匹配概率。</p>
+  </article><article class="update-column">
+    <h3><span class="update-icon">UI</span>管理端体验整理</h3>
+    <p><strong>服务器配置：</strong>Emby、115 主账号、Cookie、回收站安全码和连接检测集中到同一配置页面，敏感输入默认按密文控件展示。</p><p><strong>通知模板：</strong>后端新增默认通知模板接口，前端可读取当前模板版本，微信和 Telegram 模板测试入口统一走现有通知链路。</p><p><strong>仪表盘状态：</strong>网络带宽设置改为可保存的配置项，并保留旧浏览器本地设置迁移，服务器状态卡片刷新后不再丢失带宽上限。</p>
+  </article><article class="update-column">
+    <h3><span class="update-icon">REL</span>发布与升级</h3>
+    <p><strong>正式版本：</strong>本次版本号为 <code>v1.0.0.9</code>。</p><p><strong>Docker 镜像：</strong><code>v1.0.0.9</code> 发布流程已触发，DockerHub 镜像 <code>chillne/cinechill:v1.0.0.9</code>、<code>chillne/cinechill:1.0.0.9</code> 和 <code>latest</code> 正在发布中。</p><p><strong>升级建议：</strong>使用 115 本地上传、网盘秒传、通知模板、Telegram 登录状态或媒体整理识别的用户建议更新到本版本。</p>
+  </article>
       </div>
     </section>
-    <section class="card">
-      <h2>main 分支 push</h2>
-      <time datetime="2026-06-16T01:41:11Z">2026-06-16 09:41</time>
-      <div class="log-grid">
-        <article class="update-column">
-          <h3><span class="inline-new">PUSH</span>提交摘要</h3>
-          <p><strong>来源：</strong><a href="https://github.com/Chill-lucky/CineChill">Chill-lucky/CineChill</a> · <a href="https://github.com/Chill-lucky/CineChill/compare/9e4aded926344b9dd871e4f288ef60c18d22d335...294991fa7ca2852f28535b5a9ed59acd73fefd71">查看本次 diff</a></p>
-          <p><strong>元信息：</strong>触发人：Chill-lucky · 时间：2026-06-16 09:41 · 提交数：1</p>
-          <ul>
-          <li><span class="inline-new">DOC</span> Add wiki commit sync workflow <a href="https://github.com/Chill-lucky/CineChill/commit/294991fa7ca2852f28535b5a9ed59acd73fefd71"><code>294991f</code></a> · Chill-lucky</li>
-          </ul>
-        </article>
-      </div>
-    </section>
-  <!-- AUTO_CINECHILL_COMMITS_LOG_END -->
     <section class="card update-log-card">
       <div class="log-title-row">
         <span class="new-badge">NEW</span>
