@@ -293,25 +293,40 @@
 # Linux 示例：/opt/chillposter
 CINECHILL_DIR="/volume1/docker/chillposter"
 
-# WEB_PORT 是宿主机访问端口；左边可改，右边容器内端口固定是 5256
+# WEB_PORT 是管理端宿主机访问端口；左边可改，右边容器内端口固定是 5256
 WEB_PORT="5256"
 
+# GATEWAY_PORT 是 302 / STRM 相关访问端口；左边可改，右边容器内端口固定是 8011
+GATEWAY_PORT="8011"
+
+# 本地媒体库宿主机路径：必须改成你自己的媒体路径，并且必须与 Emby 的媒体路径映射一模一样
+MEDIA_DIR="/path/to/your/media"
+
+# STRM 访问主机地址：改成你的 NAS / 服务器 IP，不要填 127.0.0.1
+STRM_HOST="YOUR_NAS_IP"
+
 # 先创建宿主机目录，避免 Docker 自动创建成权限不清晰的目录
-mkdir -p "$CINECHILL_DIR"/{config,fonts,templates,layouts,backups}
+mkdir -p "$CINECHILL_DIR"/{config,fonts,templates,backups}
 
 docker run -d \
   --name chillposter \
-  --restart unless-stopped \
+  --restart always \
   -p "${WEB_PORT}:5256" \
-  -e TZ=Asia/Shanghai \
+  -p "${GATEWAY_PORT}:8011" \
   -v "$CINECHILL_DIR/config:/app/config" \
   -v "$CINECHILL_DIR/fonts:/app/fonts" \
   -v "$CINECHILL_DIR/templates:/app/templates" \
-  -v "$CINECHILL_DIR/layouts:/app/layouts" \
   -v "$CINECHILL_DIR/backups:/app/backups" \
+  -v "$MEDIA_DIR:/media" \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  -e TZ=Asia/Shanghai \
+  -e CHILLPOSTER_LOCAL_MEDIA_ROOT=/media \
+  -e "CHILLPOSTER_STRM_HOST=${STRM_HOST}" \
+  -e CHILLPOSTER_MEDIA_METADATA_WORKERS=15 \
+  -e CHILLPOSTER_MEDIA_ORGANIZE_CONCURRENCY=4 \
   chillne/cinechill:latest</code></pre>
-      <ul><li><code>/app/config</code>：保存账号、Emby、115、TMDB、代理等运行配置。</li><li><code>/app/fonts</code>：放自定义字体，封面设计会读取这里。</li><li><code>/app/templates</code>：保存封面模板。</li><li><code>/app/layouts</code>：保存自定义布局。</li><li><code>/app/backups</code>：保存备份文件，建议持久化。</li></ul>
-      <p>启动后访问 <code>http://你的服务器IP:5256</code>。如果你把 <code>WEB_PORT</code> 改成了其他端口，例如 <code>10039</code>，访问地址就是 <code>http://你的服务器IP:10039</code>。</p>
+      <ul><li><code>/app/config</code>：保存账号、Emby、115、TMDB、代理等运行配置。</li><li><code>/app/fonts</code>：放自定义字体，封面设计会读取这里。</li><li><code>/app/templates</code>：保存封面模板。</li><li><code>/app/backups</code>：保存备份文件，建议持久化。</li><li><code>/media</code>：容器内媒体根目录，必须和 <code>CHILLPOSTER_LOCAL_MEDIA_ROOT</code> 保持一致。</li><li><code>/var/run/docker.sock</code>：Docker 管理页读取容器状态用，高权限挂载，只建议自有 NAS / 服务器使用。</li></ul>
+      <p>启动后访问 <code>http://你的服务器IP:5256</code>。如果你把 <code>WEB_PORT</code> 改成了其他端口，例如 <code>10039</code>，访问地址就是 <code>http://你的服务器IP:10039</code>；如果使用 STRM / 302 相关功能，还要确认 <code>GATEWAY_PORT</code> 对应端口已放行。</p>
     </section>
     <section class="card">
       <h2>Docker Compose 示例</h2>
