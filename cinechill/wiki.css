@@ -1647,3 +1647,87 @@ html.dark .doc-outline-content,
   -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M5 5.5H19C19.55 5.5 20 5.95 20 6.5V8.15C20 8.55 19.8 9.02 19.52 9.3L14.35 14.25C14.13 14.46 14 14.76 14 15.07V18.1C14 18.43 13.82 18.74 13.52 18.9L11.52 20.02C10.86 20.39 10 19.91 10 19.15V15.08C10 14.77 9.87 14.47 9.64 14.25L4.48 9.3C4.2 9.02 4 8.55 4 8.15V6.5C4 5.95 4.45 5.5 5 5.5Z' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat center/contain;
   mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M5 5.5H19C19.55 5.5 20 5.95 20 6.5V8.15C20 8.55 19.8 9.02 19.52 9.3L14.35 14.25C14.13 14.46 14 14.76 14 15.07V18.1C14 18.43 13.82 18.74 13.52 18.9L11.52 20.02C10.86 20.39 10 19.91 10 19.15V15.08C10 14.77 9.87 14.47 9.64 14.25L4.48 9.3C4.2 9.02 4 8.55 4 8.15V6.5C4 5.95 4.45 5.5 5 5.5Z' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat center/contain;
 }
+
+/* 20260618 global performance pass
+   Scope: reduce GPU paint cost without changing layout or content. */
+:root{
+  --liquid-glass-blur:saturate(145%) blur(8px);
+  --liquid-glass-shadow:0 6px 14px rgba(15,23,42,.07),0 16px 34px rgba(37,99,235,.06);
+  --liquid-glass-shadow-strong:0 10px 22px rgba(15,23,42,.09),0 24px 56px rgba(37,99,235,.08);
+}
+.dark{
+  --liquid-glass-shadow:0 8px 20px rgba(0,0,0,.24),0 0 24px rgba(92,115,231,.08);
+  --liquid-glass-shadow-strong:0 12px 30px rgba(0,0,0,.30),0 0 38px rgba(92,115,231,.10);
+}
+@media(min-width:960px){
+  .brand,
+  .DocSearch-Button,
+  .VPSwitchAppearance,
+  .top-menu,
+  .VPNav{
+    backdrop-filter:saturate(145%) blur(8px)!important;
+    -webkit-backdrop-filter:saturate(145%) blur(8px)!important;
+  }
+}
+.module-card,
+.feature-card,
+.doc .card,
+.screenshot,
+.browser-frame,
+.recent-version,
+.update-log-card,
+.VPLocalSearchBox .shell,
+.VPLocalSearchBox .search-bar,
+.VPLocalSearchBox .result,
+.doc-outline-content,
+.sidebar,
+.is-home .desktop-experience,
+.is-home .recent-updates,
+.is-home .feature-icon-wrapper,
+.doc pre,
+.card pre{
+  backdrop-filter:none!important;
+  -webkit-backdrop-filter:none!important;
+}
+.VPNavBarSearch #local-search:before,
+.VPNavBarSearch #local-search:after,
+.DocSearch-Button:before,
+.brand:before,
+.doc-outline::after{
+  filter:none!important;
+  will-change:auto!important;
+}
+.VPNavBarSearch #local-search:before{opacity:.22!important}
+.VPNavBarSearch #local-search:after{opacity:.32!important}
+.DocSearch-Button:before{opacity:.18!important}
+.brand:before{opacity:.38!important}
+.doc-outline::after{opacity:.34!important}
+.mouse-gradient-trail-canvas{
+  opacity:.42;
+  mix-blend-mode:normal;
+}
+.dark .mouse-gradient-trail-canvas{
+  opacity:.36;
+  mix-blend-mode:screen;
+}
+@media(max-width:959px){
+  .VPNav,
+  .brand,
+  .DocSearch-Button,
+  .VPSwitchAppearance{
+    backdrop-filter:none!important;
+    -webkit-backdrop-filter:none!important;
+  }
+}
+.browser-header,
+.home-hero .hero-actions a,
+.home-hero .hero-actions a.rainbow-start-button,
+.browser-frame .browser-header{
+  backdrop-filter:none!important;
+  -webkit-backdrop-filter:none!important;
+}
+.VPSwitchAppearance .check,
+.brand-mark{
+  backdrop-filter:none!important;
+  -webkit-backdrop-filter:none!important;
+}

@@ -6,7 +6,7 @@
   <title>资源配置 | CineChill Wiki</title>
   <meta name="description" content="新版资源配置集中展示封面布局模式和预设资源，是封面设计、手动封面、自动封面的素材基础。">
   <link rel="icon" type="image/png" href="/cinechill-wiki/cinechill/chill.png?v=20260609-logo-v2">
-  <link rel="stylesheet" href="/cinechill-wiki/cinechill/wiki.css?v=20260615-search-key-center-v3">
+  <link rel="stylesheet" href="/cinechill-wiki/cinechill/wiki.css?v=20260618-perf-pass1">
   <script>
     (() => {
       const key = 'cinechill-wiki-theme';
@@ -65,7 +65,7 @@
           const normalizedHref = href.startsWith('/') ? href.slice(1) : href;
           return new URL(basePath + normalizedHref, window.location.origin).href;
         };
-        const searchIndexUrl = () => new URL('cinechill/search-index.json', window.location.origin + siteBasePath()).href;
+        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260618-perf-pass1', window.location.origin + siteBasePath()).href;
         const loadSearchIndex = () => {
           if (!searchIndexPromise) {
             searchIndexPromise = fetch(searchIndexUrl())
@@ -391,13 +391,22 @@
           marker.style.top = Math.max(0, Math.round(markerTop)) + 'px';
         }
       };
-      window.addEventListener('scroll', setActive, { passive: true });
-      window.addEventListener('resize', setActive);
+      let outlineTicking = false;
+      const requestSetActive = () => {
+        if (outlineTicking) return;
+        outlineTicking = true;
+        window.requestAnimationFrame(() => {
+          outlineTicking = false;
+          setActive();
+        });
+      };
+      window.addEventListener('scroll', requestSetActive, { passive: true });
+      window.addEventListener('resize', requestSetActive);
       setActive();
     })();
   </script>
   <script src="/cinechill-wiki/cinechill/code-copy.js?v=20260615-code-copy-v3" defer></script>
-  <script src="/cinechill-wiki/cinechill/mouse-gradient-trail.js?v=20260615-mouse-trail-thin-v1" defer></script>
+  <script src="/cinechill-wiki/cinechill/mouse-gradient-trail.js?v=20260618-perf-pass1" defer></script>
   <script src="/cinechill-wiki/cinechill/top-nav-indicator.js?v=20260615-nav-line-ratio-v2" defer></script>
 </body>
 </html>

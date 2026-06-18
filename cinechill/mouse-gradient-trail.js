@@ -1,21 +1,22 @@
 (() => {
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
-  const desktop = window.matchMedia('(min-width: 768px)');
+  const desktop = window.matchMedia('(min-width: 960px)');
 
   if (document.querySelector('.layout.is-home')) return;
   if (reduceMotion.matches || !finePointer.matches || !desktop.matches) return;
 
   const config = {
-    trails: 24,
-    size: 28,
-    friction: 0.54,
-    dampening: 0.026,
+    trails: 8,
+    size: 14,
+    friction: 0.58,
+    dampening: 0.022,
     tension: 0.988,
-    lineWidth: 2.4,
-    alpha: 0.07,
-    idleMs: 1350,
-    maxDpr: 1.6,
+    lineWidth: 1.25,
+    alpha: 0.052,
+    idleMs: 520,
+    maxDpr: 1,
+    minMoveDistance: 7,
   };
 
   let canvas;
@@ -28,7 +29,9 @@
   let initialized = false;
   let raf = 0;
   let lastMoveAt = 0;
+  let lastPointerAt = 0;
   const pos = { x: 0, y: 0 };
+  const lastPos = { x: -9999, y: -9999 };
 
   class TrailNode {
     constructor(x, y) {
@@ -41,8 +44,8 @@
 
   class TrailLine {
     constructor(index) {
-      this.spring = 0.43 + (index / config.trails) * 0.028 + (Math.random() - 0.5) * 0.035;
-      this.friction = config.friction + (Math.random() - 0.5) * 0.012;
+      this.spring = 0.40 + (index / config.trails) * 0.024;
+      this.friction = config.friction;
       this.nodes = Array.from({ length: config.size }, () => new TrailNode(pos.x, pos.y));
     }
 
@@ -87,13 +90,15 @@
       const penultimate = this.nodes[this.nodes.length - 2];
       const last = this.nodes[this.nodes.length - 1];
       ctx.quadraticCurveTo(penultimate.x, penultimate.y, last.x, last.y);
-      ctx.strokeStyle = `hsla(${(hue + index * 1.9) % 360}, 100%, 56%, ${config.alpha})`;
-      ctx.lineWidth = config.lineWidth + (index / config.trails) * 0.45;
+      ctx.strokeStyle = `hsla(${(hue + index * 3.6) % 360}, 100%, 56%, ${config.alpha})`;
+      ctx.lineWidth = config.lineWidth + (index / config.trails) * 0.18;
       ctx.stroke();
     }
   }
 
   const introLocked = () => document.documentElement.classList.contains('intro-locked');
+  const searchOpen = () => document.documentElement.classList.contains('search-open');
+  const shouldPause = () => document.hidden || introLocked() || searchOpen() || reduceMotion.matches || !finePointer.matches || !desktop.matches;
 
   const ensureCanvas = () => {
     if (canvas) return;
@@ -101,7 +106,7 @@
     canvas.className = 'mouse-gradient-trail-canvas';
     canvas.setAttribute('aria-hidden', 'true');
     document.body.appendChild(canvas);
-    ctx = canvas.getContext('2d', { alpha: true });
+    ctx = canvas.getContext('2d', { alpha: true, desynchronized: true });
     ctx.lineCap = 'round';
     ctx.lineJoin = 'round';
     resize();
@@ -127,8 +132,7 @@
   };
 
   const clear = () => {
-    if (!ctx) return;
-    ctx.clearRect(0, 0, width, height);
+    if (ctx) ctx.clearRect(0, 0, width, height);
   };
 
   const stop = () => {
@@ -138,54 +142,64 @@
   };
 
   const render = (time) => {
-    if (!running || document.hidden || introLocked()) {
+    if (!running || shouldPause()) {
       stop();
       return;
     }
 
     clear();
     ctx.globalCompositeOperation = 'lighter';
-
-    const baseHue = 350 + Math.sin(time * 0.0012) * 28;
+    const baseHue = 350 + Math.sin(time * 0.001) * 24;
     for (let index = 0; index < lines.length; index += 1) {
       const line = lines[index];
       line.update();
       line.draw(index, baseHue);
     }
-
     ctx.globalCompositeOperation = 'source-over';
 
     if (time - lastMoveAt > config.idleMs) {
       stop();
       return;
     }
-
     raf = window.requestAnimationFrame(render);
   };
 
   const start = () => {
-    if (running || document.hidden || introLocked()) return;
+    if (running || shouldPause()) return;
     running = true;
     raf = window.requestAnimationFrame(render);
   };
 
   const handlePointerMove = (event) => {
     if (event.pointerType && event.pointerType !== 'mouse' && event.pointerType !== 'pen') return;
-    if (introLocked() || reduceMotion.matches || !finePointer.matches || !desktop.matches) return;
+    if (shouldPause()) return;
 
+    const now = performance.now();
+    if (now - lastPointerAt < 24) return;
+    const dx = event.clientX - lastPos.x;
+    const dy = event.clientY - lastPos.y;
+    if (dx * dx + dy * dy < config.minMoveDistance * config.minMoveDistance) return;
+
+    lastPointerAt = now;
+    lastPos.x = event.clientX;
+    lastPos.y = event.clientY;
     ensureCanvas();
     pos.x = event.clientX;
     pos.y = event.clientY;
-    lastMoveAt = performance.now();
+    lastMoveAt = now;
 
     if (!initialized) resetLines();
     start();
   };
 
+  let resizeTimer = 0;
   const handleResize = () => {
     if (!canvas) return;
-    resize();
-    if (initialized) resetLines();
+    window.clearTimeout(resizeTimer);
+    resizeTimer = window.setTimeout(() => {
+      resize();
+      if (initialized) resetLines();
+    }, 120);
   };
 
   window.addEventListener('pointermove', handlePointerMove, { passive: true });
@@ -194,7 +208,7 @@
     if (document.hidden) stop();
   });
 
-  reduceMotion.addEventListener?.('change', () => {
-    if (reduceMotion.matches) stop();
-  });
+  reduceMotion.addEventListener?.('change', stop);
+  finePointer.addEventListener?.('change', stop);
+  desktop.addEventListener?.('change', stop);
 })();
