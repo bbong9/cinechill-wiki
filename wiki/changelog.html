@@ -284,500 +284,1454 @@
       <article class="doc update-log-page">
     <p class="eyebrow">更新日志</p>
     <h1>更新日志</h1>
-    <p class="lead">这里记录 CineChill 正式发布版本的主要变化。每个版本都有独立页面，当前更新到 v1.0.0.69（2026-08-04）。v1.0.0.10–v1.0.0.54 来自本地正式 Git tag；v1.0.0.55–v1.0.0.69 按本地发布基线整理，源仓库未发现对应正式 tag。</p>
-    <section class="card update-log-card">
-      <div class="log-title-row">
-        <span class="new-badge">INDEX</span>
+    <p class="lead">这里记录 CineChill 正式发布版本的主要变化。点击版本标题即可在当前页面展开或收起，不会跳转到其他页面。当前更新到 v1.0.0.69（2026-08-04）。v1.0.0.10–v1.0.0.54 来自本地正式 Git tag；v1.0.0.55–v1.0.0.69 按本地发布基线整理，源仓库未发现对应正式 tag。</p>
+    <style>
+      .version-accordion > summary {
+        display: flex;
+        list-style: none;
+        cursor: pointer;
+        margin-bottom: 0;
+      }
+      .version-accordion > summary::-webkit-details-marker {
+        display: none;
+      }
+      .version-accordion[open] > summary {
+        margin-bottom: 32px;
+      }
+      .version-accordion > summary:focus-visible {
+        outline: 2px solid var(--vp-c-brand-1);
+        outline-offset: 4px;
+        border-radius: 8px;
+      }
+      .version-accordion .accordion-hint {
+        position: relative;
+        flex: 0 0 18px;
+        width: 18px;
+        height: 18px;
+        margin-left: auto;
+        border: 1.5px solid var(--vp-c-text-2);
+        border-radius: 50%;
+      }
+      .version-accordion .accordion-hint::before,
+      .version-accordion .accordion-hint::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 8px;
+        height: 1.5px;
+        background: currentColor;
+        transform: translate(-50%, -50%);
+      }
+      .version-accordion .accordion-hint::after {
+        transform: translate(-50%, -50%) rotate(90deg);
+      }
+      .version-accordion[open] .accordion-hint::after {
+        opacity: 0;
+      }
+      .version-accordion[open] {
+        border-color: color-mix(in srgb, var(--vp-c-brand-1) 35%, var(--vp-c-divider));
+      }
+      .version-accordion .version-content {
+        padding-top: 0;
+      }
+    </style>
+    <details class="card update-log-card version-accordion" open>
+      <summary class="log-title-row">
+        <span class="new-badge">NEW</span>
         <div>
-          <h2>版本列表</h2>
-          <time datetime="2026-08-04">v1.0.0.1–v1.0.0.69</time>
+          <h2 id="v1-0-0-69">v1.0.0.69</h2>
+          <time datetime="2026-08-04">2026-08-04</time>
         </div>
+        <span class="accordion-hint" aria-hidden="true"></span>
+      </summary>
+      <div class="version-content">
+<div class="log-grid">
+        <article class="update-column">
+          <h3><span class="inline-new">NEW</span>上传工作台与管理控制</h3>
+          <p>提升 115 上传管线、上传历史和快速复查的稳定性。</p><p>改进上传统计、分片上传、异常重试和任务状态整理。</p>
+        </article>
+        <article class="update-column">
+          <h3><span class="inline-new">FIX</span>任务与媒体识别稳定性</h3>
+          <p>修复上传重试、任务清理和异常恢复中的边界问题。</p><p>延续 VP9 质量选择、站点监控下载和媒体整理稳定性优化。</p>
+        </article>
+        <article class="update-column">
+          <h3><span class="update-icon">UI</span>管理端体验</h3>
+          <p>优化上传工作台、任务日志和 Docker 管理相关交互。</p>
+        </article>
       </div>
-      <ul class="version-index-list">
-        <li>
-          <a class="version-index-link" href="/cinechill-wiki/wiki/changelog/v1.0.0.69.html">
-            <strong>v1.0.0.69</strong>
-            <time datetime="2026-08-04">2026-08-04</time>
-            <span>提升 115 上传管线、上传历史和快速复查的稳定性。</span>
-          </a>
-        </li>
-        <li>
-          <a class="version-index-link" href="/cinechill-wiki/wiki/changelog/v1.0.0.68.html">
-            <strong>v1.0.0.68</strong>
-            <time datetime="2026-08-02">2026-08-02</time>
-            <span>修复 VP9 视频整理与洗版判断。</span>
-          </a>
-        </li>
-        <li>
-          <a class="version-index-link" href="/cinechill-wiki/wiki/changelog/v1.0.0.67.html">
-            <strong>v1.0.0.67</strong>
-            <time datetime="2026-07-31">2026-07-31</time>
-            <span>加强 115 上传失败重试。</span>
-          </a>
-        </li>
-        <li>
-          <a class="version-index-link" href="/cinechill-wiki/wiki/changelog/v1.0.0.66.html">
-            <strong>v1.0.0.66</strong>
-            <time datetime="2026-07-30">2026-07-30</time>
-            <span>改进 MoviePilot 站点监控和任务日志。</span>
-          </a>
-        </li>
-        <li>
-          <a class="version-index-link" href="/cinechill-wiki/wiki/changelog/v1.0.0.65.html">
-            <strong>v1.0.0.65</strong>
-            <time datetime="2026-07-24">2026-07-24</time>
-            <span>移除 MoviePilot 站点累计错误指标。</span>
-          </a>
-        </li>
-        <li>
-          <a class="version-index-link" href="/cinechill-wiki/wiki/changelog/v1.0.0.64.html">
-            <strong>v1.0.0.64</strong>
-            <time datetime="2026-07-24">2026-07-24</time>
-            <span>修复未匹配完整下载器任务时的即时清理问题。</span>
-          </a>
-        </li>
-        <li>
-          <a class="version-index-link" href="/cinechill-wiki/wiki/changelog/v1.0.0.63.html">
-            <strong>v1.0.0.63</strong>
-            <time datetime="2026-07-23">2026-07-23</time>
-            <span>重构 115 上传清理流程。</span>
-          </a>
-        </li>
-        <li>
-          <a class="version-index-link" href="/cinechill-wiki/wiki/changelog/v1.0.0.62.html">
-            <strong>v1.0.0.62</strong>
-            <time datetime="2026-07-21">2026-07-21</time>
-            <span>改进 115 上传进度、历史记录和扫描日志。</span>
-          </a>
-        </li>
-        <li>
-          <a class="version-index-link" href="/cinechill-wiki/wiki/changelog/v1.0.0.61.html">
-            <strong>v1.0.0.61</strong>
-            <time datetime="2026-07-20">2026-07-20</time>
-            <span>修复 MoviePilot 年份校验。</span>
-          </a>
-        </li>
-        <li>
-          <a class="version-index-link" href="/cinechill-wiki/wiki/changelog/v1.0.0.60.html">
-            <strong>v1.0.0.60</strong>
-            <time datetime="2026-07-20">2026-07-20</time>
-            <span>稳定 115 上传管线、上传历史和下载任务清理。</span>
-          </a>
-        </li>
-        <li>
-          <a class="version-index-link" href="/cinechill-wiki/wiki/changelog/v1.0.0.59.html">
-            <strong>v1.0.0.59</strong>
-            <time datetime="2026-07-19">2026-07-19</time>
-            <span>稳定 AI 剧集验证流程。</span>
-          </a>
-        </li>
-        <li>
-          <a class="version-index-link" href="/cinechill-wiki/wiki/changelog/v1.0.0.58.html">
-            <strong>v1.0.0.58</strong>
-            <time datetime="2026-07-17">2026-07-17</time>
-            <span>完善传输服务、回调处理和助手工具联动。</span>
-          </a>
-        </li>
-        <li>
-          <a class="version-index-link" href="/cinechill-wiki/wiki/changelog/v1.0.0.57.html">
-            <strong>v1.0.0.57</strong>
-            <time datetime="2026-07-17">2026-07-17</time>
-            <span>站点监控支持 REMUX 类型识别。</span>
-          </a>
-        </li>
-        <li>
-          <a class="version-index-link" href="/cinechill-wiki/wiki/changelog/v1.0.0.56.html">
-            <strong>v1.0.0.56</strong>
-            <time datetime="2026-07-17">2026-07-17</time>
-            <span>稳定 MoviePilot 站点监控和资源处理流程。</span>
-          </a>
-        </li>
-        <li>
-          <a class="version-index-link" href="/cinechill-wiki/wiki/changelog/v1.0.0.55.html">
-            <strong>v1.0.0.55</strong>
-            <time datetime="2026-07-16">2026-07-16</time>
-            <span>新增 MoviePilot 站点监控能力和管理页面。</span>
-          </a>
-        </li>
-        <li>
-          <a class="version-index-link" href="/cinechill-wiki/wiki/changelog/v1.0.0.54.html">
-            <strong>v1.0.0.54</strong>
-            <time datetime="2026-07-15">2026-07-15</time>
-            <span>优化 RSS 分类识别和同步稳定性。</span>
-          </a>
-        </li>
-        <li>
-          <a class="version-index-link" href="/cinechill-wiki/wiki/changelog/v1.0.0.53.html">
-            <strong>v1.0.0.53</strong>
-            <time datetime="2026-07-15">2026-07-15</time>
-            <span>修复封面字幕缺失时的回退处理。</span>
-          </a>
-        </li>
-        <li>
-          <a class="version-index-link" href="/cinechill-wiki/wiki/changelog/v1.0.0.52.html">
-            <strong>v1.0.0.52</strong>
-            <time datetime="2026-07-15">2026-07-15</time>
-            <span>稳定真实媒体库与 STRM 同步。</span>
-          </a>
-        </li>
-        <li>
-          <a class="version-index-link" href="/cinechill-wiki/wiki/changelog/v1.0.0.51.html">
-            <strong>v1.0.0.51</strong>
-            <time datetime="2026-07-15">2026-07-15</time>
-            <span>优化订阅生命周期、历史记录和剧集进度接口。</span>
-          </a>
-        </li>
-        <li>
-          <a class="version-index-link" href="/cinechill-wiki/wiki/changelog/v1.0.0.50.html">
-            <strong>v1.0.0.50</strong>
-            <time datetime="2026-07-14">2026-07-14</time>
-            <span>扩展发现源和官方排行数据能力。</span>
-          </a>
-        </li>
-        <li>
-          <a class="version-index-link" href="/cinechill-wiki/wiki/changelog/v1.0.0.49.html">
-            <strong>v1.0.0.49</strong>
-            <time datetime="2026-07-14">2026-07-14</time>
-            <span>稳定 ffprobe 探测及视频质量元数据处理。</span>
-          </a>
-        </li>
-        <li>
-          <a class="version-index-link" href="/cinechill-wiki/wiki/changelog/v1.0.0.48.html">
-            <strong>v1.0.0.48</strong>
-            <time datetime="2026-07-14">2026-07-14</time>
-            <span>优化缺失剧集页面的分页、首屏加载和移动端体验。</span>
-          </a>
-        </li>
-        <li>
-          <a class="version-index-link" href="/cinechill-wiki/wiki/changelog/v1.0.0.47.html">
-            <strong>v1.0.0.47</strong>
-            <time datetime="2026-07-13">2026-07-13</time>
-            <span>优化移动端导航、发现页、订阅页和整理设置布局。</span>
-          </a>
-        </li>
-        <li>
-          <a class="version-index-link" href="/cinechill-wiki/wiki/changelog/v1.0.0.46.html">
-            <strong>v1.0.0.46</strong>
-            <time datetime="2026-07-12">2026-07-12</time>
-            <span>修复 115 Open Token 续期处理。</span>
-          </a>
-        </li>
-        <li>
-          <a class="version-index-link" href="/cinechill-wiki/wiki/changelog/v1.0.0.45.html">
-            <strong>v1.0.0.45</strong>
-            <time datetime="2026-07-12">2026-07-12</time>
-            <span>优化订阅生命周期、历史记录和订阅页面加载。</span>
-          </a>
-        </li>
-        <li>
-          <a class="version-index-link" href="/cinechill-wiki/wiki/changelog/v1.0.0.44.html">
-            <strong>v1.0.0.44</strong>
-            <time datetime="2026-07-10">2026-07-10</time>
-            <span>按业务能力拆分和整理后台服务模块。</span>
-          </a>
-        </li>
-        <li>
-          <a class="version-index-link" href="/cinechill-wiki/wiki/changelog/v1.0.0.43.html">
-            <strong>v1.0.0.43</strong>
-            <time datetime="2026-07-09">2026-07-09</time>
-            <span>提升 Emby 媒体库同步可靠性。</span>
-          </a>
-        </li>
-        <li>
-          <a class="version-index-link" href="/cinechill-wiki/wiki/changelog/v1.0.0.42.html">
-            <strong>v1.0.0.42</strong>
-            <time datetime="2026-07-08">2026-07-08</time>
-            <span>修复 P115 目录遍历遇到 HTTP 405 时的处理。</span>
-          </a>
-        </li>
-        <li>
-          <a class="version-index-link" href="/cinechill-wiki/wiki/changelog/v1.0.0.41.html">
-            <strong>v1.0.0.41</strong>
-            <time datetime="2026-07-07">2026-07-07</time>
-            <span>优化元数据回填进度和任务状态处理。</span>
-          </a>
-        </li>
-        <li>
-          <a class="version-index-link" href="/cinechill-wiki/wiki/changelog/v1.0.0.40.html">
-            <strong>v1.0.0.40</strong>
-            <time datetime="2026-07-07">2026-07-07</time>
-            <span>修复 TMDB 元数据回填的写入结果报告。</span>
-          </a>
-        </li>
-        <li>
-          <a class="version-index-link" href="/cinechill-wiki/wiki/changelog/v1.0.0.39.html">
-            <strong>v1.0.0.39</strong>
-            <time datetime="2026-07-07">2026-07-07</time>
-            <span>增加元数据修复策略和相关管理面板。</span>
-          </a>
-        </li>
-        <li>
-          <a class="version-index-link" href="/cinechill-wiki/wiki/changelog/v1.0.0.38.html">
-            <strong>v1.0.0.38</strong>
-            <time datetime="2026-07-05">2026-07-05</time>
-            <span>修复 115 应用 API 兼容性。</span>
-          </a>
-        </li>
-        <li>
-          <a class="version-index-link" href="/cinechill-wiki/wiki/changelog/v1.0.0.37.html">
-            <strong>v1.0.0.37</strong>
-            <time datetime="2026-07-05">2026-07-05</time>
-            <span>修复 STRM 剧集的 TMDB 元数据刷新。</span>
-          </a>
-        </li>
-        <li>
-          <a class="version-index-link" href="/cinechill-wiki/wiki/changelog/v1.0.0.36.html">
-            <strong>v1.0.0.36</strong>
-            <time datetime="2026-07-05">2026-07-05</time>
-            <span>修复 115 应用 API 兼容性。</span>
-          </a>
-        </li>
-        <li>
-          <a class="version-index-link" href="/cinechill-wiki/wiki/changelog/v1.0.0.35.html">
-            <strong>v1.0.0.35</strong>
-            <time datetime="2026-07-04">2026-07-04</time>
-            <span>固定并集成 p115client 版本。</span>
-          </a>
-        </li>
-        <li>
-          <a class="version-index-link" href="/cinechill-wiki/wiki/changelog/v1.0.0.34.html">
-            <strong>v1.0.0.34</strong>
-            <time datetime="2026-07-03">2026-07-03</time>
-            <span>优化 RSS 订阅、发现页和缺失剧集工作流。</span>
-          </a>
-        </li>
-        <li>
-          <a class="version-index-link" href="/cinechill-wiki/wiki/changelog/v1.0.0.33.html">
-            <strong>v1.0.0.33</strong>
-            <time datetime="2026-07-03">2026-07-03</time>
-            <span>修复媒体整理重做流程。</span>
-          </a>
-        </li>
-        <li>
-          <a class="version-index-link" href="/cinechill-wiki/wiki/changelog/v1.0.0.32.html">
-            <strong>v1.0.0.32</strong>
-            <time datetime="2026-07-01">2026-07-01</time>
-            <span>修复 MoviePilot RSS 重复订阅。</span>
-          </a>
-        </li>
-        <li>
-          <a class="version-index-link" href="/cinechill-wiki/wiki/changelog/v1.0.0.31.html">
-            <strong>v1.0.0.31</strong>
-            <time datetime="2026-07-01">2026-07-01</time>
-            <span>修复 STRM 元数据处理。</span>
-          </a>
-        </li>
-        <li>
-          <a class="version-index-link" href="/cinechill-wiki/wiki/changelog/v1.0.0.30.html">
-            <strong>v1.0.0.30</strong>
-            <time datetime="2026-06-30">2026-06-30</time>
-            <span>改进 115 登录、二维码授权和应用 API 兼容性。</span>
-          </a>
-        </li>
-        <li>
-          <a class="version-index-link" href="/cinechill-wiki/wiki/changelog/v1.0.0.29.html">
-            <strong>v1.0.0.29</strong>
-            <time datetime="2026-06-30">2026-06-30</time>
-            <span>支持手动重做时覆盖剧集识别结果。</span>
-          </a>
-        </li>
-        <li>
-          <a class="version-index-link" href="/cinechill-wiki/wiki/changelog/v1.0.0.28.html">
-            <strong>v1.0.0.28</strong>
-            <time datetime="2026-06-30">2026-06-30</time>
-            <span>增加 Emby Web 302 播放兼容处理。</span>
-          </a>
-        </li>
-        <li>
-          <a class="version-index-link" href="/cinechill-wiki/wiki/changelog/v1.0.0.27.html">
-            <strong>v1.0.0.27</strong>
-            <time datetime="2026-06-29">2026-06-29</time>
-            <span>修复 AI 整理重试后的历史状态显示。</span>
-          </a>
-        </li>
-        <li>
-          <a class="version-index-link" href="/cinechill-wiki/wiki/changelog/v1.0.0.26.html">
-            <strong>v1.0.0.26</strong>
-            <time datetime="2026-06-29">2026-06-29</time>
-            <span>新增订阅管理页面及订阅相关接口。</span>
-          </a>
-        </li>
-        <li>
-          <a class="version-index-link" href="/cinechill-wiki/wiki/changelog/v1.0.0.25.html">
-            <strong>v1.0.0.25</strong>
-            <time datetime="2026-06-28">2026-06-28</time>
-            <span>优化仪表盘交互、海报加载和媒体卡片。</span>
-          </a>
-        </li>
-        <li>
-          <a class="version-index-link" href="/cinechill-wiki/wiki/changelog/v1.0.0.24.html">
-            <strong>v1.0.0.24</strong>
-            <time datetime="2026-06-27">2026-06-27</time>
-            <span>修复媒体整理中残留洗版候选的问题。</span>
-          </a>
-        </li>
-        <li>
-          <a class="version-index-link" href="/cinechill-wiki/wiki/changelog/v1.0.0.23.html">
-            <strong>v1.0.0.23</strong>
-            <time datetime="2026-06-27">2026-06-27</time>
-            <span>修复媒体整理中的剧集处理逻辑。</span>
-          </a>
-        </li>
-        <li>
-          <a class="version-index-link" href="/cinechill-wiki/wiki/changelog/v1.0.0.22.html">
-            <strong>v1.0.0.22</strong>
-            <time datetime="2026-06-27">2026-06-27</time>
-            <span>增强媒体整理失败恢复与重试能力。</span>
-          </a>
-        </li>
-        <li>
-          <a class="version-index-link" href="/cinechill-wiki/wiki/changelog/v1.0.0.21.html">
-            <strong>v1.0.0.21</strong>
-            <time datetime="2026-06-26">2026-06-26</time>
-            <span>统一 AI 剧集验证流程。</span>
-          </a>
-        </li>
-        <li>
-          <a class="version-index-link" href="/cinechill-wiki/wiki/changelog/v1.0.0.20.html">
-            <strong>v1.0.0.20</strong>
-            <time datetime="2026-06-25">2026-06-25</time>
-            <span>扩展 AI 助手控制能力。</span>
-          </a>
-        </li>
-        <li>
-          <a class="version-index-link" href="/cinechill-wiki/wiki/changelog/v1.0.0.19.html">
-            <strong>v1.0.0.19</strong>
-            <time datetime="2026-06-25">2026-06-25</time>
-            <span>新增 AI 助手工具、提醒和权限控制基础能力。</span>
-          </a>
-        </li>
-        <li>
-          <a class="version-index-link" href="/cinechill-wiki/wiki/changelog/v1.0.0.18.html">
-            <strong>v1.0.0.18</strong>
-            <time datetime="2026-06-24">2026-06-24</time>
-            <span>改进管理端页面和容器管理交互。</span>
-          </a>
-        </li>
-        <li>
-          <a class="version-index-link" href="/cinechill-wiki/wiki/changelog/v1.0.0.17.html">
-            <strong>v1.0.0.17</strong>
-            <time datetime="2026-06-23">2026-06-23</time>
-            <span>增加 DockerHub 拉取认证配置。</span>
-          </a>
-        </li>
-        <li>
-          <a class="version-index-link" href="/cinechill-wiki/wiki/changelog/v1.0.0.16.html">
-            <strong>v1.0.0.16</strong>
-            <time datetime="2026-06-18">2026-06-18</time>
-            <span>整理媒体时排除光盘源文件，避免误处理。</span>
-          </a>
-        </li>
-        <li>
-          <a class="version-index-link" href="/cinechill-wiki/wiki/changelog/v1.0.0.15.html">
-            <strong>v1.0.0.15</strong>
-            <time datetime="2026-06-17">2026-06-17</time>
-            <span>修复路由加载遮罩与当前主题不一致的问题。</span>
-          </a>
-        </li>
-        <li>
-          <a class="version-index-link" href="/cinechill-wiki/wiki/changelog/v1.0.0.14.html">
-            <strong>v1.0.0.14</strong>
-            <time datetime="2026-06-17">2026-06-17</time>
-            <span>新增明暗主题切换。</span>
-          </a>
-        </li>
-        <li>
-          <a class="version-index-link" href="/cinechill-wiki/wiki/changelog/v1.0.0.13.html">
-            <strong>v1.0.0.13</strong>
-            <time datetime="2026-06-17">2026-06-17</time>
-            <span>资源搜索时自动推断缺失剧集所属季。</span>
-          </a>
-        </li>
-        <li>
-          <a class="version-index-link" href="/cinechill-wiki/wiki/changelog/v1.0.0.12.html">
-            <strong>v1.0.0.12</strong>
-            <time datetime="2026-06-17">2026-06-17</time>
-            <span>改进缺失剧集删除流程及媒体库同步。</span>
-          </a>
-        </li>
-        <li>
-          <a class="version-index-link" href="/cinechill-wiki/wiki/changelog/v1.0.0.11.html">
-            <strong>v1.0.0.11</strong>
-            <time datetime="2026-06-16">2026-06-16</time>
-            <span>新增 FNOS 登录与授权页面。</span>
-          </a>
-        </li>
-        <li>
-          <a class="version-index-link" href="/cinechill-wiki/wiki/changelog/v1.0.0.10.html">
-            <strong>v1.0.0.10</strong>
-            <time datetime="2026-06-16">2026-06-16</time>
-            <span>调整 115 上传工作台流程与状态展示。</span>
-          </a>
-        </li>
-        <li>
-          <a class="version-index-link" href="/cinechill-wiki/wiki/changelog/v1.0.0.9.html">
-            <strong>v1.0.0.9</strong>
-            <time datetime="2026-06-16">2026-06-16</time>
-            <span>本地上传： 校验、秒传和真实上传拆分为独立线程设置，后台会分别统计校验中、秒传中、上传中和队列数量，避免一个并发参数同时影响所有阶段。</span>
-          </a>
-        </li>
-        <li>
-          <a class="version-index-link" href="/cinechill-wiki/wiki/changelog/v1.0.0.8.html">
-            <strong>v1.0.0.8</strong>
-            <time datetime="2026-06-15">2026-06-15</time>
-            <span>内置榜单： TMDB、Netflix、Apple TV+、Disney+、爱奇艺、腾讯视频 / WeTV 推荐源细分更多榜单，并把推荐源集中靠前显示。</span>
-          </a>
-        </li>
-        <li>
-          <a class="version-index-link" href="/cinechill-wiki/wiki/changelog/v1.0.0.7.html">
-            <strong>v1.0.0.7</strong>
-            <time datetime="2026-06-15">2026-06-15</time>
-            <span>卡片居中： 手机端登录卡片改为在可视区域内上下左右居中，两侧保留安全留白，避免贴边或偏移。</span>
-          </a>
-        </li>
-        <li>
-          <a class="version-index-link" href="/cinechill-wiki/wiki/changelog/v1.0.0.6.html">
-            <strong>v1.0.0.6</strong>
-            <time datetime="2026-06-15">2026-06-15</time>
-            <span>25 条/页显示： 修复整理记录在手机端切回 25 条/页时，首条记录卡片被剩余高度撑开的问题。</span>
-          </a>
-        </li>
-        <li>
-          <a class="version-index-link" href="/cinechill-wiki/wiki/changelog/v1.0.0.5.html">
-            <strong>v1.0.0.5</strong>
-            <time datetime="2026-06-15">2026-06-15</time>
-            <span>顶部交互： 修复手机端搜索弹层被遮挡、头像和更多菜单点击无反应的问题，并优化侧边栏弹出层级与过渡。</span>
-          </a>
-        </li>
-        <li>
-          <a class="version-index-link" href="/cinechill-wiki/wiki/changelog/v1.0.0.4.html">
-            <strong>v1.0.0.4</strong>
-            <time datetime="2026-06-15">2026-06-15</time>
-            <span>卡片与表格重排： 优化 Webhook、资源转存、资源配置、封面资源、封面备份、自动封面、整理记录和账号管理等页面布局。</span>
-          </a>
-        </li>
-        <li>
-          <a class="version-index-link" href="/cinechill-wiki/wiki/changelog/v1.0.0.3.html">
-            <strong>v1.0.0.3</strong>
-            <time datetime="2026-06-14">2026-06-14</time>
-            <span>绑定用户生效： 账户管理中绑定的 Emby 用户现在会用于仪表盘“继续观看”，播放进度不再固定读取默认用户。</span>
-          </a>
-        </li>
-        <li>
-          <a class="version-index-link" href="/cinechill-wiki/wiki/changelog/v1.0.0.2.html">
-            <strong>v1.0.0.2</strong>
-            <time datetime="2026-06-14">2026-06-14</time>
-            <span>查看本版本的详细更新内容。</span>
-          </a>
-        </li>
-        <li>
-          <a class="version-index-link" href="/cinechill-wiki/wiki/changelog/v1.0.0.1.html">
-            <strong>v1.0.0.1</strong>
-            <time datetime="2026-06-14">2026-06-14</time>
-            <span>查看本版本的详细更新内容。</span>
-          </a>
-        </li>
-      </ul>
+      </div>
+    </details>
+    <details class="card update-log-card version-accordion">
+      <summary class="log-title-row">
+        <div>
+          <h2 id="v1-0-0-68">v1.0.0.68</h2>
+          <time datetime="2026-08-02">2026-08-02</time>
+        </div>
+        <span class="accordion-hint" aria-hidden="true"></span>
+      </summary>
+      <div class="version-content">
+<div class="log-grid">
+        <article class="update-column">
+          <h3><span class="inline-new">FIX</span>VP9 与站点监控</h3>
+          <p>修复 VP9 视频整理与洗版判断。</p><p>改进 MoviePilot 站点监控下载和规范化识别。</p>
+        </article>
+        <article class="update-column">
+          <h3><span class="update-icon">UI</span>质量排序与解析</h3>
+          <p>强化视频质量排序、文件名解析和相关运行反馈。</p>
+        </article>
+      </div>
+      </div>
+    </details>
+    <details class="card update-log-card version-accordion">
+      <summary class="log-title-row">
+        <div>
+          <h2 id="v1-0-0-67">v1.0.0.67</h2>
+          <time datetime="2026-07-31">2026-07-31</time>
+        </div>
+        <span class="accordion-hint" aria-hidden="true"></span>
+      </summary>
+      <div class="version-content">
+<div class="log-grid">
+        <article class="update-column">
+          <h3><span class="inline-new">FIX</span>上传重试与清理</h3>
+          <p>加强 115 上传失败重试。</p><p>修复下载任务清理边界问题，完善分片上传和上传竞态处理。</p>
+        </article>
+      </div>
+      </div>
+    </details>
+    <details class="card update-log-card version-accordion">
+      <summary class="log-title-row">
+        <div>
+          <h2 id="v1-0-0-66">v1.0.0.66</h2>
+          <time datetime="2026-07-30">2026-07-30</time>
+        </div>
+        <span class="accordion-hint" aria-hidden="true"></span>
+      </summary>
+      <div class="version-content">
+<div class="log-grid">
+        <article class="update-column">
+          <h3><span class="inline-new">NEW</span>站点监控与任务日志</h3>
+          <p>改进 MoviePilot 站点监控和任务日志。</p><p>重整任务日志分类、顶部日志弹窗及日志面板。</p>
+        </article>
+        <article class="update-column">
+          <h3><span class="update-icon">UI</span>任务处理</h3>
+          <p>同步优化 115 上传历史、清理和 STRM 批处理相关流程。</p>
+        </article>
+      </div>
+      </div>
+    </details>
+    <details class="card update-log-card version-accordion">
+      <summary class="log-title-row">
+        <div>
+          <h2 id="v1-0-0-65">v1.0.0.65</h2>
+          <time datetime="2026-07-24">2026-07-24</time>
+        </div>
+        <span class="accordion-hint" aria-hidden="true"></span>
+      </summary>
+      <div class="version-content">
+<div class="log-grid">
+        <article class="update-column">
+          <h3><span class="inline-new">FIX</span>站点监控统计</h3>
+          <p>移除 MoviePilot 站点累计错误指标。</p><p>保留兼容性的零值 API 字段，避免影响已有调用。</p>
+        </article>
+        <article class="update-column">
+          <h3><span class="update-icon">UI</span>页面与测试</h3>
+          <p>更新站点监控页面和相关测试，减少统计口径混淆。</p>
+        </article>
+      </div>
+      </div>
+    </details>
+    <details class="card update-log-card version-accordion">
+      <summary class="log-title-row">
+        <div>
+          <h2 id="v1-0-0-64">v1.0.0.64</h2>
+          <time datetime="2026-07-24">2026-07-24</time>
+        </div>
+        <span class="accordion-hint" aria-hidden="true"></span>
+      </summary>
+      <div class="version-content">
+<div class="log-grid">
+        <article class="update-column">
+          <h3><span class="inline-new">FIX</span>上传后清理</h3>
+          <p>修复未匹配完整下载器任务时的即时清理问题。</p><p>成功上传后可以按文件及时执行清理。</p>
+        </article>
+      </div>
+      </div>
+    </details>
+    <details class="card update-log-card version-accordion">
+      <summary class="log-title-row">
+        <div>
+          <h2 id="v1-0-0-63">v1.0.0.63</h2>
+          <time datetime="2026-07-23">2026-07-23</time>
+        </div>
+        <span class="accordion-hint" aria-hidden="true"></span>
+      </summary>
+      <div class="version-content">
+<div class="log-grid">
+        <article class="update-column">
+          <h3><span class="inline-new">NEW</span>上传清理与复查</h3>
+          <p>重构 115 上传清理流程。</p><p>增加快速复查机制和独立的上传复查服务。</p>
+        </article>
+        <article class="update-column">
+          <h3><span class="update-icon">UI</span>任务记录</h3>
+          <p>完善上传历史、运行时状态和清理结果反馈。</p>
+        </article>
+      </div>
+      </div>
+    </details>
+    <details class="card update-log-card version-accordion">
+      <summary class="log-title-row">
+        <div>
+          <h2 id="v1-0-0-62">v1.0.0.62</h2>
+          <time datetime="2026-07-21">2026-07-21</time>
+        </div>
+        <span class="accordion-hint" aria-hidden="true"></span>
+      </summary>
+      <div class="version-content">
+<div class="log-grid">
+        <article class="update-column">
+          <h3><span class="update-icon">UI</span>上传进度与发现页</h3>
+          <p>改进 115 上传进度、历史记录和扫描日志。</p><p>优化发现页布局及资源海报网格。</p>
+        </article>
+        <article class="update-column">
+          <h3><span class="inline-new">FIX</span>稳定性</h3>
+          <p>补充上传统计和扫描日志相关测试。</p>
+        </article>
+      </div>
+      </div>
+    </details>
+    <details class="card update-log-card version-accordion">
+      <summary class="log-title-row">
+        <div>
+          <h2 id="v1-0-0-61">v1.0.0.61</h2>
+          <time datetime="2026-07-20">2026-07-20</time>
+        </div>
+        <span class="accordion-hint" aria-hidden="true"></span>
+      </summary>
+      <div class="version-content">
+<div class="log-grid">
+        <article class="update-column">
+          <h3><span class="inline-new">FIX</span>MoviePilot 与海报</h3>
+          <p>修复 MoviePilot 年份校验。</p><p>修复海报字体及旋转堆栈字幕字体处理。</p>
+        </article>
+        <article class="update-column">
+          <h3><span class="update-icon">UI</span>站点监控</h3>
+          <p>补充站点监控和字体相关测试，减少识别与展示偏差。</p>
+        </article>
+      </div>
+      </div>
+    </details>
+    <details class="card update-log-card version-accordion">
+      <summary class="log-title-row">
+        <div>
+          <h2 id="v1-0-0-60">v1.0.0.60</h2>
+          <time datetime="2026-07-20">2026-07-20</time>
+        </div>
+        <span class="accordion-hint" aria-hidden="true"></span>
+      </summary>
+      <div class="version-content">
+<div class="log-grid">
+        <article class="update-column">
+          <h3><span class="inline-new">FIX</span>115 上传与媒体核对</h3>
+          <p>稳定 115 上传管线、上传历史和下载任务清理。</p><p>改进分片上传、来源竞态和上传状态处理。</p>
+        </article>
+        <article class="update-column">
+          <h3><span class="update-icon">UI</span>同步保护</h3>
+          <p>加强媒体核对、RSS 同步及破坏性操作保护。</p>
+        </article>
+      </div>
+      </div>
+    </details>
+    <details class="card update-log-card version-accordion">
+      <summary class="log-title-row">
+        <div>
+          <h2 id="v1-0-0-59">v1.0.0.59</h2>
+          <time datetime="2026-07-19">2026-07-19</time>
+        </div>
+        <span class="accordion-hint" aria-hidden="true"></span>
+      </summary>
+      <div class="version-content">
+<div class="log-grid">
+        <article class="update-column">
+          <h3><span class="inline-new">NEW</span>上传任务清理</h3>
+          <p>稳定 AI 剧集验证流程。</p><p>增加可配置的整理保护规则和元数据调度。</p>
+        </article>
+        <article class="update-column">
+          <h3><span class="inline-new">FIX</span>任务收尾</h3>
+          <p>完善上传完成后的下载任务清理和状态回收。</p>
+        </article>
+      </div>
+      </div>
+    </details>
+    <details class="card update-log-card version-accordion">
+      <summary class="log-title-row">
+        <div>
+          <h2 id="v1-0-0-58">v1.0.0.58</h2>
+          <time datetime="2026-07-17">2026-07-17</time>
+        </div>
+        <span class="accordion-hint" aria-hidden="true"></span>
+      </summary>
+      <div class="version-content">
+<div class="log-grid">
+        <article class="update-column">
+          <h3><span class="inline-new">NEW</span>传输流程</h3>
+          <p>完善传输服务、回调处理和助手工具联动。</p><p>补充离线传输场景的处理与测试。</p>
+        </article>
+        <article class="update-column">
+          <h3><span class="inline-new">FIX</span>稳定性</h3>
+          <p>改进传输任务状态和通知反馈。</p>
+        </article>
+      </div>
+      </div>
+    </details>
+    <details class="card update-log-card version-accordion">
+      <summary class="log-title-row">
+        <div>
+          <h2 id="v1-0-0-57">v1.0.0.57</h2>
+          <time datetime="2026-07-17">2026-07-17</time>
+        </div>
+        <span class="accordion-hint" aria-hidden="true"></span>
+      </summary>
+      <div class="version-content">
+<div class="log-grid">
+        <article class="update-column">
+          <h3><span class="inline-new">NEW</span>REMUX 识别</h3>
+          <p>站点监控支持 REMUX 类型识别。</p><p>保留原盘相关处理语义并调整前端显示。</p>
+        </article>
+        <article class="update-column">
+          <h3><span class="inline-new">FIX</span>回归验证</h3>
+          <p>补充站点监控和 REMUX 处理测试。</p>
+        </article>
+      </div>
+      </div>
+    </details>
+    <details class="card update-log-card version-accordion">
+      <summary class="log-title-row">
+        <div>
+          <h2 id="v1-0-0-56">v1.0.0.56</h2>
+          <time datetime="2026-07-17">2026-07-17</time>
+        </div>
+        <span class="accordion-hint" aria-hidden="true"></span>
+      </summary>
+      <div class="version-content">
+<div class="log-grid">
+        <article class="update-column">
+          <h3><span class="inline-new">NEW</span>站点监控与上传</h3>
+          <p>稳定 MoviePilot 站点监控和资源处理流程。</p><p>改进 115 上传历史、本地扫描、上传管线与运行时状态。</p>
+        </article>
+        <article class="update-column">
+          <h3><span class="inline-new">FIX</span>任务竞态</h3>
+          <p>增加上传竞态、站点监控和识别流程测试。</p>
+        </article>
+      </div>
+      </div>
+    </details>
+    <details class="card update-log-card version-accordion">
+      <summary class="log-title-row">
+        <div>
+          <h2 id="v1-0-0-55">v1.0.0.55</h2>
+          <time datetime="2026-07-16">2026-07-16</time>
+        </div>
+        <span class="accordion-hint" aria-hidden="true"></span>
+      </summary>
+      <div class="version-content">
+<div class="log-grid">
+        <article class="update-column">
+          <h3><span class="inline-new">NEW</span>MoviePilot 站点监控</h3>
+          <p>新增 MoviePilot 站点监控能力和管理页面。</p><p>增强资源筛选、严格匹配及媒体整理保护。</p>
+        </article>
+        <article class="update-column">
+          <h3><span class="update-icon">UI</span>媒体库联动</h3>
+          <p>改进 Emby、STRM 和媒体库缓存相关联动。</p>
+        </article>
+      </div>
+      </div>
+    </details>
+    <details class="card update-log-card version-accordion">
+      <summary class="log-title-row">
+        <div>
+          <h2 id="v1-0-0-54">v1.0.0.54</h2>
+          <time datetime="2026-07-15">2026-07-15</time>
+        </div>
+        <span class="accordion-hint" aria-hidden="true"></span>
+      </summary>
+      <div class="version-content">
+<div class="log-grid">
+        <article class="update-column">
+          <h3><span class="inline-new">FIX</span>RSS 分类与同步</h3>
+          <p>优化 RSS 分类识别和同步稳定性。</p><p>增加多来源分类容错测试。</p>
+        </article>
+        <article class="update-column">
+          <h3><span class="update-icon">OPS</span>发布环境</h3>
+          <p>调整自托管 Runner 的 Docker 发布环境和凭据隔离。</p>
+        </article>
+      </div>
+      </div>
+    </details>
+    <details class="card update-log-card version-accordion">
+      <summary class="log-title-row">
+        <div>
+          <h2 id="v1-0-0-53">v1.0.0.53</h2>
+          <time datetime="2026-07-15">2026-07-15</time>
+        </div>
+        <span class="accordion-hint" aria-hidden="true"></span>
+      </summary>
+      <div class="version-content">
+<div class="log-grid">
+        <article class="update-column">
+          <h3><span class="inline-new">FIX</span>封面字幕回退</h3>
+          <p>修复封面字幕缺失时的回退处理。</p><p>改进封面翻译任务和 Cover Studio 页面。</p>
+        </article>
+        <article class="update-column">
+          <h3><span class="update-icon">TEST</span>验证</h3>
+          <p>增加字幕回退相关测试。</p>
+        </article>
+      </div>
+      </div>
+    </details>
+    <details class="card update-log-card version-accordion">
+      <summary class="log-title-row">
+        <div>
+          <h2 id="v1-0-0-52">v1.0.0.52</h2>
+          <time datetime="2026-07-15">2026-07-15</time>
+        </div>
+        <span class="accordion-hint" aria-hidden="true"></span>
+      </summary>
+      <div class="version-content">
+<div class="log-grid">
+        <article class="update-column">
+          <h3><span class="inline-new">FIX</span>真实库与 STRM</h3>
+          <p>稳定真实媒体库与 STRM 同步。</p><p>改进 Emby 路径查找及媒体更新处理。</p>
+        </article>
+        <article class="update-column">
+          <h3><span class="update-icon">OPS</span>同步保护</h3>
+          <p>增强 RSS 破坏性同步保护。</p>
+        </article>
+      </div>
+      </div>
+    </details>
+    <details class="card update-log-card version-accordion">
+      <summary class="log-title-row">
+        <div>
+          <h2 id="v1-0-0-51">v1.0.0.51</h2>
+          <time datetime="2026-07-15">2026-07-15</time>
+        </div>
+        <span class="accordion-hint" aria-hidden="true"></span>
+      </summary>
+      <div class="version-content">
+<div class="log-grid">
+        <article class="update-column">
+          <h3><span class="update-icon">UI</span>订阅生命周期</h3>
+          <p>优化订阅生命周期、历史记录和剧集进度接口。</p><p>降低订阅页面加载成本并完善移动端卡片密度。</p>
+        </article>
+        <article class="update-column">
+          <h3><span class="inline-new">FIX</span>RSS 同步</h3>
+          <p>改进 RSS 与媒体库同步。</p>
+        </article>
+      </div>
+      </div>
+    </details>
+    <details class="card update-log-card version-accordion">
+      <summary class="log-title-row">
+        <div>
+          <h2 id="v1-0-0-50">v1.0.0.50</h2>
+          <time datetime="2026-07-14">2026-07-14</time>
+        </div>
+        <span class="accordion-hint" aria-hidden="true"></span>
+      </summary>
+      <div class="version-content">
+<div class="log-grid">
+        <article class="update-column">
+          <h3><span class="inline-new">NEW</span>发现源与排行</h3>
+          <p>扩展发现源和官方排行数据能力。</p><p>强化 RSS 抓取、封面刷新和订阅生命周期。</p>
+        </article>
+        <article class="update-column">
+          <h3><span class="inline-new">FIX</span>同步保护</h3>
+          <p>增加 Webhook 删除保护及 RSS 破坏性同步防护。</p>
+        </article>
+      </div>
+      </div>
+    </details>
+    <details class="card update-log-card version-accordion">
+      <summary class="log-title-row">
+        <div>
+          <h2 id="v1-0-0-49">v1.0.0.49</h2>
+          <time datetime="2026-07-14">2026-07-14</time>
+        </div>
+        <span class="accordion-hint" aria-hidden="true"></span>
+      </summary>
+      <div class="version-content">
+<div class="log-grid">
+        <article class="update-column">
+          <h3><span class="inline-new">FIX</span>质量元数据</h3>
+          <p>稳定 ffprobe 探测及视频质量元数据处理。</p><p>优化整理历史中的媒体质量记录。</p>
+        </article>
+        <article class="update-column">
+          <h3><span class="update-icon">TEST</span>验证</h3>
+          <p>增加质量判断相关测试。</p>
+        </article>
+      </div>
+      </div>
+    </details>
+    <details class="card update-log-card version-accordion">
+      <summary class="log-title-row">
+        <div>
+          <h2 id="v1-0-0-48">v1.0.0.48</h2>
+          <time datetime="2026-07-14">2026-07-14</time>
+        </div>
+        <span class="accordion-hint" aria-hidden="true"></span>
+      </summary>
+      <div class="version-content">
+<div class="log-grid">
+        <article class="update-column">
+          <h3><span class="update-icon">UI</span>缺集与下载</h3>
+          <p>优化缺失剧集页面的分页、首屏加载和移动端体验。</p><p>增强发现页订阅状态与海报卡片展示。</p>
+        </article>
+        <article class="update-column">
+          <h3><span class="inline-new">FIX</span>MoviePilot</h3>
+          <p>改进 MoviePilot 混合认证及下载选择流程。</p>
+        </article>
+      </div>
+      </div>
+    </details>
+    <details class="card update-log-card version-accordion">
+      <summary class="log-title-row">
+        <div>
+          <h2 id="v1-0-0-47">v1.0.0.47</h2>
+          <time datetime="2026-07-13">2026-07-13</time>
+        </div>
+        <span class="accordion-hint" aria-hidden="true"></span>
+      </summary>
+      <div class="version-content">
+<div class="log-grid">
+        <article class="update-column">
+          <h3><span class="update-icon">UI</span>响应式体验</h3>
+          <p>优化移动端导航、发现页、订阅页和整理设置布局。</p><p>改进响应式 UI 与多页面交互稳定性。</p>
+        </article>
+        <article class="update-column">
+          <h3><span class="update-icon">OPS</span>运行时</h3>
+          <p>优化 Docker cgroup 内存统计及运行时表现。</p>
+        </article>
+      </div>
+      </div>
+    </details>
+    <details class="card update-log-card version-accordion">
+      <summary class="log-title-row">
+        <div>
+          <h2 id="v1-0-0-46">v1.0.0.46</h2>
+          <time datetime="2026-07-12">2026-07-12</time>
+        </div>
+        <span class="accordion-hint" aria-hidden="true"></span>
+      </summary>
+      <div class="version-content">
+<div class="log-grid">
+        <article class="update-column">
+          <h3><span class="inline-new">FIX</span>连接续期</h3>
+          <p>修复 115 Open Token 续期处理。</p>
+        </article>
+        <article class="update-column">
+          <h3><span class="update-icon">TEST</span>验证</h3>
+          <p>增加上传流程相关测试和设计记录。</p>
+        </article>
+      </div>
+      </div>
+    </details>
+    <details class="card update-log-card version-accordion">
+      <summary class="log-title-row">
+        <div>
+          <h2 id="v1-0-0-45">v1.0.0.45</h2>
+          <time datetime="2026-07-12">2026-07-12</time>
+        </div>
+        <span class="accordion-hint" aria-hidden="true"></span>
+      </summary>
+      <div class="version-content">
+<div class="log-grid">
+        <article class="update-column">
+          <h3><span class="update-icon">UI</span>订阅与历史</h3>
+          <p>优化订阅生命周期、历史记录和订阅页面加载。</p><p>完善服务边界及整理历史缓存。</p>
+        </article>
+        <article class="update-column">
+          <h3><span class="update-icon">OPS</span>运行时</h3>
+          <p>改进运行时内存管理和空闲线程池释放。</p>
+        </article>
+      </div>
+      </div>
+    </details>
+    <details class="card update-log-card version-accordion">
+      <summary class="log-title-row">
+        <div>
+          <h2 id="v1-0-0-44">v1.0.0.44</h2>
+          <time datetime="2026-07-10">2026-07-10</time>
+        </div>
+        <span class="accordion-hint" aria-hidden="true"></span>
+      </summary>
+      <div class="version-content">
+<div class="log-grid">
+        <article class="update-column">
+          <h3><span class="update-icon">REF</span>服务结构</h3>
+          <p>按业务能力拆分和整理后台服务模块。</p><p>稳定传输、订阅、Emby 与 STRM 相关流程。</p>
+        </article>
+        <article class="update-column">
+          <h3><span class="inline-new">NEW</span>发现能力</h3>
+          <p>增加和整理发现源及相关页面能力。</p>
+        </article>
+      </div>
+      </div>
+    </details>
+    <details class="card update-log-card version-accordion">
+      <summary class="log-title-row">
+        <div>
+          <h2 id="v1-0-0-43">v1.0.0.43</h2>
+          <time datetime="2026-07-09">2026-07-09</time>
+        </div>
+        <span class="accordion-hint" aria-hidden="true"></span>
+      </summary>
+      <div class="version-content">
+<div class="log-grid">
+        <article class="update-column">
+          <h3><span class="inline-new">FIX</span>Emby 同步</h3>
+          <p>提升 Emby 媒体库同步可靠性。</p><p>优化媒体库缓存、刷新流程和整理设置页面。</p>
+        </article>
+        <article class="update-column">
+          <h3><span class="update-icon">UI</span>任务配置</h3>
+          <p>改进任务配置组件与多选交互。</p>
+        </article>
+      </div>
+      </div>
+    </details>
+    <details class="card update-log-card version-accordion">
+      <summary class="log-title-row">
+        <div>
+          <h2 id="v1-0-0-42">v1.0.0.42</h2>
+          <time datetime="2026-07-08">2026-07-08</time>
+        </div>
+        <span class="accordion-hint" aria-hidden="true"></span>
+      </summary>
+      <div class="version-content">
+<div class="log-grid">
+        <article class="update-column">
+          <h3><span class="inline-new">FIX</span>P115 目录遍历</h3>
+          <p>修复 P115 目录遍历遇到 HTTP 405 时的处理。</p><p>更新上传、整理和 STRM 相关兼容逻辑。</p>
+        </article>
+        <article class="update-column">
+          <h3><span class="update-icon">OPS</span>部署</h3>
+          <p>同步调整 NAS 开发部署脚本和依赖配置。</p>
+        </article>
+      </div>
+      </div>
+    </details>
+    <details class="card update-log-card version-accordion">
+      <summary class="log-title-row">
+        <div>
+          <h2 id="v1-0-0-41">v1.0.0.41</h2>
+          <time datetime="2026-07-07">2026-07-07</time>
+        </div>
+        <span class="accordion-hint" aria-hidden="true"></span>
+      </summary>
+      <div class="version-content">
+<div class="log-grid">
+        <article class="update-column">
+          <h3><span class="update-icon">UI</span>元数据回填</h3>
+          <p>优化元数据回填进度和任务状态处理。</p><p>完善元数据修复面板及仪表盘进度展示。</p>
+        </article>
+        <article class="update-column">
+          <h3><span class="inline-new">FIX</span>接口处理</h3>
+          <p>调整 STRM 回填接口和后台依赖管理。</p>
+        </article>
+      </div>
+      </div>
+    </details>
+    <details class="card update-log-card version-accordion">
+      <summary class="log-title-row">
+        <div>
+          <h2 id="v1-0-0-40">v1.0.0.40</h2>
+          <time datetime="2026-07-07">2026-07-07</time>
+        </div>
+        <span class="accordion-hint" aria-hidden="true"></span>
+      </summary>
+      <div class="version-content">
+<div class="log-grid">
+        <article class="update-column">
+          <h3><span class="inline-new">FIX</span>回填结果</h3>
+          <p>修复 TMDB 元数据回填的写入结果报告。</p><p>改进回填任务中的通知和状态反馈。</p>
+        </article>
+      </div>
+      </div>
+    </details>
+    <details class="card update-log-card version-accordion">
+      <summary class="log-title-row">
+        <div>
+          <h2 id="v1-0-0-39">v1.0.0.39</h2>
+          <time datetime="2026-07-07">2026-07-07</time>
+        </div>
+        <span class="accordion-hint" aria-hidden="true"></span>
+      </summary>
+      <div class="version-content">
+<div class="log-grid">
+        <article class="update-column">
+          <h3><span class="inline-new">NEW</span>元数据修复</h3>
+          <p>增加元数据修复策略和相关管理面板。</p><p>完善 115 兼容性、STRM 元数据和 Emby 刷新流程。</p>
+        </article>
+        <article class="update-column">
+          <h3><span class="update-icon">UI</span>任务反馈</h3>
+          <p>改进日志、通知和后台任务反馈。</p>
+        </article>
+      </div>
+      </div>
+    </details>
+    <details class="card update-log-card version-accordion">
+      <summary class="log-title-row">
+        <div>
+          <h2 id="v1-0-0-38">v1.0.0.38</h2>
+          <time datetime="2026-07-05">2026-07-05</time>
+        </div>
+        <span class="accordion-hint" aria-hidden="true"></span>
+      </summary>
+      <div class="version-content">
+<div class="log-grid">
+        <article class="update-column">
+          <h3><span class="inline-new">FIX</span>115 兼容性</h3>
+          <p>修复 115 应用 API 兼容性。</p><p>增加上传失败时的备用处理路径。</p>
+        </article>
+        <article class="update-column">
+          <h3><span class="update-icon">UI</span>媒体整理</h3>
+          <p>改进媒体整理中的 115 操作。</p>
+        </article>
+      </div>
+      </div>
+    </details>
+    <details class="card update-log-card version-accordion">
+      <summary class="log-title-row">
+        <div>
+          <h2 id="v1-0-0-37">v1.0.0.37</h2>
+          <time datetime="2026-07-05">2026-07-05</time>
+        </div>
+        <span class="accordion-hint" aria-hidden="true"></span>
+      </summary>
+      <div class="version-content">
+<div class="log-grid">
+        <article class="update-column">
+          <h3><span class="inline-new">FIX</span>STRM 元数据</h3>
+          <p>修复 STRM 剧集的 TMDB 元数据刷新。</p><p>补充对应整理器逻辑和回归测试。</p>
+        </article>
+      </div>
+      </div>
+    </details>
+    <details class="card update-log-card version-accordion">
+      <summary class="log-title-row">
+        <div>
+          <h2 id="v1-0-0-36">v1.0.0.36</h2>
+          <time datetime="2026-07-05">2026-07-05</time>
+        </div>
+        <span class="accordion-hint" aria-hidden="true"></span>
+      </summary>
+      <div class="version-content">
+<div class="log-grid">
+        <article class="update-column">
+          <h3><span class="inline-new">FIX</span>上传兼容性</h3>
+          <p>修复 115 应用 API 兼容性。</p><p>增加 p115client 发布版本补丁处理。</p>
+        </article>
+        <article class="update-column">
+          <h3><span class="update-icon">OPS</span>依赖</h3>
+          <p>调整上传与媒体库相关兼容逻辑。</p>
+        </article>
+      </div>
+      </div>
+    </details>
+    <details class="card update-log-card version-accordion">
+      <summary class="log-title-row">
+        <div>
+          <h2 id="v1-0-0-35">v1.0.0.35</h2>
+          <time datetime="2026-07-04">2026-07-04</time>
+        </div>
+        <span class="accordion-hint" aria-hidden="true"></span>
+      </summary>
+      <div class="version-content">
+<div class="log-grid">
+        <article class="update-column">
+          <h3><span class="inline-new">FIX</span>115 上传</h3>
+          <p>固定并集成 p115client 版本。</p><p>修复 115 上传使用的应用版本问题。</p>
+        </article>
+        <article class="update-column">
+          <h3><span class="update-icon">OPS</span>部署</h3>
+          <p>调整 Docker 和依赖配置以支持上传稳定性。</p>
+        </article>
+      </div>
+      </div>
+    </details>
+    <details class="card update-log-card version-accordion">
+      <summary class="log-title-row">
+        <div>
+          <h2 id="v1-0-0-34">v1.0.0.34</h2>
+          <time datetime="2026-07-03">2026-07-03</time>
+        </div>
+        <span class="accordion-hint" aria-hidden="true"></span>
+      </summary>
+      <div class="version-content">
+<div class="log-grid">
+        <article class="update-column">
+          <h3><span class="update-icon">UI</span>订阅与发现</h3>
+          <p>优化 RSS 订阅、发现页和缺失剧集工作流。</p><p>调整订阅自动化、Webhook 和容器构建配置。</p>
+        </article>
+        <article class="update-column">
+          <h3><span class="update-icon">OPS</span>维护记录</h3>
+          <p>补充推送工作流偏好记录。</p>
+        </article>
+      </div>
+      </div>
+    </details>
+    <details class="card update-log-card version-accordion">
+      <summary class="log-title-row">
+        <div>
+          <h2 id="v1-0-0-33">v1.0.0.33</h2>
+          <time datetime="2026-07-03">2026-07-03</time>
+        </div>
+        <span class="accordion-hint" aria-hidden="true"></span>
+      </summary>
+      <div class="version-content">
+<div class="log-grid">
+        <article class="update-column">
+          <h3><span class="inline-new">FIX</span>整理重做</h3>
+          <p>修复媒体整理重做流程。</p><p>改进整理历史记录保存、恢复和状态处理。</p>
+        </article>
+      </div>
+      </div>
+    </details>
+    <details class="card update-log-card version-accordion">
+      <summary class="log-title-row">
+        <div>
+          <h2 id="v1-0-0-32">v1.0.0.32</h2>
+          <time datetime="2026-07-01">2026-07-01</time>
+        </div>
+        <span class="accordion-hint" aria-hidden="true"></span>
+      </summary>
+      <div class="version-content">
+<div class="log-grid">
+        <article class="update-column">
+          <h3><span class="inline-new">FIX</span>订阅去重</h3>
+          <p>修复 MoviePilot RSS 重复订阅。</p><p>优化订阅服务及订阅管理页面的去重处理。</p>
+        </article>
+      </div>
+      </div>
+    </details>
+    <details class="card update-log-card version-accordion">
+      <summary class="log-title-row">
+        <div>
+          <h2 id="v1-0-0-31">v1.0.0.31</h2>
+          <time datetime="2026-07-01">2026-07-01</time>
+        </div>
+        <span class="accordion-hint" aria-hidden="true"></span>
+      </summary>
+      <div class="version-content">
+<div class="log-grid">
+        <article class="update-column">
+          <h3><span class="inline-new">FIX</span>STRM 与 Emby</h3>
+          <p>修复 STRM 元数据处理。</p><p>降低 Emby 刷新压力，优化媒体整理后的刷新流程。</p>
+        </article>
+        <article class="update-column">
+          <h3><span class="update-icon">UI</span>元数据</h3>
+          <p>改进整理器和 TMDB 元数据更新。</p>
+        </article>
+      </div>
+      </div>
+    </details>
+    <details class="card update-log-card version-accordion">
+      <summary class="log-title-row">
+        <div>
+          <h2 id="v1-0-0-30">v1.0.0.30</h2>
+          <time datetime="2026-06-30">2026-06-30</time>
+        </div>
+        <span class="accordion-hint" aria-hidden="true"></span>
+      </summary>
+      <div class="version-content">
+<div class="log-grid">
+        <article class="update-column">
+          <h3><span class="inline-new">FIX</span>115 连接</h3>
+          <p>改进 115 登录、二维码授权和应用 API 兼容性。</p><p>优化媒体服务稳定性及上传配置页面。</p>
+        </article>
+      </div>
+      </div>
+    </details>
+    <details class="card update-log-card version-accordion">
+      <summary class="log-title-row">
+        <div>
+          <h2 id="v1-0-0-29">v1.0.0.29</h2>
+          <time datetime="2026-06-30">2026-06-30</time>
+        </div>
+        <span class="accordion-hint" aria-hidden="true"></span>
+      </summary>
+      <div class="version-content">
+<div class="log-grid">
+        <article class="update-column">
+          <h3><span class="inline-new">NEW</span>手动重做</h3>
+          <p>支持手动重做时覆盖剧集识别结果。</p><p>改进整理历史中的手动重做交互。</p>
+        </article>
+      </div>
+      </div>
+    </details>
+    <details class="card update-log-card version-accordion">
+      <summary class="log-title-row">
+        <div>
+          <h2 id="v1-0-0-28">v1.0.0.28</h2>
+          <time datetime="2026-06-30">2026-06-30</time>
+        </div>
+        <span class="accordion-hint" aria-hidden="true"></span>
+      </summary>
+      <div class="version-content">
+<div class="log-grid">
+        <article class="update-column">
+          <h3><span class="inline-new">NEW</span>播放与诊断</h3>
+          <p>增加 Emby Web 302 播放兼容处理。</p><p>增加慢请求日志、接口超时诊断和会话列表预热。</p>
+        </article>
+        <article class="update-column">
+          <h3><span class="inline-new">FIX</span>订阅与整理</h3>
+          <p>修复 RSS 订阅清理、STRM 地址拼接和整理历史状态问题。</p>
+        </article>
+        <article class="update-column">
+          <h3><span class="update-icon">UI</span>反馈</h3>
+          <p>优化订阅反馈、整理进度弹窗和 AI 通知内容。</p>
+        </article>
+      </div>
+      </div>
+    </details>
+    <details class="card update-log-card version-accordion">
+      <summary class="log-title-row">
+        <div>
+          <h2 id="v1-0-0-27">v1.0.0.27</h2>
+          <time datetime="2026-06-29">2026-06-29</time>
+        </div>
+        <span class="accordion-hint" aria-hidden="true"></span>
+      </summary>
+      <div class="version-content">
+<div class="log-grid">
+        <article class="update-column">
+          <h3><span class="inline-new">FIX</span>AI 整理历史</h3>
+          <p>修复 AI 整理重试后的历史状态显示。</p><p>改进失败整理任务的再次执行逻辑。</p>
+        </article>
+      </div>
+      </div>
+    </details>
+    <details class="card update-log-card version-accordion">
+      <summary class="log-title-row">
+        <div>
+          <h2 id="v1-0-0-26">v1.0.0.26</h2>
+          <time datetime="2026-06-29">2026-06-29</time>
+        </div>
+        <span class="accordion-hint" aria-hidden="true"></span>
+      </summary>
+      <div class="version-content">
+<div class="log-grid">
+        <article class="update-column">
+          <h3><span class="inline-new">NEW</span>订阅管理</h3>
+          <p>新增订阅管理页面及订阅相关接口。</p><p>完善发现页订阅入口、RSS 订阅和 MoviePilot 联动。</p>
+        </article>
+        <article class="update-column">
+          <h3><span class="update-icon">OPS</span>系统管理</h3>
+          <p>增加网关端口同步与图片缓存代理能力。</p>
+        </article>
+      </div>
+      </div>
+    </details>
+    <details class="card update-log-card version-accordion">
+      <summary class="log-title-row">
+        <div>
+          <h2 id="v1-0-0-25">v1.0.0.25</h2>
+          <time datetime="2026-06-28">2026-06-28</time>
+        </div>
+        <span class="accordion-hint" aria-hidden="true"></span>
+      </summary>
+      <div class="version-content">
+<div class="log-grid">
+        <article class="update-column">
+          <h3><span class="update-icon">UI</span>仪表盘与海报</h3>
+          <p>优化仪表盘交互、海报加载和媒体卡片。</p><p>改进发现、缺失剧集、整理历史和传输页面体验。</p>
+        </article>
+        <article class="update-column">
+          <h3><span class="inline-new">NEW</span>辅助能力</h3>
+          <p>增加 IP 归属地等辅助服务能力。</p>
+        </article>
+      </div>
+      </div>
+    </details>
+    <details class="card update-log-card version-accordion">
+      <summary class="log-title-row">
+        <div>
+          <h2 id="v1-0-0-24">v1.0.0.24</h2>
+          <time datetime="2026-06-27">2026-06-27</time>
+        </div>
+        <span class="accordion-hint" aria-hidden="true"></span>
+      </summary>
+      <div class="version-content">
+<div class="log-grid">
+        <article class="update-column">
+          <h3><span class="inline-new">FIX</span>洗版候选</h3>
+          <p>修复媒体整理中残留洗版候选的问题。</p><p>优化媒体库缓存一致性与候选清理。</p>
+        </article>
+      </div>
+      </div>
+    </details>
+    <details class="card update-log-card version-accordion">
+      <summary class="log-title-row">
+        <div>
+          <h2 id="v1-0-0-23">v1.0.0.23</h2>
+          <time datetime="2026-06-27">2026-06-27</time>
+        </div>
+        <span class="accordion-hint" aria-hidden="true"></span>
+      </summary>
+      <div class="version-content">
+<div class="log-grid">
+        <article class="update-column">
+          <h3><span class="inline-new">FIX</span>剧集处理</h3>
+          <p>修复媒体整理中的剧集处理逻辑。</p>
+        </article>
+        <article class="update-column">
+          <h3><span class="update-icon">OPS</span>NAS 直测</h3>
+          <p>改进传输流程及相关 NAS 直连测试记录。</p>
+        </article>
+      </div>
+      </div>
+    </details>
+    <details class="card update-log-card version-accordion">
+      <summary class="log-title-row">
+        <div>
+          <h2 id="v1-0-0-22">v1.0.0.22</h2>
+          <time datetime="2026-06-27">2026-06-27</time>
+        </div>
+        <span class="accordion-hint" aria-hidden="true"></span>
+      </summary>
+      <div class="version-content">
+<div class="log-grid">
+        <article class="update-column">
+          <h3><span class="inline-new">FIX</span>整理恢复</h3>
+          <p>增强媒体整理失败恢复与重试能力。</p><p>完善识别链、TMDB 元数据及一站式整理配置。</p>
+        </article>
+        <article class="update-column">
+          <h3><span class="update-icon">UI</span>历史审阅</h3>
+          <p>调整整理历史审阅页面和任务反馈。</p>
+        </article>
+      </div>
+      </div>
+    </details>
+    <details class="card update-log-card version-accordion">
+      <summary class="log-title-row">
+        <div>
+          <h2 id="v1-0-0-21">v1.0.0.21</h2>
+          <time datetime="2026-06-26">2026-06-26</time>
+        </div>
+        <span class="accordion-hint" aria-hidden="true"></span>
+      </summary>
+      <div class="version-content">
+<div class="log-grid">
+        <article class="update-column">
+          <h3><span class="inline-new">NEW</span>AI 分集核验</h3>
+          <p>统一 AI 剧集验证流程。</p><p>补充助手工具、剧集解析和通知联动。</p>
+        </article>
+      </div>
+      </div>
+    </details>
+    <details class="card update-log-card version-accordion">
+      <summary class="log-title-row">
+        <div>
+          <h2 id="v1-0-0-20">v1.0.0.20</h2>
+          <time datetime="2026-06-25">2026-06-25</time>
+        </div>
+        <span class="accordion-hint" aria-hidden="true"></span>
+      </summary>
+      <div class="version-content">
+<div class="log-grid">
+        <article class="update-column">
+          <h3><span class="inline-new">NEW</span>AI 助手</h3>
+          <p>扩展 AI 助手控制能力。</p>
+        </article>
+        <article class="update-column">
+          <h3><span class="inline-new">FIX</span>批量核验</h3>
+          <p>修复 AI 剧集批量验证流程。</p>
+        </article>
+      </div>
+      </div>
+    </details>
+    <details class="card update-log-card version-accordion">
+      <summary class="log-title-row">
+        <div>
+          <h2 id="v1-0-0-19">v1.0.0.19</h2>
+          <time datetime="2026-06-25">2026-06-25</time>
+        </div>
+        <span class="accordion-hint" aria-hidden="true"></span>
+      </summary>
+      <div class="version-content">
+<div class="log-grid">
+        <article class="update-column">
+          <h3><span class="inline-new">NEW</span>AI 能力</h3>
+          <p>新增 AI 助手工具、提醒和权限控制基础能力。</p><p>新增 AI 剧集识别与验证页面。</p>
+        </article>
+        <article class="update-column">
+          <h3><span class="update-icon">UI</span>整理流程</h3>
+          <p>扩展整理历史、通知和媒体整理流程。</p>
+        </article>
+      </div>
+      </div>
+    </details>
+    <details class="card update-log-card version-accordion">
+      <summary class="log-title-row">
+        <div>
+          <h2 id="v1-0-0-18">v1.0.0.18</h2>
+          <time datetime="2026-06-24">2026-06-24</time>
+        </div>
+        <span class="accordion-hint" aria-hidden="true"></span>
+      </summary>
+      <div class="version-content">
+<div class="log-grid">
+        <article class="update-column">
+          <h3><span class="update-icon">UI</span>管理端体验</h3>
+          <p>改进管理端页面和容器管理交互。</p><p>优化播放通知、认证及媒体服务请求处理。</p>
+        </article>
+        <article class="update-column">
+          <h3><span class="inline-new">FIX</span>任务反馈</h3>
+          <p>改进缺失剧集与任务相关页面的反馈。</p>
+        </article>
+      </div>
+      </div>
+    </details>
+    <details class="card update-log-card version-accordion">
+      <summary class="log-title-row">
+        <div>
+          <h2 id="v1-0-0-17">v1.0.0.17</h2>
+          <time datetime="2026-06-23">2026-06-23</time>
+        </div>
+        <span class="accordion-hint" aria-hidden="true"></span>
+      </summary>
+      <div class="version-content">
+<div class="log-grid">
+        <article class="update-column">
+          <h3><span class="update-icon">OPS</span>镜像拉取</h3>
+          <p>增加 DockerHub 拉取认证配置。</p>
+        </article>
+        <article class="update-column">
+          <h3><span class="inline-new">FIX</span>移动端</h3>
+          <p>修复移动端侧边栏点击与触摸操作。</p>
+        </article>
+      </div>
+      </div>
+    </details>
+    <details class="card update-log-card version-accordion">
+      <summary class="log-title-row">
+        <div>
+          <h2 id="v1-0-0-16">v1.0.0.16</h2>
+          <time datetime="2026-06-18">2026-06-18</time>
+        </div>
+        <span class="accordion-hint" aria-hidden="true"></span>
+      </summary>
+      <div class="version-content">
+<div class="log-grid">
+        <article class="update-column">
+          <h3><span class="inline-new">FIX</span>媒体整理</h3>
+          <p>整理媒体时排除光盘源文件，避免误处理。</p>
+        </article>
+        <article class="update-column">
+          <h3><span class="update-icon">OPS</span>镜像拉取</h3>
+          <p>修复 Docker 拉取认证处理。</p>
+        </article>
+      </div>
+      </div>
+    </details>
+    <details class="card update-log-card version-accordion">
+      <summary class="log-title-row">
+        <div>
+          <h2 id="v1-0-0-15">v1.0.0.15</h2>
+          <time datetime="2026-06-17">2026-06-17</time>
+        </div>
+        <span class="accordion-hint" aria-hidden="true"></span>
+      </summary>
+      <div class="version-content">
+<div class="log-grid">
+        <article class="update-column">
+          <h3><span class="inline-new">FIX</span>主题加载</h3>
+          <p>修复路由加载遮罩与当前主题不一致的问题。</p><p>补充主题模式下的加载状态样式。</p>
+        </article>
+      </div>
+      </div>
+    </details>
+    <details class="card update-log-card version-accordion">
+      <summary class="log-title-row">
+        <div>
+          <h2 id="v1-0-0-14">v1.0.0.14</h2>
+          <time datetime="2026-06-17">2026-06-17</time>
+        </div>
+        <span class="accordion-hint" aria-hidden="true"></span>
+      </summary>
+      <div class="version-content">
+<div class="log-grid">
+        <article class="update-column">
+          <h3><span class="inline-new">NEW</span>主题与仪表盘</h3>
+          <p>新增明暗主题切换。</p><p>更新仪表盘视觉布局、组件样式和媒体图片兜底处理。</p>
+        </article>
+        <article class="update-column">
+          <h3><span class="update-icon">UI</span>响应式体验</h3>
+          <p>优化移动端与响应式页面表现。</p>
+        </article>
+      </div>
+      </div>
+    </details>
+    <details class="card update-log-card version-accordion">
+      <summary class="log-title-row">
+        <div>
+          <h2 id="v1-0-0-13">v1.0.0.13</h2>
+          <time datetime="2026-06-17">2026-06-17</time>
+        </div>
+        <span class="accordion-hint" aria-hidden="true"></span>
+      </summary>
+      <div class="version-content">
+<div class="log-grid">
+        <article class="update-column">
+          <h3><span class="inline-new">NEW</span>缺集搜索</h3>
+          <p>资源搜索时自动推断缺失剧集所属季。</p><p>补充缺失剧集页面的季信息展示。</p>
+        </article>
+      </div>
+      </div>
+    </details>
+    <details class="card update-log-card version-accordion">
+      <summary class="log-title-row">
+        <div>
+          <h2 id="v1-0-0-12">v1.0.0.12</h2>
+          <time datetime="2026-06-17">2026-06-17</time>
+        </div>
+        <span class="accordion-hint" aria-hidden="true"></span>
+      </summary>
+      <div class="version-content">
+<div class="log-grid">
+        <article class="update-column">
+          <h3><span class="inline-new">FIX</span>缺集处理</h3>
+          <p>改进缺失剧集删除流程及媒体库同步。</p>
+        </article>
+        <article class="update-column">
+          <h3><span class="update-icon">OPS</span>维护</h3>
+          <p>清理旧的同步流程和无效维护组件。</p>
+        </article>
+      </div>
+      </div>
+    </details>
+    <details class="card update-log-card version-accordion">
+      <summary class="log-title-row">
+        <div>
+          <h2 id="v1-0-0-11">v1.0.0.11</h2>
+          <time datetime="2026-06-16">2026-06-16</time>
+        </div>
+        <span class="accordion-hint" aria-hidden="true"></span>
+      </summary>
+      <div class="version-content">
+<div class="log-grid">
+        <article class="update-column">
+          <h3><span class="inline-new">NEW</span>FNOS 与上传</h3>
+          <p>新增 FNOS 登录与授权页面。</p><p>完善 115 上传工作流及相关通知处理。</p>
+        </article>
+      </div>
+      </div>
+    </details>
+    <details class="card update-log-card version-accordion">
+      <summary class="log-title-row">
+        <div>
+          <h2 id="v1-0-0-10">v1.0.0.10</h2>
+          <time datetime="2026-06-16">2026-06-16</time>
+        </div>
+        <span class="accordion-hint" aria-hidden="true"></span>
+      </summary>
+      <div class="version-content">
+<div class="log-grid">
+        <article class="update-column">
+          <h3><span class="update-icon">UI</span>上传与历史</h3>
+          <p>调整 115 上传工作台流程与状态展示。</p><p>重做整理历史页面及历史记录审阅界面。</p>
+        </article>
+      </div>
+      </div>
+    </details>
+    <details class="card update-log-card version-accordion">
+      <summary class="log-title-row">
+        <span class="new-badge">NEW</span>
+        <div>
+          <h2 id="v1-0-0-9">v1.0.0.9</h2>
+          <time datetime="2026-06-16">2026-06-16</time>
+        </div>
+        <span class="accordion-hint" aria-hidden="true"></span>
+      </summary>
+      <div class="version-content">
+<div class="log-grid">
+        <article class="update-column">
+    <h3><span class="inline-new">NEW</span>115 秒传/上传工作台升级</h3>
+    <p><strong>本地上传：</strong>校验、秒传和真实上传拆分为独立线程设置，后台会分别统计校验中、秒传中、上传中和队列数量，避免一个并发参数同时影响所有阶段。</p><p><strong>任务看板：</strong>当前任务表、历史数据图和失败记录按工作台重新整理，能直接看到文件进度、上传体积、秒传体积、失败原因和重试状态。</p><p><strong>网盘秒传：</strong>工具箱保留网盘资源秒传入口，本地 115 秒传/上传移动到系统配置侧，两个场景的入口更清楚。</p>
+  </article><article class="update-column">
+    <h3><span class="update-icon">FIX</span>上传与整理稳定性</h3>
+    <p><strong>目标目录确认：</strong>上传或秒传完成后会检查文件父目录，必要时等待 115 移动任务完成；位置确认接口不可用时会按场景降级处理，减少“任务成功但文件没到目标目录”的情况。</p><p><strong>失败恢复：</strong>本地文件不存在、上传前变化、哈希过程中变化、Cookie 未配置、目录缺失等预期错误会以更清晰的原因进入失败或重试记录，不再淹没在堆栈日志里。</p><p><strong>TMDB 剧集识别：</strong>剧集候选会校验目标季集是否真实存在，降低同名剧、年份接近或缺少目标集时的误匹配概率。</p>
+  </article><article class="update-column">
+    <h3><span class="update-icon">UI</span>管理端体验整理</h3>
+    <p><strong>服务器配置：</strong>Emby、115 主账号、Cookie、回收站安全码和连接检测集中到同一配置页面，敏感输入默认按密文控件展示。</p><p><strong>通知模板：</strong>后端新增默认通知模板接口，前端可读取当前模板版本，微信和 Telegram 模板测试入口统一走现有通知链路。</p><p><strong>仪表盘状态：</strong>网络带宽设置改为可保存的配置项，并保留旧浏览器本地设置迁移，服务器状态卡片刷新后不再丢失带宽上限。</p>
+  </article><article class="update-column">
+    <h3><span class="update-icon">REL</span>发布与升级</h3>
+    <p><strong>正式版本：</strong>本次版本号为 <code>v1.0.0.9</code>。</p><p><strong>Docker 镜像：</strong>发布 <code>chillne/cinechill:v1.0.0.9</code>、<code>chillne/cinechill:1.0.0.9</code> 和 <code>latest</code>。</p><p><strong>升级建议：</strong>使用 115 本地上传、网盘秒传、通知模板、Telegram 登录状态或媒体整理识别的用户建议更新到本版本。</p>
+  </article>
+      </div>
+      </div>
+    </details>
+    <details class="card update-log-card version-accordion">
+      <summary class="log-title-row">
+        <span class="new-badge">NEW</span>
+        <div>
+          <h2 id="v1-0-0-8">v1.0.0.8</h2>
+          <time datetime="2026-06-15">2026-06-15</time>
+        </div>
+        <span class="accordion-hint" aria-hidden="true"></span>
+      </summary>
+      <div class="version-content">
+<div class="log-grid">
+        <article class="update-column">
+    <h3><span class="inline-new">NEW</span>RSS 真实库榜单升级</h3>
+    <p><strong>内置榜单：</strong>TMDB、Netflix、Apple TV+、Disney+、爱奇艺、腾讯视频 / WeTV 推荐源细分更多榜单，并把推荐源集中靠前显示。</p><p><strong>读取上限：</strong>所有内置源和自定义 RSS 同步统一限制前 500 条媒体，避免热门榜单一次拉取数千页导致预览或同步超时。</p><p><strong>卡片统计：</strong>真实库订阅卡片新增榜单数量、解析数量和硬链接数，分别对应 RSS 条目、TMDB 命中和成功硬链接数量。</p>
+  </article><article class="update-column">
+    <h3><span class="update-icon">FIX</span>预览稳定性</h3>
+    <p><strong>TMDB 请求：</strong>原生 TMDB 榜单统一走共享限速、代理和重试逻辑，预览时默认缩小采样，减少 502、SSL EOF 和 20 秒超时。</p><p><strong>封面显示：</strong>预览会修正 TMDB 相对海报地址，并为爱奇艺、B 站、腾讯视频、芒果 TV、咪咕等来源提供图片代理，减少外站防盗链导致的无图。</p><p><strong>预览界面：</strong>新建订阅预览改为类似发现页的海报平铺，预览按钮移动到底部，卡片高度不再被长标题撑开。</p>
+  </article><article class="update-column">
+    <h3><span class="update-icon">REL</span>发布与升级</h3>
+    <p><strong>正式版本：</strong>本次版本号为 <code>v1.0.0.8</code>。</p><p><strong>Docker 镜像：</strong>发布 <code>chillne/cinechill:v1.0.0.8</code>、<code>chillne/cinechill:1.0.0.8</code> 和 <code>latest</code>。</p><p><strong>升级建议：</strong>使用 RSS 真实库、内置榜单或 TMDB 推荐源的用户建议更新到本版本。</p>
+  </article>
+      </div>
+      </div>
+    </details>
+    <details class="card update-log-card version-accordion">
+      <summary class="log-title-row">
+        <div>
+          <h2 id="v1-0-0-7">v1.0.0.7</h2>
+          <time datetime="2026-06-15">2026-06-15</time>
+        </div>
+        <span class="accordion-hint" aria-hidden="true"></span>
+      </summary>
+      <div class="version-content">
+<div class="log-grid">
+        <article class="update-column">
+    <h3><span class="inline-new">FIX</span>登录页手机端热修</h3>
+    <p><strong>卡片居中：</strong>手机端登录卡片改为在可视区域内上下左右居中，两侧保留安全留白，避免贴边或偏移。</p><p><strong>欢迎文案：</strong>保留左上欢迎文案，并下移到安全位置，避免被移动浏览器地址栏裁切。</p><p><strong>书签图标：</strong>补齐 Web App manifest、apple touch icon 与主题色配置，改善手机保存书签时的图标识别。</p>
+  </article><article class="update-column">
+    <h3><span class="update-icon">REL</span>发布与升级</h3>
+    <p><strong>正式版本：</strong>本次版本号为 <code>v1.0.0.7</code>。</p><p><strong>Docker 镜像：</strong>发布 <code>chillne/cinechill:v1.0.0.7</code>、<code>chillne/cinechill:1.0.0.7</code> 和 <code>latest</code>。</p><p><strong>升级建议：</strong>使用手机登录或保存书签的用户建议更新到本版本。</p>
+  </article>
+      </div>
+      </div>
+    </details>
+    <details class="card update-log-card version-accordion">
+      <summary class="log-title-row">
+        <div>
+          <h2 id="v1-0-0-6">v1.0.0.6</h2>
+          <time datetime="2026-06-15">2026-06-15</time>
+        </div>
+        <span class="accordion-hint" aria-hidden="true"></span>
+      </summary>
+      <div class="version-content">
+<div class="log-grid">
+        <article class="update-column">
+    <h3><span class="inline-new">FIX</span>整理记录手机端热修</h3>
+    <p><strong>25 条/页显示：</strong>修复整理记录在手机端切回 25 条/页时，首条记录卡片被剩余高度撑开的问题。</p><p><strong>列表行高：</strong>移动端记录列表改为按内容自然排列，少量记录和大量记录显示保持一致。</p><p><strong>影响范围：</strong>仅调整整理记录列表样式，不改变接口、分页和记录数据。</p>
+  </article><article class="update-column">
+    <h3><span class="update-icon">REL</span>发布与升级</h3>
+    <p><strong>正式版本：</strong>本次版本号为 <code>v1.0.0.6</code>。</p><p><strong>Docker 镜像：</strong>发布 <code>chillne/cinechill:v1.0.0.6</code>、<code>chillne/cinechill:1.0.0.6</code> 和 <code>latest</code>。</p><p><strong>升级建议：</strong>已经升级到 v1.0.0.5 的用户建议继续更新到本版本。</p>
+  </article>
+      </div>
+      </div>
+    </details>
+    <details class="card update-log-card version-accordion">
+      <summary class="log-title-row">
+        <div>
+          <h2 id="v1-0-0-5">v1.0.0.5</h2>
+          <time datetime="2026-06-15">2026-06-15</time>
+        </div>
+        <span class="accordion-hint" aria-hidden="true"></span>
+      </summary>
+      <div class="version-content">
+<div class="log-grid">
+        <article class="update-column">
+    <h3><span class="inline-new">NEW</span>手机端管理体验</h3>
+    <p><strong>顶部交互：</strong>修复手机端搜索弹层被遮挡、头像和更多菜单点击无反应的问题，并优化侧边栏弹出层级与过渡。</p><p><strong>主题切换：</strong>手机端更多菜单新增日间、夜间和跟随系统入口，不再只能依赖默认设置。</p><p><strong>仪表盘密度：</strong>移动端隐藏媒体库总览大卡片，压缩问候卡片并把日历移到文字右侧，减少首屏占用。</p>
+  </article><article class="update-column">
+    <h3><span class="update-icon">UI</span>高频页面重排</h3>
+    <p><strong>发现与缺集：</strong>手机端推荐和缺集统计海报改为一行三列，提升浏览效率。</p><p><strong>整理设置：</strong>一条龙、二级分类和重命名模板移除多余刷新按钮，统一按钮样式、卡片位置和右对齐规则。</p><p><strong>整理记录：</strong>移动端记录卡片重新排版，海报放大，标题、状态、标签和时间对齐更紧凑。</p>
+  </article><article class="update-column">
+    <h3><span class="update-icon">REL</span>发布与升级</h3>
+    <p><strong>账户与 Docker：</strong>账户管理补齐手机端 Emby 用户列表，搜索、刷新和新建用户同排；Docker 版本移动到镜像管理行并右对齐。</p><p><strong>正式版本：</strong>本次版本号为 <code>v1.0.0.5</code>。</p><p><strong>Docker 镜像：</strong>发布 <code>chillne/cinechill:v1.0.0.5</code>、<code>chillne/cinechill:1.0.0.5</code> 和 <code>latest</code>。</p>
+  </article>
+      </div>
+      </div>
+    </details>
+    <details class="card update-log-card version-accordion">
+      <summary class="log-title-row">
+        <div>
+          <h2 id="v1-0-0-4">v1.0.0.4</h2>
+          <time datetime="2026-06-15">2026-06-15</time>
+        </div>
+        <span class="accordion-hint" aria-hidden="true"></span>
+      </summary>
+      <div class="version-content">
+<div class="log-grid">
+        <article class="update-column">
+    <h3><span class="inline-new">NEW</span>后台界面统一整理</h3>
+    <p><strong>卡片与表格重排：</strong>优化 Webhook、资源转存、资源配置、封面资源、封面备份、自动封面、整理记录和账号管理等页面布局。</p><p><strong>侧边栏与动效：</strong>修正窄屏菜单点击区域、选中态和图标居中问题，并放慢页面切换、卡片弹出和加载动效。</p><p><strong>日志与筛选区：</strong>整理实时日志筛选工具栏和整理记录筛选区域，减少多余边框与无效说明。</p>
+  </article><article class="update-column">
+    <h3><span class="update-icon">FIX</span>交互与数据刷新</h3>
+    <p><strong>Webhook 复制：</strong>修复 Webhook 地址复制按钮无效的问题。</p><p><strong>继续观看加载：</strong>宽屏下会主动补充加载继续观看条目，避免只有窄屏横向滚动时才出现更多数据。</p><p><strong>自动封面编辑：</strong>点击编辑时会刷新 Emby 媒体库，新增媒体库后能进入目标选择。</p>
+  </article><article class="update-column">
+    <h3><span class="update-icon">REL</span>发布与升级</h3>
+    <p><strong>正式版本：</strong>本次版本号为 <code>v1.0.0.4</code>。</p><p><strong>Docker 镜像：</strong>发布 <code>chillne/cinechill:v1.0.0.4</code>、<code>chillne/cinechill:1.0.0.4</code> 和 <code>latest</code>。</p><p><strong>升级范围：</strong>适合需要后台界面、交互细节和数据刷新体验优化的用户升级。</p>
+  </article>
+      </div>
+      </div>
+    </details>
+    <details class="card update-log-card version-accordion">
+      <summary class="log-title-row">
+        <div>
+          <h2 id="v1-0-0-3">v1.0.0.3</h2>
+          <time datetime="2026-06-14">2026-06-14</time>
+        </div>
+        <span class="accordion-hint" aria-hidden="true"></span>
+      </summary>
+      <div class="version-content">
+<div class="log-grid">
+        <article class="update-column">
+    <h3><span class="inline-new">NEW</span>仪表盘继续观看</h3>
+    <p><strong>绑定用户生效：</strong>账户管理中绑定的 Emby 用户现在会用于仪表盘“继续观看”，播放进度不再固定读取默认用户。</p><p><strong>概览缓存隔离：</strong>仪表盘缓存按绑定用户区分，切换绑定用户后不会继续显示上一位用户的继续观看数据。</p><p><strong>统计范围保持全局：</strong>媒体库总览、最近入库和服务器信息继续使用管理员视角，避免绑定用户影响全局统计。</p>
+  </article><article class="update-column">
+    <h3><span class="update-icon">UI</span>页面布局调整</h3>
+    <p><strong>二级分类更清爽：</strong>移除高级 JSON 编辑区，把“Emby 同步与规则维护”移动到规则卡片上方，规则维护路径更直接。</p><p><strong>仪表盘卡片优化：</strong>继续观看卡片适当缩小，媒体库卡片保持图片铺满并稳定显示两排，减少横向滚动和视觉空洞。</p><p><strong>账户页减少无效入口：</strong>移除没有实际必要的重复刷新按钮，只保留 Emby 用户列表工具栏里的刷新动作。</p>
+  </article><article class="update-column">
+    <h3><span class="update-icon">REL</span>发布与发布记录</h3>
+    <p><strong>正式镜像发布：</strong>同步发布 v1.0.0.3 Docker 镜像，用户可按常规升级流程更新到最新版本。</p><p><strong>更新日志补齐：</strong>Wiki 更新日志补齐从 v1.0.0.1 到最新版本的正式发布记录，便于回看版本变化。</p><p><strong>升级提示更清晰：</strong>把本次影响范围集中说明为仪表盘、二级分类、账户管理和媒体库卡片布局。</p>
+  </article>
+      </div>
+      </div>
+    </details>
+    <details class="card update-log-card version-accordion">
+      <summary class="log-title-row">
+        <div>
+          <h2 id="v1-0-0-2">v1.0.0.2</h2>
+          <time datetime="2026-06-14">2026-06-14</time>
+        </div>
+        <span class="accordion-hint" aria-hidden="true"></span>
+      </summary>
+      <div class="version-content">
+<ul><li>优化移动端管理界面，改善窄屏下导航、页面内容和操作区域的适配。</li><li>显示 Emby 真实服务器名称，让仪表盘和配置页更容易确认当前连接对象。</li><li>延续 CineChill 品牌化界面调整，保持后台管理体验一致。</li></ul>
+      </div>
+    </details>
+    <details class="card update-log-card version-accordion">
+      <summary class="log-title-row">
+        <div>
+          <h2 id="v1-0-0-1">v1.0.0.1</h2>
+          <time datetime="2026-06-14">2026-06-14</time>
+        </div>
+        <span class="accordion-hint" aria-hidden="true"></span>
+      </summary>
+      <div class="version-content">
+<ul><li>CineChill 发布线起始版本，正式从 ChillPoster 镜像切换到 CineChill 发布镜像。</li><li>精简默认配置与运行时资源，降低首次部署和后续维护成本。</li><li>修复真实库建库相关问题，为 NAS、Docker 和 Emby 联动提供稳定基础。</li></ul>
+      </div>
+    </details>
+    <section class="card">
+      <h2>后续更新记录方式</h2>
+      <ul><li>首页只展示最新一条正式版本更新。</li><li>完整日志页保留每次正式版本的功能、界面、运维和文档变化。</li><li>后续版本继续追加到本页，点击标题直接展开，不新增独立版本页面。</li></ul>
     </section>
   </article>
       <aside class="doc-aside" aria-label="本页目录">
