@@ -283,38 +283,74 @@
     </aside>
     <main id="VPContent" class="content">
       <article class="doc">
-    <p class="eyebrow">控制台 / 工具箱</p>
+<p class="eyebrow">控制台 / 工具箱</p>
 
-    <h1>工具箱</h1>
-
-    <p class="lead">新版工具箱是后台自用运维与联动配置的集中入口，当前 UI 通过功能卡片进入各个子模块。</p>
-
+<p class="lead">工具箱是后台自用运维入口，当前 UI 通过分类和搜索工具卡片打开子模块。它集中承载 115、转存、Webhook、FNOS、Telegram、MoviePilot、TMDB 和代理配置，但每个工具的保存与风险边界不同。</p>
 
     <figure class="screenshot">
       <img src="/cinechill-wiki/cinechill/screenshots/toolbox.png" alt="工具箱 页面截图">
-      <figcaption>截图来自 2026-06-18 新版 CineChill 管理端；按页面当前可见状态截取，未主动展开隐藏的密码、Token、Cookie 字段。</figcaption>
+      <figcaption>截图来自 CineChill 管理端；敏感字段、真实地址和私有任务状态不展示。</figcaption>
     </figure>
 
     <section class="card">
-      <h2>新版入口</h2>
-      <p>左侧导航栏“工具箱”。进入后可以用顶部分类按钮或右侧“搜索工具”快速筛选对应卡片。</p>
+      <h2>适用场景与准备工作</h2>
+      <ul>
+        <li>统一查找账号、外部服务、转存、通知和维护工具。</li>
+        <li>先完成服务器 / 115 / Emby 基础配置，再打开依赖这些连接的子模块。</li>
+        <li>高风险工具（定时清空、批量上传、账号监听）必须先读对应教程，并准备测试目录 / 测试媒体库。</li>
+      </ul>
     </section>
 
     <section class="card">
-      <h2>当前包含哪些入口</h2>
-      <ul><li>115 相关：扫码获取115CK、115 定时清空、网盘资源秒传。</li><li>转存与联动：资源转存、Forward 模块、Webhook。</li><li>账号监听与签到：飞牛论坛签到、Telegram 监听。</li><li>外部服务配置：MoviePilot、代理配置、TMDB 配置。</li></ul>
+      <h2>按页面顺序操作</h2>
+      <ol>
+        <li>左侧进入“工具箱”，使用分类按钮或“搜索工具”筛选卡片。</li>
+        <li>按目标选择工具：115 相关、转存与联动、账号监听 / 签到、外部服务配置。</li>
+        <li>打开卡片后先读取当前状态；填写字段后优先点击测试 / 校验，再保存。</li>
+        <li>返回业务页面做一次单条、单目录、单任务验证，确认成功后再启用 Cron、监听或批量。</li>
+        <li>遇到异常先停用当前工具，记录错误提示和系统运行日志，再进入对应教程排查。</li>
+      </ol>
     </section>
 
     <section class="card">
-      <h2>怎么使用</h2>
-      <ol><li>先完成“服务器配置”里的 Emby 和 115 连接。</li><li>进入“工具箱”，按功能卡片打开对应弹窗或配置页。</li><li>每个工具先测试连接或保存配置，再回业务页面验证。</li><li>不确定用途的工具不要开启长期监听、定时清空或批量任务。</li></ol>
+      <h2>工具分类与字段边界</h2>
+      <ul>
+        <li><strong>115：</strong>扫码获取 CK、115 定时清空、网盘资源秒传；CK / Cookie、目录和删除开关属于高敏感配置。</li>
+        <li><strong>资源转存 / Forward：</strong>处理合法授权媒体的候选、链接和目标目录；不公开真实链接、口令、Token 或 Widget 地址。</li>
+        <li><strong>Webhook：</strong>接收 Emby 事件；需要 HTTPS / 访问控制，地址不是公开 API 文档示例。</li>
+        <li><strong>FNOS / Telegram：</strong>依赖 Cookie、API 信息、账号会话或验证码；只在自有账号和可信环境使用。</li>
+        <li><strong>MoviePilot / TMDB / 代理：</strong>外部服务连接配置；测试成功只说明接口可达，不说明所有下游站点或资源源可用。</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>首次小范围验证</h2>
+      <ol>
+        <li>先打开一个低风险工具（例如外部服务连接测试），确认保存 / 测试反馈清晰。</li>
+        <li>再选一个业务工具做单条验证：一个 RSS 预览、一个 115 文件、一个 Webhook 事件或一个封面预览。</li>
+        <li>确认日志、历史和目标结果一致后，才启用长期任务；不要一次开启所有工具。</li>
+      </ol>
+    </section>
+
+    <section class="card">
+      <h2>常见问题、风险与回滚</h2>
+      <ul>
+        <li><strong>卡片打不开 / 数据空：</strong>先刷新页面并看具体错误；不要把空状态当成“可以直接保存默认值”。</li>
+        <li><strong>配置保存后仍失败：</strong>回到对应工具查看测试结果和日志；不同工具的凭据和网络路径不同。</li>
+        <li><strong>误启用自动化：</strong>优先关闭启用开关并保存，再到历史 / 任务页处理已提交的工作。</li>
+        <li>工具箱只是入口，不提供统一回滚；回滚方式以各子页面教程和实际任务状态为准。</li>
+      </ul>
     </section>
 
     <section class="card">
       <h2>公开 Wiki 安全边界</h2>
-      <ul><li>公开 Wiki 只写自有合法授权媒体资源管理、个人媒体库整理、元数据刮削、封面整理和 NAS 运维记录。</li><li>正文、代码块和提交信息不要写入账号、密码、Cookie、Token、API Key、Webhook 地址或真实日志。</li><li>截图按页面当前可见状态保留，不主动展开隐藏的密码、Token、Cookie 字段。</li><li>涉及自用联动或长期监听时，先测试连接或小范围运行，再开启自动化任务。</li></ul>
+      <ul>
+        <li>本文只讨论自有合法授权媒体资源管理、个人媒体库整理、元数据刮削、封面整理和 NAS 运维。</li>
+        <li>不要把账号、密码、Cookie、CK、Token、API Key、Webhook 地址、真实内网路径或真实日志放进正文、截图和提交信息。</li>
+        <li>涉及外部服务时，只记录“已配置 / 未配置 / 测试成功 / 失败原因”这类状态，不公开资源来源、分享口令、转存口令或规避访问方式。</li>
+        <li>配置保存后先做单条、单库或测试目录验证，确认结果后再启用定时、监听和批量处理。</li>
+      </ul>
     </section>
-
   </article>
       <aside class="doc-aside" aria-label="本页目录">
         <div class="doc-aside-container">

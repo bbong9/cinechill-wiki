@@ -282,54 +282,98 @@
       </nav>
     </aside>
     <main id="VPContent" class="content">
-      <article class="doc">
-    <p class="eyebrow">系统配置 / config_115</p>
+      <article class="doc"><p class="eyebrow">系统配置 / config_115</p>
+<figure class="screenshot">
+  <img src="/cinechill-wiki/cinechill/screenshots/config_115.png" alt="115 配置（已并入服务器配置） 页面截图">
+  <figcaption>截图来自 2026-06-18 新版 CineChill 管理端；按页面当前可见状态截取，未主动展开隐藏的密码、Token、Cookie 字段。</figcaption>
+</figure>
+<h1>115 配置（已并入服务器配置）</h1>
+<p class="lead">当前版本没有独立的旧版 115 配置页；本入口打开“系统配置 → 服务器配置”的 115 卡片。本页只讲 115 相关字段、扫码、标准目录和清理风险。</p>
 
-    <h1>115 配置（已并入服务器配置）</h1>
+<section class="card">
+  <h2>适用场景与前置条件</h2>
+  <ul>
+    <li>首次接入 115、Cookie 过期、标准目录丢失、整理/STRM 绑定异常时使用。</li>
+    <li>准备一个可用的 115 Cookie；可以手动粘贴，也可以在页面内扫码获取并写入。</li>
+    <li>如果使用本地媒体目录，确保 CineChill 容器对媒体挂载目录可读写。</li>
+  </ul>
+</section>
 
-    <p class="lead">新版后台把 115 基础连接合并到“服务器配置”，115 区域用于维护账号、Cookie、回收站安全码、同播复制和连接检测。</p>
+<section class="card">
+  <h2>扫码获取并写入 Cookie</h2>
+  <ol>
+    <li>进入“系统配置 → 服务器配置”，在 115 卡片点击“扫码登录”。</li>
+    <li>选择页面提供的扫码客户端，点击生成二维码。</li>
+    <li>扫码后等待状态依次更新；页面会区分等待扫码、已扫码、确认成功、过期和取消。</li>
+    <li>成功获取 CK 后，先点击“复制 CK”做临时备份，再点击“写入配置”。</li>
+    <li>回到 115 卡片点击“测试连接”，确认 Cookie 有效。</li>
+  </ol>
+  <p>二维码会话是一次性的；过期或取消后重新生成，不要把二维码、CK 或扫码结果截图放进公开文档。</p>
+</section>
 
+<section class="card">
+  <h2>字段含义</h2>
+  <ul>
+    <li><strong>名称：</strong>当前 115 主账号的显示名称。</li>
+    <li><strong>115 Cookie：</strong>后端访问 115 API 和远程目录的认证信息。</li>
+    <li><strong>回收站安全码：</strong>执行手动/计划清理时提交给 115 的安全码；留空是否能清理取决于 115 端要求。</li>
+    <li><strong>启用同播复制：</strong>多人同时播放同一视频时的副本策略。</li>
+    <li><strong>扫码登录 / 测试连接：</strong>前者获取 CK，后者只验证当前输入，二者都不等同于保存。</li>
+    <li><strong>手动清理回收站：</strong>会调用当前清理流程，包含目录删除和回收站清空；这是破坏性操作。</li>
+  </ul>
+</section>
 
-    <figure class="screenshot">
-      <img src="/cinechill-wiki/cinechill/screenshots/config_115.png" alt="115 配置（已并入服务器配置） 页面截图">
-      <figcaption>截图来自 2026-06-18 新版 CineChill 管理端；按页面当前可见状态截取，未主动展开隐藏的密码、Token、Cookie 字段。</figcaption>
-    </figure>
+<section class="card">
+  <h2>保存后会发生什么</h2>
+  <ol>
+    <li>点击“保存配置”后，后端会持久化第一个 115 配置。</li>
+    <li>标准目录模式固定开启；远程默认根目录是“影视库”。</li>
+    <li>后端会创建或校验远程“媒体目录、秒传目录、失败目录、转存目录、重复目录、洗版目录”。</li>
+    <li>本地媒体根目录下会创建“影视库/媒体库”和“影视库/真实库”，并把相关路径绑定到媒体整理、STRM 和 RSS 逻辑。</li>
+    <li>Cookie 或绑定路径变化时，115 客户端缓存和 Life 事件监听可能被刷新。</li>
+  </ol>
+</section>
 
-    <section class="card">
-      <h2>新版入口</h2>
-      <p>左侧导航栏“系统配置 → 服务器配置”，在页面右侧找到“115”区域。旧“115 配置”教程保留为该区域说明。</p>
-    </section>
+<section class="card">
+  <h2>首次验证</h2>
+  <ul>
+    <li>测试连接显示 Cookie 有效，并能显示登录客户端信息。</li>
+    <li>系统健康中的“115 Cookie”和“115 标准目录”均正常。</li>
+    <li>标准目录中的本地“媒体库/真实库”可读写。</li>
+    <li>用一条小样本执行转存/整理或 STRM 测试，再检查整理记录和 Emby 媒体库。</li>
+  </ul>
+</section>
 
-    <section class="card">
-      <h2>这页是干什么的</h2>
-      <p>维护个人 115 存储连接能力，供合法授权媒体整理、STRM、上传和目录检查使用。</p><h3>什么时候打开它</h3><ul><li>首次部署后需要配置 115。</li><li>Cookie 过期、目录读取失败。</li><li>需要启用或关闭同播复制。</li></ul>
-    </section>
+<section class="card">
+  <h2>失败排查</h2>
+  <ul>
+    <li>二维码生成失败：切换页面提供的客户端后重试；仍失败时看系统日志中的 115 QR 错误。</li>
+    <li>扫码成功但写入失败：先复制 CK 做临时保留，检查配置目录可写，再重新写入。</li>
+    <li>Cookie 测试失败：Cookie 可能过期、复制不完整或来自不兼容的登录客户端；重新扫码并再次测试。</li>
+    <li>标准目录异常：不要手工改 CID；修复 Cookie 后重新点击“保存配置”让后端重新解析目录。</li>
+    <li>清理结果异常：先停用相关定时任务并查看日志，不要连续点击“手动清理回收站”。</li>
+  </ul>
+</section>
 
-    <section class="card">
-      <h2>小白第一次怎么用</h2>
-      <ol><li>进入“服务器配置”的 115 区域。</li><li>填写名称、115 Cookie 和回收站安全码等必要项。</li><li>按需开启同播复制。</li><li>点击“测试连接”，确认 Cookie 有效。</li><li>点击“保存配置”，再回一条龙或 115 秒传验证。</li></ol>
-    </section>
+<section class="card">
+  <h2>备份、回滚与安全</h2>
+  <ul>
+    <li>修改前备份持久化 <code>config</code> 目录；Cookie、标准目录绑定和任务状态需要一起保留。</li>
+    <li>回滚配置时先停止任务和监听，再恢复配置并重启；不要直接删除 115 远程目录来“清理旧配置”。</li>
+    <li>回收站安全码、Cookie 和 CK 都属于凭据，不应出现在文档、截图、Issue 或日志附件中。</li>
+  </ul>
+</section>
 
-    <section class="card">
-      <h2>页面区域怎么看</h2>
-      <ul><li>名称：用于识别当前 115 配置。</li><li>115 Cookie：后端连接 115 的凭据，截图和文档不得公开。</li><li>回收站安全码：仅用于自有账号维护。</li><li>同播复制：多人同时观看同一视频时的副本策略。</li><li>连接状态：显示 Cookie 是否有效。</li></ul>
-    </section>
-
-    <section class="card">
-      <h2>验证方式</h2>
-      <ul><li>测试连接返回有效状态。</li><li>服务器配置页刷新后状态仍正常。</li><li>一条龙或 115 秒传能读取到对应目录。</li></ul>
-    </section>
-
-    <section class="card">
-      <h2>常见问题和风险</h2>
-      <ul><li>Cookie 属于敏感凭据，不能写入 Wiki、提交或截图。</li><li>目录与媒体库路径要分清，避免整理到成品库。</li><li>不使用时关闭高风险自动操作，先小范围验证。</li></ul>
-    </section>
-
-    <section class="card">
-      <h2>公开 Wiki 安全边界</h2>
-      <ul><li>公开 Wiki 只写自有合法授权媒体资源管理、个人媒体库整理、元数据刮削、封面整理和 NAS 运维记录。</li><li>不要在文档、截图、提交信息里公开账号、密码、Cookie、Token、API Key、Webhook 地址、内网路径或真实日志。</li><li>涉及外部服务时，只说明官方元数据、通知和自用联动的配置边界，不写资源来源、分享口令、转存口令或规避访问方式。</li><li>保存配置后先测试连接或小范围运行，再开启自动化、批量任务或长期监听。</li></ul>
-    </section>
-  </article>
+<section class="card">
+  <h2>安全边界</h2>
+  <ul>
+    <li>本文只面向自有或合法授权媒体库的管理、元数据刮削、封面整理和 NAS 运维。</li>
+    <li>不要把用户名、密码、Cookie、API Key、Token、Webhook 地址、真实 Chat ID、内网地址、真实路径或完整日志写进公开 Wiki。</li>
+    <li>不要在公开文档中记录资源链接、分享口令、转存口令、磁力、破解、去 DRM 或绕过访问限制的方法。</li>
+    <li>保存敏感配置后先做连接测试或小范围验证，再开启全量任务、定时任务和长期监听。</li>
+  </ul>
+</section>
+</article>
       <aside class="doc-aside" aria-label="本页目录">
         <div class="doc-aside-container">
           <nav class="doc-outline" aria-labelledby="doc-outline-title">

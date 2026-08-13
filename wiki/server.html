@@ -282,54 +282,98 @@
       </nav>
     </aside>
     <main id="VPContent" class="content">
-      <article class="doc">
-    <p class="eyebrow">系统配置 / server</p>
+      <article class="doc"><p class="eyebrow">系统配置 / server</p>
+<figure class="screenshot">
+  <img src="/cinechill-wiki/cinechill/screenshots/server.png" alt="服务器配置 页面截图">
+  <figcaption>截图来自 2026-06-18 新版 CineChill 管理端；按页面当前可见状态截取，未主动展开隐藏的密码、Token、Cookie 字段。</figcaption>
+</figure>
+<h1>服务器配置</h1>
+<p class="lead">服务器配置页同时维护 Emby 和 115 主账号。Emby 保存负责媒体库连接；115 保存除了凭据外，还会触发标准目录创建和相关模块绑定。</p>
 
-    <h1>服务器配置</h1>
+<section class="card">
+  <h2>适用场景与前置条件</h2>
+  <ul>
+    <li>首次部署、Emby 地址/API Key 变化、115 Cookie 过期、网关端口变化时使用。</li>
+    <li>Emby 地址必须是 CineChill 运行环境可访问的地址；浏览器能访问不代表容器也能访问。</li>
+    <li>准备 Emby API Key，以及 115 Cookie；如果要执行回收站清理，再准备回收站安全码。</li>
+  </ul>
+</section>
 
-    <p class="lead">新版服务器配置把 Emby 和 115 基础连接集中到同一页，是媒体库读取、封面、整理和上传流程的基础。</p>
+<section class="card">
+  <h2>配置 Emby</h2>
+  <ol>
+    <li>在 Emby 卡片填写“配置名称”。它只是当前配置的显示名称。</li>
+    <li>填写“Emby 地址”，例如使用容器网络时可填写页面占位符所示的服务地址形式。</li>
+    <li>按需填写“外网地址（用于图片展示 / Emby 跳转）”。它不是容器内部连接地址。</li>
+    <li>填写“Emby 密钥（API Key）”。</li>
+    <li>填写“反代端口号”，必须是 <code>1-65535</code> 的数字；默认值为 <code>8011</code>。</li>
+    <li>先点击“测试连接”，确认返回媒体库数量，再点击“保存 Emby”。测试不会替代保存。</li>
+  </ol>
+  <p>保存 Emby 只更新 Emby 配置；如果反代端口发生变化，后端会尝试通过 Docker/Compose 同步并重启当前容器，但前提是 Docker Socket 和可写 Compose 条件满足。</p>
+</section>
 
+<section class="card">
+  <h2>配置 115</h2>
+  <ol>
+    <li>填写“名称”和完整的“115 Cookie”，或点击“扫码登录”生成二维码并在扫码成功后“写入配置”。</li>
+    <li>点击“测试连接”，确认返回 Cookie 有效；测试不会把输入自动保存。</li>
+    <li>填写“回收站安全码”（仅在需要清理回收站时使用）。</li>
+    <li>按需打开“启用同播复制”。它用于多人同时观看同一视频时生成副本，不是网盘登录开关。</li>
+    <li>点击“保存配置”。保存会持久化 115 配置，并创建/校验标准目录与本地目录。</li>
+  </ol>
+</section>
 
-    <figure class="screenshot">
-      <img src="/cinechill-wiki/cinechill/screenshots/server.png" alt="服务器配置 页面截图">
-      <figcaption>截图来自 2026-06-18 新版 CineChill 管理端；按页面当前可见状态截取，未主动展开隐藏的密码、Token、Cookie 字段。</figcaption>
-    </figure>
+<section class="card">
+  <h2>字段与自动创建目录</h2>
+  <ul>
+    <li><strong>115 Cookie：</strong>用于 115 连接、转存、秒传、整理和目录检查。</li>
+    <li><strong>回收站安全码：</strong>手动清理或计划清理回收站时使用；不要与登录密码混淆。</li>
+    <li><strong>启用同播复制：</strong>控制同播副本策略，保存后由后端读取。</li>
+    <li><strong>标准目录：</strong>保存时以远程根目录名（默认“影视库”）创建“媒体目录、秒传目录、失败目录、转存目录、重复目录、洗版目录”；本地根目录下创建“媒体库”和“真实库”。</li>
+    <li><strong>网关端口：</strong>实际由 Emby 配置中的反代端口决定，Docker/NAS 必须发布相同端口。</li>
+  </ul>
+</section>
 
-    <section class="card">
-      <h2>新版入口</h2>
-      <p>左侧导航栏“系统配置 → 服务器配置”。旧 Wiki 里的“Emby 配置”和“115 配置”现在都归入这里。</p>
-    </section>
+<section class="card">
+  <h2>首次验证</h2>
+  <ol>
+    <li>Emby 卡片显示“已连接”，并读取到预期媒体库。</li>
+    <li>115 卡片显示“Cookie 有效”。</li>
+    <li>保存 115 后，打开系统健康确认“115 标准目录”“媒体库本地路径”“真实库本地路径”正常。</li>
+    <li>运行一个小范围整理/STRM 测试，确认结果路径和 Emby 刷新符合预期。</li>
+  </ol>
+</section>
 
-    <section class="card">
-      <h2>这页是干什么的</h2>
-      <p>维护 Emby 地址、外网地址、API Key、反代端口，以及 115 账号与 Cookie 检测。</p><h3>什么时候打开它</h3><ul><li>首次部署后完成基础连接。</li><li>仪表盘媒体库为 0。</li><li>115 Cookie 过期或目录读取失败。</li><li>封面跳转、图片展示或反代端口异常。</li></ul>
-    </section>
+<section class="card">
+  <h2>失败排查</h2>
+  <ul>
+    <li>Emby 测试失败：检查地址、API Key、HTTPS 证书可达性和容器网络；先不要运行整理任务。</li>
+    <li>115 Cookie 无效：重新扫码或更新 Cookie 后再测试；保存新 Cookie 会使旧客户端缓存失效并刷新相关监听。</li>
+    <li>保存 115 失败：通常是 Cookie 无效、本地媒体根目录不可写或远程目录创建失败；查看错误提示和系统日志。</li>
+    <li>网关未监听：检查反代端口是否已经发布，若不是 Compose 管理或 Compose 未挂载，手动更新端口映射并重建容器。</li>
+    <li>标准目录检查失败：先修复 Cookie，再重新保存配置，让后端重新解析远程目录 CID。</li>
+  </ul>
+</section>
 
-    <section class="card">
-      <h2>小白第一次怎么用</h2>
-      <ol><li>先填写 Emby 地址、外网地址、API Key 和反代端口。</li><li>点击“测试连接”，确认读取到媒体库。</li><li>在 115 区域填写 Cookie 和必要维护参数。</li><li>测试 115 连接，确认 Cookie 有效。</li><li>保存配置后回仪表盘、二级分类和一条龙验证。</li></ol>
-    </section>
+<section class="card">
+  <h2>备份与回滚</h2>
+  <ul>
+    <li>修改前备份持久化配置目录；其中 115/Emby 配置和登录凭据是高价值数据。</li>
+    <li>如果新目录绑定不符合预期，先停止自动任务，恢复配置备份，再启动并重新运行系统健康。</li>
+    <li>不要为了回滚直接删除远程 115 目录；远程目录删除可能造成不可逆的数据损失。</li>
+  </ul>
+</section>
 
-    <section class="card">
-      <h2>页面区域怎么看</h2>
-      <ul><li>Emby：维护内外网访问地址、API Key、反代端口和连接状态。</li><li>115：维护账号、Cookie、回收站安全码和同播复制。</li><li>连接状态：显示测试结果和读取到的媒体库数量。</li><li>保存按钮：分别保存 Emby 和 115 配置。</li></ul>
-    </section>
-
-    <section class="card">
-      <h2>验证方式</h2>
-      <ul><li>Emby 测试连接成功，媒体库数量正确。</li><li>115 测试连接成功，Cookie 有效。</li><li>仪表盘媒体库总览恢复正常。</li></ul>
-    </section>
-
-    <section class="card">
-      <h2>常见问题和风险</h2>
-      <ul><li>API Key、Cookie、回收站安全码都属于敏感信息，不能公开。</li><li>外网地址要与反向代理、HTTPS、端口映射一致。</li><li>修改服务器配置后先小范围验证，不要直接跑全量任务。</li></ul>
-    </section>
-
-    <section class="card">
-      <h2>公开 Wiki 安全边界</h2>
-      <ul><li>公开 Wiki 只写自有合法授权媒体资源管理、个人媒体库整理、元数据刮削、封面整理和 NAS 运维记录。</li><li>不要在文档、截图、提交信息里公开账号、密码、Cookie、Token、API Key、Webhook 地址、内网路径或真实日志。</li><li>涉及外部服务时，只说明官方元数据、通知和自用联动的配置边界，不写资源来源、分享口令、转存口令或规避访问方式。</li><li>保存配置后先测试连接或小范围运行，再开启自动化、批量任务或长期监听。</li></ul>
-    </section>
-  </article>
+<section class="card">
+  <h2>安全边界</h2>
+  <ul>
+    <li>本文只面向自有或合法授权媒体库的管理、元数据刮削、封面整理和 NAS 运维。</li>
+    <li>不要把用户名、密码、Cookie、API Key、Token、Webhook 地址、真实 Chat ID、内网地址、真实路径或完整日志写进公开 Wiki。</li>
+    <li>不要在公开文档中记录资源链接、分享口令、转存口令、磁力、破解、去 DRM 或绕过访问限制的方法。</li>
+    <li>保存敏感配置后先做连接测试或小范围验证，再开启全量任务、定时任务和长期监听。</li>
+  </ul>
+</section>
+</article>
       <aside class="doc-aside" aria-label="本页目录">
         <div class="doc-aside-container">
           <nav class="doc-outline" aria-labelledby="doc-outline-title">

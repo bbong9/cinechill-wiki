@@ -282,41 +282,73 @@
     </aside>
     <main id="VPContent" class="content">
       <article class="doc">
-    <p class="eyebrow">封面系统 / cover_translations</p>
+<p class="eyebrow">封面系统 / cover_translations</p>
 
-    <h1>翻译配置</h1>
-
-    <p class="lead">新版翻译配置用于维护媒体库展示名称，主标题为空时默认使用媒体库原名。</p>
-
+<p class="lead">翻译配置维护媒体库封面主标题和英文副标题。配置按媒体库名称保存：主标题为空时使用原媒体库名，副标题为空时保持空白；它只影响展示，不会重命名 Emby 媒体库。</p>
 
     <figure class="screenshot">
       <img src="/cinechill-wiki/cinechill/screenshots/cover_translations.png" alt="翻译配置 页面截图">
-      <figcaption>截图来自 2026-06-18 新版 CineChill 管理端；按页面当前可见状态截取，未主动展开隐藏的密码、Token、Cookie 字段。</figcaption>
+      <figcaption>截图来自 CineChill 管理端；媒体库清单可脱敏后使用，真实私有库名不公开。</figcaption>
     </figure>
 
     <section class="card">
-      <h2>新版入口</h2>
-      <p>左侧导航栏“封面系统 → 翻译配置”。</p>
+      <h2>适用场景与准备工作</h2>
+      <ul>
+        <li>统一封面显示标题、英文副标题或多语言展示名称。</li>
+        <li>准备可用的 Emby 配置；页面会自动读取媒体库，未配置时列表可能为空。</li>
+        <li>批量修改前记录原始名称，便于手动恢复。</li>
+      </ul>
     </section>
 
     <section class="card">
-      <h2>这页是干什么的</h2>
-      <p>按媒体库名称保存展示标题，供封面系统和前台展示使用。</p><ul><li>媒体库名称需要更适合封面展示。</li><li>多语言或简称需要统一。</li><li>封面模板读取标题时需要自定义。</li></ul>
+      <h2>按 UI 顺序操作</h2>
+      <ol>
+        <li>进入“封面系统 → 翻译配置”，点击“刷新”读取媒体库和已有翻译。</li>
+        <li>在“媒体库翻译”中找到目标库，填写“封面主标题”和“英文副标题”。</li>
+        <li>只修改需要的条目；点击行内“重置”可恢复该行的原媒体库名和空副标题，点击“移除”则从当前待保存列表中移除。</li>
+        <li>确认标题、副标题没有私有路径或敏感信息，点击“保存配置”。</li>
+        <li>回手动封面生成预览，确认标题被模板读取；不符合预期时回本页恢复原名再保存。</li>
+      </ol>
     </section>
 
     <section class="card">
-      <h2>小白第一次怎么用</h2>
-      <ol><li>进入翻译配置，点击刷新读取媒体库。</li><li>只修改需要展示别名的媒体库。</li><li>主标题为空时会继续使用原媒体库名。</li><li>点击保存配置。</li><li>回手动封面预览，确认标题显示符合预期。</li></ol>
+      <h2>字段解释</h2>
+      <ul>
+        <li><strong>封面主标题：</strong>模板主标题来源；保存为空时后端 / 模板按原媒体库名回退。</li>
+        <li><strong>英文副标题：</strong>模板副标题来源；没有填写时为空，不会自动编造翻译。</li>
+        <li><strong>刷新：</strong>重新从 Emby 和本地配置读取；未保存的页面编辑应先记录。</li>
+        <li><strong>重置：</strong>把当前行改回库原名和空副标题，仅在再次点击“保存配置”后持久化。</li>
+        <li><strong>移除：</strong>从待保存列表移除该行；保存后该名称不会再写入翻译配置，但不改变媒体库本身。</li>
+      </ul>
     </section>
 
     <section class="card">
-      <h2>验证方式</h2>
-      <ul><li>刷新后媒体库列表正常。</li><li>保存后页面刷新仍保留自定义名称。</li><li>手动封面或自动封面渲染时读取到新标题。</li></ul>
+      <h2>首次小范围验证</h2>
+      <ol>
+        <li>只改一个媒体库的主标题，副标题先留空。</li>
+        <li>保存后刷新，确认配置仍保留。</li>
+        <li>用手动封面生成预览，确认模板显示新标题；再决定是否批量修改。</li>
+      </ol>
     </section>
 
     <section class="card">
-      <h2>风险提示</h2>
-      <ul><li>名称修改只影响展示，不等同于 Emby 媒体库重命名。</li><li>公开截图不要展示完整私有媒体库清单。</li><li>批量改名前先记录原始名称，便于回滚。</li></ul>
+      <h2>常见问题、风险与回滚</h2>
+      <ul>
+        <li><strong>列表为空：</strong>检查 Emby 地址 / API Key 和媒体库连接，修好后刷新。</li>
+        <li><strong>标题没变化：</strong>确认保存成功、模板确实读取翻译字段，并重新生成预览。</li>
+        <li><strong>批量改错：</strong>把相关行重置为原名 / 空副标题后保存，再重新生成封面预览。</li>
+        <li>该页不改变 Emby 媒体库名称，也不负责恢复已生成封面；封面恢复请使用封面备份。</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>公开 Wiki 安全边界</h2>
+      <ul>
+        <li>本文只讨论自有合法授权媒体资源管理、个人媒体库整理、元数据刮削、封面整理和 NAS 运维。</li>
+        <li>不要把账号、密码、Cookie、CK、Token、API Key、Webhook 地址、真实内网路径或真实日志放进正文、截图和提交信息。</li>
+        <li>涉及外部服务时，只记录“已配置 / 未配置 / 测试成功 / 失败原因”这类状态，不公开资源来源、分享口令、转存口令或规避访问方式。</li>
+        <li>配置保存后先做单条、单库或测试目录验证，确认结果后再启用定时、监听和批量处理。</li>
+      </ul>
     </section>
   </article>
       <aside class="doc-aside" aria-label="本页目录">

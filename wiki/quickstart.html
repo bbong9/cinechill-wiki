@@ -281,167 +281,143 @@
       </nav>
     </aside>
     <main id="VPContent" class="content">
-      <article class="doc">
-    <p class="eyebrow">入门</p>
+      <article class="doc">    <p class="eyebrow">入门</p>
     <h1>快速开始</h1>
-    <p class="lead">如果你是第一次接触 CineChill，请先按这条路线走。不要一开始就开启所有自动化，先把“能连接、能测试、能小范围成功”做好。</p>
+    <p class="lead">先完成“容器能启动、管理员能登录、Emby/115 能测试、少量样本能跑通”这条最小闭环，再开启自动化。下面的命令只使用源码中实际存在的镜像、端口、挂载点和环境变量。</p>
+
     <section class="card">
-      <h2>新版后台入口顺序</h2>
-      <ol><li>登录后先进入“系统配置 → 账户管理”，修改管理员凭据。</li><li>进入“系统配置 → 服务器配置”，分别测试 Emby 和 115。</li><li>进入“工具箱”，按需配置 TMDB、MoviePilot、Webhook 和代理配置。</li><li>进入“媒体整理 → 重命名模板 / 二级分类”，确认命名和分类策略。</li><li>进入“媒体整理 → 一条龙菜单”，只用少量样本执行整理。</li><li>进入“媒体整理 → 整理记录”和顶部“查看系统日志”验证结果。</li></ol>
+      <h2>适用场景与前置条件</h2>
+      <ul>
+        <li>适合第一次部署 CineChill，或迁移到新的 Docker/NAS 主机。</li>
+        <li>主机需要能运行 Docker；长期运行推荐 Docker Compose。</li>
+        <li>提前准备一个持久化数据目录、一个可被容器访问的媒体目录，以及可从 CineChill 容器访问的 Emby 地址。</li>
+        <li>如果要使用 Docker 管理、网关端口自动同步或 Compose 写回，再准备 Docker Socket 和可写的 Compose 文件挂载。</li>
+      </ul>
     </section>
 
     <section class="card">
-      <h2>Docker run 快速启动</h2>
-      <p>只想先跑起来，可以用 <code>docker run</code>。下面的 <code>CINECHILL_DIR</code> 是宿主机保存数据的目录，左边路径按你的 NAS 或服务器实际目录填写，右边 <code>/app/...</code> 是容器内固定目录，不要改。</p>
-      <pre><code class="language-bash"># CineChill 数据根目录：填写你 NAS / 服务器上准备用来保存配置和素材的目录
-# 群晖示例：/volume1/docker/cinechill
-# Linux 示例：/opt/cinechill
-CINECHILL_DIR="/volume1/docker/cinechill"
+      <h2>最短上手顺序</h2>
+      <ol>
+        <li>部署 CineChill，管理端默认监听容器内 <code>5256</code>；网关默认端口为 <code>8011</code>。</li>
+        <li>浏览器打开管理端，登录后立即进入“系统配置 → 账户管理”修改登录凭据。</li>
+        <li>进入“系统配置 → 服务器配置”，先测试 Emby，再填写并测试 115 Cookie。</li>
+        <li>保存 115 配置；这一步会按源码规则创建或校验标准目录，并绑定媒体整理、STRM 和相关任务。</li>
+        <li>按需配置“工具箱 → TMDB 配置”和“工具箱 → 代理配置”。</li>
+        <li>用少量自有合法授权媒体做一次整理或元数据测试，最后查看“系统健康”和顶部“系统运行日志”。</li>
+      </ol>
+    </section>
 
-# WEB_PORT 是管理端宿主机访问端口；左边可改，右边容器内端口固定是 5256
-WEB_PORT="5256"
+    <section class="card">
+      <h2>Docker run：先启动管理端</h2>
+      <p>左侧变量是宿主机值；右侧 <code>/app/...</code> 和 <code>/media</code> 是容器内路径。首次使用保留默认端口，后续如果在“服务器配置”修改网关端口，必须同步修改 Docker 端口映射并重启容器。</p>
+      <pre><code class="language-bash"># 改成你的宿主机目录；不要把真实凭据写进脚本或公开仓库
+CINECHILL_DIR="/path/to/cinechill"
+MEDIA_DIR="/path/to/media"
+WEB_HOST_PORT="5256"
+GATEWAY_HOST_PORT="8011"
+STRM_HOST="your-nas-host-or-ip"
 
-# GATEWAY_PORT 是 302 / STRM 相关访问端口；左边可改，右边容器内端口固定是 8011
-GATEWAY_PORT="8011"
-
-# 本地媒体库宿主机路径：必须改成你自己的媒体路径，并且必须与 Emby 的媒体路径映射一模一样
-MEDIA_DIR="/path/to/your/media"
-
-# STRM 访问主机地址：改成你的 NAS / 服务器 IP，不要填 127.0.0.1
-STRM_HOST="YOUR_NAS_IP"
-
-# 先创建宿主机目录，避免 Docker 自动创建成权限不清晰的目录
-mkdir -p "$CINECHILL_DIR"/{config,fonts,templates,backups}
+mkdir -p "$CINECHILL_DIR"/{config,fonts,templates,layouts,backups,media}
 
 docker run -d \
   --name cinechill \
-  --restart always \
-  -p "${WEB_PORT}:5256" \
-  -p "${GATEWAY_PORT}:8011" \
+  --restart unless-stopped \
+  -p "${WEB_HOST_PORT}:5256" \
+  -p "${GATEWAY_HOST_PORT}:8011" \
   -v "$CINECHILL_DIR/config:/app/config" \
   -v "$CINECHILL_DIR/fonts:/app/fonts" \
   -v "$CINECHILL_DIR/templates:/app/templates" \
+  -v "$CINECHILL_DIR/layouts:/app/layouts" \
   -v "$CINECHILL_DIR/backups:/app/backups" \
   -v "$MEDIA_DIR:/media" \
   -v /var/run/docker.sock:/var/run/docker.sock \
   -e TZ=Asia/Shanghai \
   -e CHILLPOSTER_LOCAL_MEDIA_ROOT=/media \
-  -e "CHILLPOSTER_STRM_HOST=${STRM_HOST}" \
-  -e CHILLPOSTER_MEDIA_METADATA_WORKERS=15 \
-  -e CHILLPOSTER_MEDIA_ORGANIZE_CONCURRENCY=4 \
+  -e CHILLPOSTER_STRM_HOST="$STRM_HOST" \
   chillne/cinechill:latest</code></pre>
-      <ul><li><code>/app/config</code>：保存账号、Emby、115、TMDB、代理配置等运行配置。</li><li><code>/app/fonts</code>：放自定义字体，封面设计会读取这里。</li><li><code>/app/templates</code>：保存封面模板。</li><li><code>/app/backups</code>：保存备份文件，建议持久化。</li><li><code>/media</code>：容器内媒体根目录，必须和 <code>CHILLPOSTER_LOCAL_MEDIA_ROOT</code> 保持一致。</li><li><code>/var/run/docker.sock</code>：Docker 管理页读取容器状态用，高权限挂载，只建议自有 NAS / 服务器使用。</li></ul>
-      <p>启动后访问 <code>http://你的服务器IP:5256</code>。如果你把 <code>WEB_PORT</code> 改成了其他端口，例如 <code>10039</code>，访问地址就是 <code>http://你的服务器IP:10039</code>；如果使用 STRM / 302 相关功能，还要确认 <code>GATEWAY_PORT</code> 对应端口已放行。</p>
+      <ul>
+        <li><code>/app/config</code>：登录凭据、服务器配置、任务和外部服务配置，必须持久化。</li>
+        <li><code>/app/fonts</code>、<code>/app/templates</code>、<code>/app/layouts</code>：封面资源和布局，按需持久化。</li>
+        <li><code>/app/backups</code>：封面及迁移备份，建议持久化。</li>
+        <li><code>/media</code>：标准目录会在这里创建；<code>CHILLPOSTER_LOCAL_MEDIA_ROOT=/media</code> 必须与挂载路径一致。</li>
+        <li><code>/var/run/docker.sock</code>：只为 Docker 管理和部分端口/Compose 检查提供能力，是高权限挂载；不用这些功能时可以不挂载。</li>
+      </ul>
     </section>
+
     <section class="card">
-      <h2>Docker Compose 示例</h2>
-      <p>长期运行更推荐 <code>docker compose</code>。下面是 CineChill + Emby 的组合示例，按注释修改媒体路径、NAS 地址和代理地址后，把内容保存为 <code>docker-compose.yml</code>，再启动。</p>
-      <pre><code class="language-yaml"># docker-compose.yml
-# 定义 CineChill 与 Emby 两个服务
-services:
-  # CineChill 媒体整理、封面和 Docker 管理服务
+      <h2>Docker Compose：长期运行推荐</h2>
+      <p>把以下内容保存为你自己的 Compose 文件，并将左侧宿主机路径替换为实际目录。Compose 服务名不是固定 API 名称；下面示例使用 <code>cinechill</code>，日志命令也按此服务名书写。</p>
+      <p><strong>必须修改：</strong><code>./media</code> 只是示例宿主机目录；请改成实际媒体路径，并保证 CineChill 与 Emby 看到的容器内媒体路径完全一致。若只使用 CineChill 的 STRM/整理功能，可不把 Emby 写进同一份 Compose，但 Emby 仍必须能访问同一媒体映射。</p>
+      <pre><code class="language-yaml">services:
   cinechill:
-    # CineChill 正式镜像；默认使用 latest，升级时执行 docker compose pull 后重建容器
     image: chillne/cinechill:latest
-    # CineChill 容器名称；Wiki 和排障命令默认按 cinechill 说明，不建议随意修改
     container_name: cinechill
-    # Docker 服务或 NAS 重启后自动拉起容器
-    restart: always
-
-    # CineChill 对外开放的宿主机端口
+    restart: unless-stopped
     ports:
-      # 管理端 Web 端口：左边是宿主机访问端口，右边 5256 是容器内固定端口
       - "5256:5256"
-      # 302 / STRM 相关访问端口：如果你的反向代理或防火墙有限制，也要同步放行 8011
       - "8011:8011"
-
-    # CineChill 持久化目录和主机能力挂载
     volumes:
-      # 配置目录：账号、Emby、115、TMDB、代理配置、任务状态等核心配置都在这里，必须持久化
       - ./config:/app/config
-      # 字体目录：封面设计、自定义字体会读取这里
       - ./fonts:/app/fonts
-      # 模板目录：封面模板导入、编辑和恢复会使用这里
       - ./templates:/app/templates
-      # 备份目录：封面备份、配置备份和迁移文件建议统一放这里
+      - ./layouts:/app/layouts
       - ./backups:/app/backups
-      # 本地媒体库目录：左边必须改成你自己的媒体路径，并且必须与 Emby 的媒体路径映射一模一样
-      - /path/to/your/media:/media
-      # Docker 管理页需要读取本机 Docker 状态；不使用 Docker 管理功能时也可以先保留
+      - ./media:/media
       - /var/run/docker.sock:/var/run/docker.sock
-      # Docker 管理页需要读写其他容器的 compose 文件；左右两边都改成 NAS 上实际的 Docker 目录
-      # 这是高权限挂载，只建议在自有 NAS / 服务器上使用
-      - /path/to/your/docker:/path/to/your/docker:rw
-
-    # CineChill 运行参数
+      # 只有需要“写入 Compose”时才挂载；左右路径要保持为容器内可见的同一绝对路径
+      # - /path/to/compose-project:/path/to/compose-project:rw
     environment:
-      # 时区：国内 NAS / Linux 主机通常保持 Asia/Shanghai
       - TZ=Asia/Shanghai
-      # 容器内媒体根目录：必须与上方媒体库挂载的容器内路径 /media 保持一致
       - CHILLPOSTER_LOCAL_MEDIA_ROOT=/media
-      # STRM 访问主机地址：改成你的 NAS / 服务器 IP，不要填 127.0.0.1
-      - CHILLPOSTER_STRM_HOST=YOUR_NAS_IP
-      # 媒体元数据并发数：机器性能弱时可降低，例如 5-8
-      - CHILLPOSTER_MEDIA_METADATA_WORKERS=15
-      # 媒体整理并发数：机械硬盘或低性能 NAS 建议降低，例如 1-2
-      - CHILLPOSTER_MEDIA_ORGANIZE_CONCURRENCY=4
-
-  # Emby 媒体服务器
-  emby:
-    # Emby 服务镜像；beta 标签会跟随 Emby beta 线路，生产环境可按需固定版本
-    image: emby/embyserver:beta
-    # Emby 容器名称；与 CineChill 配置中的 Emby 服务保持一致
-    container_name: embyserver
-    # 使用 host 网络后，Emby 直接监听宿主机的 8096 / 8920
-    network_mode: host
-    # host 网络模式下不要再配置 ports，避免 Docker 报端口映射冲突
-
-    environment:
-      # Emby 运行用户和用户组；按你的 NAS 权限模型调整
-      - UID=0
-      - GID=0
-      - GIDLIST=0
-      # 时区：与 CineChill 保持一致
-      - TZ=Asia/Shanghai
-      # 代理地址和端口；不使用代理时可删除这三行
-      - HTTP_PROXY=http://YOUR_PROXY_IP:PORT
-      - HTTPS_PROXY=http://YOUR_PROXY_IP:PORT
-      # 不走代理的本机、局域网和 CineChill 服务地址
-      - NO_PROXY=localhost,127.0.0.1,YOUR_NAS_IP,192.168.0.0/16,cinechill
-
-    volumes:
-      # Emby 配置目录；必须持久化，升级前建议备份
-      - ./emby/config:/config
-      # Emby 媒体库目录：必须与 CineChill 的 /media 映射一模一样
-      - /path/to/your/media:/media</code></pre>
-      <p><strong>必须先改：</strong><code>/path/to/your/media</code> 要换成真实媒体库宿主机路径，并且要和 Emby 容器看到的路径保持一致；<code>YOUR_NAS_IP</code> 和 <code>YOUR_PROXY_IP:PORT</code> 要换成实际地址。Emby 使用 <code>network_mode: host</code> 时，直接访问 <code>http://你的服务器IP:8096</code>，不要额外添加端口映射。</p>
-      <ul><li><code>5256</code>：CineChill 管理端口，浏览器访问 <code>http://你的服务器IP:5256</code>。</li><li><code>8011</code>：STRM / 302 访问相关端口，使用 STRM 或相关网关功能时需要放行。</li><li><code>8096</code> / <code>8920</code>：Emby 在 host 网络模式下直接监听宿主机端口。</li><li><code>/app/config</code> 和 <code>/app/backups</code>：升级、迁移和恢复前必须重点备份。</li><li><code>/path/to/your/docker:/path/to/your/docker:rw</code>：用于管理其他容器 compose 文件的高权限挂载，左右路径要替换成同一个实际 Docker 根目录。</li><li><code>/var/run/docker.sock</code>：用于 Docker 管理页读取容器状态，同样属于高权限挂载。</li></ul>
-      <p>在 <code>docker-compose.yml</code> 所在目录执行：</p>
-      <pre><code class="language-bash"># 首次启动或更新镜像后重建容器
-docker compose up -d
-
-# 查看 CineChill 和 Emby 服务状态
+      - CHILLPOSTER_STRM_HOST=your-nas-host-or-ip</code></pre>
+      <pre><code class="language-bash">docker compose up -d
 docker compose ps
+docker compose logs -f cinechill</code></pre>
+    </section>
 
-# 查看 CineChill 日志，排查启动失败或端口占用
-docker compose logs -f cinechill
+    <section class="card">
+      <h2>首次验证</h2>
+      <ol>
+        <li>访问 <code>http://你的主机地址:5256</code>；反向代理场景则访问你配置的 HTTPS 地址。</li>
+        <li>登录后进入账户管理修改凭据。</li>
+        <li>打开“服务器配置”，Emby 测试应能返回媒体库数量；115 测试应显示 Cookie 有效。</li>
+        <li>保存 115 配置后，打开“系统健康”，确认标准目录、媒体路径和网关状态。</li>
+        <li>运行一次小范围任务，去“整理记录”和“系统运行日志”确认结果。</li>
+        <li>用 <code>/api/version</code> 核对实际运行版本；Wiki 已同步的最近发布记录为 <code>v1.0.0.69</code>（2026-08-04）；实际运行版本仍以你的 CineChill 页面或 <code>/api/version</code> 返回值为准，不要只根据镜像标签猜版本。</li>
+      </ol>
+    </section>
 
-# 查看 Emby 日志
-docker compose logs -f emby</code></pre>
-    </section>
     <section class="card">
-      <h2>最短上手路线</h2>
-      <ol><li>登录后先进入“系统配置 → 账户管理”，修改默认用户名和密码。</li><li>进入“系统配置 → 服务器配置”的 Emby 区域，填写 Emby 地址和 API Key，点击测试连接。</li><li>进入“系统配置 → 服务器配置”的 115 区域，填写 Cookie，测试能否读取目录。</li><li>进入“工具箱 → TMDB 配置”和“工具箱 → 代理配置”，保证刮削和缺集统计能访问官方元数据。</li><li>进入“一条龙菜单”，只选择少量资源做手动整理测试。</li><li>进入“整理记录”，确认成功路径和失败原因。</li><li>确认流程稳定后，再配置通知、真实库、自动封面、Telegram 监听等自动化。</li></ol>
+      <h2>失败排查</h2>
+      <ul>
+        <li>页面打不开：先执行 <code>docker ps</code> 和 <code>docker logs --tail 200 cinechill</code>，重点看端口占用、挂载权限和启动异常。</li>
+        <li>Emby/115 测试失败：确认地址是从 CineChill 容器可达的地址；不要把只在浏览器本机可达的 <code>localhost</code> 当成容器地址。</li>
+        <li>健康检查提示路径不可写：检查宿主机目录权限，以及容器内看到的路径是否与配置一致。</li>
+        <li>网关不可用：确认配置的反代端口与 Docker 映射一致，并重新创建容器。</li>
+        <li>外部元数据失败：先在代理配置页测试，再看系统健康中的具体网络目标，不要直接重跑全库。</li>
+      </ul>
     </section>
+
     <section class="card">
-      <h2>你需要先理解的几个词</h2>
-      <ul><li>Emby：你的媒体库服务器，CineChill 会读取媒体库、刷新任务、应用封面。</li><li>115：个人云端存储连接，CineChill 用它处理自有合法授权媒体的整理、上传、STRM 和监听。</li><li>TMDB：影视元数据来源，用来识别片名、年份、季集和缺集。</li><li>一条龙：从资源目录到命名、分类、入库、刷新、通知的一整套自动化。</li><li>整理记录：所有整理结果的流水账，排错时先看这里。</li></ul>
+      <h2>备份、升级与回滚</h2>
+      <ol>
+        <li>升级前停止或暂停高风险任务，备份挂载的 <code>config</code>、<code>fonts</code>、<code>templates</code>、<code>layouts</code> 和 <code>backups</code>。</li>
+        <li>生产环境不要长期依赖 <code>latest</code>；把 Compose 镜像改为已经验证过的版本标签后再执行 <code>docker compose pull &amp;&amp; docker compose up -d</code>。</li>
+        <li>升级后重复“首次验证”。</li>
+        <li>回滚时把镜像改回上一个已验证标签，先恢复容器；只有确认配置文件被新版本改坏时，才在停容器后恢复备份目录。</li>
+      </ol>
     </section>
+
     <section class="card">
-      <h2>小白最容易踩的坑</h2>
-      <ul><li>把源目录和媒体库目录填成同一个，容易导致重复整理。</li><li>Cookie、API Key 没测试就跑大任务，结果所有模块都报错。</li><li>一上来就全库自动封面或全量整理，失败时不好定位。</li><li>看见 500 只刷新页面，不去实时日志看真正错误。</li></ul>
+      <h2>安全边界</h2>
+      <ul>
+        <li>本文只面向自有或合法授权媒体库的管理、元数据刮削、封面整理和 NAS 运维。</li>
+        <li>不要把用户名、密码、Cookie、API Key、Token、Webhook 地址、真实 Chat ID、内网地址、真实路径或完整日志写进公开 Wiki。</li>
+        <li>不要在公开文档中记录资源链接、分享口令、转存口令、磁力、破解、去 DRM 或绕过访问限制的方法。</li>
+        <li>保存敏感配置后先做连接测试或小范围验证，再开启全量任务、定时任务和长期监听。</li>
+      </ul>
     </section>
-  </article>
+</article>
       <aside class="doc-aside" aria-label="本页目录">
         <div class="doc-aside-container">
           <nav class="doc-outline" aria-labelledby="doc-outline-title">

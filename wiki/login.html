@@ -281,54 +281,73 @@
       </nav>
     </aside>
     <main id="VPContent" class="content">
-      <article class="doc">
-    <p class="eyebrow">入门 / login</p>
+      <article class="doc"><p class="eyebrow">入门 / login</p>
+<figure class="screenshot">
+  <img src="/cinechill-wiki/cinechill/screenshots/login.png" alt="登录页 页面截图">
+  <figcaption>截图来自 2026-06-18 新版 CineChill 管理端；按页面当前可见状态截取，未主动展开隐藏的密码、Token、Cookie 字段。</figcaption>
+</figure>
+<h1>登录页</h1>
+<p class="lead">登录页只负责验证 CineChill 管理员身份并建立后台会话。业务配置从登录后的新版后台完成。</p>
 
-    <h1>登录页</h1>
+<section class="card">
+  <h2>适用场景与前置条件</h2>
+  <ul>
+    <li>首次访问管理端、会话过期、清理浏览器数据或更换设备时使用。</li>
+    <li>确认打开的是自己的 NAS/服务器地址或可信 HTTPS 反向代理地址。</li>
+    <li>准备由部署管理员分配的 CineChill 用户名和密码；不要从公开文档复制凭据。</li>
+  </ul>
+</section>
 
-    <p class="lead">打开 CineChill 管理端后的第一屏，用于输入管理员分配的账号密码并进入新版后台。</p>
+<section class="card">
+  <h2>逐步登录</h2>
+  <ol>
+    <li>访问管理端根地址，应用会跳转到前端登录界面；也可以访问登录别名。</li>
+    <li>填写“用户名”和“密码”。两项为空时，页面不会提交请求。</li>
+    <li>点击登录，成功后进入新版后台。</li>
+    <li>首次成功登录后，立即打开“系统配置 → 账户管理”修改凭据。</li>
+  </ol>
+  <p>登录请求由后端校验 <code>config/auth.json</code> 中的凭据；成功后浏览器会收到会话 Cookie，前端也会保存当前用户名用于界面显示。</p>
+</section>
 
+<section class="card">
+  <h2>首次验证</h2>
+  <ul>
+    <li>登录成功后能看到新版侧边栏、顶部搜索和仪表盘。</li>
+    <li>刷新页面后仍能打开受保护的后台数据，说明会话有效。</li>
+    <li>进入账户管理修改凭据后，用新凭据重新登录；如果同时修改了用户名，旧会话会因用户名不再匹配而失效。</li>
+    <li>点击退出后，当前浏览器会话被清除；这不会替代对外暴露管理端的访问控制。</li>
+  </ul>
+</section>
 
-    <figure class="screenshot">
-      <img src="/cinechill-wiki/cinechill/screenshots/login.png" alt="登录页 页面截图">
-      <figcaption>截图来自 2026-06-18 新版 CineChill 管理端；按页面当前可见状态截取，未主动展开隐藏的密码、Token、Cookie 字段。</figcaption>
-    </figure>
+<section class="card">
+  <h2>失败排查</h2>
+  <ul>
+    <li>提示登录失败：确认用户名/密码没有多余空格，并确认访问的是正确实例。</li>
+    <li>登录后立刻被踢回登录页：检查浏览器 Cookie 是否被禁用、反向代理是否改变了协议/域名，或后端是否频繁重启。</li>
+    <li>页面加载但数据接口 401：重新登录；仍失败时查看顶部系统日志和容器日志。</li>
+    <li>忘记密码：不要编辑公开 Wiki 或复制真实配置；由可信管理员在服务器上按备份和变更流程恢复访问。</li>
+  </ul>
+</section>
 
-    <section class="card">
-      <h2>新版入口</h2>
-      <p>浏览器访问 CineChill 管理端后会进入登录页；登录成功后通常进入左侧“仪表盘”。</p>
-    </section>
+<section class="card">
+  <h2>备份与回滚</h2>
+  <ul>
+    <li>账户凭据存放在持久化配置目录的 <code>auth.json</code>；迁移前备份整个配置目录，不要单独把该文件上传到公开位置。</li>
+    <li>修改前保留当前配置备份；如果新凭据不可用，停止服务后恢复上一份配置，再启动并重新验证。</li>
+    <li>后端会为会话设置有限有效期；不要把浏览器开发者工具中的 Token 或 Cookie 当作排障附件发送。</li>
+  </ul>
+</section>
 
-    <section class="card">
-      <h2>这页是干什么的</h2>
-      <p>只负责身份校验和进入后台，不承载业务配置。</p><h3>什么时候打开它</h3><ul><li>首次访问管理端。</li><li>浏览器会话过期或清理缓存后。</li><li>更换设备、浏览器或反向代理入口后。</li></ul>
-    </section>
-
-    <section class="card">
-      <h2>小白第一次怎么用</h2>
-      <ol><li>确认访问的是自己的 NAS、服务器或可信反向代理地址。</li><li>输入管理员分配的用户名和密码。</li><li>点击“登录”进入后台。</li><li>首次登录后先进入“系统配置 → 账户管理”修改默认或临时凭据。</li></ol>
-    </section>
-
-    <section class="card">
-      <h2>页面区域怎么看</h2>
-      <ul><li>左侧欢迎区：展示媒体库概览和站内公告。</li><li>右侧登录卡片：输入用户名和安全校验密码。</li><li>密码可见按钮：只用于本地核对输入。</li></ul>
-    </section>
-
-    <section class="card">
-      <h2>验证方式</h2>
-      <ul><li>登录后能看到左侧新版菜单和顶部搜索栏。</li><li>顶部账户头像可打开账户菜单。</li><li>刷新页面后仍保持登录状态，说明会话有效。</li></ul>
-    </section>
-
-    <section class="card">
-      <h2>常见问题和风险</h2>
-      <ul><li>不要在公共设备保存管理员密码。</li><li>公开访问管理端时必须使用强密码、HTTPS 和访问控制。</li><li>疑似泄露后立即修改凭据。</li></ul>
-    </section>
-
-    <section class="card">
-      <h2>公开 Wiki 安全边界</h2>
-      <ul><li>公开 Wiki 只写自有合法授权媒体资源管理、个人媒体库整理、元数据刮削、封面整理和 NAS 运维记录。</li><li>不要在文档、截图、提交信息里公开账号、密码、Cookie、Token、API Key、Webhook 地址、内网路径或真实日志。</li><li>涉及外部服务时，只说明官方元数据、通知和自用联动的配置边界，不写资源来源、分享口令、转存口令或规避访问方式。</li><li>保存配置后先测试连接或小范围运行，再开启自动化、批量任务或长期监听。</li></ul>
-    </section>
-  </article>
+<section class="card">
+  <h2>安全边界</h2>
+  <ul>
+    <li>本文只面向自有或合法授权媒体库的管理、元数据刮削、封面整理和 NAS 运维。</li>
+    <li>不要把用户名、密码、Cookie、API Key、Token、Webhook 地址、真实 Chat ID、内网地址、真实路径或完整日志写进公开 Wiki。</li>
+    <li>不要在公开文档中记录资源链接、分享口令、转存口令、磁力、破解、去 DRM 或绕过访问限制的方法。</li>
+    <li>保存敏感配置后先做连接测试或小范围验证，再开启全量任务、定时任务和长期监听。</li>
+  </ul>
+</section>
+</article>
       <aside class="doc-aside" aria-label="本页目录">
         <div class="doc-aside-container">
           <nav class="doc-outline" aria-labelledby="doc-outline-title">

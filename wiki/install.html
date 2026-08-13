@@ -281,50 +281,133 @@
       </nav>
     </aside>
     <main id="VPContent" class="content">
-      <article class="doc">
-    <p class="eyebrow">入门</p>
-
+      <article class="doc">    <p class="eyebrow">入门</p>
     <h1>部署与首次配置</h1>
-
-    <p class="lead">CineChill 通常运行在 NAS 或 Docker 主机上。部署后真正决定稳定性的，是目录、端口、权限、备份和首次配置顺序。</p>
+    <p class="lead">本页把部署、持久化目录、首次配置、验证、升级和回滚串成一条可执行流程。生产环境优先 Docker；源码运行适合本地开发和问题复现。</p>
 
     <section class="card">
-      <h2>新版首次配置顺序</h2>
-      <ol><li>部署容器或本地服务，确认管理端登录页能打开。</li><li>进入“系统配置 → 账户管理”，修改默认或临时管理员凭据。</li><li>进入“系统配置 → 服务器配置”，分别测试 Emby 和 115。</li><li>进入“工具箱”，按需配置 TMDB、MoviePilot、Webhook、代理配置等自用入口。</li><li>进入“媒体整理 → 重命名模板 / 二级分类”，确认命名和分类策略。</li><li>进入“媒体整理 → 一条龙菜单”，只用少量样本执行整理。</li><li>进入“媒体整理 → 整理记录”和顶部“查看系统日志”验证结果。</li><li>确认链路稳定后，再开启真实库、自动封面、长期监听或定时任务。</li></ol>
+      <h2>适用场景与前置条件</h2>
+      <ul>
+        <li><strong>Docker/NAS：</strong>适合长期运行，需 Docker、Docker Compose、可写持久化目录和能访问外部服务/Emby/115 的网络。</li>
+        <li><strong>源码运行：</strong>适合开发调试，需 Python 虚拟环境、依赖文件、Node.js 和 npm；前端构建后由主程序提供静态页面。</li>
+        <li>提前规划管理端端口 <code>5256</code>、网关默认端口 <code>8011</code>、媒体挂载路径和备份位置。</li>
+      </ul>
     </section>
 
     <section class="card">
-      <h2>哪些目录要备份</h2>
-      <ul><li>config：最重要，包含账号、配置、任务状态和缓存。</li><li>fonts / templates：决定封面生成效果。</li><li>backups：封面备份套件和迁移恢复文件。</li><li>emby/config：保存 Emby 配置，CineChill + Emby 组合部署时也要备份。</li><li>升级、迁移或大规模修改前，先备份这些目录。</li></ul>
+      <h2>Docker Compose 部署</h2>
+      <p>推荐把 Compose 文件与 <code>config</code>、<code>fonts</code>、<code>templates</code>、<code>layouts</code>、<code>backups</code> 放在同一个项目目录。需要 Docker 管理时再挂载 Socket；需要“写入 Compose”时还要让容器看到可写的 Compose 文件。</p>
+      <pre><code class="language-yaml">services:
+  cinechill:
+    image: chillne/cinechill:latest
+    container_name: cinechill
+    restart: unless-stopped
+    ports:
+      - "5256:5256"
+      - "8011:8011"
+    volumes:
+      - ./config:/app/config
+      - ./fonts:/app/fonts
+      - ./templates:/app/templates
+      - ./layouts:/app/layouts
+      - ./backups:/app/backups
+      - ./media:/media
+      - /var/run/docker.sock:/var/run/docker.sock
+      # 按需挂载 Compose 项目根目录，且容器内路径必须与 Docker 标签记录的路径一致
+      # - /path/to/compose-project:/path/to/compose-project:rw
+    environment:
+      - TZ=Asia/Shanghai
+      - CHILLPOSTER_LOCAL_MEDIA_ROOT=/media
+      - CHILLPOSTER_STRM_HOST=your-nas-host-or-ip</code></pre>
+      <pre><code class="language-bash">docker compose up -d
+docker compose ps
+docker compose logs -f cinechill</code></pre>
+    </section>
+
+    <section class="card">
+      <h2>源码运行</h2>
+      <p>源码运行不需要 Docker Socket；如果要用 Docker 管理功能，仍需运行在能访问 Docker Socket 的环境中。</p>
+      <pre><code class="language-bash">source .venv/bin/activate
+pip install -r requirements.txt
+
+cd frontend
+npm install
+npm run build
+
+cd ..
+python main.py</code></pre>
+      <p>主程序默认监听 <code>5256</code>，网关按 115/Emby 配置启动；本地访问可使用 <code>http://127.0.0.1:5256</code>。</p>
+    </section>
+
+    <section class="card">
+      <h2>首次配置顺序</h2>
+      <ol>
+        <li>访问登录页，确认页面可打开。</li>
+        <li>进入“系统配置 → 账户管理”，使用旧密码设置新用户名和新密码。</li>
+        <li>进入“系统配置 → 服务器配置”，填写 Emby 地址/API Key，点击“测试连接”后点击“保存 Emby”。</li>
+        <li>填写 115 Cookie，点击“测试连接”；确认有效后点击“保存配置”。保存会创建或校验标准目录并更新相关绑定。</li>
+        <li>进入“工具箱 → TMDB 配置”和“代理配置”，按需保存；代理页有独立连接测试，TMDB 页没有独立测试按钮。</li>
+        <li>用少量自有合法授权媒体验证整理、STRM 或封面链路，再打开自动任务。</li>
+      </ol>
+    </section>
+
+    <section class="card">
+      <h2>持久化目录与默认资源恢复</h2>
+      <ul>
+        <li><code>/app/config</code>：核心运行状态和敏感配置；迁移、升级前优先备份。</li>
+        <li><code>/app/fonts</code>、<code>/app/templates</code>、<code>/app/layouts</code>：封面系统资源。</li>
+        <li><code>/app/backups</code>：封面/迁移备份。</li>
+        <li>容器启动时会从镜像的 <code>defaults</code> 复制缺失文件，但只复制不存在的文件，不覆盖已有用户文件；这不是完整备份，也不会替代主动回滚。</li>
+      </ul>
     </section>
 
     <section class="card">
       <h2>部署后验证</h2>
-      <pre><code class="language-bash"># 查看容器状态
-docker compose ps
-
-# 查看 CineChill 日志
-docker compose logs -f cinechill
-</code></pre><ul><li>浏览器访问管理端，确认能看到登录页。</li><li>登录后打开“仪表盘”，确认媒体库总览不为 0。</li><li>打开“服务器配置”，Emby 和 115 都要测试成功。</li><li>打开顶部“健康检查 / 网络检测”，确认关键项正常。</li></ul>
+      <ol>
+        <li>执行 <code>docker compose ps</code>，确认容器处于运行状态。</li>
+        <li>访问管理端，并用 <code>curl http://127.0.0.1:5256/api/version</code> 或页面版本信息确认服务响应。</li>
+        <li>检查“服务器配置”中的 Emby/115 测试结果。</li>
+        <li>检查“系统健康”中的配置文件、路径、Emby、网关和 Docker 项。</li>
+        <li>执行一个小任务并查看顶部“系统运行日志”。</li>
+      </ol>
     </section>
 
     <section class="card">
-      <h2>升级和回滚路径</h2>
-      <pre><code class="language-bash"># 升级前先备份 config、fonts、templates、backups 和 emby/config
-# 然后拉取 CineChill 与 Emby 镜像并重建
+      <h2>升级与回滚</h2>
+      <pre><code class="language-bash"># 在 Compose 项目目录执行
+# 升级前先完成目录备份
 docker compose pull
 docker compose up -d
 
-# 回滚时把 compose 里的 image 改回旧 tag，再重建
-docker compose up -d
-</code></pre><ul><li>不要在没有备份的情况下升级生产环境。</li><li>回滚时优先恢复旧镜像 tag；如果配置被新版本写坏，再恢复备份目录。</li><li>回滚后重复执行“部署后验证”。</li></ul>
+docker compose ps
+docker compose logs --tail 200 cinechill</code></pre>
+      <ul>
+        <li>生产环境先锁定已验证版本；源码仓库当前可见最新发布记录为 <code>v1.0.0.69</code>（2026-08-04），实际运行版本仍以 <code>/api/version</code> 返回值为准。</li>
+        <li>回滚时把镜像改回上一个已验证标签，再执行 <code>docker compose up -d</code>。</li>
+        <li>只有在确认配置状态被破坏时，才停止容器并恢复备份；恢复后重新做全套健康检查。</li>
+      </ul>
     </section>
 
     <section class="card">
-      <h2>生产风险</h2>
-      <ul><li>后台端口不要裸露公网；如需公网访问，应使用 HTTPS、强密码和访问控制。</li><li>媒体路径必须和 Emby 看到的路径保持一致，否则整理和 STRM 会异常。</li><li><code>/var/run/docker.sock</code> 和 Docker 根目录挂载都是高权限挂载，只建议在自有 NAS / 服务器使用。</li><li>Emby 使用 host 网络模式时直接监听宿主机端口，不要再添加重复的 ports 映射。</li></ul>
+      <h2>失败排查</h2>
+      <ul>
+        <li>启动后立即退出：查看容器日志，区分依赖/导入错误、配置 JSON 错误、端口占用和目录权限错误。</li>
+        <li>登录页能开但 API 失败：检查浏览器访问的是否是同一个管理端地址，并查看系统日志中的 401/500。</li>
+        <li>健康检查路径失败：健康检查会在目标目录创建并删除临时探针文件；只读挂载或权限不足会明确失败。</li>
+        <li>网关端口失败：修改 115/Emby 配置后同步更新端口发布；无 Compose 或无可写 Compose 时，不能假设系统能自动写回。</li>
+      </ul>
     </section>
-  </article>
+
+    <section class="card">
+      <h2>安全边界</h2>
+      <ul>
+        <li>本文只面向自有或合法授权媒体库的管理、元数据刮削、封面整理和 NAS 运维。</li>
+        <li>不要把用户名、密码、Cookie、API Key、Token、Webhook 地址、真实 Chat ID、内网地址、真实路径或完整日志写进公开 Wiki。</li>
+        <li>不要在公开文档中记录资源链接、分享口令、转存口令、磁力、破解、去 DRM 或绕过访问限制的方法。</li>
+        <li>保存敏感配置后先做连接测试或小范围验证，再开启全量任务、定时任务和长期监听。</li>
+      </ul>
+    </section>
+</article>
       <aside class="doc-aside" aria-label="本页目录">
         <div class="doc-aside-container">
           <nav class="doc-outline" aria-labelledby="doc-outline-title">

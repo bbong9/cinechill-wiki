@@ -282,54 +282,84 @@
       </nav>
     </aside>
     <main id="VPContent" class="content">
-      <article class="doc">
-    <p class="eyebrow">工具箱 / config_tmdb</p>
+      <article class="doc"><p class="eyebrow">工具箱 / config_tmdb</p>
+<figure class="screenshot">
+  <img src="/cinechill-wiki/cinechill/screenshots/config_tmdb.png" alt="TMDB 配置 页面截图">
+  <figcaption>截图来自 2026-06-18 新版 CineChill 管理端；按页面当前可见状态截取，未主动展开隐藏的密码、Token、Cookie 字段。</figcaption>
+</figure>
+<h1>TMDB 配置</h1>
+<p class="lead">本页维护 TMDB API Key 和可选的豆瓣 Cookie。页面只有保存，没有独立的 TMDB 测试按钮；首次验证要回到发现、缺集、刮削或小范围整理流程。</p>
 
-    <h1>TMDB 配置</h1>
+<section class="card">
+  <h2>适用场景与前置条件</h2>
+  <ul>
+    <li>发现推荐无数据、标题/年份/季集识别失败、封面简介缺失时使用。</li>
+    <li>准备自己申请并保管的 TMDB API Key；豆瓣 Cookie 只在需要中文补充信息或相关发现源时填写。</li>
+    <li>如果服务器无法直连外部服务，先配置“工具箱 → 代理配置”。</li>
+  </ul>
+</section>
 
-    <p class="lead">新版 TMDB 配置已移入工具箱，用于维护 TMDB API Key、豆瓣 Cookie 和中文元数据读取能力。</p>
+<section class="card">
+  <h2>逐步操作</h2>
+  <ol>
+    <li>进入“工具箱 → TMDB 配置”。</li>
+    <li>在“TMDB API Key”填写 Key。</li>
+    <li>按需在“豆瓣 Cookie”填写 Cookie；该字段支持多行输入，留空不会阻止基础 TMDB 流程。</li>
+    <li>点击“保存配置”。后端会把当前页字段合并写入全局设置，并立即刷新运行时配置。</li>
+    <li>不要把 TMDB API Key 写入前端代码、Compose 文件示例或公开截图。</li>
+  </ol>
+</section>
 
+<section class="card">
+  <h2>字段含义与影响范围</h2>
+  <ul>
+    <li><strong>TMDB API Key：</strong>用于 TMDB 元数据请求，影响 RSS、发现推荐、封面识别、缺集统计和媒体简介等功能。</li>
+    <li><strong>豆瓣 Cookie：</strong>可选的中文信息/发现源辅助凭据；不填写不等于 TMDB 不可用。</li>
+    <li><strong>代理：</strong>本页读取全局代理状态；代理地址在另一个配置页维护。</li>
+    <li>本页不提供 TMDB 自定义 API Base URL 字段；不要根据旧文档自行添加不存在的输入框或环境变量。</li>
+  </ul>
+</section>
 
-    <figure class="screenshot">
-      <img src="/cinechill-wiki/cinechill/screenshots/config_tmdb.png" alt="TMDB 配置 页面截图">
-      <figcaption>截图来自 2026-06-18 新版 CineChill 管理端；按页面当前可见状态截取，未主动展开隐藏的密码、Token、Cookie 字段。</figcaption>
-    </figure>
+<section class="card">
+  <h2>首次验证</h2>
+  <ol>
+    <li>保存后刷新页面，确认配置仍保留（敏感字段可能以隐藏形式显示）。</li>
+    <li>打开发现推荐或缺集统计，用一个已知片名/剧名做查询。</li>
+    <li>对一个小样本运行识别或封面任务，确认标题、年份、季集和海报能返回。</li>
+    <li>如果仍失败，打开系统健康的网络检测并查看顶部系统运行日志。</li>
+  </ol>
+</section>
 
-    <section class="card">
-      <h2>新版入口</h2>
-      <p>左侧导航栏“工具箱” → 功能卡片“TMDB 配置”。</p>
-    </section>
+<section class="card">
+  <h2>失败排查</h2>
+  <ul>
+    <li>提示缺少 Key：确认点击的是保存，且当前访问的是同一个 CineChill 实例。</li>
+    <li>请求超时/网络错误：先测试代理，再逐项检测 TMDB API、TMDB 图片 CDN 和网页目标。</li>
+    <li>识别结果不准确：核对标题、年份和 TMDB ID；不要用错误识别结果直接跑全库整理。</li>
+    <li>只有图片失败：分别检查 TMDB 图片网络目标和图片缓存/代理，不要只重复保存 API Key。</li>
+    <li>豆瓣相关失败但 TMDB 正常：豆瓣 Cookie 是可选辅助配置，应单独判断，不要把它当成 TMDB 主链路故障。</li>
+  </ul>
+</section>
 
-    <section class="card">
-      <h2>这页是干什么的</h2>
-      <p>为 RSS 抓取、自动识别封面、发现推荐、缺集统计和媒体简介提供元数据。</p><h3>什么时候打开它</h3><ul><li>发现推荐无数据。</li><li>缺集统计或刮削识别异常。</li><li>封面简介、海报或中文标题缺失。</li></ul>
-    </section>
+<section class="card">
+  <h2>备份与回滚</h2>
+  <ul>
+    <li>修改前备份持久化配置目录；其中全局设置包含 TMDB/豆瓣配置。</li>
+    <li>回滚时恢复上一份配置并重启/重新加载服务，再做一次小样本验证。</li>
+    <li>如果只是临时排障，不要把 Key 写入 Shell 历史、截图或日志；排障结束后可在服务端轮换凭据。</li>
+  </ul>
+</section>
 
-    <section class="card">
-      <h2>小白第一次怎么用</h2>
-      <ol><li>进入工具箱打开“TMDB 配置”。</li><li>填写 TMDB API Key；豆瓣 Cookie 按需填写。</li><li>保存配置。</li><li>回发现推荐、缺集统计或一条龙做小范围测试。</li><li>如果访问失败，再检查代理配置和系统健康的网络连通性。</li></ol>
-    </section>
-
-    <section class="card">
-      <h2>页面区域怎么看</h2>
-      <ul><li>TMDB API Key：核心元数据凭据。</li><li>豆瓣 Cookie：中文补充信息，可选。</li><li>用途说明：展示配置影响范围。</li><li>语言：默认优先中文信息。</li><li>代理配置：读取全局网络配置。</li></ul>
-    </section>
-
-    <section class="card">
-      <h2>验证方式</h2>
-      <ul><li>保存后相关页面不再提示缺少 Key。</li><li>发现推荐能加载元数据。</li><li>缺集统计和刮削能识别标题、年份和季集。</li></ul>
-    </section>
-
-    <section class="card">
-      <h2>常见问题和风险</h2>
-      <ul><li>API Key 和 Cookie 不能公开。</li><li>外部接口有频率限制，批量任务需要控制节奏。</li><li>元数据错误时先核对标题、年份和 TMDB ID。</li></ul>
-    </section>
-
-    <section class="card">
-      <h2>公开 Wiki 安全边界</h2>
-      <ul><li>公开 Wiki 只写自有合法授权媒体资源管理、个人媒体库整理、元数据刮削、封面整理和 NAS 运维记录。</li><li>不要在文档、截图、提交信息里公开账号、密码、Cookie、Token、API Key、Webhook 地址、内网路径或真实日志。</li><li>涉及外部服务时，只说明官方元数据、通知和自用联动的配置边界，不写资源来源、分享口令、转存口令或规避访问方式。</li><li>保存配置后先测试连接或小范围运行，再开启自动化、批量任务或长期监听。</li></ul>
-    </section>
-  </article>
+<section class="card">
+  <h2>安全边界</h2>
+  <ul>
+    <li>本文只面向自有或合法授权媒体库的管理、元数据刮削、封面整理和 NAS 运维。</li>
+    <li>不要把用户名、密码、Cookie、API Key、Token、Webhook 地址、真实 Chat ID、内网地址、真实路径或完整日志写进公开 Wiki。</li>
+    <li>不要在公开文档中记录资源链接、分享口令、转存口令、磁力、破解、去 DRM 或绕过访问限制的方法。</li>
+    <li>保存敏感配置后先做连接测试或小范围验证，再开启全量任务、定时任务和长期监听。</li>
+  </ul>
+</section>
+</article>
       <aside class="doc-aside" aria-label="本页目录">
         <div class="doc-aside-container">
           <nav class="doc-outline" aria-labelledby="doc-outline-title">

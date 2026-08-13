@@ -282,54 +282,89 @@
       </nav>
     </aside>
     <main id="VPContent" class="content">
-      <article class="doc">
-    <p class="eyebrow">系统配置 / config_notification</p>
+      <article class="doc"><p class="eyebrow">系统配置 / config_notification</p>
+<figure class="screenshot">
+  <img src="/cinechill-wiki/cinechill/screenshots/config_notification.png" alt="通知配置 页面截图">
+  <figcaption>截图来自 2026-06-18 新版 CineChill 管理端；按页面当前可见状态截取，未主动展开隐藏的密码、Token、Cookie 字段。</figcaption>
+</figure>
+<h1>通知配置</h1>
+<p class="lead">本页配置企业微信和 Telegram 的消息渠道、逐类通知开关、测试发送和模板。先完成一个渠道，再启用需要的通知类型，避免一次性打开所有自动提醒。</p>
 
-    <h1>通知配置</h1>
+<section class="card">
+  <h2>适用场景与前置条件</h2>
+  <ul>
+    <li>需要接收媒体入库、整理、洗版、播放、任务、签到或 115 流程结果时使用。</li>
+    <li>企业微信需要自建应用参数；Telegram 通知需要 Bot Token 和 Chat ID。</li>
+    <li>如果要让企业微信回调/图片访问 CineChill，准备一个企业微信服务器可访问的公网 HTTPS 地址；不要把内网地址填进去。</li>
+  </ul>
+</section>
 
-    <p class="lead">新版通知配置集中维护企业微信、Telegram、通知类型和模板，用于后台任务完成、失败和播放事件提醒。</p>
+<section class="card">
+  <h2>企业微信：配置与验证</h2>
+  <ol>
+    <li>打开“企业微信通知”开关。</li>
+    <li>填写“企业 ID”“应用 AgentId”“应用 Secret”。</li>
+    <li>按企业微信回调要求填写“Token”和“EncodingAESKey”。页面显示的回调 URL 是 <code>公网地址/api/wechat-notify/callback</code>。</li>
+    <li>按需填写渠道专用“代理地址”和“管理员白名单”。</li>
+    <li>填写“CineChill 公网地址”，保存后再回企业微信后台完成回调校验。</li>
+    <li>点击“保存微信”，再点“测试微信”和“发送测试消息”；两者分别验证连接和实际发送。</li>
+  </ol>
+</section>
 
+<section class="card">
+  <h2>Telegram：配置与验证</h2>
+  <ol>
+    <li>打开“Telegram 通知”开关。</li>
+    <li>填写“Bot Token”和“Chat ID”。</li>
+    <li>点击“保存 Telegram”，再点击“测试 Telegram”和“发送测试消息”。</li>
+    <li>Telegram 通知会复用全局代理配置；如果消息发送失败，同时检查代理页和系统健康中的 Telegram Bot API 目标。</li>
+  </ol>
+  <p>Telegram 账号监听、验证码登录和群组/频道选择属于“Telegram 监听”模块，不要把账号监听字段误填到通知卡片。</p>
+</section>
 
-    <figure class="screenshot">
-      <img src="/cinechill-wiki/cinechill/screenshots/config_notification.png" alt="通知配置 页面截图">
-      <figcaption>截图来自 2026-06-18 新版 CineChill 管理端；按页面当前可见状态截取，未主动展开隐藏的密码、Token、Cookie 字段。</figcaption>
-    </figure>
+<section class="card">
+  <h2>通知类型</h2>
+  <p>企业微信和 Telegram 各自有独立开关。当前后端提供的类型包括：</p>
+  <ul>
+    <li>播放通知、入库通知、整理通知、洗版通知、转存通知。</li>
+    <li>115 秒传通知、海报任务通知、媒体整理任务通知、元数据补齐通知。</li>
+    <li>签到通知、其他任务通知（包括 STRM 等任务）。</li>
+  </ul>
+  <p>关闭某个类型只影响该渠道；不要把“渠道关闭”和“某类通知关闭”混为一谈。</p>
+</section>
 
-    <section class="card">
-      <h2>新版入口</h2>
-      <p>左侧导航栏“系统配置 → 通知配置”。通知相关密钥和回调地址按页面当前可见状态截取。</p>
-    </section>
+<section class="card">
+  <h2>模板字段</h2>
+  <ol>
+    <li>在“通知模板”中展开需要修改的类型。</li>
+    <li>分别编辑“标题模板”和“正文模板”。</li>
+    <li>打开“可用变量”查看当前模板允许使用的 <code>{{ variable }}</code> 变量。</li>
+    <li>需要撤销自定义内容时点击“恢复默认”，然后保存对应渠道。</li>
+    <li>先用测试消息确认凭据，再用一个小任务确认真实事件模板。</li>
+  </ol>
+</section>
 
-    <section class="card">
-      <h2>这页是干什么的</h2>
-      <p>让后台任务结果主动推送到自用通知渠道，减少人工盯日志。</p><h3>什么时候打开它</h3><ul><li>整理、封面、Webhook、上传等任务需要完成提醒。</li><li>需要按通知类型启用或关闭渠道。</li><li>需要调整通知模板。</li></ul>
-    </section>
+<section class="card">
+  <h2>备份、回滚与失败排查</h2>
+  <ul>
+    <li>备份持久化配置目录；企业微信、Telegram 和全局公网地址分别保存在对应配置中。</li>
+    <li>通知测试失败：先确认开关、凭据、目标 Chat ID/白名单和网络目标，再查看系统运行日志。</li>
+    <li>企业微信图片无法显示：检查公网地址是否从外部可达、HTTPS/反代是否正确，以及回调路径是否保留。</li>
+    <li>消息重复或过多：检查通知类型开关和模板，不要先修改核心整理任务。</li>
+    <li>回滚模板时恢复备份或点击“恢复默认”；回滚渠道凭据后再次发送测试消息。</li>
+  </ul>
+</section>
 
-    <section class="card">
-      <h2>小白第一次怎么用</h2>
-      <ol><li>选择要使用的通知渠道。</li><li>填写自有应用密钥、回调地址或 Bot 参数。</li><li>点击测试通知，确认能收到消息。</li><li>按通知类型启用播放、入库、整理、洗版、任务等提醒。</li><li>保存模板后执行一个小任务验证。</li></ol>
-    </section>
-
-    <section class="card">
-      <h2>页面区域怎么看</h2>
-      <ul><li>企业微信通知：维护自建应用参数。</li><li>Telegram 通知：维护 Bot Token 和 Chat ID。</li><li>通知类型：按事件类型启停。</li><li>通知模板：分别维护不同渠道的文本格式。</li></ul>
-    </section>
-
-    <section class="card">
-      <h2>验证方式</h2>
-      <ul><li>测试通知能收到。</li><li>执行小任务后收到对应类型提醒。</li><li>日志没有认证失败或发送失败。</li></ul>
-    </section>
-
-    <section class="card">
-      <h2>常见问题和风险</h2>
-      <ul><li>通知密钥、回调地址和 Chat ID 都不能公开。</li><li>外部通知失败不要阻塞核心整理流程，先看日志。</li><li>公开 Wiki 不提供任何群组、频道或 Bot 凭据。</li></ul>
-    </section>
-
-    <section class="card">
-      <h2>公开 Wiki 安全边界</h2>
-      <ul><li>公开 Wiki 只写自有合法授权媒体资源管理、个人媒体库整理、元数据刮削、封面整理和 NAS 运维记录。</li><li>不要在文档、截图、提交信息里公开账号、密码、Cookie、Token、API Key、Webhook 地址、内网路径或真实日志。</li><li>涉及外部服务时，只说明官方元数据、通知和自用联动的配置边界，不写资源来源、分享口令、转存口令或规避访问方式。</li><li>保存配置后先测试连接或小范围运行，再开启自动化、批量任务或长期监听。</li></ul>
-    </section>
-  </article>
+<section class="card">
+  <h2>安全边界</h2>
+  <ul>
+    <li>本文只面向自有或合法授权媒体库的管理、元数据刮削、封面整理和 NAS 运维。</li>
+    <li>不要把用户名、密码、Cookie、API Key、Token、Webhook 地址、真实 Chat ID、内网地址、真实路径或完整日志写进公开 Wiki。</li>
+    <li>不要在公开文档中记录资源链接、分享口令、转存口令、磁力、破解、去 DRM 或绕过访问限制的方法。</li>
+    <li>保存敏感配置后先做连接测试或小范围验证，再开启全量任务、定时任务和长期监听。</li>
+  </ul>
+</section>
+</article>
       <aside class="doc-aside" aria-label="本页目录">
         <div class="doc-aside-container">
           <nav class="doc-outline" aria-labelledby="doc-outline-title">

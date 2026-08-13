@@ -283,51 +283,75 @@
     </aside>
     <main id="VPContent" class="content">
       <article class="doc">
-    <p class="eyebrow">工具箱 / forward_aiying</p>
+<p class="eyebrow">工具箱 / forward_aiying</p>
 
-    <h1>Forward 模块</h1>
-
-    <p class="lead">新版 Forward 模块已移入工具箱，用于管理 Widget、资源库开关、调用统计和测试入口；公开 Wiki 只保留配置边界说明。</p>
-
+<p class="lead">Forward 模块负责 Widget 访问、资源库补充匹配、爱影搜索、转存模式、Token 和单个 TMDB ID 测试。它是资源候选与联动配置，不是公开资源目录；公开 Wiki 只写自用、合法和安全边界。</p>
 
     <figure class="screenshot">
       <img src="/cinechill-wiki/cinechill/screenshots/forward_aiying.png" alt="Forward 模块 页面截图">
-      <figcaption>截图来自 2026-06-18 新版 CineChill 管理端；按页面当前可见状态截取，未主动展开隐藏的密码、Token、Cookie 字段。</figcaption>
+      <figcaption>截图来自 CineChill 管理端；Widget URL、Token、公开地址和调用凭据不展示。</figcaption>
     </figure>
 
     <section class="card">
-      <h2>新版入口</h2>
-      <p>左侧导航栏“工具箱” → 功能卡片“Forward 模块”。</p>
+      <h2>适用场景与准备工作</h2>
+      <ul>
+        <li>为自用发现页 / Widget 提供资源候选，或在合法授权媒体流程中测试单个条目匹配。</li>
+        <li>准备自有访问地址；如果启用爱影，还要准备对应的 Telegram ID 和 Chill Token。</li>
+        <li>先确认 115 和通知 / Telegram 等依赖已配置；不要把 Widget 地址当成可公开分享链接。</li>
+      </ul>
     </section>
 
     <section class="card">
-      <h2>这页是干什么的</h2>
-      <p>维护 Forward 访问开关、资源库补充匹配、转存模式、Widget Token 和调用统计。</p><h3>什么时候打开它</h3><ul><li>需要给自用 Widget 提供候选数据。</li><li>需要刷新 Widget Token。</li><li>需要查看 Forward 调用统计或测试结果。</li></ul>
+      <h2>按 UI 顺序操作</h2>
+      <ol>
+        <li>从“工具箱”打开“Forward 模块”，等待配置和搜索源加载。</li>
+        <li>在“Forward 配置”选择“启用 Forward”“启用资源库”，填写公开访问地址；需要转存时选择“整剧模式”或“单集模式”。</li>
+        <li>在“爱影配置”按需打开爱影搜索，填写 Telegram ID 和 Chill Token；不使用时保持关闭。</li>
+        <li>点击“保存 Forward”或“保存爱影”，确认卡片状态和搜索源数量。</li>
+        <li>需要自用 Widget 时，在“Widget Token”生成 / 刷新地址并复制到可信前端；刷新 Token 前先确认旧地址会失效。</li>
+        <li>在“资源测试”填写一个合法 TMDB ID 和媒体类型，点击测试，先看单条返回再进入发现页。</li>
+      </ol>
     </section>
 
     <section class="card">
-      <h2>小白第一次怎么用</h2>
-      <ol><li>进入工具箱打开 Forward 模块。</li><li>按需开启 Forward 和资源库。</li><li>选择转存模式并保存。</li><li>复制 Widget URL 前确认它只在可信环境使用。</li><li>需要测试时填写合法元数据 ID 做小范围检查。</li></ol>
+      <h2>字段解释</h2>
+      <ul>
+        <li><strong>启用 Forward：</strong>控制 Widget 和 Forward 接口是否可访问。</li>
+        <li><strong>启用资源库：</strong>允许使用 CineChill 本地资源库做补充匹配。</li>
+        <li><strong>公开访问地址：</strong>用于拼接 Widget 地址；应使用受控域名 / 反向代理，不要裸露内部服务。</li>
+        <li><strong>转存模式：</strong>整剧或单集会影响后续转存选择，不代表自动执行资源转存。</li>
+        <li><strong>爱影开关 / Telegram ID / Chill Token：</strong>仅控制爱影搜索调用；Token、ID 和结果不要公开。</li>
+        <li><strong>调用统计：</strong>展示今日使用、成功次数和最近调用，是运维指标，不是资源清单。</li>
+      </ul>
     </section>
 
     <section class="card">
-      <h2>页面区域怎么看</h2>
-      <ul><li>Forward 配置：启用开关、资源库开关、公开地址、转存模式。</li><li>爱影配置：维护调用开关和必要凭据。</li><li>Widget Token：生成或刷新 Widget URL。</li><li>调用统计：查看今日用量、成功次数、最近调用。</li><li>资源测试：用于验证单个 ID 的匹配结果。</li></ul>
+      <h2>首次小范围验证</h2>
+      <ol>
+        <li>先只启用 Forward，不启用爱影，保存后确认状态。</li>
+        <li>只测试一个 TMDB ID，确认有结果 / 无结果 / 失败提示都能正常显示。</li>
+        <li>再复制 Widget 地址到自己的受控前端，确认读取成功；不要放到公开演示站。</li>
+      </ol>
     </section>
 
     <section class="card">
-      <h2>验证方式</h2>
-      <ul><li>保存后状态显示可访问或已启用。</li><li>Widget Token 生成后 URL 可被自用前端读取。</li><li>调用统计随测试变化。</li></ul>
-    </section>
-
-    <section class="card">
-      <h2>常见问题和风险</h2>
-      <ul><li>Widget URL、Token、公开地址和调用凭据不要公开。</li><li>公开 Wiki 不写任何资源来源、站点、群组或口令。</li><li>Token 刷新后旧 Widget URL 会失效，要同步更新自用前端。</li></ul>
+      <h2>常见问题、风险与回滚</h2>
+      <ul>
+        <li><strong>没有搜索源：</strong>检查 Forward 配置和后端返回的搜索源，不要手动编造源名称。</li>
+        <li><strong>Widget 失效：</strong>确认是否刷新过 Token；刷新后必须替换自用前端的旧地址。</li>
+        <li><strong>调用失败：</strong>先关闭不需要的爱影联动，检查 ID / Token 和系统日志。</li>
+        <li><strong>停用：</strong>关闭 Forward 并保存可阻止新访问；已发起的后台转存或下载不一定自动取消，要到对应任务页处理。</li>
+      </ul>
     </section>
 
     <section class="card">
       <h2>公开 Wiki 安全边界</h2>
-      <ul><li>公开 Wiki 只写自有合法授权媒体资源管理、个人媒体库整理、元数据刮削、封面整理和 NAS 运维记录。</li><li>不要在文档、截图、提交信息里公开账号、密码、Cookie、Token、API Key、Webhook 地址、内网路径或真实日志。</li><li>涉及外部服务时，只说明官方元数据、通知和自用联动的配置边界，不写资源来源、分享口令、转存口令或规避访问方式。</li><li>保存配置后先测试连接或小范围运行，再开启自动化、批量任务或长期监听。</li></ul>
+      <ul>
+        <li>本文只讨论自有合法授权媒体资源管理、个人媒体库整理、元数据刮削、封面整理和 NAS 运维。</li>
+        <li>不要把账号、密码、Cookie、CK、Token、API Key、Webhook 地址、真实内网路径或真实日志放进正文、截图和提交信息。</li>
+        <li>涉及外部服务时，只记录“已配置 / 未配置 / 测试成功 / 失败原因”这类状态，不公开资源来源、分享口令、转存口令或规避访问方式。</li>
+        <li>配置保存后先做单条、单库或测试目录验证，确认结果后再启用定时、监听和批量处理。</li>
+      </ul>
     </section>
   </article>
       <aside class="doc-aside" aria-label="本页目录">

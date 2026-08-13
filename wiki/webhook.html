@@ -283,51 +283,73 @@
     </aside>
     <main id="VPContent" class="content">
       <article class="doc">
-    <p class="eyebrow">工具箱 / webhook</p>
+<p class="eyebrow">工具箱 / webhook</p>
 
-    <h1>Webhook</h1>
-
-    <p class="lead">新版 Webhook 已移入工具箱，用于接收 Emby 等系统事件，并按当前封面引擎预设处理。</p>
-
+<p class="lead">Webhook 页配置 Emby 事件接收地址、封面处理引擎 / 预设和删除同步。保存后，Emby 等外部系统可把事件发到 CineChill 的 <code>/api/webhook</code> 接收路由；地址属于私有服务入口，不应公开。</p>
 
     <figure class="screenshot">
       <img src="/cinechill-wiki/cinechill/screenshots/webhook.png" alt="Webhook 页面截图">
-      <figcaption>截图来自 2026-06-18 新版 CineChill 管理端；按页面当前可见状态截取，未主动展开隐藏的密码、Token、Cookie 字段。</figcaption>
+      <figcaption>截图来自 CineChill 管理端；接收地址、域名、凭据和真实事件不展示。</figcaption>
     </figure>
 
     <section class="card">
-      <h2>新版入口</h2>
-      <p>左侧导航栏“工具箱” → 功能卡片“Webhook”。</p>
+      <h2>适用场景与准备工作</h2>
+      <ul>
+        <li>让自有 Emby 的媒体新增、删除等事件进入 CineChill，触发通知、真实库同步或封面刷新等已有处理。</li>
+        <li>准备可从 Emby 访问的 CineChill 地址、HTTPS / 访问控制方案和已有封面模板；模板由后端的模板列表提供。</li>
+        <li>不要把接收地址直接暴露到公网裸奔；至少使用认证、HTTPS、反向代理访问控制或私网入口。</li>
+      </ul>
     </section>
 
     <section class="card">
-      <h2>这页是干什么的</h2>
-      <p>维护 Webhook 接收配置、处理引擎、预设文件和删除同步策略。</p><h3>什么时候打开它</h3><ul><li>需要让 Emby 事件进入 CineChill。</li><li>需要调整 Webhook 处理引擎或预设。</li><li>复制接收地址到自有 Emby Webhook 配置。</li></ul>
+      <h2>按 UI 顺序操作</h2>
+      <ol>
+        <li>从“工具箱”打开“Webhook”，等待配置和模板加载。</li>
+        <li>在页面选择处理引擎，再从该引擎的预设列表选择模板；切换引擎后预设会按当前引擎重新归一化。</li>
+        <li>确认“删除同步”状态；当前后端会强制保存该开关为开启，不能把它当成可关闭的删除保护。</li>
+        <li>先保持 Webhook 停用，复制页面生成的接收地址到自有 Emby Webhook 配置，完成一次测试事件后再点击保存 / 启用。</li>
+        <li>保存后查看页面状态，再到系统运行日志确认事件是否进入队列和处理。</li>
+      </ol>
     </section>
 
     <section class="card">
-      <h2>小白第一次怎么用</h2>
-      <ol><li>进入工具箱打开 Webhook。</li><li>选择处理引擎、预设文件和模式。</li><li>确认删除同步保持开启。</li><li>复制接收地址到自有 Emby Webhook。</li><li>保存后触发一次测试事件并查看日志。</li></ol>
+      <h2>字段解释</h2>
+      <ul>
+        <li><strong>启用：</strong>控制接收配置是否生效；停用不会撤销已经进入队列的事件。</li>
+        <li><strong>处理引擎：</strong>选择封面处理布局 / 引擎；选项来自当前模板资源。</li>
+        <li><strong>预设：</strong>当前引擎下的模板文件；模板删除或升级后可能需要重新选择。</li>
+        <li><strong>接收地址：</strong>页面根据当前站点 origin 拼接 <code>/api/webhook</code>，不要把真实值贴进公开文档。</li>
+        <li><strong>删除同步：</strong>源码当前保存时固定为 true；如果收到删除事件，相关同步行为仍需结合日志核对。</li>
+      </ul>
     </section>
 
     <section class="card">
-      <h2>页面区域怎么看</h2>
-      <ul><li>接收配置：选择引擎、预设和模式。</li><li>删除同步：保持 Emby 删除事件同步处理。</li><li>接收地址：填入 Emby Webhook 通知目标。</li><li>当前引擎预设：显示当前选中的处理方案。</li></ul>
+      <h2>首次小范围验证</h2>
+      <ol>
+        <li>只选择一个已有模板、保持停用，先复制地址到自有 Emby 并发送一次测试事件。</li>
+        <li>保存 / 启用后，再产生一个可控的媒体新增事件，检查 Webhook 队列和系统日志。</li>
+        <li>如果验证封面，先对单个媒体库或单个条目观察，不要直接批量覆盖。</li>
+      </ol>
     </section>
 
     <section class="card">
-      <h2>验证方式</h2>
-      <ul><li>保存后页面显示当前预设。</li><li>Emby 触发事件后系统运行日志有对应记录。</li><li>封面或删除同步按预期执行。</li></ul>
-    </section>
-
-    <section class="card">
-      <h2>常见问题和风险</h2>
-      <ul><li>接收地址属于内部服务入口，公开截图不要主动展开隐藏凭据字段。</li><li>不要把 Webhook 暴露到公网裸奔；需要鉴权、HTTPS 和访问控制。</li><li>处理失败先看日志，再回模板和服务器配置排查。</li></ul>
+      <h2>常见问题、风险与回滚</h2>
+      <ul>
+        <li><strong>事件无记录：</strong>检查 Emby 到接收地址的网络、HTTPS、反向代理和访问控制；再看 CineChill 的 Webhook 队列。</li>
+        <li><strong>模板下拉为空：</strong>先到封面资源配置确认模板存在，再刷新 Webhook 页面。</li>
+        <li><strong>误触发批量处理：</strong>先停用 Webhook，暂停后续自动化，再按队列 / 日志判断已处理范围；已经写入的封面或同步结果要从封面备份 / 媒体库侧恢复。</li>
+        <li>不要在公开 Wiki 发布真实 Webhook URL、内网域名、签名信息或事件原文。</li>
+      </ul>
     </section>
 
     <section class="card">
       <h2>公开 Wiki 安全边界</h2>
-      <ul><li>公开 Wiki 只写自有合法授权媒体资源管理、个人媒体库整理、元数据刮削、封面整理和 NAS 运维记录。</li><li>不要在文档、截图、提交信息里公开账号、密码、Cookie、Token、API Key、Webhook 地址、内网路径或真实日志。</li><li>涉及外部服务时，只说明官方元数据、通知和自用联动的配置边界，不写资源来源、分享口令、转存口令或规避访问方式。</li><li>保存配置后先测试连接或小范围运行，再开启自动化、批量任务或长期监听。</li></ul>
+      <ul>
+        <li>本文只讨论自有合法授权媒体资源管理、个人媒体库整理、元数据刮削、封面整理和 NAS 运维。</li>
+        <li>不要把账号、密码、Cookie、CK、Token、API Key、Webhook 地址、真实内网路径或真实日志放进正文、截图和提交信息。</li>
+        <li>涉及外部服务时，只记录“已配置 / 未配置 / 测试成功 / 失败原因”这类状态，不公开资源来源、分享口令、转存口令或规避访问方式。</li>
+        <li>配置保存后先做单条、单库或测试目录验证，确认结果后再启用定时、监听和批量处理。</li>
+      </ul>
     </section>
   </article>
       <aside class="doc-aside" aria-label="本页目录">
