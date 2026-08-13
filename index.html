@@ -594,24 +594,23 @@
     <div class="recent-version">
       <span class="new-badge">NEW</span>
       <div>
-        <h2>v1.0.0.9</h2>
-        <time datetime="2026-06-16">2026-06-16</time>
+        <h2>v1.0.0.69</h2>
+        <time datetime="2026-08-04">2026-08-04</time>
       </div>
     </div>
     <div class="update-grid">
       <article class="update-column">
-        <h3><span class="inline-new">NEW</span>115 秒传/上传工作台升级</h3>
-        <p><strong>本地上传：</strong>校验、秒传和真实上传拆分为独立线程设置，当前任务、队列、进度和失败重试状态展示更清楚。</p>
-        <p><strong>历史统计：</strong>新增按天聚合的上传历史、秒传体积、上传体积和失败记录，便于回看长期运行效果。</p>
+        <h3><span class="inline-new">NEW</span>上传工作台与管理控制</h3>
+        <p><strong>任务状态：</strong>上传、重试、批次和复查信息展示更清楚，便于确认当前处理阶段。</p>
+        <p><strong>历史统计：</strong>持续补充上传历史和失败记录，方便回看长期运行效果。</p>
       </article><article class="update-column">
-        <h3><span class="update-icon">FIX</span>稳定性与识别修复</h3>
-        <p><strong>115 目录确认：</strong>上传或秒传完成后会等待移动任务完成，并兼容位置确认接口不可用的场景，减少“成功但文件不在目标目录”的情况。</p>
-        <p><strong>剧集识别：</strong>TMDB 剧集匹配会校验目标季集是否真实存在，降低同名剧集或年份接近时误匹配的概率。</p>
+        <h3><span class="update-icon">FIX</span>上传与媒体识别稳定性</h3>
+        <p><strong>异常恢复：</strong>增强上传重试、任务清理和失败复查，减少状态残留。</p>
+        <p><strong>媒体选择：</strong>改进 VP9 识别、洗版排序和站点监控下载稳定性。</p>
       </article><article class="update-column">
         <h3><span class="update-icon">REL</span>发布与升级</h3>
-        <p><strong>正式版本：</strong>本次版本号为 <code>v1.0.0.9</code>。</p>
-        <p><strong>Docker 镜像：</strong>发布 <code>chillne/cinechill:v1.0.0.9</code>、<code>chillne/cinechill:1.0.0.9</code> 和 <code>latest</code>。</p>
-        <p><strong>升级建议：</strong>使用 115 本地上传、网盘秒传、通知模板或媒体整理识别的用户建议更新。</p>
+        <p><strong>当前记录：</strong>本地已同步的 CineChill 源仓库发布记录更新到 <code>v1.0.0.69</code>。</p>
+        <p><strong>升级建议：</strong>使用 115 上传、站点监控、VP9 媒体识别或任务日志的用户建议先备份配置后升级。</p>
       </article>
     </div>
   </section>

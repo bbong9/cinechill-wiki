@@ -284,7 +284,7 @@
       <article class="doc update-log-page">
     <p class="eyebrow">更新日志</p>
     <h1>更新日志</h1>
-    <p class="lead">这里记录 CineChill 正式发布版本的主要变化。正式发布线从 v1.0.0.1 开始，按最新版本向下保留完整记录。</p>
+    <p class="lead">这里记录 CineChill 正式发布版本的主要变化。正式发布线从 v1.0.0.1 开始，当前按本地已同步的源仓库记录更新到 v1.0.0.69（2026-08-04）。</p>
     <section class="card update-log-card">
       <div class="log-title-row">
         <span class="new-badge">DOC</span>
@@ -294,6 +294,58 @@
         </div>
       </div>
       <ul><li>按 2026-06-18 当前 CineChill 管理端重新截取页面截图，并替换旧版界面图。</li><li>同步当前工具箱卡片入口：扫码获取115CK、115 定时清空、网盘资源秒传、资源转存、Forward、Webhook、飞牛论坛签到、Telegram 监听、MoviePilot、代理配置和 TMDB 配置。</li><li>新增扫码获取115CK、115 定时清空、网盘资源秒传、飞牛论坛签到四篇教程，并把旧版外部请求出口命名统一为当前 UI 的“代理配置”。</li><li>重建搜索索引，确保新增工具页和新版入口可搜索跳转。</li></ul>
+    </section>
+    <section class="card update-log-card">
+      <div class="log-title-row">
+        <span class="new-badge">NEW</span>
+        <div>
+          <h2>v1.0.0.10–v1.0.0.69 后续版本汇总</h2>
+          <time datetime="2026-08-04">2026-06-16 至 2026-08-04</time>
+        </div>
+      </div>
+      <div class="log-grid">
+        <article class="update-column">
+          <h3><span class="inline-new">NEW</span>新增</h3>
+          <ol>
+            <li><strong>v1.0.0.10–v1.0.0.18：</strong>完善 115 上传、整理历史、缺失分集处理和季信息判断；新增主题切换并刷新首页与管理界面。</li>
+            <li><strong>v1.0.0.19：</strong>新增 AI 助手与 AI 分集核验能力，支持模型配置、运行状态、记忆、提醒和工具权限管理。</li>
+            <li><strong>v1.0.0.26：</strong>新增订阅管理中心，集中管理订阅项目、RSS 来源、同步任务和事件记录。</li>
+            <li><strong>v1.0.0.39：</strong>补充元数据修复与补齐流程、STRM 同步进度、媒体库刷新和任务反馈。</li>
+            <li><strong>v1.0.0.56–v1.0.0.58：</strong>加入 MoviePilot 站点监控、更多版本识别和离线传输场景支持。</li>
+            <li><strong>v1.0.0.59–v1.0.0.69：</strong>持续补充上传清理、整理保护、任务日志、站点监控和上传工作台能力。</li>
+          </ol>
+        </article>
+        <article class="update-column">
+          <h3><span class="update-icon">FIX</span>修复</h3>
+          <ol>
+            <li><strong>v1.0.0.10–v1.0.0.18：</strong>修复移动端历史列表撑高、登录布局、主题加载、115 上传视图和媒体整理过滤等问题。</li>
+            <li><strong>v1.0.0.20–v1.0.0.27：</strong>修复 AI 分集核验、整理重试历史、洗版候选、首页交互和海报加载中的状态错误。</li>
+            <li><strong>v1.0.0.28：</strong>修复 RSS 关联订阅残留、STRM 地址拼接、手动重做误标记为 AI 识别，以及 Telegram 会话读取超时问题。</li>
+            <li><strong>v1.0.0.29–v1.0.0.54：</strong>修复手动重做、115 API 兼容、TMDB 剧集元数据、RSS 重复订阅、目录遍历和 Emby 同步等问题。</li>
+            <li><strong>v1.0.0.56–v1.0.0.69：</strong>修复上传重试、下载任务清理、媒体质量识别、站点监控下载和 VP9 洗版排序等问题。</li>
+          </ol>
+        </article>
+        <article class="update-column">
+          <h3><span class="update-icon">UI</span>优化</h3>
+          <ol>
+            <li><strong>v1.0.0.19：</strong>增强资源发现、分集解析、整理历史复核和 AI 整理通知。</li>
+            <li><strong>v1.0.0.26–v1.0.0.28：</strong>优化发现页、订阅卡片、系统健康、慢请求诊断、接口超时提示和移动端操作反馈。</li>
+            <li><strong>v1.0.0.40–v1.0.0.54：</strong>优化元数据补齐进度、订阅生命周期、媒体质量识别、响应式界面、真实库和 STRM 同步。</li>
+            <li><strong>v1.0.0.56–v1.0.0.65：</strong>优化站点监控选择、上传进度、任务历史、下载清理和 MoviePilot 状态统计。</li>
+            <li><strong>v1.0.0.66–v1.0.0.69：</strong>优化任务日志、上传重试、异常恢复、VP9 选择和上传工作台的历史统计与管理控制。</li>
+          </ol>
+        </article>
+        <article class="update-column">
+          <h3><span class="update-icon">TIP</span>用户注意事项</h3>
+          <ol>
+            <li>本区间覆盖 v1.0.0.10–v1.0.0.69；其中 v1.0.0.55–v1.0.0.69 依据本地源仓库记录的发布基线和相邻功能提交整理，未把不存在的 Git 标签写成正式标签。</li>
+            <li>升级后建议强制刷新浏览器；遇到订阅、历史、上传工作台或超时提示显示旧内容时，先清理页面缓存再验证。</li>
+            <li>涉及 115、RSS、STRM、Emby 或 MoviePilot 的功能，先小范围测试，再开启全库整理、长期监听或自动清理。</li>
+            <li>升级前备份 CineChill 的 <code>config</code>、<code>backups</code> 和自定义模板目录；组合部署 Emby 时同时备份 <code>emby/config</code>。</li>
+          </ol>
+          <p><strong>同步边界：</strong>本次按本地已同步到 2026-08-04 的 CineChill 源仓库记录整理；v1.0.0.55–v1.0.0.69 按发布基线和相邻功能提交归纳，未把未核实内容写入日志。</p>
+        </article>
+      </div>
     </section>
     <!-- AUTO_CINECHILL_COMMITS_LOG_START -->
     <section class="card update-log-card">

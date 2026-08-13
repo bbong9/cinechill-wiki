@@ -295,7 +295,7 @@
 
     <section class="card">
       <h2>哪些目录要备份</h2>
-      <ul><li>config：最重要，包含账号、配置、任务状态和缓存。</li><li>fonts / templates / layouts：决定封面生成效果。</li><li>backups：封面备份套件和迁移恢复文件。</li><li>升级、迁移或大规模修改前，先备份这些目录。</li></ul>
+      <ul><li>config：最重要，包含账号、配置、任务状态和缓存。</li><li>fonts / templates：决定封面生成效果。</li><li>backups：封面备份套件和迁移恢复文件。</li><li>emby/config：保存 Emby 配置，CineChill + Emby 组合部署时也要备份。</li><li>升级、迁移或大规模修改前，先备份这些目录。</li></ul>
     </section>
 
     <section class="card">
@@ -310,9 +310,9 @@ docker compose logs -f cinechill
 
     <section class="card">
       <h2>升级和回滚路径</h2>
-      <pre><code class="language-bash"># 升级前先备份 config、fonts、templates、layouts、backups
-# 然后拉取并重建
-docker compose pull cinechill
+      <pre><code class="language-bash"># 升级前先备份 config、fonts、templates、backups 和 emby/config
+# 然后拉取 CineChill 与 Emby 镜像并重建
+docker compose pull
 docker compose up -d
 
 # 回滚时把 compose 里的 image 改回旧 tag，再重建
@@ -322,7 +322,7 @@ docker compose up -d
 
     <section class="card">
       <h2>生产风险</h2>
-      <ul><li>后台端口不要裸露公网；如需公网访问，应使用 HTTPS、强密码和访问控制。</li><li>媒体路径必须和 Emby 看到的路径保持一致，否则整理和 STRM 会异常。</li><li>/var/run/docker.sock 是高权限挂载，只建议在自有 NAS / 服务器使用。</li></ul>
+      <ul><li>后台端口不要裸露公网；如需公网访问，应使用 HTTPS、强密码和访问控制。</li><li>媒体路径必须和 Emby 看到的路径保持一致，否则整理和 STRM 会异常。</li><li><code>/var/run/docker.sock</code> 和 Docker 根目录挂载都是高权限挂载，只建议在自有 NAS / 服务器使用。</li><li>Emby 使用 host 网络模式时直接监听宿主机端口，不要再添加重复的 ports 映射。</li></ul>
     </section>
   </article>
       <aside class="doc-aside" aria-label="本页目录">
