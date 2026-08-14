@@ -1419,6 +1419,16 @@ html.dark .doc-outline-content,
 .is-home .browser-frame img{
   height:470px;
 }
+.is-home .desktop-carousel .carousel-theme-screenshot{
+  display:block;
+  height:auto;
+  aspect-ratio:1977 / 941;
+  object-fit:contain;
+  object-position:center;
+}
+.is-home .desktop-carousel .carousel-theme-screenshot[data-screenshot-theme="dark"]{display:none}
+html.dark .is-home .desktop-carousel .carousel-theme-screenshot[data-screenshot-theme="light"]{display:none}
+html.dark .is-home .desktop-carousel .carousel-theme-screenshot[data-screenshot-theme="dark"]{display:block}
 .is-home .recent-updates{
   position:relative;
   width:min(1240px,calc(100% - 48px));
