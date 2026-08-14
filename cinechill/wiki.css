@@ -1732,10 +1732,14 @@ html.dark .doc-outline-content,
   -webkit-backdrop-filter:none!important;
 }
 
-/* Live CineChill UI screenshots: keep day/night views together without changing the wiki shell. */
-.screenshot-pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin:30px 0}
-.screenshot-pair .screenshot{margin:0;min-width:0}
+/* Live CineChill UI screenshots: follow the Wiki shell's current day/night theme. */
+.screenshot-pair{display:grid;grid-template-columns:minmax(0,1fr);gap:18px;margin:30px 0}
+.screenshot-pair .screenshot{display:none;margin:0;min-width:0}
+.screenshot-pair [data-screenshot-theme="light"]{display:block}
+.screenshot-pair [data-screenshot-theme="dark"]{display:none}
+html.dark .screenshot-pair [data-screenshot-theme="light"]{display:none}
+html.dark .screenshot-pair [data-screenshot-theme="dark"]{display:block}
 .screenshot-pair .screenshot img{aspect-ratio:1977 / 941;object-fit:cover;object-position:top center}
 .screenshot-pair .screenshot figcaption{text-align:center;font-weight:600}
 .screenshot-note{margin:0 0 28px;color:var(--vp-c-text-2);font-size:13px;line-height:22px}
-@media(max-width:720px){.screenshot-pair{grid-template-columns:1fr;gap:14px}}
+@media(max-width:720px){.screenshot-pair{gap:14px}}
