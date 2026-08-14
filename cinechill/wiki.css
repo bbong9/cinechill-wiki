@@ -1796,16 +1796,27 @@ html.dark .screenshot-pair [data-screenshot-theme="dark"]{display:block}
 .screenshot-pair .screenshot img{width:100%;height:auto;object-fit:contain;object-position:center}
 @media(max-width:720px){.screenshot-pair{gap:14px}}
 
-/* Screenshot viewing: keep the page clean, open the original image on click. */
+/* Screenshot viewing: open the original image in a fixed floating viewer, never in page flow. */
 .screenshot-pair img.is-zoomable,.carousel-theme-screenshot.is-zoomable{cursor:zoom-in}
 .screenshot-pair img.is-zoomable:focus-visible,.carousel-theme-screenshot.is-zoomable:focus-visible{outline:3px solid var(--vp-c-brand-1);outline-offset:3px}
-.cinechill-lightbox{position:fixed;inset:0;z-index:100;background:rgba(8,10,18,.82);display:grid;place-items:center;padding:32px;cursor:zoom-out}
-.cinechill-lightbox[hidden]{display:none}
-.cinechill-lightbox-image{display:block;max-width:calc(100vw - 64px);max-height:calc(100vh - 64px);width:auto;height:auto;object-fit:contain;border-radius:12px;box-shadow:0 24px 80px rgba(0,0,0,.42);cursor:default}
-.cinechill-lightbox-close{position:absolute;top:18px;right:22px;z-index:1;width:44px;height:44px;border:1px solid rgba(255,255,255,.28);border-radius:999px;background:rgba(0,0,0,.36);color:#fff;font-size:30px;line-height:1;font-weight:300;cursor:pointer}
-.cinechill-lightbox-close:hover,.cinechill-lightbox-close:focus-visible{background:rgba(255,255,255,.18);outline:2px solid #fff;outline-offset:2px}
+.cinechill-lightbox{position:fixed!important;inset:0!important;z-index:1000!important;display:grid!important;place-items:center!important;padding:18px!important;background:rgba(5,8,18,.84)!important;cursor:default!important}
+.cinechill-lightbox[hidden]{display:none!important}
+.cinechill-lightbox-panel{display:grid;grid-template-rows:auto minmax(0,1fr);width:min(96vw,1800px);height:min(94vh,1100px);min-height:360px;overflow:hidden;border:1px solid rgba(255,255,255,.22);border-radius:18px;background:rgba(15,18,30,.96);box-shadow:0 30px 110px rgba(0,0,0,.58)}
+.cinechill-lightbox-toolbar{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:58px;padding:10px 14px 10px 18px;border-bottom:1px solid rgba(255,255,255,.14);color:#f8fafc}
+.cinechill-lightbox-title{font-size:14px;font-weight:700;letter-spacing:.02em}
+.cinechill-lightbox-actions{display:flex;align-items:center;gap:8px}
+.cinechill-lightbox-control,.cinechill-lightbox-reset,.cinechill-lightbox-close{display:inline-grid;place-items:center;height:34px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);color:#fff;cursor:pointer;transition:background-color .18s ease,border-color .18s ease,transform .18s ease}
+.cinechill-lightbox-control{width:34px;border-radius:9px;font-size:22px;line-height:1}
+.cinechill-lightbox-reset{padding:0 11px;border-radius:9px;font-size:12px;font-weight:600}
+.cinechill-lightbox-close{width:36px;border-radius:10px;font-size:25px;line-height:1;font-weight:300}
+.cinechill-lightbox-control:hover,.cinechill-lightbox-control:focus-visible,.cinechill-lightbox-reset:hover,.cinechill-lightbox-reset:focus-visible,.cinechill-lightbox-close:hover,.cinechill-lightbox-close:focus-visible{background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.48);outline:0;transform:translateY(-1px)}
+.cinechill-lightbox-zoom{min-width:64px;color:rgba(255,255,255,.72);font-size:12px;text-align:center}
+.cinechill-lightbox-viewport{min-height:0;overflow:auto;background:radial-gradient(circle at 50% 45%,rgba(61,75,112,.18),transparent 56%),#090c15;cursor:grab;overscroll-behavior:contain;scrollbar-color:rgba(255,255,255,.35) transparent}
+.cinechill-lightbox-viewport.is-dragging{cursor:grabbing;user-select:none}
+.cinechill-lightbox-stage{display:grid;place-items:center;min-width:100%;min-height:100%;padding:28px}
+.cinechill-lightbox-image{display:block!important;max-width:none!important;max-height:none!important;width:auto;height:auto;object-fit:contain;border-radius:8px;box-shadow:0 20px 60px rgba(0,0,0,.46);cursor:grab;pointer-events:none}
 html.cinechill-lightbox-open{overflow:hidden}
-@media(max-width:720px){.cinechill-lightbox{padding:14px}.cinechill-lightbox-image{max-width:calc(100vw - 28px);max-height:calc(100vh - 28px);border-radius:8px}.cinechill-lightbox-close{top:10px;right:12px}}
+@media(max-width:720px){.cinechill-lightbox{padding:8px!important}.cinechill-lightbox-panel{width:100%;height:96vh;min-height:280px;border-radius:14px}.cinechill-lightbox-toolbar{min-height:52px;padding-left:12px}.cinechill-lightbox-title{font-size:13px}.cinechill-lightbox-reset{padding:0 8px}.cinechill-lightbox-stage{padding:14px}.cinechill-lightbox-zoom{min-width:52px}}
 
 /* 20260814 readable documentation tables and health troubleshooting cards. */
 .doc table,.card table{width:100%;margin:20px 0;border-collapse:separate;border-spacing:0;table-layout:fixed;border:1px solid var(--vp-c-divider);border-radius:12px;overflow:hidden;background:var(--vp-c-bg)}
