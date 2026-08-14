@@ -1472,13 +1472,6 @@ html.dark .is-home .desktop-carousel .carousel-theme-screenshot[data-screenshot-
   justify-content:center;
   margin-top:34px;
 }
-.dark .is-home .home-features::before{
-  background:
-    radial-gradient(circle at 18% 18%,rgba(59,130,246,.14),transparent 34%),
-    radial-gradient(circle at 82% 70%,rgba(168,85,247,.12),transparent 32%),
-    linear-gradient(145deg,rgba(255,255,255,.040),rgba(255,255,255,.012));
-  border-color:rgba(255,255,255,.060);
-}
 .dark .is-home .desktop-experience,
 .dark .is-home .recent-updates{
   background:
