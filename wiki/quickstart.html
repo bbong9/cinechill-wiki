@@ -353,7 +353,7 @@ docker run -d \
         <li><code>/app/backups</code>：封面及迁移备份，建议持久化。</li>
         <li><code>/media</code>：标准目录会在这里创建；<code>CHILLPOSTER_LOCAL_MEDIA_ROOT=/media</code> 必须与挂载路径一致。</li>
         <li><code>/var/run/docker.sock</code>：只为 Docker 管理和部分端口/Compose 检查提供能力，是高权限挂载；不用这些功能时可以不挂载。</li>
-        <li><code>/vol2/1000/docker</code>：用于让 CineChill 读取或修改其他容器的 Compose 文件；只有确实使用此功能时才挂载，并确认目录权限和安全边界。</li>
+        <li><code>/vol2/1000/docker</code>：用于让 CineChill 读取或修改其他容器的 Compose 文件；只有确实使用此功能时才挂载，并确认目录权限。</li>
       </ul>
     </section>
 
@@ -483,16 +483,6 @@ docker compose logs -f emby</code></pre>
         <li>升级后重复“首次验证”。</li>
         <li>回滚时把镜像改回上一个已验证标签，先恢复容器；只有确认配置文件被新版本改坏时，才在停容器后恢复备份目录。</li>
       </ol>
-    </section>
-
-    <section class="card">
-      <h2>安全边界</h2>
-      <ul>
-        <li>本文只面向自有或合法授权媒体库的管理、元数据刮削、封面整理和 NAS 运维。</li>
-        <li>不要把用户名、密码、Cookie、API Key、Token、Webhook 地址、真实 Chat ID、内网地址、真实路径或完整日志写进公开 Wiki。</li>
-        <li>不要在公开文档中记录资源链接、分享口令、转存口令、磁力、破解、去 DRM 或绕过访问限制的方法。</li>
-        <li>保存敏感配置后先做连接测试或小范围验证，再开启全量任务、定时任务和长期监听。</li>
-      </ul>
     </section>
 </article>
       <aside class="doc-aside" aria-label="本页目录">

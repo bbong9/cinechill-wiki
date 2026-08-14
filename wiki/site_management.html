@@ -294,8 +294,7 @@
 <section class="card"><h2>页面区域怎么看</h2><ul><li><strong>顶部统计：</strong>用于快速判断站点数量、监控状态、资源候选和任务结果，不等于所有下载任务都已完成。</li><li><strong>站点状态：</strong>关注已启用、连接失败、暂时跳过等状态；单个站点失败时不要立即重置全部配置。</li><li><strong>资源列表：</strong>用于查看候选资源的站点、质量、编码、季集和匹配结果；严格匹配时，缺少关键元数据的条目可能被过滤。</li><li><strong>处理状态：</strong>下载、上传、整理和跳过属于不同阶段，排障时应结合系统运行日志确认实际停在哪一步。</li></ul></section>
 <section class="card"><h2>推荐操作顺序</h2><ol><li>打开站点管理，先确认统计卡片和站点状态已加载。</li><li>检查站点筛选、质量条件、媒体类型和季集匹配条件。</li><li>先查看候选列表，核对标题、年份、季集、分辨率和站点来源。</li><li>只对一条候选执行后续处理，观察任务日志和整理记录。</li><li>确认下载、上传、识别和入库均正常后，再开启定时或批量处理。</li></ol></section>
 <section class="card"><h2>常见问题与回滚</h2><ul><li><strong>站点全部失败：</strong>先检查 MoviePilot 连接、代理、DNS 和容器网络，再判断是否是单站点问题。</li><li><strong>候选很多但没有自动处理：</strong>核对严格匹配、质量筛选、媒体库状态和季集信息，不要直接降低所有保护条件。</li><li><strong>重复下载或重复入库：</strong>立即暂停自动任务，检查订阅、站点监控和整理记录，确认去重条件后再恢复。</li><li><strong>误触发处理：</strong>停止当前任务并保留日志；已经提交到外部服务的任务不会因为关闭页面自动回滚，需要到对应任务页单独取消。</li></ul></section>
-<section class="card"><h2>安全边界</h2><ul><li>公开 Wiki 只讨论自有合法授权媒体库和 NAS 运维。</li><li>不要公开站点地址、账号、密码、Cookie、API Key、Token、真实路径、Webhook 或完整任务日志。</li><li>截图只用于说明界面布局；实际站点、资源来源和下载结果应保留在私有环境。</li></ul></section>
-      </article>
+</article>
       <aside class="doc-aside" aria-label="本页目录">
         <div class="doc-aside-container">
           <nav class="doc-outline" aria-labelledby="doc-outline-title">

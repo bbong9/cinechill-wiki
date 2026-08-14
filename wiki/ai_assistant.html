@@ -294,8 +294,7 @@
 <section class="card"><h2>页面区域怎么看</h2><ul><li><strong>连接/配置区：</strong>用于维护提供方、模型或访问凭据；保存后只显示状态，不应展开敏感值。</li><li><strong>功能开关：</strong>决定 AI 是否参与识别、校验、提醒等流程；逐项启用，避免一次打开全部自动化。</li><li><strong>测试或验证区：</strong>用一条已知媒体或短文本确认请求成功、结果可读、语言和格式符合预期。</li><li><strong>权限与风险提示：</strong>涉及写入、重命名、整理或通知时，先人工确认结果再执行。</li></ul></section>
 <section class="card"><h2>推荐操作顺序</h2><ol><li>只填写必要的服务配置并保存。</li><li>执行一次连接或模型测试，确认没有认证、网络和配额错误。</li><li>用一个小样本运行识别/校验，手工对比 TMDB、Emby 或原文件信息。</li><li>确认结果可靠后，再开启提醒或低风险自动化；重命名、整理、删除等动作保持人工确认。</li><li>排查完成后回到系统日志检查请求失败、超时和重复执行情况。</li></ol></section>
 <section class="card"><h2>常见问题与回滚</h2><ul><li><strong>请求失败：</strong>按“地址可达性 → 凭据 → 模型/能力 → 配额”顺序排查，不要先批量重试。</li><li><strong>结果不准确：</strong>降低自动化权限，改用单条验证；AI 输出只能作为建议。</li><li><strong>响应很慢：</strong>查看网络、代理和服务端限流，避免并发提高到不可控。</li><li><strong>误触发写入：</strong>停止相关任务，恢复备份或使用对应历史记录回滚；不要直接清空整个配置目录。</li></ul></section>
-<section class="card"><h2>安全边界</h2><ul><li>不要把 API Key、Token、Cookie、私人媒体路径、完整日志或账号信息发送给不受信任的模型/服务。</li><li>公开 Wiki 只记录字段作用、验证步骤和失败排查，不公开真实配置。</li><li>涉及媒体库批量修改、通知发送和外部服务调用时，先小范围测试并保留回滚点。</li></ul></section>
-      </article>
+</article>
       <aside class="doc-aside" aria-label="本页目录">
         <div class="doc-aside-container">
           <nav class="doc-outline" aria-labelledby="doc-outline-title">

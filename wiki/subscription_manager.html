@@ -294,8 +294,7 @@
 <section class="card"><h2>页面信息怎么看</h2><ul><li><strong>订阅卡片：</strong>通常包含标题、媒体类型、海报、订阅来源和当前状态。</li><li><strong>生命周期状态：</strong>区分启用、暂停、完成、失败或已删除；状态变化应结合时间和历史记录判断。</li><li><strong>剧集进度：</strong>电视剧要看季号、已处理集数和待处理集数，不能只看整部剧的总状态。</li><li><strong>历史记录：</strong>用于确认创建、更新、暂停、恢复、去重和删除动作是否真的落库。</li></ul></section>
 <section class="card"><h2>推荐操作顺序</h2><ol><li>先搜索标题或按状态筛选，找到目标订阅。</li><li>打开详情，核对 TMDB 标识、媒体类型、季号和来源。</li><li>需要暂停时先暂停，不要直接删除；确认不再需要时再删除。</li><li>电视剧订阅先核对季集范围，再恢复或调整。</li><li>操作后刷新页面，并查看历史记录或系统运行日志确认结果。</li></ol></section>
 <section class="card"><h2>排障与回滚</h2><ul><li><strong>看不到刚创建的订阅：</strong>先刷新，再检查 MoviePilot 配置和发现页返回的 TMDB ID。</li><li><strong>出现重复订阅：</strong>保留一条有效记录，暂停或删除重复项，并检查是否存在多个来源重复提交。</li><li><strong>状态长期不变：</strong>查看系统运行日志、站点管理和外部 MoviePilot 任务，不要仅反复刷新页面。</li><li><strong>误删除：</strong>删除通常不会自动恢复外部任务；按历史记录重新建立前先确认当前 MoviePilot 状态。</li></ul></section>
-<section class="card"><h2>安全边界</h2><ul><li>只记录自有合法授权媒体的订阅管理流程。</li><li>不要公开真实订阅名称、站点、下载器、账号、Token、Cookie、私有地址或完整任务日志。</li><li>批量暂停、删除和恢复前先导出或备份必要配置，并先用一条记录验证。</li></ul></section>
-      </article>
+</article>
       <aside class="doc-aside" aria-label="本页目录">
         <div class="doc-aside-container">
           <nav class="doc-outline" aria-labelledby="doc-outline-title">
