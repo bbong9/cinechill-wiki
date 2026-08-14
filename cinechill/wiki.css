@@ -1743,3 +1743,20 @@ html.dark .screenshot-pair [data-screenshot-theme="dark"]{display:block}
 .screenshot-pair .screenshot figcaption{text-align:center;font-weight:600}
 .screenshot-note{margin:0 0 28px;color:var(--vp-c-text-2);font-size:13px;line-height:22px}
 @media(max-width:720px){.screenshot-pair{gap:14px}}
+
+/* 20260814 readable documentation tables and health troubleshooting cards. */
+.doc table,.card table{width:100%;margin:20px 0;border-collapse:separate;border-spacing:0;table-layout:fixed;border:1px solid var(--vp-c-divider);border-radius:12px;overflow:hidden;background:var(--vp-c-bg)}
+.doc th,.doc td,.card th,.card td{padding:14px 16px;text-align:left;vertical-align:top;border-right:1px solid var(--vp-c-divider);border-bottom:1px solid var(--vp-c-divider);overflow-wrap:anywhere;word-break:break-word;line-height:24px}
+.doc th,.card th{font-size:13px;font-weight:700;color:var(--vp-c-text-1);background:var(--vp-c-bg-alt)}
+.doc td,.card td{font-size:14px;color:var(--vp-c-text-1)}
+.doc tr:last-child td,.card tr:last-child td{border-bottom:0}
+.doc th:last-child,.doc td:last-child,.card th:last-child,.card td:last-child{border-right:0}
+.health-issue-list{display:grid;gap:16px;margin-top:22px}
+.health-issue{margin:0;padding:20px;border:1px solid var(--vp-c-divider);border-radius:14px;background:var(--vp-c-bg);box-shadow:0 8px 20px rgba(15,23,42,.04)}
+.health-issue h3{margin:0 0 10px;font-size:19px;line-height:28px}
+.health-issue p{margin:0 0 12px}
+.health-issue ol{margin:0;padding-left:22px}
+.health-issue li{margin:7px 0;line-height:26px}
+.health-symptom{color:var(--vp-c-text-2)!important}
+.health-pass{margin-top:16px!important;margin-bottom:0!important;padding:12px 14px;border-left:3px solid var(--vp-c-brand-1);border-radius:8px;background:var(--vp-c-brand-soft);color:var(--vp-c-text-1)!important}
+@media(max-width:720px){.doc table,.card table{display:block;overflow-x:auto;table-layout:auto;white-space:normal}.doc th,.doc td,.card th,.card td{min-width:170px;padding:12px 14px}.health-issue{padding:16px}.health-issue h3{font-size:18px}}

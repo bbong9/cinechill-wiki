@@ -66,7 +66,7 @@
           const normalizedHref = href.startsWith('/') ? href.slice(1) : href;
           return new URL(basePath + normalizedHref, window.location.origin).href;
         };
-        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-detailed-guides', window.location.origin + siteBasePath()).href;
+        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-health-layout', window.location.origin + siteBasePath()).href;
         const loadSearchIndex = () => {
           if (!searchIndexPromise) {
             searchIndexPromise = fetch(searchIndexUrl())
@@ -283,6 +283,8 @@
     </aside>
     <main id="VPContent" class="content">
       <article class="doc"><p class="eyebrow">控制台 / 系统健康</p>
+<h1>系统健康</h1>
+<p class="lead">系统健康把配置、115、路径、Emby、302 网关、Docker 和网络连通性拆成可重试的检查项。它用于定位故障边界，不替代任务记录和系统运行日志。</p>
 <div class="screenshot-pair" role="group" aria-label="系统健康 页面截图 日间与夜间主题截图">
       <figure class="screenshot screenshot-theme" data-screenshot-theme="light">
         <img src="/cinechill-wiki/cinechill/screenshots/live/system_health-light.jpg?v=20260814-original" alt="系统健康 页面截图（日间主题）">
@@ -294,9 +296,6 @@
       </figure>
     </div>
     <p class="screenshot-note">截图来自 2026-08-14 本地 CineChill 管理端；真实连接状态、UID、用户名、地址和服务探测信息已脱敏。</p>
-<h1>系统健康</h1>
-<p class="lead">系统健康把配置、115、路径、Emby、302 网关、Docker 和网络连通性拆成可重试的检查项。它用于定位故障边界，不替代任务记录和系统运行日志。</p>
-
 <section class="card">
   <h2>适用场景与前置条件</h2>
   <ul>
@@ -351,39 +350,100 @@
 </section>
 
 <section class="card">
-  <h2>失败排查路径</h2>
-  <ul>
-    <li><strong>配置文件异常：</strong>停止高风险任务，保留错误文件副本，使用上一份有效备份恢复；不要直接清空整个 config。</li>
-    <li><strong>115 Cookie/目录异常：</strong>回服务器配置重新测试或扫码，保存配置让后端重新创建/校验标准目录。</li>
-    <li><strong>路径不可写：</strong>检查宿主机权限、容器用户、挂载模式和容器内路径；只读目录会因探针写入失败。</li>
-    <li><strong>Emby API 异常：</strong>核对地址/API Key，并从 CineChill 容器网络验证可达性。</li>
-    <li><strong>网关异常：</strong>核对反代端口与 Docker 发布端口；无可写 Compose 时手动修改并重建容器。</li>
-    <li><strong>Docker 异常：</strong>检查 Socket 和 Compose 文件挂载；这不影响不使用 Docker 管理的核心功能。</li>
-    <li><strong>网络异常：</strong>先判断是全局代理/DNS/出口问题还是单一目标问题，再看代理配置和容器日志。</li>
-  </ul>
+  <h2>先按这个顺序判断</h2>
+  <ol>
+    <li>先看总览状态和失败项目名称，记录检查时间、错误摘要和对应页面。</li>
+    <li>优先修复上游依赖：配置文件 → 115 Cookie/标准目录 → 本地路径 → Emby API → 网关 → Docker/网络。</li>
+    <li>每次只点击失败项目自己的“重试”，通过后再运行一个小任务，最后重新做整体验收。</li>
+    <li>如果健康检查正常但业务仍失败，转到整理记录、115 任务历史、MoviePilot 任务或系统运行日志，不要继续重复健康检查。</li>
+  </ol>
 </section>
 
-<section class="card">
-  <h2>备份与回滚</h2>
-  <ul>
-    <li>健康检查前后的主要配置、标准目录绑定和任务状态都在持久化配置目录中，迁移/升级前应整体备份。</li>
-    <li>修复路径或端口前记录当前 Compose、挂载和配置；失败时恢复配置、回滚镜像并重复健康检查。</li>
-    <li>健康检查结果可包含 UID、路径、主机、端口和服务名，公开分享前必须脱敏。</li>
-  </ul>
-</section>
+
 
 <!-- DETAIL-TROUBLESHOOT-HEALTH-20260814 -->
-<section class="card">
-  <h2>检查项失败后下一步去哪</h2>
-  <table><thead><tr><th>失败项目</th><th>先执行</th><th>通过标准</th></tr></thead><tbody>
-    <tr><td>配置文件</td><td>保留错误提示，检查 <code>/app/config</code> 挂载和 JSON 文件；不要直接清空配置。</td><td>检查项恢复正常，登录和任务配置仍存在。</td></tr>
-    <tr><td>115 Cookie</td><td>回服务器配置重新扫码/测试并保存。</td><td>显示 Cookie 有效，随后标准目录检查也恢复。</td></tr>
-    <tr><td>标准目录</td><td>先修 Cookie，再保存配置重新解析远程目录。</td><td>媒体、秒传、失败、转存、重复、洗版目录均能识别。</td></tr>
-    <tr><td>本地路径</td><td>检查宿主机路径、容器映射、用户权限和写探针。</td><td>目录存在、可读、可写，探针能创建并删除。</td></tr>
-    <tr><td>Emby API</td><td>回服务器配置检查地址、API Key 和容器网络。</td><td>能读取系统信息和媒体库数量。</td></tr>
-    <tr><td>网关/网络</td><td>对照端口发布、反代上游、代理和 DNS。</td><td>从 CineChill 运行环境访问目标成功。</td></tr>
-  </tbody></table>
-  <p><strong>重试顺序：</strong>先修失败项并单独重试，再运行一个小任务，最后重新检查整体验收；不要连续点击整体验证掩盖具体失败项。</p>
+<section class="card health-troubleshooting">
+  <h2>常见问题：检查项失败后怎么处理</h2>
+  <p>下面每项都按“你会看到什么 → 先做什么 → 通过标准”写。不要一次修改多个配置，否则无法判断是哪一步恢复了。</p>
+  <div class="health-issue-list">
+    <section class="health-issue">
+      <h3>1. 配置文件异常</h3>
+      <p class="health-symptom"><strong>你会看到：</strong>配置文件检查为 error，登录、任务或外部服务配置突然消失。</p>
+      <ol>
+        <li>先停止自动整理、自动封面、RSS 和上传任务，避免系统继续写入配置。</li>
+        <li>执行 <code>docker inspect cinechill</code>，确认 <code>/app/config</code> 映射到预期宿主机目录；不要在容器内临时改文件。</li>
+        <li>打开系统运行日志，记录具体 JSON 文件名和解析错误；只修复该文件，不要直接删除整个配置目录。</li>
+        <li>修复后刷新健康检查，再登录并打开服务器配置，确认 Emby、115 和任务状态仍存在。</li>
+      </ol>
+      <p class="health-pass"><strong>通过标准：</strong>配置文件检查正常，已有账号和任务没有被清空，页面可以继续读取配置。</p>
+    </section>
+    <section class="health-issue">
+      <h3>2. 115 Cookie 或标准目录异常</h3>
+      <p class="health-symptom"><strong>你会看到：</strong>Cookie 无效、标准目录找不到，或媒体/秒传/失败目录 CID 检查失败。</p>
+      <ol>
+        <li>回“服务器配置”重新扫码或粘贴完整 Cookie，去掉首尾空格，先点击“测试连接”。</li>
+        <li>测试显示 Cookie 有效后点击“保存配置”，让后端重新解析远程根目录；不要手工改 CID。</li>
+        <li>如果 Cookie 有效但保存失败，检查 <code>/app/config</code> 和本地媒体根目录可写，再看系统日志第一条错误。</li>
+        <li>标准目录全部正常后，再去 115 秒传选择具体目标目录，最后才恢复 RSS、上传或整理任务。</li>
+      </ol>
+      <p class="health-pass"><strong>通过标准：</strong>Cookie 有效，媒体、秒传、失败、转存、重复和洗版目录都能识别。</p>
+    </section>
+    <section class="health-issue">
+      <h3>3. 媒体库本地路径或真实库路径不可写</h3>
+      <p class="health-symptom"><strong>你会看到：</strong>目录不存在、只读、写探针失败，整理或 STRM 任务无法继续。</p>
+      <ol>
+        <li>用 <code>docker inspect cinechill</code> 对照宿主机源路径和容器目标路径；Emby 和 CineChill 的媒体映射必须指向同一宿主机目录。</li>
+        <li>在容器内检查：<code>docker exec cinechill sh -c 'ls -ld /media /app/config'</code>；确认目录不是空的错误挂载。</li>
+        <li>检查宿主机属主、权限和挂载模式；只读挂载或容器用户无写权限时，健康检查会在创建探针时失败。</li>
+        <li>修正后重新创建容器，再单独重试路径检查；不要只刷新浏览器。</li>
+      </ol>
+      <p class="health-pass"><strong>通过标准：</strong>目录存在、可读、可写，健康检查的探针可以创建并删除。</p>
+    </section>
+    <section class="health-issue">
+      <h3>4. Emby API 异常</h3>
+      <p class="health-symptom"><strong>你会看到：</strong>Emby API 超时、401/403，或健康检查无法读取系统信息和媒体库数量。</p>
+      <ol>
+        <li>回“服务器配置”核对 Emby 地址；不要填 CineChill 容器内的 <code>localhost</code> 或 <code>127.0.0.1</code>。</li>
+        <li>401/403 重新核对 API Key 权限；地址能打开不代表 API Key 能读取媒体库。</li>
+        <li>容器网络无法访问时，从 CineChill 运行环境检查服务名、NAS 地址、DNS 和防火墙。</li>
+        <li>服务器配置测试成功后，再单独重试 Emby API，最后刷新媒体库或运行一个小整理任务。</li>
+      </ol>
+      <p class="health-pass"><strong>通过标准：</strong>能读取 Emby 系统信息和媒体库数量，整理或封面页面能正常加载媒体库。</p>
+    </section>
+    <section class="health-issue">
+      <h3>5. 302 网关异常</h3>
+      <p class="health-symptom"><strong>你会看到：</strong>网关未监听、STRM 地址打不开，或反向代理返回 502。</p>
+      <ol>
+        <li>执行 <code>docker compose ps</code> 和 <code>docker port cinechill</code>，确认宿主机端口确实发布。</li>
+        <li>对照服务器配置中的反代端口、Compose 左侧端口和反向代理上游端口；三处必须一致。</li>
+        <li>直连主机端口验证：直连正常、域名不通时查反向代理和防火墙；直连也不通时查容器日志和端口占用。</li>
+        <li>修复后重新创建容器，打开一条 STRM 实际播放验证，不要只看端口检查变绿。</li>
+      </ol>
+      <p class="health-pass"><strong>通过标准：</strong>网关在 CineChill 运行环境监听，反向代理能访问，STRM 地址可打开并能播放。</p>
+    </section>
+    <section class="health-issue">
+      <h3>6. Docker Socket 或 Compose 状态异常</h3>
+      <p class="health-symptom"><strong>你会看到：</strong>Docker 项显示未启用、读取不到容器或 Compose 状态为空。</p>
+      <ol>
+        <li>确认 Compose 有 <code>/var/run/docker.sock:/var/run/docker.sock</code> 挂载，并重新创建 CineChill 容器。</li>
+        <li>如果需要 Compose 写回，再确认 Compose 文件目录也挂载到容器内且可写；只挂 Socket 不代表可以修改文件。</li>
+        <li>不使用 Docker 管理功能时，该项显示 disabled 可以接受，不要为了让它变绿而增加高权限挂载。</li>
+        <li>恢复挂载后只重试 Docker 项，再到 Docker 管理页读取当前容器和日志。</li>
+      </ol>
+      <p class="health-pass"><strong>通过标准：</strong>需要 Docker 管理时能读取容器、端口和 Compose；不使用时明确显示未启用且核心媒体链路正常。</p>
+    </section>
+    <section class="health-issue">
+      <h3>7. 网络连通性异常</h3>
+      <p class="health-symptom"><strong>你会看到：</strong>TMDB、图片、115、GitHub、Docker Hub 或其他目标超时、DNS 失败或 HTTP 状态异常。</p>
+      <ol>
+        <li>先看失败目标的主机、状态码和延迟，判断是全部外网失败还是单个目标失败。</li>
+        <li>全部外网失败：检查代理、DNS、默认路由和容器网络；只有一个目标失败：检查目标服务、域名或账号限制。</li>
+        <li>修改代理后只重试失败目标，再回 TMDB/RSS/图片等实际业务页面验证，健康检查通过不等于业务请求一定成功。</li>
+        <li>确认无误后恢复自动任务；不要在网络不稳定时同时运行全量刮削、RSS 和上传。</li>
+      </ol>
+      <p class="health-pass"><strong>通过标准：</strong>当前业务需要的目标可以从 CineChill 运行环境访问，且实际小任务不再产生同类网络错误。</p>
+    </section>
+  </div>
 </section>
 
 </article>
