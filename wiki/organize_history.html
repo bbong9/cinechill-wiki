@@ -65,7 +65,7 @@
           const normalizedHref = href.startsWith('/') ? href.slice(1) : href;
           return new URL(basePath + normalizedHref, window.location.origin).href;
         };
-        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260813-live-screenshots', window.location.origin + siteBasePath()).href;
+        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-flow-guides', window.location.origin + siteBasePath()).href;
         const loadSearchIndex = () => {
           if (!searchIndexPromise) {
             searchIndexPromise = fetch(searchIndexUrl())
@@ -330,6 +330,25 @@
       <h2>常见问题和风险</h2>
       <ul><li>历史记录可能包含真实文件名和路径，公开截图只保留脱敏后的必要信息。</li><li>“成功”只代表该整理步骤完成，不代表 Emby 已扫描、封面已更新或 STRM 播放链路可用；必要时回 Emby 和任务中心确认。</li><li>重新整理可能再次移动、重命名或覆盖目标文件，执行前确认源/目标和备份。</li><li>清理历史不可恢复，但不会删除媒体文件；批量删除前先确认选中的分类。</li></ul>
     </section>
+<!-- FLOW-ORGANIZE-HISTORY-20260814 -->
+<section class="card">
+  <h2>整理入库后的验收顺序</h2>
+  <ol>
+    <li>先看成功 / 失败 / 重复 / 洗版 / STRM / 跳过分类，确认任务数量与小样本数量一致。</li>
+    <li>打开一条成功记录，核对源路径、目标路径、媒体身份、质量和处理决策。</li>
+    <li>回到目标目录检查文件名、电影 / 剧集结构、季集和 STRM 内容。</li>
+    <li>等待或手动刷新 Emby，确认标题、封面、简介、季集和播放都正常。</li>
+    <li>失败时先看同一时间的系统运行日志，再回一条龙、115 秒传或 MoviePilot 修复对应阶段。</li>
+  </ol>
+  <h3>记录状态不要这样理解</h3>
+  <ul>
+    <li>“成功”只代表当前整理步骤完成，不代表 Emby 已刷新。</li>
+    <li>“跳过”可能是重复、条件不匹配或已有结果，要打开详情确认原因。</li>
+    <li>“STRM”代表播放入口处理过，仍需实际打开 Emby 播放验证。</li>
+    <li>清理历史只删除记录，不会回滚媒体文件；重新整理可能再次移动或覆盖文件。</li>
+  </ul>
+</section>
+
 </article>
       <aside class="doc-aside" aria-label="本页目录">
         <div class="doc-aside-container">

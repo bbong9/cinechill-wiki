@@ -65,7 +65,7 @@
           const normalizedHref = href.startsWith('/') ? href.slice(1) : href;
           return new URL(basePath + normalizedHref, window.location.origin).href;
         };
-        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260813-live-screenshots', window.location.origin + siteBasePath()).href;
+        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-flow-guides', window.location.origin + siteBasePath()).href;
         const loadSearchIndex = () => {
           if (!searchIndexPromise) {
             searchIndexPromise = fetch(searchIndexUrl())
@@ -335,6 +335,18 @@
         <li>在封面设计加载该模板，生成一个媒体库预览。</li>
         <li>确认手动预览成功后再用于自动任务；删除模板前先保留另一个可用预设。</li>
       </ol>
+    </section>
+
+    <!-- FLOW-COVER-RESOURCES-20260814 -->
+    <section class="card">
+      <h2>它在封面配置流程中的位置</h2>
+      <p>资源配置只负责管理“可被封面设计和自动封面读取的模板资源”，不负责直接给媒体库生成封面。正确顺序是：资源配置确认可用模板 → 封面设计调整并预览 → 封面备份创建恢复点 → 手动 / 自动封面应用。</p>
+      <ol>
+        <li>先看布局模式和模板数量，确认当前布局至少有一个可用模板。</li>
+        <li>去“封面设计”另存一个新模板，先生成一张测试预览。</li>
+        <li>预览无误后去“封面备份”创建快照，再回手动或自动任务应用。</li>
+      </ol>
+      <p><strong>小白注意：</strong>模板数量不等于媒体数量；删除模板不会撤销已经生成的封面，但会让后续任务无法继续使用它。公开页面只写占位路径，不要把私有素材 URL、Cookie 或本地路径贴进模板说明。</p>
     </section>
 
     <section class="card">

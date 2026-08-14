@@ -66,7 +66,7 @@
           const normalizedHref = href.startsWith('/') ? href.slice(1) : href;
           return new URL(basePath + normalizedHref, window.location.origin).href;
         };
-        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260813-live-screenshots', window.location.origin + siteBasePath()).href;
+        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-flow-guides', window.location.origin + siteBasePath()).href;
         const loadSearchIndex = () => {
           if (!searchIndexPromise) {
             searchIndexPromise = fetch(searchIndexUrl())
@@ -347,6 +347,24 @@
         <li>连接配置不会自动撤销已经发出的订阅或下载任务；回滚需要到订阅 / 任务页面单独取消。</li>
       </ul>
     </section>
+<!-- FLOW-MOVIEPILOT-20260814 -->
+<section class="card">
+  <h2>MoviePilot 与 CineChill 的分工</h2>
+  <table><thead><tr><th>组件</th><th>负责什么</th><th>你要验证什么</th></tr></thead><tbody>
+    <tr><td>MoviePilot</td><td>订阅、搜索、站点监控、下载和按配置生成硬链接。</td><td>连接可用、下载器可用、硬链接目录可写。</td></tr>
+    <tr><td>CineChill</td><td>监控待处理目录、115 秒传、媒体识别、整理、STRM 和 Emby 联动。</td><td>能看到同一个硬链接目录，整理目标路径正确。</td></tr>
+    <tr><td>Emby</td><td>读取最终媒体库、刷新元数据并提供播放。</td><td>媒体路径和 CineChill 的最终入库路径一致。</td></tr>
+  </tbody></table>
+  <h3>硬链接配置的关键</h3>
+  <ol>
+    <li>在 MoviePilot 中把硬链接输出目录设为 CineChill 能访问的专用待处理目录。</li>
+    <li>确保下载源和硬链接目录位于同一文件系统；跨盘通常无法创建真正的硬链接。</li>
+    <li>在 Docker Compose 中把该宿主机目录同时映射给 MoviePilot 和 CineChill，容器内路径也要保持可对应。</li>
+    <li>先下载一个小文件，确认硬链接出现且 CineChill 能读取，再开启批量监控。</li>
+  </ol>
+  <p><strong>不要混淆：</strong>MoviePilot 配置页的“连接测试”只证明接口认证和服务可达，不代表站点、下载器、硬链接和入库链路都正常。</p>
+</section>
+
 </article>
       <aside class="doc-aside" aria-label="本页目录">
         <div class="doc-aside-container">

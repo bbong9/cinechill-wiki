@@ -65,7 +65,7 @@
           const normalizedHref = href.startsWith('/') ? href.slice(1) : href;
           return new URL(basePath + normalizedHref, window.location.origin).href;
         };
-        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260813-live-screenshots', window.location.origin + siteBasePath()).href;
+        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-flow-guides', window.location.origin + siteBasePath()).href;
         const loadSearchIndex = () => {
           if (!searchIndexPromise) {
             searchIndexPromise = fetch(searchIndexUrl())
@@ -347,6 +347,27 @@
         <li>图片与字体必须具备使用授权，公开仓库只放允许公开的素材。</li>
       </ul>
     </section>
+<!-- FLOW-COVER-CUSTOM-20260814 -->
+<section class="card">
+  <h2>封面系统的正确配置顺序</h2>
+  <ol>
+    <li>进入“资源配置”，确认布局、模板、字体和资源分类能正常加载。</li>
+    <li>进入“封面设计”，先另存为新模板，不要直接覆盖默认模板。</li>
+    <li>选一个测试媒体库生成预览，检查标题、副标题、角标、素材位置和可读性。</li>
+    <li>到“封面备份”创建快照，再在手动流程中应用一次。</li>
+    <li>确认效果后，才到“自动封面”创建 Cron 任务并扩大目标媒体库。</li>
+  </ol>
+  <h3>每个区域的作用</h3>
+  <ul>
+    <li><strong>布局模式：</strong>决定画布和渲染结构；切换布局可能让预设参数失效。</li>
+    <li><strong>预设：</strong>提供可复用的初始参数；不确定时先用当前布局的默认预设。</li>
+    <li><strong>素材组合：</strong>决定背景、小海报和取图方式；先使用已有资源验证，不要第一次就上传大量素材。</li>
+    <li><strong>统计角标：</strong>控制数量或统计展示，不负责修复媒体库统计。</li>
+    <li><strong>保存当前 / 另存为：</strong>保存当前会影响后续任务，另存为适合试验新版本。</li>
+  </ul>
+  <p><strong>小白注意：</strong>预览好看不代表批量应用安全。先备份、单库验证、回 Emby 检查，确认后再启用自动封面。</p>
+</section>
+
 </article>
       <aside class="doc-aside" aria-label="本页目录">
         <div class="doc-aside-container">

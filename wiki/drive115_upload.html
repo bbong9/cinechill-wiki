@@ -66,7 +66,7 @@
           const normalizedHref = href.startsWith('/') ? href.slice(1) : href;
           return new URL(basePath + normalizedHref, window.location.origin).href;
         };
-        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260813-live-screenshots', window.location.origin + siteBasePath()).href;
+        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-flow-guides', window.location.origin + siteBasePath()).href;
         const loadSearchIndex = () => {
           if (!searchIndexPromise) {
             searchIndexPromise = fetch(searchIndexUrl())
@@ -362,6 +362,26 @@
         <li>Cookie / CK、真实路径和文件名都属于敏感运行信息，公开文档只能使用占位示例。</li>
       </ul>
     </section>
+<!-- FLOW-115-UPLOAD-20260814 -->
+<section class="card">
+  <h2>监控硬链接目录 → 秒传到 115 整理目录</h2>
+  <p>这是“下载完成后交给 CineChill”的关键衔接。建议把 MoviePilot 硬链接输出目录作为本地监听目录，把服务器配置创建的 115 整理 / 秒传目录作为远程目标。</p>
+  <ol>
+    <li>进入“115秒传”，点击“上传任务 → 新建”。</li>
+    <li>任务模式先选“手动扫描”，本地监听目录选择 MP 硬链接目录，远程目标选择具体的 115 整理目录。</li>
+    <li>第一次关闭“成功后删除监控文件”“整个种子全部上传后清理下载器”等删除类选项。</li>
+    <li>保存任务，点击“扫描”，观察校验、秒传、真实上传和失败重试状态。</li>
+    <li>确认少量文件已经出现在 115 目标目录，再切换实时监听或提高并发。</li>
+  </ol>
+  <h3>秒传未命中时怎么办</h3>
+  <ul>
+    <li>秒传未命中不一定是故障；任务允许真实上传时会继续上传。</li>
+    <li>如果打开“秒传未命中不上传”，未命中的文件会停在失败 / 待处理状态，需要按任务设置处理。</li>
+    <li>不要把监听目录设置成成品媒体库根目录，也不要在未验证前打开自动删除。</li>
+  </ul>
+  <p><strong>通过标准：</strong>一个小文件能从 MP 硬链接目录被 CineChill 读取，115 目标目录能看到结果，任务历史能定位文件名和 SHA1，且本地源文件没有被误删。</p>
+</section>
+
 </article>
       <aside class="doc-aside" aria-label="本页目录">
         <div class="doc-aside-container">

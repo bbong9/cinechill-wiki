@@ -65,7 +65,7 @@
           const normalizedHref = href.startsWith('/') ? href.slice(1) : href;
           return new URL(basePath + normalizedHref, window.location.origin).href;
         };
-        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260813-live-screenshots', window.location.origin + siteBasePath()).href;
+        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-flow-guides', window.location.origin + siteBasePath()).href;
         const loadSearchIndex = () => {
           if (!searchIndexPromise) {
             searchIndexPromise = fetch(searchIndexUrl())
@@ -351,6 +351,27 @@
         <li>不要把 RSS 任务指向成品库后直接开启破坏性删除；先保留现有文件和备份，再调整任务。</li>
       </ul>
     </section>
+<!-- FLOW-RSS-20260814 -->
+<section class="card">
+  <h2>真实库 RSS 如何接到订阅和下载</h2>
+  <p>真实库 RSS 负责定时读取条目并判断缺失；它可以选择把缺失条目同步给 MoviePilot，但不会代替 MoviePilot 下载，也不会代替 CineChill 整理入库。</p>
+  <ol>
+    <li>先确认 Emby、115 和 MoviePilot 已测试成功。</li>
+    <li>添加一个 RSS 地址或使用页面提供的生成来源，先点击预览核对标题、年份、类型和 TMDB 匹配。</li>
+    <li>第一次关闭“同步真实库缺失到 MP”，保存低频任务并手动运行。</li>
+    <li>确认预览、解析进度和任务状态正常后，再开启缺失同步。</li>
+    <li>同步到 MP 后，回订阅系统确认订阅记录；后续下载、硬链接和整理按主流程继续。</li>
+  </ol>
+  <h3>指标不要混淆</h3>
+  <ul>
+    <li><strong>解析数量：</strong>RSS 读到了多少条目。</li>
+    <li><strong>TMDB 匹配：</strong>有多少条目找到了媒体身份。</li>
+    <li><strong>待处理：</strong>还没有完成识别或后续处理的条目，不等于下载失败。</li>
+    <li><strong>硬链接数：</strong>最近任务记录到的硬链接数量，不等于媒体库文件总数。</li>
+  </ul>
+  <p><strong>删除前注意：</strong>任务删除可能询问是否连硬链接和 Emby 媒体一起删除；第一次选择只删订阅或停用任务，先保留文件。</p>
+</section>
+
 </article>
       <aside class="doc-aside" aria-label="本页目录">
         <div class="doc-aside-container">

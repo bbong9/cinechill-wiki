@@ -65,7 +65,7 @@
           const normalizedHref = href.startsWith('/') ? href.slice(1) : href;
           return new URL(basePath + normalizedHref, window.location.origin).href;
         };
-        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260813-live-screenshots', window.location.origin + siteBasePath()).href;
+        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-flow-guides', window.location.origin + siteBasePath()).href;
         const loadSearchIndex = () => {
           if (!searchIndexPromise) {
             searchIndexPromise = fetch(searchIndexUrl())
@@ -294,6 +294,25 @@
 <section class="card"><h2>页面区域怎么看</h2><ul><li><strong>连接/配置区：</strong>用于维护提供方、模型或访问凭据；保存后只显示状态，不应展开敏感值。</li><li><strong>功能开关：</strong>决定 AI 是否参与识别、校验、提醒等流程；逐项启用，避免一次打开全部自动化。</li><li><strong>测试或验证区：</strong>用一条已知媒体或短文本确认请求成功、结果可读、语言和格式符合预期。</li><li><strong>权限与风险提示：</strong>涉及写入、重命名、整理或通知时，先人工确认结果再执行。</li></ul></section>
 <section class="card"><h2>推荐操作顺序</h2><ol><li>只填写必要的服务配置并保存。</li><li>执行一次连接或模型测试，确认没有认证、网络和配额错误。</li><li>用一个小样本运行识别/校验，手工对比 TMDB、Emby 或原文件信息。</li><li>确认结果可靠后，再开启提醒或低风险自动化；重命名、整理、删除等动作保持人工确认。</li><li>排查完成后回到系统日志检查请求失败、超时和重复执行情况。</li></ol></section>
 <section class="card"><h2>常见问题与回滚</h2><ul><li><strong>请求失败：</strong>按“地址可达性 → 凭据 → 模型/能力 → 配额”顺序排查，不要先批量重试。</li><li><strong>结果不准确：</strong>降低自动化权限，改用单条验证；AI 输出只能作为建议。</li><li><strong>响应很慢：</strong>查看网络、代理和服务端限流，避免并发提高到不可控。</li><li><strong>误触发写入：</strong>停止相关任务，恢复备份或使用对应历史记录回滚；不要直接清空整个配置目录。</li></ul></section>
+<!-- FLOW-AI-20260814 -->
+<section class="card">
+  <h2>AI 助手如何接入整理流程</h2>
+  <p>AI 适合做识别建议、信息校验、异常提示和低风险辅助，不应直接替代人工决定。建议把它放在“一条龙整理”之前做判断，或在整理记录中辅助复查。</p>
+  <ol>
+    <li>在连接 / 配置区填写必要服务信息并保存。</li>
+    <li>先执行一次连接或模型测试，确认地址、凭据、模型和配额没有问题。</li>
+    <li>用一条已知媒体测试识别或校验，手动对比 TMDB、Emby 和原文件信息。</li>
+    <li>确认结果可靠后，再打开提醒或低风险自动化；重命名、移动、删除保持人工确认。</li>
+    <li>回系统日志确认请求耗时、失败原因和重复触发情况。</li>
+  </ol>
+  <h3>小白最容易踩的坑</h3>
+  <ul>
+    <li>AI 能返回结果不代表结果正确；标题、年份、季集和版本仍需人工核对。</li>
+    <li>不要把全库一次性发送给 AI；先用小样本，控制并发和费用。</li>
+    <li>AI 建议与“执行整理”是两步，确认前不要打开批量写入或删除动作。</li>
+  </ul>
+</section>
+
 </article>
       <aside class="doc-aside" aria-label="本页目录">
         <div class="doc-aside-container">

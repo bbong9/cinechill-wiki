@@ -65,7 +65,7 @@
           const normalizedHref = href.startsWith('/') ? href.slice(1) : href;
           return new URL(basePath + normalizedHref, window.location.origin).href;
         };
-        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260813-live-screenshots', window.location.origin + siteBasePath()).href;
+        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-flow-guides', window.location.origin + siteBasePath()).href;
         const loadSearchIndex = () => {
           if (!searchIndexPromise) {
             searchIndexPromise = fetch(searchIndexUrl())
@@ -348,6 +348,26 @@
         <li><strong>删除任务：</strong>只删除自动任务配置，不等于恢复已生成封面。</li>
       </ul>
     </section>
+<!-- FLOW-COVER-AUTO-20260814 -->
+<section class="card">
+  <h2>自动封面启用前的检查清单</h2>
+  <ol>
+    <li>模板已经在封面设计中另存并预览成功。</li>
+    <li>封面资源、字体和 Emby 连接均可用。</li>
+    <li>封面备份中有最近一次可恢复快照。</li>
+    <li>自动任务先保持停用，只选择一个测试媒体库。</li>
+    <li>试运行或立即运行成功后，再设置 Cron 和自动添加新建库。</li>
+  </ol>
+  <h3>运行、停用和删除的区别</h3>
+  <ul>
+    <li><strong>运行：</strong>立即启动一次后台处理，可能覆盖目标媒体库封面。</li>
+    <li><strong>停用：</strong>只阻止后续调度，不会恢复已经生成的封面。</li>
+    <li><strong>编辑：</strong>修改模板、取图、目标库或频率；修改后要重新做单库验证。</li>
+    <li><strong>删除：</strong>删除任务配置，不等于撤销已应用的封面。</li>
+  </ul>
+  <p><strong>出现异常时：</strong>先停用任务，再从封面备份恢复目标库，最后修改模板或任务；不要连续点击“运行”制造并发任务。</p>
+</section>
+
 </article>
       <aside class="doc-aside" aria-label="本页目录">
         <div class="doc-aside-container">

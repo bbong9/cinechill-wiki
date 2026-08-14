@@ -65,7 +65,7 @@
           const normalizedHref = href.startsWith('/') ? href.slice(1) : href;
           return new URL(basePath + normalizedHref, window.location.origin).href;
         };
-        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260813-live-screenshots', window.location.origin + siteBasePath()).href;
+        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-flow-guides', window.location.origin + siteBasePath()).href;
         const loadSearchIndex = () => {
           if (!searchIndexPromise) {
             searchIndexPromise = fetch(searchIndexUrl())
@@ -336,6 +336,18 @@
         <li>只选择一个媒体库恢复，检查 Emby 封面是否回到快照状态。</li>
         <li>确认恢复可用后，再把备份作为批量封面操作的固定前置步骤。</li>
       </ol>
+    </section>
+
+    <!-- FLOW-COVER-BACKUP-20260814 -->
+    <section class="card">
+      <h2>什么时候必须先备份</h2>
+      <p>以下动作前都建议先创建快照：批量应用新模板、切换布局、启用自动封面、批量覆盖已有封面。快照是恢复点，不是对未来任务的自动撤销。</p>
+      <ol>
+        <li>填写能看懂的备份名称，例如“切换电影模板前”。</li>
+        <li>创建后先浏览快照，确认目标媒体库和封面数量符合预期。</li>
+        <li>只对一个测试媒体库执行恢复，确认 Emby 显示正确后再扩大范围。</li>
+      </ol>
+      <p><strong>小白注意：</strong>“恢复选中”和“恢复全部”风险不同；恢复后要回 Emby 刷新并实际打开一条媒体验证。删除快照前先确认已经有新的可用恢复点。</p>
     </section>
 
     <section class="card">

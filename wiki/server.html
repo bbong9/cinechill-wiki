@@ -66,7 +66,7 @@
           const normalizedHref = href.startsWith('/') ? href.slice(1) : href;
           return new URL(basePath + normalizedHref, window.location.origin).href;
         };
-        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260813-live-screenshots', window.location.origin + siteBasePath()).href;
+        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-flow-guides', window.location.origin + siteBasePath()).href;
         const loadSearchIndex = () => {
           if (!searchIndexPromise) {
             searchIndexPromise = fetch(searchIndexUrl())
@@ -370,6 +370,26 @@
     <li>不要为了回滚直接删除远程 115 目录；远程目录删除可能造成不可逆的数据损失。</li>
   </ul>
 </section>
+<!-- FLOW-SERVER-20260814 -->
+<section class="card">
+  <h2>它在完整流程中的作用</h2>
+  <p>服务器配置是所有后续功能的地基：Emby 决定 CineChill 能否读取媒体库，115 配置决定远程标准目录、秒传、整理和真实库任务能否工作。两张卡片都要“测试成功”后再保存，不能只填写地址就开始整理。</p>
+  <h3>小白推荐的保存顺序</h3>
+  <ol>
+    <li>先保存 Emby：测试连接能读到媒体库，再保存配置。</li>
+    <li>再保存 115：测试 Cookie 有效，再保存配置，让后端创建或校验标准目录。</li>
+    <li>打开系统健康，确认 Emby、115 标准目录、媒体库本地路径、真实库本地路径和网关均正常。</li>
+  </ol>
+  <h3>三套服务的路径必须能对应</h3>
+  <table><thead><tr><th>对象</th><th>应该指向</th><th>小白注意</th></tr></thead><tbody>
+    <tr><td>Emby 媒体库</td><td>与 CineChill 使用同一个宿主机媒体根目录</td><td>容器内路径也要一致，否则 Emby 看得到而 CineChill 看不到。</td></tr>
+    <tr><td>MoviePilot 硬链接目录</td><td>下载完成后交给 CineChill 的待处理目录</td><td>必须可写、同文件系统，且 CineChill 容器能访问。</td></tr>
+    <tr><td>115 整理目录</td><td>服务器配置保存后生成的标准目录</td><td>不要把根目录当成任务目标；先进入具体整理目录再选择。</td></tr>
+    <tr><td>本地媒体库 / 真实库</td><td>CineChill 运行环境中的本地映射目录</td><td>确认宿主机权限和容器内路径一致，避免任务成功但文件落不到 Emby。</td></tr>
+  </tbody></table>
+  <p><strong>不要急着做的事：</strong>不要在还没通过 Emby / 115 测试时启动站点监控、自动订阅或全量整理；错误会同时出现在多个页面，很难判断源头。</p>
+</section>
+
 </article>
       <aside class="doc-aside" aria-label="本页目录">
         <div class="doc-aside-container">

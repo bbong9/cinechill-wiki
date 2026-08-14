@@ -65,7 +65,7 @@
           const normalizedHref = href.startsWith('/') ? href.slice(1) : href;
           return new URL(basePath + normalizedHref, window.location.origin).href;
         };
-        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260813-live-screenshots', window.location.origin + siteBasePath()).href;
+        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-flow-guides', window.location.origin + siteBasePath()).href;
         const loadSearchIndex = () => {
           if (!searchIndexPromise) {
             searchIndexPromise = fetch(searchIndexUrl())
@@ -308,7 +308,7 @@
     <section class="card">
       <h2>按 UI 顺序操作</h2>
       <ol>
-        <li>进入“封面系统 → 手动封面”，在“封面目标”选择媒体库、布局模式、预设参数和取图模式。</li>
+        <li>当前版本请按用途进入“封面系统 → 封面设计”配置模板，进入“资源配置”检查资源，进入“自动封面”配置批量任务；如果你的管理端仍显示手动工作台，再按本页字段操作。</li>
         <li>填写模板名称；需要复用时可“保存当前”覆盖已有模板，或另存为新模板。</li>
         <li>在“素材组合”选择随机池、搜索或上传背景图 / 小海报；不需要时保持默认取图模式。</li>
         <li>按需调整“统计角标”里的样式、字体、大小、颜色、背景 / 边框透明度；高级参数按当前布局 schema 展示。</li>

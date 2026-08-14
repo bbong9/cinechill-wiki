@@ -65,7 +65,7 @@
           const normalizedHref = href.startsWith('/') ? href.slice(1) : href;
           return new URL(basePath + normalizedHref, window.location.origin).href;
         };
-        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260813-live-screenshots', window.location.origin + siteBasePath()).href;
+        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-flow-guides', window.location.origin + siteBasePath()).href;
         const loadSearchIndex = () => {
           if (!searchIndexPromise) {
             searchIndexPromise = fetch(searchIndexUrl())
@@ -294,6 +294,27 @@
 <section class="card"><h2>页面区域怎么看</h2><ul><li><strong>顶部统计：</strong>用于快速判断站点数量、监控状态、资源候选和任务结果，不等于所有下载任务都已完成。</li><li><strong>站点状态：</strong>关注已启用、连接失败、暂时跳过等状态；单个站点失败时不要立即重置全部配置。</li><li><strong>资源列表：</strong>用于查看候选资源的站点、质量、编码、季集和匹配结果；严格匹配时，缺少关键元数据的条目可能被过滤。</li><li><strong>处理状态：</strong>下载、上传、整理和跳过属于不同阶段，排障时应结合系统运行日志确认实际停在哪一步。</li></ul></section>
 <section class="card"><h2>推荐操作顺序</h2><ol><li>打开站点管理，先确认统计卡片和站点状态已加载。</li><li>检查站点筛选、质量条件、媒体类型和季集匹配条件。</li><li>先查看候选列表，核对标题、年份、季集、分辨率和站点来源。</li><li>只对一条候选执行后续处理，观察任务日志和整理记录。</li><li>确认下载、上传、识别和入库均正常后，再开启定时或批量处理。</li></ol></section>
 <section class="card"><h2>常见问题与回滚</h2><ul><li><strong>站点全部失败：</strong>先检查 MoviePilot 连接、代理、DNS 和容器网络，再判断是否是单站点问题。</li><li><strong>候选很多但没有自动处理：</strong>核对严格匹配、质量筛选、媒体库状态和季集信息，不要直接降低所有保护条件。</li><li><strong>重复下载或重复入库：</strong>立即暂停自动任务，检查订阅、站点监控和整理记录，确认去重条件后再恢复。</li><li><strong>误触发处理：</strong>停止当前任务并保留日志；已经提交到外部服务的任务不会因为关闭页面自动回滚，需要到对应任务页单独取消。</li></ul></section>
+<!-- FLOW-SITE-MONITOR-20260814 -->
+<section class="card">
+  <h2>开启站点监控并触发一次下载</h2>
+  <p>站点管理是 MoviePilot 下载链路的监控和筛选入口。MoviePilot 连接配置必须先在“工具箱 → MoviePilot”完成，站点管理本身不负责保存 API Key。</p>
+  <ol>
+    <li>先确认 MoviePilot 连接、代理、站点和下载器在外部服务中可用。</li>
+    <li>打开站点管理，确认站点状态和统计卡片已加载。</li>
+    <li>设置媒体类型、质量、分辨率、季集和严格匹配条件。</li>
+    <li>在候选列表核对标题、年份、季集、来源和质量，只选择一条候选触发处理。</li>
+    <li>提交后不要重复点击；分别到 MoviePilot 任务、系统运行日志和整理记录核对下一阶段。</li>
+  </ol>
+  <h3>“发现、下载、入库”不是一个状态</h3>
+  <ul>
+    <li><strong>发现：</strong>站点有候选资源。</li>
+    <li><strong>下载：</strong>MoviePilot 已创建任务，文件仍可能没有完成。</li>
+    <li><strong>硬链接：</strong>下载完成后，MP 按配置把文件链接到 CineChill 监控目录。</li>
+    <li><strong>整理入库：</strong>CineChill 识别、重命名、移动 / 写入 STRM 并等待 Emby 刷新。</li>
+  </ul>
+  <p><strong>出现重复下载：</strong>先暂停监控或相关自动任务，检查订阅记录、候选去重条件和整理记录，确认原因后再恢复。</p>
+</section>
+
 </article>
       <aside class="doc-aside" aria-label="本页目录">
         <div class="doc-aside-container">

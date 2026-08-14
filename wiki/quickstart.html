@@ -65,7 +65,7 @@
           const normalizedHref = href.startsWith('/') ? href.slice(1) : href;
           return new URL(basePath + normalizedHref, window.location.origin).href;
         };
-        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260813-live-screenshots', window.location.origin + siteBasePath()).href;
+        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-flow-guides', window.location.origin + siteBasePath()).href;
         const loadSearchIndex = () => {
           if (!searchIndexPromise) {
             searchIndexPromise = fetch(searchIndexUrl())
@@ -355,6 +355,17 @@ docker run -d \
         <li><code>/var/run/docker.sock</code>：只为 Docker 管理和部分端口/Compose 检查提供能力，是高权限挂载；不用这些功能时可以不挂载。</li>
         <li><code>/vol2/1000/docker</code>：用于让 CineChill 读取或修改其他容器的 Compose 文件；只有确实使用此功能时才挂载，并确认目录权限。</li>
       </ul>
+      <div class="screenshot-pair" role="group" aria-label="Docker 管理 日间与夜间主题截图">
+        <figure class="screenshot screenshot-theme" data-screenshot-theme="light">
+          <img src="/cinechill-wiki/cinechill/screenshots/live/docker_manager-light.jpg?v=20260814-flow" alt="Docker 管理 页面截图（日间主题）">
+          <figcaption>日间主题</figcaption>
+        </figure>
+        <figure class="screenshot screenshot-theme" data-screenshot-theme="dark">
+          <img src="/cinechill-wiki/cinechill/screenshots/live/docker_manager-dark.jpg?v=20260814-flow" alt="Docker 管理 页面截图（夜间主题）">
+          <figcaption>夜间主题</figcaption>
+        </figure>
+      </div>
+      <p class="screenshot-note">截图用于对照容器状态和管理入口；实际容器名、路径和端口以你的 Compose 文件为准。</p>
     </section>
 
     <section class="card">
@@ -451,6 +462,211 @@ docker compose ps
 docker compose logs -f cinechill
 docker compose logs -f emby</code></pre>
     </section>
+
+<!-- FLOW-QUICKSTART-20260814 -->
+<section class="card">
+  <h2>从 Docker 部署到媒体入库：按顺序完成</h2>
+  <p>下面是 CineChill 与 MoviePilot、Emby、115 配合时的一条完整链路。第一次不要一次打开所有自动化：先用一部电影或一季电视剧跑通，再扩大到全库。</p>
+
+  <h3>1. Docker 部署：先让服务稳定启动</h3>
+  <ol>
+    <li>准备持久化目录、媒体目录和 Docker Compose 文件；CineChill 与 Emby 的媒体挂载左侧宿主机路径必须一致。</li>
+    <li>启动后访问 <code>5256</code> 管理端，首次使用 <code>admin / password</code> 登录，马上到“系统配置 → 账户管理”修改凭据。</li>
+    <li>执行 <code>docker compose ps</code> 和 <code>docker compose logs --tail 200 cinechill</code>，确认容器没有反复重启。</li>
+  </ol>
+  <p><strong>小白注意：</strong>不要先改业务配置。容器、端口、挂载目录和权限没稳定时，后面的 Emby、115、MoviePilot 测试都会被误判为业务故障。详见 <a href="/cinechill-wiki/wiki/install.html">部署与首次配置</a>。</p>
+
+  <h3>2. 服务器配置：先接通 Emby 和 115</h3>
+  <p>进入“系统配置 → 服务器配置”，先测试并保存 Emby，再测试并保存 115。保存 115 后，CineChill 会创建或校验远程标准目录以及本地“媒体库 / 真实库”目录。</p>
+  <div class="screenshot-pair" role="group" aria-label="服务器配置 日间与夜间主题截图">
+  <figure class="screenshot screenshot-theme" data-screenshot-theme="light">
+    <img src="/cinechill-wiki/cinechill/screenshots/live/config_115-light.jpg?v=20260814-flow" alt="服务器配置 页面截图（日间主题）">
+    <figcaption>日间主题</figcaption>
+  </figure>
+  <figure class="screenshot screenshot-theme" data-screenshot-theme="dark">
+    <img src="/cinechill-wiki/cinechill/screenshots/live/config_115-dark.jpg?v=20260814-flow" alt="服务器配置 页面截图（夜间主题）">
+    <figcaption>夜间主题</figcaption>
+  </figure>
+</div>
+<p class="screenshot-note">截图只用于对应 Emby / 115 配置区域；地址、Cookie、账号和真实目录不作为公开示例。</p>
+  <p><strong>通过标准：</strong>Emby 卡片显示已连接并能读到媒体库；115 卡片显示 Cookie 有效；系统健康中的路径、网关和依赖检查正常。详见 <a href="/cinechill-wiki/wiki/server.html">服务器配置</a>。</p>
+
+  <h3>3. 一条龙整理：把待处理内容整理并同步</h3>
+  <p>进入“媒体整理 → 一条龙菜单”。它负责识别、重命名、分类、写入目标媒体目录，并按开关执行 STRM、元数据和 Emby 刷新。整理不是“下载”，输入必须已经出现在 CineChill 能看到的待整理目录或 115 标准目录中。</p>
+  <div class="screenshot-pair" role="group" aria-label="一条龙整理 日间与夜间主题截图">
+  <figure class="screenshot screenshot-theme" data-screenshot-theme="light">
+    <img src="/cinechill-wiki/cinechill/screenshots/live/media_organize-light.jpg?v=20260814-flow" alt="一条龙整理 页面截图（日间主题）">
+    <figcaption>日间主题</figcaption>
+  </figure>
+  <figure class="screenshot screenshot-theme" data-screenshot-theme="dark">
+    <img src="/cinechill-wiki/cinechill/screenshots/live/media_organize-dark.jpg?v=20260814-flow" alt="一条龙整理 页面截图（夜间主题）">
+    <figcaption>夜间主题</figcaption>
+  </figure>
+</div>
+<p class="screenshot-note">截图用于对照整理开关和执行区域；第一次只处理少量测试文件。</p>
+  <p><strong>整理与同步要分清：</strong>“整理”改变文件归属、名称和目录；“STRM / 元数据同步”负责生成或更新播放入口、图片和 Emby 识别信息。第一次先关闭高风险的全量同步，确认整理记录正确后再执行同步。</p>
+
+  <h3>4. 配置封面系统：先模板，后自动任务</h3>
+  <p>封面系统建议按“资源配置 → 封面设计 → 手动预览 / 应用 → 封面备份 → 自动封面”的顺序配置。先用一个媒体库生成预览，确认效果后再创建 Cron 自动任务。</p>
+  <div class="screenshot-pair" role="group" aria-label="资源配置 日间与夜间主题截图">
+  <figure class="screenshot screenshot-theme" data-screenshot-theme="light">
+    <img src="/cinechill-wiki/cinechill/screenshots/live/cover_resources-light.jpg?v=20260814-flow" alt="资源配置 页面截图（日间主题）">
+    <figcaption>日间主题</figcaption>
+  </figure>
+  <figure class="screenshot screenshot-theme" data-screenshot-theme="dark">
+    <img src="/cinechill-wiki/cinechill/screenshots/live/cover_resources-dark.jpg?v=20260814-flow" alt="资源配置 页面截图（夜间主题）">
+    <figcaption>夜间主题</figcaption>
+  </figure>
+</div>
+<p class="screenshot-note">截图用于对照模板分组、预览和资源刷新区域；先确认有可用模板，再进入封面设计。</p>
+  <div class="screenshot-pair" role="group" aria-label="封面设计 日间与夜间主题截图">
+  <figure class="screenshot screenshot-theme" data-screenshot-theme="light">
+    <img src="/cinechill-wiki/cinechill/screenshots/live/custom-light.jpg?v=20260814-flow" alt="封面设计 页面截图（日间主题）">
+    <figcaption>日间主题</figcaption>
+  </figure>
+  <figure class="screenshot screenshot-theme" data-screenshot-theme="dark">
+    <img src="/cinechill-wiki/cinechill/screenshots/live/custom-dark.jpg?v=20260814-flow" alt="封面设计 页面截图（夜间主题）">
+    <figcaption>夜间主题</figcaption>
+  </figure>
+</div>
+<p class="screenshot-note">截图用于对照布局、预设、素材和模板保存区域；先另存为新模板，避免覆盖正在使用的模板。</p>
+  <div class="screenshot-pair" role="group" aria-label="封面备份 日间与夜间主题截图">
+  <figure class="screenshot screenshot-theme" data-screenshot-theme="light">
+    <img src="/cinechill-wiki/cinechill/screenshots/live/cover_backup-light.jpg?v=20260814-flow" alt="封面备份 页面截图（日间主题）">
+    <figcaption>日间主题</figcaption>
+  </figure>
+  <figure class="screenshot screenshot-theme" data-screenshot-theme="dark">
+    <img src="/cinechill-wiki/cinechill/screenshots/live/cover_backup-dark.jpg?v=20260814-flow" alt="封面备份 页面截图（夜间主题）">
+    <figcaption>夜间主题</figcaption>
+  </figure>
+</div>
+<p class="screenshot-note">截图用于对照快照创建、浏览和恢复区域；批量应用或启用自动封面前先创建快照。</p>
+  <div class="screenshot-pair" role="group" aria-label="自动封面 日间与夜间主题截图">
+  <figure class="screenshot screenshot-theme" data-screenshot-theme="light">
+    <img src="/cinechill-wiki/cinechill/screenshots/live/auto-light.jpg?v=20260814-flow" alt="自动封面 页面截图（日间主题）">
+    <figcaption>日间主题</figcaption>
+  </figure>
+  <figure class="screenshot screenshot-theme" data-screenshot-theme="dark">
+    <img src="/cinechill-wiki/cinechill/screenshots/live/auto-dark.jpg?v=20260814-flow" alt="自动封面 页面截图（夜间主题）">
+    <figcaption>夜间主题</figcaption>
+  </figure>
+</div>
+<p class="screenshot-note">截图用于对照自动任务、启停和运行入口；首次只选择一个测试媒体库。</p>
+  <p><strong>小白注意：</strong>“应用封面”可能覆盖已有封面；批量前先到“封面备份”创建快照。详见 <a href="/cinechill-wiki/wiki/cover_resources.html">资源配置</a>、<a href="/cinechill-wiki/wiki/custom.html">封面设计</a>、<a href="/cinechill-wiki/wiki/cover_backup.html">封面备份</a>、<a href="/cinechill-wiki/wiki/auto.html">自动封面</a>。</p>
+
+  <h3>5. 配置 AI 助手：只做小范围辅助</h3>
+  <p>AI 助手用于识别、校验、提醒或辅助运维，不是自动删除和全库重命名工具。先填写必要配置并测试，再用一条已知媒体验证结果，确认可靠后才考虑接入整理流程。</p>
+  <div class="screenshot-pair" role="group" aria-label="AI 助手 日间与夜间主题截图">
+  <figure class="screenshot screenshot-theme" data-screenshot-theme="light">
+    <img src="/cinechill-wiki/cinechill/screenshots/live/ai_assistant-light.jpg?v=20260814-flow" alt="AI 助手 页面截图（日间主题）">
+    <figcaption>日间主题</figcaption>
+  </figure>
+  <figure class="screenshot screenshot-theme" data-screenshot-theme="dark">
+    <img src="/cinechill-wiki/cinechill/screenshots/live/ai_assistant-dark.jpg?v=20260814-flow" alt="AI 助手 页面截图（夜间主题）">
+    <figcaption>夜间主题</figcaption>
+  </figure>
+</div>
+<p class="screenshot-note">截图用于对照连接、模型、开关和验证区域；不要把真实密钥、账号或完整日志填入公开文档。</p>
+  <p><strong>建议：</strong>让 AI 先输出建议，人工确认后再执行写入、重命名、整理或通知。详见 <a href="/cinechill-wiki/wiki/ai_assistant.html">AI 助手</a>。</p>
+
+  <h3>6. 真实库与订阅：决定“要补什么”</h3>
+  <p>“真实库”适合周期性读取 RSS 并找出缺失条目；“订阅系统”负责查看、暂停、恢复和删除已经创建的 MoviePilot 订阅。两者都不是下载器本身。</p>
+  <div class="screenshot-pair" role="group" aria-label="真实库 RSS 日间与夜间主题截图">
+  <figure class="screenshot screenshot-theme" data-screenshot-theme="light">
+    <img src="/cinechill-wiki/cinechill/screenshots/live/rss-light.jpg?v=20260814-flow" alt="真实库 RSS 页面截图（日间主题）">
+    <figcaption>日间主题</figcaption>
+  </figure>
+  <figure class="screenshot screenshot-theme" data-screenshot-theme="dark">
+    <img src="/cinechill-wiki/cinechill/screenshots/live/rss-dark.jpg?v=20260814-flow" alt="真实库 RSS 页面截图（夜间主题）">
+    <figcaption>夜间主题</figcaption>
+  </figure>
+</div>
+<p class="screenshot-note">截图用于对照 RSS 预览、Cron、运行和同步缺失到 MP 的区域；先预览，再保存低频任务。</p>
+  <div class="screenshot-pair" role="group" aria-label="订阅系统 日间与夜间主题截图">
+  <figure class="screenshot screenshot-theme" data-screenshot-theme="light">
+    <img src="/cinechill-wiki/cinechill/screenshots/live/subscription_manager-light.jpg?v=20260814-flow" alt="订阅系统 页面截图（日间主题）">
+    <figcaption>日间主题</figcaption>
+  </figure>
+  <figure class="screenshot screenshot-theme" data-screenshot-theme="dark">
+    <img src="/cinechill-wiki/cinechill/screenshots/live/subscription_manager-dark.jpg?v=20260814-flow" alt="订阅系统 页面截图（夜间主题）">
+    <figcaption>夜间主题</figcaption>
+  </figure>
+</div>
+<p class="screenshot-note">截图用于对照订阅状态、季集进度和历史；删除前先确认外部任务是否还在运行。</p>
+  <p><strong>推荐顺序：</strong>先预览 RSS 或在“发现推荐”确认一条媒体，再发送一次 MP 订阅，回到订阅系统确认记录，最后才开启周期任务。详见 <a href="/cinechill-wiki/wiki/rss.html">真实库</a>、<a href="/cinechill-wiki/wiki/subscription_manager.html">订阅系统</a>。</p>
+
+  <h3>7. MoviePilot 站点监控：触发下载</h3>
+  <p>先在“工具箱 → MoviePilot”保存地址、API Key 和账号密码并测试连接，再进入首页“站点管理”。站点管理负责监控和筛选，不是 MoviePilot 连接配置页。</p>
+  <div class="screenshot-pair" role="group" aria-label="MoviePilot 配置 日间与夜间主题截图">
+  <figure class="screenshot screenshot-theme" data-screenshot-theme="light">
+    <img src="/cinechill-wiki/cinechill/screenshots/live/config_moviepilot-light.jpg?v=20260814-flow" alt="MoviePilot 配置 页面截图（日间主题）">
+    <figcaption>日间主题</figcaption>
+  </figure>
+  <figure class="screenshot screenshot-theme" data-screenshot-theme="dark">
+    <img src="/cinechill-wiki/cinechill/screenshots/live/config_moviepilot-dark.jpg?v=20260814-flow" alt="MoviePilot 配置 页面截图（夜间主题）">
+    <figcaption>夜间主题</figcaption>
+  </figure>
+</div>
+<p class="screenshot-note">截图用于对照 MoviePilot 连接配置；地址、账号和 API Key 只能填写在自己的部署环境。</p>
+  <div class="screenshot-pair" role="group" aria-label="站点监控 日间与夜间主题截图">
+  <figure class="screenshot screenshot-theme" data-screenshot-theme="light">
+    <img src="/cinechill-wiki/cinechill/screenshots/live/site_management-light.jpg?v=20260814-flow" alt="站点监控 页面截图（日间主题）">
+    <figcaption>日间主题</figcaption>
+  </figure>
+  <figure class="screenshot screenshot-theme" data-screenshot-theme="dark">
+    <img src="/cinechill-wiki/cinechill/screenshots/live/site_management-dark.jpg?v=20260814-flow" alt="站点监控 页面截图（夜间主题）">
+    <figcaption>夜间主题</figcaption>
+  </figure>
+</div>
+<p class="screenshot-note">截图用于对照站点状态、资源筛选和处理状态；第一次只处理一条候选。</p>
+  <ol>
+    <li>检查站点状态、质量条件、媒体类型和季集匹配。</li>
+    <li>打开候选资源，核对标题、年份、季集、分辨率和来源。</li>
+    <li>只对一条候选触发一次种子 / 下载任务，确认 MoviePilot 任务已经创建。</li>
+  </ol>
+  <p><strong>小白注意：</strong>站点监控成功只代表候选被发现或任务被提交，不代表已经下载、硬链接、上传或入库。后续要分别看 MoviePilot、115 秒传、整理记录和系统日志。</p>
+
+  <h3>8. MP 硬链接 → CineChill 监控 → 115 整理目录</h3>
+  <p>下载器完成后，MoviePilot 按自己的任务设置把文件硬链接到专用的“待 CineChill 处理”目录。硬链接目录必须与下载源位于同一文件系统，并且 CineChill 容器能看到同一宿主机路径。</p>
+  <ol>
+    <li>在 MoviePilot 中确认下载目录和硬链接输出目录都是真实可写路径。</li>
+    <li>在 CineChill“115秒传”新建任务：本地监听目录选择 MP 硬链接目录，115 目标目录选择服务器配置创建的整理 / 秒传目录。</li>
+    <li>第一次使用“手动扫描”，确认校验 → 秒传 → 上传状态正常，再切换实时监听。</li>
+  </ol>
+  <div class="screenshot-pair" role="group" aria-label="115 秒传与本地监听 日间与夜间主题截图">
+  <figure class="screenshot screenshot-theme" data-screenshot-theme="light">
+    <img src="/cinechill-wiki/cinechill/screenshots/live/drive115_upload-light.jpg?v=20260814-flow" alt="115 秒传与本地监听 页面截图（日间主题）">
+    <figcaption>日间主题</figcaption>
+  </figure>
+  <figure class="screenshot screenshot-theme" data-screenshot-theme="dark">
+    <img src="/cinechill-wiki/cinechill/screenshots/live/drive115_upload-dark.jpg?v=20260814-flow" alt="115 秒传与本地监听 页面截图（夜间主题）">
+    <figcaption>夜间主题</figcaption>
+  </figure>
+</div>
+<p class="screenshot-note">截图用于对照监听目录、目标目录、扫描和上传任务状态；真实路径和账号不作为示例。</p>
+  <p><strong>关键路径原则：</strong>MP、CineChill、Emby 三套容器的宿主机路径要能对应起来；容器内看到的路径不一致时，CineChill 会找不到硬链接文件，表现为“下载成功但没有整理任务”。详见 <a href="/cinechill-wiki/wiki/drive115_upload.html">115秒传</a>。</p>
+
+  <h3>9. CineChill 整理入库、同步和验收</h3>
+  <p>确认文件已经进入 115 整理目录或 CineChill 可见的待整理目录后，再回到“一条龙菜单”执行整理。打开 STRM / 元数据同步时，先选择增量或小范围任务。</p>
+  <ol>
+    <li>执行一次小范围整理，确认目标媒体库路径、文件名、季集结构和 STRM 指向。</li>
+    <li>进入“整理记录”，核对成功、失败、重复、洗版、STRM 和跳过分类。</li>
+    <li>进入“系统运行日志”，用同一时间段核对下载、上传、整理和 Emby 刷新是否报错。</li>
+    <li>等待或手动触发 Emby 刷新，最后实际播放一条媒体验证路径和权限。</li>
+  </ol>
+  <div class="screenshot-pair" role="group" aria-label="整理记录 日间与夜间主题截图">
+  <figure class="screenshot screenshot-theme" data-screenshot-theme="light">
+    <img src="/cinechill-wiki/cinechill/screenshots/live/organize_history-light.jpg?v=20260814-flow" alt="整理记录 页面截图（日间主题）">
+    <figcaption>日间主题</figcaption>
+  </figure>
+  <figure class="screenshot screenshot-theme" data-screenshot-theme="dark">
+    <img src="/cinechill-wiki/cinechill/screenshots/live/organize_history-dark.jpg?v=20260814-flow" alt="整理记录 页面截图（夜间主题）">
+    <figcaption>夜间主题</figcaption>
+  </figure>
+</div>
+<p class="screenshot-note">截图用于对照成功、失败、重复、STRM 和目标路径核对区域；“成功”不等于 Emby 已完成刷新。</p>
+  <p><strong>出现问题时按阶段排查：</strong>没有候选看站点监控；没有下载看 MoviePilot；没有硬链接看 MP 路径和任务；没有上传看 115 秒传；没有入库看一条龙与整理记录；播放失败看 STRM、Emby 刷新和系统健康。</p>
+</section>
 
     <section class="card">
       <h2>首次验证</h2>

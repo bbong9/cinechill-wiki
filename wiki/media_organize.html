@@ -65,7 +65,7 @@
           const normalizedHref = href.startsWith('/') ? href.slice(1) : href;
           return new URL(basePath + normalizedHref, window.location.origin).href;
         };
-        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260813-live-screenshots', window.location.origin + siteBasePath()).href;
+        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-flow-guides', window.location.origin + siteBasePath()).href;
         const loadSearchIndex = () => {
           if (!searchIndexPromise) {
             searchIndexPromise = fetch(searchIndexUrl())
@@ -330,6 +330,25 @@
       <h2>常见问题和风险</h2>
       <ul><li>源目录不要指向已经整理好的成品媒体库，避免重复整理或误判洗版。</li><li>第一次不要全量执行，先用少量文件验证；停止任务只能停止后续处理，已经移动、重命名或写入的文件不等于自动回滚。</li><li>ffprobe、刮削和同步都会增加任务耗时，低性能 NAS 需要降低并发，并避免多个全量任务同时运行。</li><li>洗版、删除旧版本、STRM 全量同步和元数据覆盖都可能改变已有库，执行前先备份并阅读页面确认提示。</li></ul>
     </section>
+<!-- FLOW-MEDIA-ORGANIZE-20260814 -->
+<section class="card">
+  <h2>整理和同步分别做什么</h2>
+  <table><thead><tr><th>动作</th><th>作用</th><th>完成后检查</th></tr></thead><tbody>
+    <tr><td>执行整理</td><td>识别媒体、重命名、分类，并把文件放到目标媒体库结构。</td><td>目标路径、电影 / 剧集目录、季集和文件名。</td></tr>
+    <tr><td>STRM 同步</td><td>生成或更新播放入口，使 Emby 能按规则读取远程或网盘媒体。</td><td>STRM 内容、目标路径和 Emby 播放链路。</td></tr>
+    <tr><td>元数据同步</td><td>补齐 TMDB 信息、图片或 sidecar，帮助 Emby 识别和展示。</td><td>Emby 刷新后标题、封面、简介和季集。</td></tr>
+    <tr><td>补齐合集</td><td>根据现有规则补充电影合集关系，不等于重新整理全库。</td><td>只影响识别到的合集，不要把它当成下载任务。</td></tr>
+  </tbody></table>
+  <h2>硬链接目录如何进入整理</h2>
+  <ol>
+    <li>MoviePilot 下载完成并生成硬链接后，确认硬链接目录中的文件能被 CineChill 容器读取。</li>
+    <li>如果使用 115 事件监听或 115 秒传链路，先确认文件已到服务器配置创建的整理目录。</li>
+    <li>回到本页先保存配置，再只选择少量文件执行整理。</li>
+    <li>整理完成后到“整理记录”核对源文件、目标文件和处理结果，再决定是否执行全量 STRM / 元数据同步。</li>
+  </ol>
+  <p><strong>关键提醒：</strong>停止任务只停止后续处理，不会自动撤销已经移动、重命名、写入 STRM 或刷新 Emby 的动作；第一次一定要用测试目录和小样本。</p>
+</section>
+
 </article>
       <aside class="doc-aside" aria-label="本页目录">
         <div class="doc-aside-container">

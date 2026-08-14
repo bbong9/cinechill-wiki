@@ -65,7 +65,7 @@
           const normalizedHref = href.startsWith('/') ? href.slice(1) : href;
           return new URL(basePath + normalizedHref, window.location.origin).href;
         };
-        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260813-live-screenshots', window.location.origin + siteBasePath()).href;
+        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-flow-guides', window.location.origin + siteBasePath()).href;
         const loadSearchIndex = () => {
           if (!searchIndexPromise) {
             searchIndexPromise = fetch(searchIndexUrl())
@@ -294,6 +294,26 @@
 <section class="card"><h2>页面信息怎么看</h2><ul><li><strong>订阅卡片：</strong>通常包含标题、媒体类型、海报、订阅来源和当前状态。</li><li><strong>生命周期状态：</strong>区分启用、暂停、完成、失败或已删除；状态变化应结合时间和历史记录判断。</li><li><strong>剧集进度：</strong>电视剧要看季号、已处理集数和待处理集数，不能只看整部剧的总状态。</li><li><strong>历史记录：</strong>用于确认创建、更新、暂停、恢复、去重和删除动作是否真的落库。</li></ul></section>
 <section class="card"><h2>推荐操作顺序</h2><ol><li>先搜索标题或按状态筛选，找到目标订阅。</li><li>打开详情，核对 TMDB 标识、媒体类型、季号和来源。</li><li>需要暂停时先暂停，不要直接删除；确认不再需要时再删除。</li><li>电视剧订阅先核对季集范围，再恢复或调整。</li><li>操作后刷新页面，并查看历史记录或系统运行日志确认结果。</li></ol></section>
 <section class="card"><h2>排障与回滚</h2><ul><li><strong>看不到刚创建的订阅：</strong>先刷新，再检查 MoviePilot 配置和发现页返回的 TMDB ID。</li><li><strong>出现重复订阅：</strong>保留一条有效记录，暂停或删除重复项，并检查是否存在多个来源重复提交。</li><li><strong>状态长期不变：</strong>查看系统运行日志、站点管理和外部 MoviePilot 任务，不要仅反复刷新页面。</li><li><strong>误删除：</strong>删除通常不会自动恢复外部任务；按历史记录重新建立前先确认当前 MoviePilot 状态。</li></ul></section>
+<!-- FLOW-SUBSCRIPTION-20260814 -->
+<section class="card">
+  <h2>订阅系统在完整流程中的位置</h2>
+  <p>“发现推荐”负责找到媒体，“订阅系统”负责管理已经创建的订阅，“站点管理”负责监控资源和处理状态，“MoviePilot”负责实际下载链路。四个页面不要混为一个功能。</p>
+  <ol>
+    <li>在发现推荐核对标题、年份、TMDB ID 和季集，再发送一次 MP 订阅。</li>
+    <li>回到本页确认订阅已建立、季集范围正确且没有重复记录。</li>
+    <li>需要暂停时优先暂停，不要直接删除；需要继续时再恢复。</li>
+    <li>下载和整理过程中，结合站点管理、整理记录和系统日志看状态。</li>
+  </ol>
+  <h3>状态判断</h3>
+  <ul>
+    <li><strong>启用：</strong>订阅仍会参与后续处理。</li>
+    <li><strong>暂停：</strong>保留订阅记录，但暂时停止后续推进。</li>
+    <li><strong>完成 / 失败：</strong>只代表外部流程当前状态，仍要检查硬链接、整理和 Emby 入库。</li>
+    <li><strong>删除：</strong>删除订阅记录，不会自动撤销已经下载或整理完成的文件。</li>
+  </ul>
+  <p><strong>小白注意：</strong>看到“订阅成功”不要马上重复点击；先刷新、看历史和系统日志，避免重复订阅或重复下载。</p>
+</section>
+
 </article>
       <aside class="doc-aside" aria-label="本页目录">
         <div class="doc-aside-container">

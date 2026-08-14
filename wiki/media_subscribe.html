@@ -65,7 +65,7 @@
           const normalizedHref = href.startsWith('/') ? href.slice(1) : href;
           return new URL(basePath + normalizedHref, window.location.origin).href;
         };
-        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260813-live-screenshots', window.location.origin + siteBasePath()).href;
+        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-flow-guides', window.location.origin + siteBasePath()).href;
         const loadSearchIndex = () => {
           if (!searchIndexPromise) {
             searchIndexPromise = fetch(searchIndexUrl())
@@ -349,6 +349,18 @@
         <li>发现误操作时，停止继续发送订阅或转存；已经发出的后台任务不会由关闭页面自动回滚，按对应页面的取消 / 删除入口处理。</li>
       </ul>
     </section>
+<!-- FLOW-MEDIA-SUBSCRIBE-20260814 -->
+<section class="card">
+  <h2>发现推荐 → MoviePilot 订阅</h2>
+  <ol>
+    <li>先确认 Emby 连接正常，使页面能判断“已入库 / 未入库”。</li>
+    <li>搜索或浏览推荐源，核对标题、年份、TMDB ID、媒体类型和季集。</li>
+    <li>只对一个未入库条目点击“MP订阅”，电视剧先确认整部还是指定季。</li>
+    <li>到“订阅系统”确认记录已建立，再由站点管理和 MoviePilot 继续下载链路。</li>
+  </ol>
+  <p><strong>小白注意：</strong>发现推荐只负责发现和发起订阅，不负责硬链接、115 秒传或最终入库。不要在结果不准时批量订阅。</p>
+</section>
+
 </article>
       <aside class="doc-aside" aria-label="本页目录">
         <div class="doc-aside-container">
