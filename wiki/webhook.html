@@ -66,7 +66,7 @@
           const normalizedHref = href.startsWith('/') ? href.slice(1) : href;
           return new URL(basePath + normalizedHref, window.location.origin).href;
         };
-        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-flow-guides', window.location.origin + siteBasePath()).href;
+        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-detailed-guides', window.location.origin + siteBasePath()).href;
         const loadSearchIndex = () => {
           if (!searchIndexPromise) {
             searchIndexPromise = fetch(searchIndexUrl())
@@ -348,6 +348,12 @@
         <li>不要在公开 Wiki 发布真实 Webhook URL、内网域名、签名信息或事件原文。</li>
       </ul>
     </section>
+<!-- DETAIL-TROUBLESHOOT-WEBHOOK-20260814 -->
+<section class="card"><h2>按事件链路排查：Webhook</h2>
+<h3>Emby 发送事件但 CineChill 没有记录</h3><ol><li>确认 Emby 配置的 Webhook 地址指向 CineChill 可达的公开/内网入口，并包含正确路径。</li><li>先用一个测试事件，随后在系统日志按 webhook 模块和时间查是否收到请求。</li><li>反向代理返回 404/502 时先修上游路径和端口，再查事件内容。</li></ol>
+<h3>事件收到但封面/同步没有执行</h3><ol><li>检查事件类型、封面引擎、预设和目标媒体库是否匹配。</li><li>日志中区分收到事件、识别媒体、生成封面和写回 Emby 四个阶段。</li><li>先关闭删除同步和批量动作，用一个事件验证成功后再打开。</li></ol>
+<h3>重复触发或删除同步误删</h3><ol><li>暂停 Webhook 或相关自动任务，保留事件时间和媒体 ID。</li><li>检查 Emby 是否重复发送同一事件以及 CineChill 是否有重复任务。</li><li>删除同步属于破坏性动作，未验证前保持关闭。</li></ol></section>
+
 </article>
       <aside class="doc-aside" aria-label="本页目录">
         <div class="doc-aside-container">

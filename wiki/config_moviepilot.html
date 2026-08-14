@@ -66,7 +66,7 @@
           const normalizedHref = href.startsWith('/') ? href.slice(1) : href;
           return new URL(basePath + normalizedHref, window.location.origin).href;
         };
-        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-flow-guides', window.location.origin + siteBasePath()).href;
+        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-detailed-guides', window.location.origin + siteBasePath()).href;
         const loadSearchIndex = () => {
           if (!searchIndexPromise) {
             searchIndexPromise = fetch(searchIndexUrl())
@@ -363,6 +363,30 @@
     <li>先下载一个小文件，确认硬链接出现且 CineChill 能读取，再开启批量监控。</li>
   </ol>
   <p><strong>不要混淆：</strong>MoviePilot 配置页的“连接测试”只证明接口认证和服务可达，不代表站点、下载器、硬链接和入库链路都正常。</p>
+</section>
+
+
+<!-- DETAIL-TROUBLESHOOT-MOVIEPILOT-20260814 -->
+<section class="card">
+  <h2>按链路排查：MoviePilot 连接与硬链接</h2>
+  <h3>连接测试失败</h3>
+  <ol>
+    <li>检查 MoviePilot 地址是否从 CineChill 容器可达；不要把浏览器地址栏可用当成容器可用。</li>
+    <li>401/403 查持久 API Key；流式搜索失败再查用户名/密码，二者不是互相替代的凭据。</li>
+    <li>修复后确认页面显示“已配置/连接正常”，再去站点管理或订阅系统验证实际接口。</li>
+  </ol>
+  <h3>站点能发现资源但下载任务没有创建</h3>
+  <ol>
+    <li>先确认候选的标题、年份、季集和质量满足筛选条件；严格匹配会主动过滤缺少关键字段的资源。</li>
+    <li>查看站点管理和系统日志，区分“候选被过滤”“请求 MP 失败”“MP 已创建任务但下载器拒绝”。</li>
+    <li>只对一条候选重试，并在 MoviePilot 外部任务页确认是否出现任务，不要连续提交同一候选。</li>
+  </ol>
+  <h3>下载完成但硬链接目录没有文件</h3>
+  <ol>
+    <li>确认下载器任务状态为完成，并在宿主机找到原始下载文件。</li>
+    <li>检查下载目录和硬链接目录是否同一文件系统；跨盘、跨挂载通常不能创建真正硬链接。</li>
+    <li>检查 MP 容器两端路径映射和写权限，再用一个小文件重新验证。</li>
+  </ol>
 </section>
 
 </article>

@@ -66,7 +66,7 @@
           const normalizedHref = href.startsWith('/') ? href.slice(1) : href;
           return new URL(basePath + normalizedHref, window.location.origin).href;
         };
-        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-flow-guides', window.location.origin + siteBasePath()).href;
+        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-detailed-guides', window.location.origin + siteBasePath()).href;
         const loadSearchIndex = () => {
           if (!searchIndexPromise) {
             searchIndexPromise = fetch(searchIndexUrl())
@@ -380,6 +380,36 @@
     <li>不要把监听目录设置成成品媒体库根目录，也不要在未验证前打开自动删除。</li>
   </ul>
   <p><strong>通过标准：</strong>一个小文件能从 MP 硬链接目录被 CineChill 读取，115 目标目录能看到结果，任务历史能定位文件名和 SHA1，且本地源文件没有被误删。</p>
+</section>
+
+
+<!-- DETAIL-TROUBLESHOOT-115-UPLOAD-20260814 -->
+<section class="card">
+  <h2>按任务状态排查：115 秒传</h2>
+  <h3>扫描不到硬链接文件</h3>
+  <ol>
+    <li>在宿主机确认硬链接文件存在，再检查 CineChill 容器内对应目录是否能列出同一个文件。</li>
+    <li>任务本地监听目录必须填容器内路径，不要把宿主机路径直接填进容器配置。</li>
+    <li>先选择“手动扫描”，只验证一个文件；扫描仍为 0 时查挂载、权限和文件过滤条件。</li>
+  </ol>
+  <h3>秒传未命中或卡在上传</h3>
+  <ol>
+    <li>看任务历史区分“校验失败”“秒传未命中”“真实上传中”和“远程移动中”。</li>
+    <li>秒传未命中不一定是故障；允许真实上传时等待进度，关闭“未命中不上传”才会继续上传。</li>
+    <li>上传慢或反复重试时降低并发，检查 Cookie、网络和 115 服务状态，不要同时开启多个全量扫描。</li>
+  </ol>
+  <h3>任务显示成功但 115 目标目录没有文件</h3>
+  <ol>
+    <li>刷新任务历史，确认是否仍在等待远程移动；上传成功和目标目录可见可能不是同一时刻。</li>
+    <li>核对目标目录 CID/名称，确认不是把根目录或失败目录选成了整理目标。</li>
+    <li>确认远程目标正确后再让 CineChill 进入整理；不要先手动把同一文件复制到成品库。</li>
+  </ol>
+  <h3>本地文件被自动删除</h3>
+  <ol>
+    <li>第一次验证时关闭“成功后删除监控文件”和“整个种子上传后清理下载器”等删除选项。</li>
+    <li>记录任务名称和删除时刻，检查任务详情和系统日志确认是哪个清理开关触发。</li>
+    <li>确认 115 目标文件、整理记录和 Emby 播放均正常后，再逐项启用清理，并保留可重新扫描的源。</li>
+  </ol>
 </section>
 
 </article>

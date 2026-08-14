@@ -65,7 +65,7 @@
           const normalizedHref = href.startsWith('/') ? href.slice(1) : href;
           return new URL(basePath + normalizedHref, window.location.origin).href;
         };
-        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-flow-guides', window.location.origin + siteBasePath()).href;
+        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-detailed-guides', window.location.origin + siteBasePath()).href;
         const loadSearchIndex = () => {
           if (!searchIndexPromise) {
             searchIndexPromise = fetch(searchIndexUrl())
@@ -358,6 +358,24 @@
         <li>只使用已获授权的字体和图片资源。</li>
       </ul>
     </section>
+
+<!-- DETAIL-TROUBLESHOOT-COVER-RESOURCES-20260814 -->
+<section class="card">
+  <h2>按现象排查：封面资源配置</h2>
+  <h3>模板分组为空或预览加载失败</h3>
+  <ol>
+    <li>先刷新页面，确认是所有布局为空还是某一个布局为空；只影响一个布局时检查该布局模板。</li>
+    <li>确认 Compose 挂载了 <code>/app/templates</code>、<code>/app/fonts</code>，并且宿主机目录不是空目录或只读目录。</li>
+    <li>查看系统日志中模板文件名和权限错误，再回封面设计用默认模板生成一次预览。</li>
+  </ol>
+  <h3>删除模板后自动任务失败</h3>
+  <ol>
+    <li>先停用引用该模板的自动任务，记录任务名称和原模板名称。</li>
+    <li>恢复模板文件或在封面设计另存一个替代模板，回自动封面重新选择并试运行。</li>
+    <li>确认一个测试库成功后再恢复任务；删除模板不会撤销已经生成的封面。</li>
+  </ol>
+</section>
+
 </article>
       <aside class="doc-aside" aria-label="本页目录">
         <div class="doc-aside-container">

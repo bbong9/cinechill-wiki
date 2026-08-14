@@ -65,7 +65,7 @@
           const normalizedHref = href.startsWith('/') ? href.slice(1) : href;
           return new URL(basePath + normalizedHref, window.location.origin).href;
         };
-        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-flow-guides', window.location.origin + siteBasePath()).href;
+        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-detailed-guides', window.location.origin + siteBasePath()).href;
         const loadSearchIndex = () => {
           if (!searchIndexPromise) {
             searchIndexPromise = fetch(searchIndexUrl())
@@ -312,6 +312,30 @@
     <li><strong>删除：</strong>删除订阅记录，不会自动撤销已经下载或整理完成的文件。</li>
   </ul>
   <p><strong>小白注意：</strong>看到“订阅成功”不要马上重复点击；先刷新、看历史和系统日志，避免重复订阅或重复下载。</p>
+</section>
+
+
+<!-- DETAIL-TROUBLESHOOT-SUBSCRIPTION-20260814 -->
+<section class="card">
+  <h2>按状态排查：订阅系统</h2>
+  <h3>创建成功但列表没有记录</h3>
+  <ol>
+    <li>记录创建时间、标题和 TMDB ID，刷新页面后按标题或状态筛选。</li>
+    <li>如果发现页显示发送成功但本页没有记录，去 MoviePilot 配置测试连接，再查看系统日志中的订阅接口结果。</li>
+    <li>确认没有选错媒体类型或季号；电视剧要看季集范围，不要只看总标题。</li>
+  </ol>
+  <h3>订阅长期停在启用、等待或失败</h3>
+  <ol>
+    <li>先打开详情确认季集范围和来源，再到站点管理看是否有候选资源。</li>
+    <li>有候选但没有下载：查 MoviePilot 下载器和任务；没有候选：查站点状态、过滤条件和严格匹配。</li>
+    <li>系统日志出现认证/网络错误时先修连接，修好后只恢复一条订阅验证。</li>
+  </ol>
+  <h3>重复订阅或误删除</h3>
+  <ol>
+    <li>按 TMDB ID、季号和创建时间比对，保留一条正确记录，先暂停重复项再处理。</li>
+    <li>删除订阅不会自动删除已经下载、硬链接或入库的文件；删除前先确认外部 MoviePilot 任务状态。</li>
+    <li>误删后重新建立订阅前，先查历史和外部任务，避免同一季再次重复下载。</li>
+  </ol>
 </section>
 
 </article>

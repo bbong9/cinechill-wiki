@@ -66,7 +66,7 @@
           const normalizedHref = href.startsWith('/') ? href.slice(1) : href;
           return new URL(basePath + normalizedHref, window.location.origin).href;
         };
-        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-flow-guides', window.location.origin + siteBasePath()).href;
+        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-detailed-guides', window.location.origin + siteBasePath()).href;
         const loadSearchIndex = () => {
           if (!searchIndexPromise) {
             searchIndexPromise = fetch(searchIndexUrl())
@@ -347,6 +347,12 @@
         <li>公开页面不写资源分享、口令、提取码、资源站或其他来源信息。</li>
       </ul>
     </section>
+<!-- DETAIL-TROUBLESHOOT-RESOURCE-TRANSFER-20260814 -->
+<section class="card"><h2>按任务阶段排查：资源转存</h2>
+<h3>粘贴后没有有效链接</h3><ol><li>确认输入中包含页面支持的真实链接文本，不要把标题、口令或无关说明当作链接提交。</li><li>查看解析结果数量和错误提示；解析为 0 时先修输入，不要重复提交。</li></ol>
+<h3>转存任务失败或目标目录不对</h3><ol><li>检查 115 Cookie 是否有效、目标目录是否存在并且选择的是具体个人目录。</li><li>任务历史区分提交失败、转存中、远端移动等待和已完成；不同状态处理方式不同。</li><li>先用一个小文件验证目标位置，成功后再提交更多内容。</li></ol>
+<h3>取消后文件仍然存在</h3><ol><li>取消只停止后续任务，不会自动回滚已经完成的远端转存。</li><li>去目标 115 目录和任务历史核对，再按页面提供的删除/清理入口谨慎处理。</li></ol></section>
+
 </article>
       <aside class="doc-aside" aria-label="本页目录">
         <div class="doc-aside-container">

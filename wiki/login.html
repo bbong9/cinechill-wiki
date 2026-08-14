@@ -65,7 +65,7 @@
           const normalizedHref = href.startsWith('/') ? href.slice(1) : href;
           return new URL(basePath + normalizedHref, window.location.origin).href;
         };
-        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-flow-guides', window.location.origin + siteBasePath()).href;
+        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-detailed-guides', window.location.origin + siteBasePath()).href;
         const loadSearchIndex = () => {
           if (!searchIndexPromise) {
             searchIndexPromise = fetch(searchIndexUrl())
@@ -345,6 +345,11 @@
     <li>后端会为会话设置有限有效期；不要把浏览器开发者工具中的 Token 或 Cookie 当作排障附件发送。</li>
   </ul>
 </section>
+<!-- DETAIL-TROUBLESHOOT-LOGIN-20260814 -->
+<section class="card"><h2>按登录现象排查：登录页</h2>
+<h3>页面打不开</h3><ol><li>先检查 <code>docker compose ps</code> 和 5256 端口，再绕过反向代理直连管理端。</li><li>直连不通看容器日志；直连正常看域名、路径前缀和反向代理上游。</li></ol>
+<h3>密码正确但一直回到登录页</h3><ol><li>确认没有同时访问旧实例或旧域名；检查浏览器是否阻止 Cookie。</li><li>清除当前站点会话后重新登录；仍失败时看系统日志中的认证错误和配置文件读取错误。</li><li>登录成功后修改默认凭据，再退出重登验证会话确实建立。</li></ol></section>
+
 </article>
       <aside class="doc-aside" aria-label="本页目录">
         <div class="doc-aside-container">

@@ -66,7 +66,7 @@
           const normalizedHref = href.startsWith('/') ? href.slice(1) : href;
           return new URL(basePath + normalizedHref, window.location.origin).href;
         };
-        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-flow-guides', window.location.origin + siteBasePath()).href;
+        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-detailed-guides', window.location.origin + siteBasePath()).href;
         const loadSearchIndex = () => {
           if (!searchIndexPromise) {
             searchIndexPromise = fetch(searchIndexUrl())
@@ -355,6 +355,11 @@
     <li>不要在公开 Wiki、Issue、截图或日志中泄露带认证信息的代理 URL。</li>
   </ul>
 </section>
+<!-- DETAIL-TROUBLESHOOT-PROXY-20260814 -->
+<section class="card"><h2>按目标结果排查：代理配置</h2>
+<h3>代理保存成功但外部请求仍失败</h3><ol><li>保存后回 TMDB、RSS 或网络检测执行真实目标测试；代理弹窗成功不代表每个目标都允许访问。</li><li>检查代理地址、端口、协议和容器可达性；不要把浏览器代理设置当成后端代理。</li><li>如果内网 Emby/MoviePilot 变慢或失败，检查 NO_PROXY/绕过规则和地址格式。</li></ol>
+<h3>只有某一个目标失败</h3><ol><li>先看系统健康中的目标主机、HTTP 状态和延迟，区分目标服务故障与全局代理故障。</li><li>只修改一个目标的绕过或代理规则，再重新检测；不要直接关闭全局代理。</li></ol></section>
+
 </article>
       <aside class="doc-aside" aria-label="本页目录">
         <div class="doc-aside-container">

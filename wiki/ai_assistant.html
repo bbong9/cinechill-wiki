@@ -65,7 +65,7 @@
           const normalizedHref = href.startsWith('/') ? href.slice(1) : href;
           return new URL(basePath + normalizedHref, window.location.origin).href;
         };
-        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-flow-guides', window.location.origin + siteBasePath()).href;
+        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-detailed-guides', window.location.origin + siteBasePath()).href;
         const loadSearchIndex = () => {
           if (!searchIndexPromise) {
             searchIndexPromise = fetch(searchIndexUrl())
@@ -311,6 +311,31 @@
     <li>不要把全库一次性发送给 AI；先用小样本，控制并发和费用。</li>
     <li>AI 建议与“执行整理”是两步，确认前不要打开批量写入或删除动作。</li>
   </ul>
+</section>
+
+
+<!-- DETAIL-TROUBLESHOOT-AI-20260814 -->
+<section class="card">
+  <h2>按现象排查：AI 助手</h2>
+  <h3>连接测试失败</h3>
+  <ol>
+    <li>先确认提供方地址从 CineChill 容器可达；浏览器本机能访问不代表容器网络可达。</li>
+    <li>401/403 优先检查 API Key、账号和权限；404 检查模型或接口路径；429 检查配额和限流。</li>
+    <li>如果只有外网请求失败，去“代理配置”和“系统健康”分别检查代理、DNS 和目标连通性。</li>
+    <li>修复后只测试一条短文本或一个已知媒体，确认返回内容再启用后续功能。</li>
+  </ol>
+  <h3>识别结果不准确或季集匹配错误</h3>
+  <ol>
+    <li>把 AI 结果与原文件名、TMDB、Emby 三处对照，记录是标题、年份、季号还是集号错误。</li>
+    <li>先关闭批量写入和自动重命名，用同一条样本重新运行；不要用全库结果判断模型是否可用。</li>
+    <li>确认结果稳定后才接入整理；最终写入前保留人工确认，不要把 AI 建议直接当成媒体身份。</li>
+  </ol>
+  <h3>请求很慢、重复触发或费用异常</h3>
+  <ol>
+    <li>看系统日志中的请求耗时、状态码和重复任务名，先确认是网络慢还是服务端限流。</li>
+    <li>降低并发、缩小样本和输入内容；不要通过连续点击“测试”来判断是否恢复。</li>
+    <li>停用相关自动任务，确认同一文件不会被整理和 AI 同时反复调用，再逐步恢复。</li>
+  </ol>
 </section>
 
 </article>

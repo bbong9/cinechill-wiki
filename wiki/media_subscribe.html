@@ -65,7 +65,7 @@
           const normalizedHref = href.startsWith('/') ? href.slice(1) : href;
           return new URL(basePath + normalizedHref, window.location.origin).href;
         };
-        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-flow-guides', window.location.origin + siteBasePath()).href;
+        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-detailed-guides', window.location.origin + siteBasePath()).href;
         const loadSearchIndex = () => {
           if (!searchIndexPromise) {
             searchIndexPromise = fetch(searchIndexUrl())
@@ -359,6 +359,24 @@
     <li>到“订阅系统”确认记录已建立，再由站点管理和 MoviePilot 继续下载链路。</li>
   </ol>
   <p><strong>小白注意：</strong>发现推荐只负责发现和发起订阅，不负责硬链接、115 秒传或最终入库。不要在结果不准时批量订阅。</p>
+</section>
+
+
+<!-- DETAIL-TROUBLESHOOT-DISCOVERY-20260814 -->
+<section class="card">
+  <h2>按结果排查：发现推荐</h2>
+  <h3>发现列表为空或结果很少</h3>
+  <ol>
+    <li>确认 TMDB 配置和网络检测正常，再检查筛选的类型、年份、评分和分页范围。</li>
+    <li>先清除一个筛选条件验证是否有结果；不要一次性改动全部筛选，避免不知道是哪一项过滤了结果。</li>
+    <li>结果出现后打开详情核对 TMDB ID、年份和媒体类型，再发送订阅。</li>
+  </ol>
+  <h3>点击订阅后没有进入订阅系统</h3>
+  <ol>
+    <li>记录标题、TMDB ID、季号和点击时间，去 MoviePilot 配置页测试连接。</li>
+    <li>检查系统日志中的订阅接口结果；如果返回已存在，不要重复点击。</li>
+    <li>回订阅系统按 TMDB ID 和时间搜索，确认订阅落库后才进入站点监控。</li>
+  </ol>
 </section>
 
 </article>

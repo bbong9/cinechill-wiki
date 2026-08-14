@@ -66,7 +66,7 @@
           const normalizedHref = href.startsWith('/') ? href.slice(1) : href;
           return new URL(basePath + normalizedHref, window.location.origin).href;
         };
-        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-flow-guides', window.location.origin + siteBasePath()).href;
+        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-detailed-guides', window.location.origin + siteBasePath()).href;
         const loadSearchIndex = () => {
           if (!searchIndexPromise) {
             searchIndexPromise = fetch(searchIndexUrl())
@@ -349,6 +349,12 @@
         <li><strong>会话泄露：</strong>立即退出账号并在 Telegram 侧撤销异常会话，重新生成并保存必要凭据。</li>
       </ul>
     </section>
+<!-- DETAIL-TROUBLESHOOT-TELEGRAM-20260814 -->
+<section class="card"><h2>按监听阶段排查：Telegram 监听</h2>
+<h3>账号登录或会话失效</h3><ol><li>确认 API ID、API Hash 和手机号属于自己的账号，按页面提示完成登录。</li><li>会话失效时重新登录并保存，再检查监听状态；不要把 session 字符串公开。</li><li>系统日志按 Telegram 模块过滤，区分认证失败、网络失败和消息读取失败。</li></ol>
+<h3>群组/频道找不到或消息不匹配</h3><ol><li>先刷新群组列表，确认账号确实加入目标群组并有读取权限。</li><li>检查关键词、媒体类型、正则/过滤条件和转存目录；先关闭一个过滤条件测试。</li><li>用一条已知消息验证“收到→匹配→转存提交”三阶段，不要直接打开批量监听。</li></ol>
+<h3>同一消息重复转存</h3><ol><li>暂停监听，记录消息 ID 和任务时间；检查是否运行了多个监听任务。</li><li>确认历史去重状态和任务启用状态，修复后用新消息做单次验证。</li></ol></section>
+
 </article>
       <aside class="doc-aside" aria-label="本页目录">
         <div class="doc-aside-container">

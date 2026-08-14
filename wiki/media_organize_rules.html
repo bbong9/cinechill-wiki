@@ -65,7 +65,7 @@
           const normalizedHref = href.startsWith('/') ? href.slice(1) : href;
           return new URL(basePath + normalizedHref, window.location.origin).href;
         };
-        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-flow-guides', window.location.origin + siteBasePath()).href;
+        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-detailed-guides', window.location.origin + siteBasePath()).href;
         const loadSearchIndex = () => {
           if (!searchIndexPromise) {
             searchIndexPromise = fetch(searchIndexUrl())
@@ -330,6 +330,11 @@
       <h2>常见问题和风险</h2>
       <ul><li>规则顺序会影响匹配结果，越具体的规则越应优先；一条媒体只应落到预期的第一个有效目标。</li><li>AND/OR 选错会造成“全部进默认库”或“几乎没有命中”，先用样本检查。</li><li>路径变更可能影响 Emby 媒体库映射；删除旧分类路径不会自动删除 Emby 媒体库，需按页面提示到 Emby 另行清理。</li><li>大规模改规则前先备份配置目录，并保留旧规则内容以便手工恢复。</li></ul>
     </section>
+<!-- DETAIL-TROUBLESHOOT-RULES-20260814 -->
+<section class="card"><h2>按输出结果排查：二级分类</h2>
+<h3>规则保存了但整理没有使用</h3><ol><li>确认编辑的是当前启用的电影/剧集规则，并且点击了保存；页面刷新后再次检查规则内容。</li><li>检查媒体类型、二级分类条件和重命名模板是否指向同一套路径规则。</li><li>用一个文件执行小范围整理，从整理记录确认实际命中的规则。</li></ol>
+<h3>电影和剧集落到错误分类</h3><ol><li>检查识别结果是否先错了；识别错时修改 TMDB/文件名，规则本身不会修正错误媒体身份。</li><li>逐项关闭一个分类条件测试，不要一次删除全部规则。</li><li>确认目标路径正确后再恢复全量任务。</li></ol></section>
+
 </article>
       <aside class="doc-aside" aria-label="本页目录">
         <div class="doc-aside-container">

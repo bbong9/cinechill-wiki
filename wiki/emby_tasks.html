@@ -65,7 +65,7 @@
           const normalizedHref = href.startsWith('/') ? href.slice(1) : href;
           return new URL(basePath + normalizedHref, window.location.origin).href;
         };
-        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-flow-guides', window.location.origin + siteBasePath()).href;
+        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-detailed-guides', window.location.origin + siteBasePath()).href;
         const loadSearchIndex = () => {
           if (!searchIndexPromise) {
             searchIndexPromise = fetch(searchIndexUrl())
@@ -330,6 +330,11 @@
       <h2>常见问题和风险</h2>
       <ul><li>CineChill 读取并辅助管理 Emby Scheduled Tasks，关键执行结果仍以 Emby 后台为准。</li><li>任务过多时不要频繁点击运行；同类任务可能造成重复扫描或资源竞争。</li><li>保存空触发器可能让任务失去计划，修改前先记录原计划。</li><li>媒体库扫描慢通常与 Emby、磁盘和网络有关；先看日志中的任务 ID 和错误摘要。</li></ul>
     </section>
+<!-- DETAIL-TROUBLESHOOT-EMBY-TASKS-20260814 -->
+<section class="card"><h2>按任务状态排查：Emby 任务中心</h2>
+<h3>任务列表为空或状态不刷新</h3><ol><li>先刷新并确认服务器配置中的 Emby API 测试成功。</li><li>确认页面连接的是当前主 Emby；CineChill 的任务中心不会读取另一个 Emby 实例的任务。</li><li>轮询暂停时手动刷新一次，记录更新时间再判断是否真的卡住。</li></ol>
+<h3>任务失败或长时间运行</h3><ol><li>打开任务详情记录任务名、开始时间和错误；区分 Emby 自身任务失败与 CineChill 触发失败。</li><li>先在 Emby 后台确认媒体库路径和权限，再回 CineChill 检查目标文件是否存在。</li><li>修复后只运行对应任务验证，不要同时重启所有 Emby 任务。</li></ol></section>
+
 </article>
       <aside class="doc-aside" aria-label="本页目录">
         <div class="doc-aside-container">

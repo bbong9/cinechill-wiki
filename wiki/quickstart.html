@@ -65,7 +65,7 @@
           const normalizedHref = href.startsWith('/') ? href.slice(1) : href;
           return new URL(basePath + normalizedHref, window.location.origin).href;
         };
-        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-flow-guides', window.location.origin + siteBasePath()).href;
+        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-detailed-guides', window.location.origin + siteBasePath()).href;
         const loadSearchIndex = () => {
           if (!searchIndexPromise) {
             searchIndexPromise = fetch(searchIndexUrl())
@@ -682,23 +682,90 @@ docker compose logs -f emby</code></pre>
 
     <section class="card">
       <h2>失败排查</h2>
-      <ul>
-        <li>页面打不开：先执行 <code>docker ps</code> 和 <code>docker logs --tail 200 cinechill</code>，重点看端口占用、挂载权限和启动异常。</li>
-        <li>Emby/115 测试失败：确认地址是从 CineChill 容器可达的地址；不要把只在浏览器本机可达的 <code>localhost</code> 当成容器地址。</li>
-        <li>健康检查提示路径不可写：检查宿主机目录权限，以及容器内看到的路径是否与配置一致。</li>
-        <li>网关不可用：确认配置的反代端口与 Docker 映射一致，并重新创建容器。</li>
-        <li>外部元数据失败：先在代理配置页测试，再看系统健康中的具体网络目标，不要直接重跑全库。</li>
-      </ul>
-    </section>
+      <p>按下面的顺序排查，不要看到“失败”就重复点击全量任务。每一步都写明“看哪里、改什么、改完如何验证”。</p>
 
-    <section class="card">
-      <h2>备份、升级与回滚</h2>
+      <h3>1. Docker 容器启动失败或页面打不开</h3>
       <ol>
-        <li>升级前停止或暂停高风险任务，备份挂载的 <code>config</code>、<code>fonts</code>、<code>templates</code>、<code>backups</code> 和 <code>emby/config</code>。</li>
-        <li>生产环境不要长期依赖 <code>latest</code>；把 Compose 镜像改为已经验证过的版本标签后再执行 <code>docker compose pull &amp;&amp; docker compose up -d</code>。</li>
-        <li>升级后重复“首次验证”。</li>
-        <li>回滚时把镜像改回上一个已验证标签，先恢复容器；只有确认配置文件被新版本改坏时，才在停容器后恢复备份目录。</li>
+        <li>先执行 <code>docker compose ps</code>；如果 CineChill 状态不是 <code>Up</code>，执行 <code>docker compose logs --tail 200 cinechill</code>。</li>
+        <li>日志出现 <code>port is already allocated</code>：执行 <code>lsof -nP -iTCP:5256 -sTCP:LISTEN</code> 或检查 Compose 的左侧端口，改成未占用端口后重新 <code>docker compose up -d</code>。</li>
+        <li>日志出现挂载或权限错误：检查 <code>./config</code>、<code>./templates</code>、<code>./backups</code> 和媒体目录是否存在、可读写；不要只修改容器名。</li>
+        <li>容器反复重启：保留最近 200 行日志，先解决第一条启动错误，再检查后面的连锁报错。</li>
+        <li>页面返回 502：先绕过反向代理直接访问 <code>http://主机地址:5256</code>；直连正常才去查代理上游地址和端口。</li>
       </ol>
+      <p><strong>通过标准：</strong><code>docker compose ps</code> 显示 CineChill 为运行状态，直连管理端能打开登录页，且日志不再连续重复启动。</p>
+
+      <h3>2. 登录失败或登录后接口报 401/500</h3>
+      <ol>
+        <li>全新配置先用 <code>admin / password</code>；如果已经改过密码，不要反复使用默认密码，去“账户管理”确认当前凭据。</li>
+        <li>登录页能开但点击按钮报 401：确认浏览器访问的是同一个管理端地址，不要把反向代理前端和另一个旧容器混用。</li>
+        <li>报 500：打开“系统运行日志”，按时间过滤错误；同时执行 <code>docker compose logs --tail 200 cinechill</code>，记录接口路径和第一条异常。</li>
+        <li>修复后退出并重新登录，再只点击原来失败的一个按钮验证，不要立即运行整理任务。</li>
+      </ol>
+
+      <h3>3. Emby 或 115 测试失败</h3>
+      <ol>
+        <li>先看“服务器配置”的测试结果：Emby 失败只排 Emby，115 Cookie 失败只排 115，不要同时改两张卡片。</li>
+        <li>地址不要填容器内的 <code>localhost</code> 或 <code>127.0.0.1</code>；容器访问宿主机要使用可达的 NAS 地址或同网络服务名。</li>
+        <li>Emby 返回 401/403：重新生成或核对 API Key；地址能打开不代表 Key 有权限读取媒体库。</li>
+        <li>115 显示 Cookie 无效：重新扫码或完整复制 Cookie，去掉首尾空格，先“测试连接”成功，再点击“保存配置”。</li>
+        <li>测试成功后才保存并进入下一步；修复后到“系统健康”确认对应项目变为正常。</li>
+      </ol>
+
+      <h3>4. 健康检查提示目录不存在或不可写</h3>
+      <ol>
+        <li>先确认配置里的容器路径，例如 <code>/media</code>，再执行 <code>docker inspect cinechill</code> 检查宿主机实际挂载。</li>
+        <li>在容器内检查：<code>docker exec cinechill sh -c 'ls -ld /app/config /media && touch /media/.cinechill-write-test && rm /media/.cinechill-write-test'</code>。</li>
+        <li>目录不存在：创建宿主机目录并重新检查 Compose 左侧路径；不要在容器内临时创建后就认为持久化已经正确。</li>
+        <li>目录只读或权限不足：修复宿主机目录属主、权限或挂载模式，重新创建容器后再检查。</li>
+        <li>媒体目录能读但不能写时，整理、STRM 和封面任务仍可能失败；必须让实际目标目录通过写入探针。</li>
+      </ol>
+
+      <h3>5. 一条龙执行后识别为 0、失败或目标路径错误</h3>
+      <ol>
+        <li>先确认文件真的在 CineChill 容器能看到的待整理目录，不要把 Emby 成品库根目录直接当源目录。</li>
+        <li>整理记录显示“未识别”：检查文件名、年份、季集；打开 TMDB 配置和系统日志确认元数据请求是否失败。</li>
+        <li>识别正确但路径错误：回“重命名模板”和“二级分类”核对电影/剧集模板、Season 格式和目标目录，不要直接移动成品文件。</li>
+        <li>第一次只用一部电影或一季剧集运行；确认“源文件 → 目标文件”正确后再扩大范围。</li>
+        <li>整理成功后到“整理记录”看目标路径，再到 Emby 刷新并实际打开媒体。</li>
+      </ol>
+
+      <h3>6. STRM、元数据或 Emby 刷新失败</h3>
+      <ol>
+        <li>先区分是“整理成功”还是“同步失败”；整理记录中的文件成功不代表 STRM 和 Emby 已完成。</li>
+        <li>STRM 内容为空或地址错误：检查 <code>CHILLPOSTER_STRM_HOST</code>、8011 端口、反向代理和容器内路径映射。</li>
+        <li>元数据失败：在 TMDB 配置和代理配置页分别测试；只重跑失败样本，不要直接全量刮削。</li>
+        <li>Emby 看不到新文件：先确认文件已落到 Emby 映射的同一个宿主机目录，再手动刷新对应媒体库。</li>
+        <li>最后实际播放一条 STRM 或本地媒体；只看到海报不算验收完成。</li>
+      </ol>
+
+      <h3>7. 封面预览正常但应用失败或效果不对</h3>
+      <ol>
+        <li>回“资源配置”确认模板和字体仍然存在，再回“封面设计”确认当前布局与预设匹配。</li>
+        <li>只对一个测试媒体库生成预览；预览空白时先检查字体、背景素材和媒体库读取状态。</li>
+        <li>应用前进入“封面备份”创建快照；应用后回 Emby 核对实际封面，而不是只看预览图。</li>
+        <li>批量效果不对：先停用自动封面任务，记录任务名称和目标库，再恢复对应快照或另存的稳定模板。</li>
+      </ol>
+
+      <h3>8. 真实库、订阅或站点监控没有产生下载任务</h3>
+      <ol>
+        <li>真实库解析为 0：先检查 RSS 地址、代理、DNS 和返回内容；解析数量为 0 时不要开启同步缺失。</li>
+        <li>解析有条目但 TMDB 匹配为 0：核对标题、年份、类型和 TMDB 配置，先手动确认一条媒体。</li>
+        <li>订阅已创建但没有任务：去订阅系统看季集范围和状态，再到 MoviePilot 任务页确认是否收到订阅。</li>
+        <li>站点没有候选：检查站点状态、质量过滤、严格匹配和媒体类型；只降低一个条件再重新搜索。</li>
+        <li>候选有但提交失败：去“工具箱 → MoviePilot”测试连接，再看 MoviePilot 外部任务和系统运行日志。</li>
+      </ol>
+
+      <h3>9. 下载完成后没有硬链接、115 没有上传或没有入库</h3>
+      <ol>
+        <li>先在 MoviePilot 确认下载任务确实完成，并在宿主机确认硬链接文件实际出现。</li>
+        <li>硬链接不存在：检查下载目录和硬链接目录是否同一文件系统、是否可写，以及 MP 容器是否使用正确路径。</li>
+        <li>CineChill 看不到硬链接：检查 CineChill 的宿主机挂载和容器内路径，执行一次“115秒传”手动扫描。</li>
+        <li>115 秒传未命中：确认文件 SHA1 校验结果；允许真实上传时观察上传进度，第一次关闭成功后自动删除。</li>
+        <li>115 目标目录没有文件：检查任务选择的远程 CID 和标准目录，等待远程移动完成后刷新任务历史。</li>
+        <li>文件已上传但未入库：回“一条龙菜单”执行小范围整理，再到整理记录、系统日志和 Emby 刷新逐项确认。</li>
+      </ol>
+
+      <p><strong>排查记录建议：</strong>每次只改一个变量，记录操作时间、页面、按钮、错误原文和修复后的验证结果；这样下一次可以直接定位到同一个阶段。</p>
     </section>
 </article>
       <aside class="doc-aside" aria-label="本页目录">

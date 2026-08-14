@@ -66,7 +66,7 @@
           const normalizedHref = href.startsWith('/') ? href.slice(1) : href;
           return new URL(basePath + normalizedHref, window.location.origin).href;
         };
-        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-flow-guides', window.location.origin + siteBasePath()).href;
+        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-detailed-guides', window.location.origin + siteBasePath()).href;
         const loadSearchIndex = () => {
           if (!searchIndexPromise) {
             searchIndexPromise = fetch(searchIndexUrl())
@@ -370,6 +370,29 @@
     <li>回收站安全码、Cookie 和 CK 都属于凭据，不应出现在文档、截图、Issue 或日志附件中。</li>
   </ul>
 </section>
+<!-- DETAIL-TROUBLESHOOT-CONFIG-115-20260814 -->
+<section class="card">
+  <h2>按步骤排查：115 配置</h2>
+  <h3>扫码成功但写入配置后仍显示无效</h3>
+  <ol>
+    <li>确认二维码对应的是当前账号和当前页面，不要同时开多个扫码窗口。</li>
+    <li>写入后点击“测试连接”，看返回的是 Cookie 无效、网络失败还是账号摘要异常。</li>
+    <li>测试成功后再点击“保存配置”；保存后刷新页面和系统健康，确认新配置真的落盘。</li>
+  </ol>
+  <h3>Cookie 有效但秒传/整理失败</h3>
+  <ol>
+    <li>回服务器配置确认标准目录检查正常；Cookie 有效只代表登录可用，不代表目录绑定完整。</li>
+    <li>检查本地媒体根目录、115 远程媒体目录和秒传目录是否选对；不要把根目录当成具体任务目标。</li>
+    <li>修复目录后重新保存配置，再用一个小文件手动扫描 115 秒传验证。</li>
+  </ol>
+  <h3>回收站清理或同播复制行为不符合预期</h3>
+  <ol>
+    <li>回收站安全码只影响清理动作，不是 Cookie 或登录密码；未配置清理功能时不要打开定时清空。</li>
+    <li>同播复制只影响多人同时播放时的副本策略，不会替代秒传、上传或整理入库。</li>
+    <li>修改这些开关后先用一个测试任务验证，再恢复自动清理或批量流程。</li>
+  </ol>
+</section>
+
 </article>
       <aside class="doc-aside" aria-label="本页目录">
         <div class="doc-aside-container">

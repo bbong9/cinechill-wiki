@@ -65,7 +65,7 @@
           const normalizedHref = href.startsWith('/') ? href.slice(1) : href;
           return new URL(basePath + normalizedHref, window.location.origin).href;
         };
-        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-flow-guides', window.location.origin + siteBasePath()).href;
+        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-detailed-guides', window.location.origin + siteBasePath()).href;
         const loadSearchIndex = () => {
           if (!searchIndexPromise) {
             searchIndexPromise = fetch(searchIndexUrl())
@@ -347,6 +347,40 @@
     <li>整理完成后到“整理记录”核对源文件、目标文件和处理结果，再决定是否执行全量 STRM / 元数据同步。</li>
   </ol>
   <p><strong>关键提醒：</strong>停止任务只停止后续处理，不会自动撤销已经移动、重命名、写入 STRM 或刷新 Emby 的动作；第一次一定要用测试目录和小样本。</p>
+</section>
+
+
+<!-- DETAIL-TROUBLESHOOT-MEDIA-20260814 -->
+<section class="card">
+  <h2>按结果排查：一条龙整理与同步</h2>
+  <h3>待处理数量为 0，或执行后没有任何记录</h3>
+  <ol>
+    <li>在宿主机确认文件存在，再在容器内执行 <code>docker exec cinechill sh -c 'find /media -maxdepth 3 -type f | head'</code>；容器看不到的文件不会进入任务。</li>
+    <li>确认监听的是待整理目录，不是已经入库的成品目录，也不是 MoviePilot 容器内才存在的路径。</li>
+    <li>检查文件权限和扩展名；目录可读但文件不可读时，任务可能显示扫描成功却识别为 0。</li>
+    <li>重新保存配置后只运行一份小样本，去整理记录按时间过滤确认是否真的创建了任务。</li>
+  </ol>
+  <h3>文件被识别成错误的电影、年份或季集</h3>
+  <ol>
+    <li>先在整理记录打开详情，记录原文件名、识别标题、年份、TMDB ID 和目标路径。</li>
+    <li>电影错误通常检查标题/年份；剧集错误还要检查季号、集号和文件名中的特殊字符。</li>
+    <li>确认 TMDB 配置和代理正常后再重跑同一个文件；不要先改全库规则。</li>
+    <li>验证无误后，再修改重命名模板或二级分类，并用另一份测试文件复核。</li>
+  </ol>
+  <h3>整理成功但文件落错目录或重复整理</h3>
+  <ol>
+    <li>对照整理记录中的源路径和目标路径，回“重命名模板”“二级分类”检查电影/剧集目标规则。</li>
+    <li>确认源目录没有包含成品媒体库；成品目录再次作为源目录会造成重复、洗版或跳过。</li>
+    <li>暂停自动任务，先用一个文件修正规则；不要用文件管理器批量移动来掩盖规则错误。</li>
+    <li>修复后再次执行同一个样本，确认目标路径、文件名和 Emby 映射一致。</li>
+  </ol>
+  <h3>整理成功但 STRM、元数据或 Emby 没有更新</h3>
+  <ol>
+    <li>把“整理成功”“STRM 成功”“元数据成功”“Emby 刷新成功”分别看，不要用一个成功状态代替全部结果。</li>
+    <li>STRM 错误检查 <code>CHILLPOSTER_STRM_HOST</code>、8011 发布端口和容器内媒体路径；生成后打开 STRM 内容确认地址指向正确。</li>
+    <li>元数据错误先测试 TMDB/代理，再只重跑失败样本；全量同步应放到小样本验证之后。</li>
+    <li>Emby 不显示时先确认目标文件已经落在 Emby 的同一宿主机映射，再手动刷新媒体库并实际播放。</li>
+  </ol>
 </section>
 
 </article>

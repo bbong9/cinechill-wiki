@@ -66,7 +66,7 @@
           const normalizedHref = href.startsWith('/') ? href.slice(1) : href;
           return new URL(basePath + normalizedHref, window.location.origin).href;
         };
-        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-flow-guides', window.location.origin + siteBasePath()).href;
+        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-detailed-guides', window.location.origin + siteBasePath()).href;
         const loadSearchIndex = () => {
           if (!searchIndexPromise) {
             searchIndexPromise = fetch(searchIndexUrl())
@@ -331,6 +331,27 @@
       <h2>常见问题和风险</h2>
       <ul><li>日志可能包含内网地址、路径、用户信息、文件名或接口参数，公开前必须脱敏。</li><li>“清空日志”会删除后端保留的当前日志，不能当作解决问题；清空前先保存必要摘要。</li><li>调试日志会增加噪声和存储量，排查完成后恢复 INFO。</li><li>实时连接断开时先手动刷新，再检查浏览器/反向代理是否支持 SSE；不要把断流误判成业务任务停止。</li></ul>
     </section>
+
+<!-- DETAIL-TROUBLESHOOT-LOGS-20260814 -->
+<section class="card">
+  <h2>日志怎么查才有结果</h2>
+  <ol>
+    <li>先记下操作时间、页面、按钮、文件名或任务名；没有时间范围的“最近日志”很难定位。</li>
+    <li>先筛选“错误”和“警告”，再按模块选择 115、媒体整理、Emby、MoviePilot、STRM 或 Docker。</li>
+    <li>搜索状态码、任务 ID、文件名或错误关键词；先看第一条异常，后续堆栈通常只是连锁报错。</li>
+    <li>记录错误摘要、模块和时间，不要公开复制 Cookie、API Key、内网地址、完整路径或整段日志。</li>
+    <li>修复后重新执行原操作，刷新日志确认出现成功记录或原错误不再出现。</li>
+  </ol>
+  <h3>按错误类型判断</h3>
+  <ul>
+    <li><strong>401/403：</strong>优先回对应配置页检查凭据和权限。</li>
+    <li><strong>404：</strong>检查地址、接口路径、服务版本或资源是否已被删除。</li>
+    <li><strong>连接超时：</strong>从容器网络查地址、DNS、代理和防火墙。</li>
+    <li><strong>权限/只读：</strong>检查宿主机目录属主、容器映射和目标文件系统。</li>
+    <li><strong>任务失败：</strong>打开整理记录、115 任务历史或 MoviePilot 外部任务看业务阶段。</li>
+  </ul>
+</section>
+
 </article>
       <aside class="doc-aside" aria-label="本页目录">
         <div class="doc-aside-container">

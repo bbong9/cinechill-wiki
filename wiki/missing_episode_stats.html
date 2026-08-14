@@ -65,7 +65,7 @@
           const normalizedHref = href.startsWith('/') ? href.slice(1) : href;
           return new URL(basePath + normalizedHref, window.location.origin).href;
         };
-        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-flow-guides', window.location.origin + siteBasePath()).href;
+        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-detailed-guides', window.location.origin + siteBasePath()).href;
         const loadSearchIndex = () => {
           if (!searchIndexPromise) {
             searchIndexPromise = fetch(searchIndexUrl())
@@ -330,6 +330,12 @@
       <h2>常见问题和风险</h2>
       <ul><li>缺集统计依赖 Emby、TMDB 和正确的标题/季集识别；TMDB 不通、绑定错条目或本地缓存未刷新都会造成误判。</li><li>“手动完整”只是让统计暂不计入缺集，不会补齐文件；取消标记后会重新参与统计。</li><li>“删除 Emby 剧集”会直接调用 Emby 删除接口，CineChill 内不能撤销；是否同时删除媒体文件取决于 Emby 权限和媒体库设置，执行前先备份并确认。</li><li>MoviePilot/资源搜索显示有结果不等于下载、转存或入库已经成功，最终要回整理记录和 Emby 核对。</li></ul>
     </section>
+<!-- DETAIL-TROUBLESHOOT-MISSING-EPISODES-20260814 -->
+<section class="card"><h2>按差异结果排查：缺集统计</h2>
+<h3>统计显示整季缺失，但本地明明有文件</h3><ol><li>展开条目核对标题、年份、TMDB ID、Emby ID、季号和集号，不要只看缺失数量。</li><li>确认 Emby 已完成媒体库刷新；旧索引会把已存在的文件算成缺失。</li><li>识别错误时先修映射或重新刷新，再重新统计，不要直接删除剧集。</li></ol>
+<h3>点击补缺后没有下载或订阅</h3><ol><li>记录补缺方式和时间，去 MoviePilot 配置测试连接，再看订阅系统是否出现记录。</li><li>“已发送”只表示请求发出，不代表下载完成；继续看站点监控、下载任务、硬链接和整理记录。</li><li>下载/整理完成后重新刷新 Emby 并重新运行缺集统计。</li></ol>
+<h3>误把完整剧集标记为手动完整</h3><ol><li>先确认本地文件和 Emby 季集真实完整；手动完整只改变统计状态，不会生成缺失文件。</li><li>发现实际缺集时取消错误标记，再按单集流程补齐并重新统计。</li></ol></section>
+
 </article>
       <aside class="doc-aside" aria-label="本页目录">
         <div class="doc-aside-container">

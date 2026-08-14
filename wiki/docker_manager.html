@@ -66,7 +66,7 @@
           const normalizedHref = href.startsWith('/') ? href.slice(1) : href;
           return new URL(basePath + normalizedHref, window.location.origin).href;
         };
-        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-flow-guides', window.location.origin + siteBasePath()).href;
+        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-detailed-guides', window.location.origin + siteBasePath()).href;
         const loadSearchIndex = () => {
           if (!searchIndexPromise) {
             searchIndexPromise = fetch(searchIndexUrl())
@@ -371,6 +371,12 @@
     <li>Docker Hub 用户名和 Access Token 只在私有环境保存；不要把 Token 写入 Wiki、Compose 或截图。</li>
   </ul>
 </section>
+<!-- DETAIL-TROUBLESHOOT-DOCKER-20260814 -->
+<section class="card"><h2>按操作排查：Docker 管理</h2>
+<h3>页面显示未启用或读不到容器</h3><ol><li>确认 Compose 挂载了 <code>/var/run/docker.sock:/var/run/docker.sock</code>，并重新创建 CineChill 容器。</li><li>检查 Socket 权限和容器日志；没有 Socket 时，核心媒体整理不一定受影响，但 Docker 管理功能不可用。</li><li>刷新页面确认能看到当前容器，先不要执行更新或清理。</li></ol>
+<h3>启动、停止、重启或日志操作失败</h3><ol><li>记录容器名和操作时间，去系统运行日志及 <code>docker logs --tail 200 cinechill</code> 查第一条错误。</li><li>确认目标容器名称不是旧服务名，且 Docker daemon 正常；页面操作成功不代表应用已经健康。</li><li>修复后只操作一个测试容器，确认状态和日志恢复后再批量处理。</li></ol>
+<h3>更新镜像后服务异常</h3><ol><li>先确认镜像拉取成功、容器已重建，再检查端口、挂载和环境变量是否仍存在。</li><li>不要立即清理旧镜像；先确认 CineChill、Emby、115 测试和小样本任务均正常。</li><li>Compose 写回失败时检查 Compose 文件挂载和权限，不要手工删掉正在运行的配置文件。</li></ol></section>
+
 </article>
       <aside class="doc-aside" aria-label="本页目录">
         <div class="doc-aside-container">

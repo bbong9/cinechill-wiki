@@ -65,7 +65,7 @@
           const normalizedHref = href.startsWith('/') ? href.slice(1) : href;
           return new URL(basePath + normalizedHref, window.location.origin).href;
         };
-        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-flow-guides', window.location.origin + siteBasePath()).href;
+        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-detailed-guides', window.location.origin + siteBasePath()).href;
         const loadSearchIndex = () => {
           if (!searchIndexPromise) {
             searchIndexPromise = fetch(searchIndexUrl())
@@ -347,6 +347,12 @@
         <li>该页不改变 Emby 媒体库名称，也不负责恢复已生成封面；封面恢复请使用封面备份。</li>
       </ul>
     </section>
+<!-- DETAIL-TROUBLESHOOT-COVER-TRANSLATIONS-20260814 -->
+<section class="card"><h2>按显示结果排查：翻译配置</h2>
+<h3>保存后封面仍显示旧标题</h3><ol><li>确认配置保存的是实际 Emby 媒体库名称，大小写和空格要一致。</li><li>翻译配置只影响封面展示，不会修改 Emby 媒体库名称，也不会自动重做旧封面。</li><li>先生成一个新预览确认效果，再应用到一个测试库并回 Emby 刷新。</li></ol>
+<h3>副标题为空或语言没有变化</h3><ol><li>确认副标题字段不是只填写空格；留空就是不显示副标题。</li><li>检查当前封面模板是否真的读取翻译字段；模板不读取时，翻译配置保存成功也不会改变画布。</li></ol>
+<h3>只想恢复某个媒体库</h3><ol><li>只修改该媒体库对应的配置并保存，其他库不要批量覆盖。</li><li>生成预览无误后再应用；效果不对时停用自动封面并恢复封面备份。</li></ol></section>
+
 </article>
       <aside class="doc-aside" aria-label="本页目录">
         <div class="doc-aside-container">

@@ -65,7 +65,7 @@
           const normalizedHref = href.startsWith('/') ? href.slice(1) : href;
           return new URL(basePath + normalizedHref, window.location.origin).href;
         };
-        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-flow-guides', window.location.origin + siteBasePath()).href;
+        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-detailed-guides', window.location.origin + siteBasePath()).href;
         const loadSearchIndex = () => {
           if (!searchIndexPromise) {
             searchIndexPromise = fetch(searchIndexUrl())
@@ -330,6 +330,11 @@
       <h2>常见问题和风险</h2>
       <ul><li>预览中的示例值不代表每个文件都能解析出同样字段；缺失字段会被清理，先用真实样本验证。</li><li>季集字段缺失会影响 Emby 剧集识别；文件后缀字段不要删除或移动。</li><li>模板变更只影响后续整理，已整理文件不会自动批量重命名；需要处理旧文件时另行规划并先备份。</li><li>不要频繁改模板后直接全量整理；模板保存成功不等于所有历史媒体都符合新格式。</li></ul>
     </section>
+<!-- DETAIL-TROUBLESHOOT-RENAME-20260814 -->
+<section class="card"><h2>按文件名排查：重命名模板</h2>
+<h3>字段为空、文件名异常或季集格式不对</h3><ol><li>先用一个电影和一集剧集分别预览，确认模板字段在当前媒体类型中可用。</li><li>季号/集号错误时检查剧集模板的 Season、Episode 和多集字段，不要拿电影模板测试。</li><li>保存后回一条龙菜单重新加载配置，用整理记录对照原名和新名。</li></ol>
+<h3>重命名后目标路径错误</h3><ol><li>路径由重命名模板、二级分类和服务器媒体根目录共同决定，逐项检查而不是只改文件名模板。</li><li>先停用自动整理，用测试目录验证一个文件；确认结果后再处理实际媒体库。</li></ol></section>
+
 </article>
       <aside class="doc-aside" aria-label="本页目录">
         <div class="doc-aside-container">

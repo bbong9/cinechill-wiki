@@ -66,7 +66,7 @@
           const normalizedHref = href.startsWith('/') ? href.slice(1) : href;
           return new URL(basePath + normalizedHref, window.location.origin).href;
         };
-        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-flow-guides', window.location.origin + siteBasePath()).href;
+        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-detailed-guides', window.location.origin + siteBasePath()).href;
         const loadSearchIndex = () => {
           if (!searchIndexPromise) {
             searchIndexPromise = fetch(searchIndexUrl())
@@ -388,6 +388,35 @@
     <tr><td>本地媒体库 / 真实库</td><td>CineChill 运行环境中的本地映射目录</td><td>确认宿主机权限和容器内路径一致，避免任务成功但文件落不到 Emby。</td></tr>
   </tbody></table>
   <p><strong>不要急着做的事：</strong>不要在还没通过 Emby / 115 测试时启动站点监控、自动订阅或全量整理；错误会同时出现在多个页面，很难判断源头。</p>
+</section>
+
+
+<!-- DETAIL-TROUBLESHOOT-SERVER-20260814 -->
+<section class="card">
+  <h2>按现象排查：服务器配置</h2>
+  <h3>Emby 测试连接失败</h3>
+  <ol>
+    <li>先看错误类型：超时查地址和网络，401/403 查 API Key，读取媒体库为空查 Emby 用户权限和库路径。</li>
+    <li>地址不要填 CineChill 容器内的 <code>localhost</code> 或 <code>127.0.0.1</code>；同一 Compose 网络才使用服务名，Emby 使用 Host 网络时填写 NAS/服务器可达地址。</li>
+    <li>从 CineChill 容器验证可达性：<code>docker exec cinechill sh -c 'getent hosts emby || true'</code>；有 curl 时再请求同一个地址，浏览器能打开不能替代容器验证。</li>
+    <li>API Key 重新复制后只点击“测试连接”，返回媒体库数量正确再点击“保存 Emby”。</li>
+    <li>修复后到“系统健康”确认 Emby API 正常，再进入整理或封面页面。</li>
+  </ol>
+  <h3>115 Cookie 测试失败或保存后标准目录为空</h3>
+  <ol>
+    <li>重新扫码或重新复制完整 Cookie，去掉首尾空格和换行；先测试，不要直接保存一串未验证的 Cookie。</li>
+    <li>测试显示 Cookie 有效但保存失败：检查 <code>/media</code> 和 <code>/app/config</code> 是否可写，再查看系统日志第一条错误。</li>
+    <li>标准目录缺失：保存配置会重新解析远程根目录；不要手工填写或删除 CID，先修复 Cookie 后重新保存。</li>
+    <li>系统健康中“115 标准目录”正常后，再到 115 秒传选择具体的媒体、秒传或失败目录。</li>
+  </ol>
+  <h3>网关端口可配置但访问不到</h3>
+  <ol>
+    <li>确认配置中的反代端口、Compose 左侧发布端口和反向代理上游端口是同一个值；容器内端口仍按当前镜像固定值处理。</li>
+    <li>执行 <code>docker compose ps</code> 和 <code>docker port cinechill</code>，确认端口真的发布，不要只看页面保存成功。</li>
+    <li>直连端口正常、域名不通：检查反向代理路径、WebSocket/SSE 和防火墙；直连也不通才回 Docker 端口和容器日志。</li>
+    <li>改端口后重新创建容器，再到系统健康和实际 STRM 播放各验证一次。</li>
+  </ol>
+  <p><strong>不要混合排查：</strong>服务器配置只先解决 Emby、115、路径和网关；MoviePilot、RSS、封面和整理任务要等这四项通过后再查。</p>
 </section>
 
 </article>

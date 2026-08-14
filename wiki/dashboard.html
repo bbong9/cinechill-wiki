@@ -65,7 +65,7 @@
           const normalizedHref = href.startsWith('/') ? href.slice(1) : href;
           return new URL(basePath + normalizedHref, window.location.origin).href;
         };
-        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-flow-guides', window.location.origin + siteBasePath()).href;
+        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-detailed-guides', window.location.origin + siteBasePath()).href;
         const loadSearchIndex = () => {
           if (!searchIndexPromise) {
             searchIndexPromise = fetch(searchIndexUrl())
@@ -330,6 +330,12 @@
       <h2>常见问题和风险</h2>
       <ul><li>媒体库全部为 0 时，优先检查“服务器配置”的 Emby 地址、API Key 和容器网络可达性；浏览器能访问不代表 CineChill 容器能访问。</li><li>数据停留在旧值时，先点击刷新或等待自动刷新，再检查浏览器 Network 和系统运行日志。</li><li>任务长期运行时，不要从仪表盘重复启动；先打开顶部“查看系统日志”和“整理记录”。</li><li>仪表盘只做总览，具体修复要回到对应配置页；网络带宽设置不会改变系统实际网络速度。</li></ul>
     </section>
+<!-- DETAIL-TROUBLESHOOT-DASHBOARD-20260814 -->
+<section class="card"><h2>按卡片结果排查：仪表盘</h2>
+<h3>媒体库数量为 0 或统计一直不变</h3><ol><li>先点刷新并记录更新时间；再回服务器配置测试 Emby。</li><li>Emby 正常但仪表盘旧值，查看系统日志和浏览器请求是否返回 401/500；不要重复启动任务。</li><li>确认 Emby 连接的是当前实例，媒体库路径和权限正确后再等待下一次刷新。</li></ol>
+<h3>任务动态显示完成但文件找不到</h3><ol><li>仪表盘只做总览，打开整理记录确认源路径、目标路径和实际状态。</li><li>下载类任务还要看 MoviePilot/115 任务历史；不要把“任务完成”当成 Emby 已入库。</li></ol>
+<h3>服务器状态异常</h3><ol><li>打开系统健康，按配置、路径、Emby、网关、网络顺序检查。</li><li>只修复报告异常的项目，再回仪表盘刷新验证；带宽显示不等于实际网络故障。</li></ol></section>
+
 </article>
       <aside class="doc-aside" aria-label="本页目录">
         <div class="doc-aside-container">

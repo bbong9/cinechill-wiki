@@ -66,7 +66,7 @@
           const normalizedHref = href.startsWith('/') ? href.slice(1) : href;
           return new URL(basePath + normalizedHref, window.location.origin).href;
         };
-        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-flow-guides', window.location.origin + siteBasePath()).href;
+        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-detailed-guides', window.location.origin + siteBasePath()).href;
         const loadSearchIndex = () => {
           if (!searchIndexPromise) {
             searchIndexPromise = fetch(searchIndexUrl())
@@ -350,6 +350,11 @@
         <li><strong>停用：</strong>关闭 Forward 并保存可阻止新访问；已发起的后台转存或下载不一定自动取消，要到对应任务页处理。</li>
       </ul>
     </section>
+<!-- DETAIL-TROUBLESHOOT-FORWARD-20260814 -->
+<section class="card"><h2>按阶段排查：Forward 模块</h2>
+<h3>Widget、Token 或资源库连接失败</h3><ol><li>先测试 Widget 地址和 Token，检查地址是否从 CineChill 容器可达。</li><li>401/403 查 Token 权限，超时查代理/DNS/容器网络；不要直接换一套配置覆盖原值。</li><li>连接成功后只用一个 TMDB ID 测试，确认返回候选再进入转存。</li></ol>
+<h3>搜索有结果但转存失败</h3><ol><li>检查目标 115 Cookie、目标目录和转存模式；搜索成功不代表转存账号可用。</li><li>查看任务历史区分候选解析、转存提交和远端移动失败。</li><li>先保留源任务和目标文件，确认少量文件到位后再开启批量。</li></ol></section>
+
 </article>
       <aside class="doc-aside" aria-label="本页目录">
         <div class="doc-aside-container">

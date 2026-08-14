@@ -66,7 +66,7 @@
           const normalizedHref = href.startsWith('/') ? href.slice(1) : href;
           return new URL(basePath + normalizedHref, window.location.origin).href;
         };
-        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-flow-guides', window.location.origin + siteBasePath()).href;
+        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-detailed-guides', window.location.origin + siteBasePath()).href;
         const loadSearchIndex = () => {
           if (!searchIndexPromise) {
             searchIndexPromise = fetch(searchIndexUrl())
@@ -371,6 +371,21 @@
     <li>健康检查结果可包含 UID、路径、主机、端口和服务名，公开分享前必须脱敏。</li>
   </ul>
 </section>
+
+<!-- DETAIL-TROUBLESHOOT-HEALTH-20260814 -->
+<section class="card">
+  <h2>检查项失败后下一步去哪</h2>
+  <table><thead><tr><th>失败项目</th><th>先执行</th><th>通过标准</th></tr></thead><tbody>
+    <tr><td>配置文件</td><td>保留错误提示，检查 <code>/app/config</code> 挂载和 JSON 文件；不要直接清空配置。</td><td>检查项恢复正常，登录和任务配置仍存在。</td></tr>
+    <tr><td>115 Cookie</td><td>回服务器配置重新扫码/测试并保存。</td><td>显示 Cookie 有效，随后标准目录检查也恢复。</td></tr>
+    <tr><td>标准目录</td><td>先修 Cookie，再保存配置重新解析远程目录。</td><td>媒体、秒传、失败、转存、重复、洗版目录均能识别。</td></tr>
+    <tr><td>本地路径</td><td>检查宿主机路径、容器映射、用户权限和写探针。</td><td>目录存在、可读、可写，探针能创建并删除。</td></tr>
+    <tr><td>Emby API</td><td>回服务器配置检查地址、API Key 和容器网络。</td><td>能读取系统信息和媒体库数量。</td></tr>
+    <tr><td>网关/网络</td><td>对照端口发布、反代上游、代理和 DNS。</td><td>从 CineChill 运行环境访问目标成功。</td></tr>
+  </tbody></table>
+  <p><strong>重试顺序：</strong>先修失败项并单独重试，再运行一个小任务，最后重新检查整体验收；不要连续点击整体验证掩盖具体失败项。</p>
+</section>
+
 </article>
       <aside class="doc-aside" aria-label="本页目录">
         <div class="doc-aside-container">

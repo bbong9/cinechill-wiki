@@ -66,7 +66,7 @@
           const normalizedHref = href.startsWith('/') ? href.slice(1) : href;
           return new URL(basePath + normalizedHref, window.location.origin).href;
         };
-        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-flow-guides', window.location.origin + siteBasePath()).href;
+        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-detailed-guides', window.location.origin + siteBasePath()).href;
         const loadSearchIndex = () => {
           if (!searchIndexPromise) {
             searchIndexPromise = fetch(searchIndexUrl())
@@ -356,6 +356,11 @@
     <li>如果只是临时排障，不要把 Key 写入 Shell 历史、截图或日志；排障结束后可在服务端轮换凭据。</li>
   </ul>
 </section>
+<!-- DETAIL-TROUBLESHOOT-TMDB-20260814 -->
+<section class="card"><h2>按请求结果排查：TMDB 配置</h2>
+<h3>保存成功但发现/缺集/整理仍没有元数据</h3><ol><li>确认保存后回实际业务页面验证；本页没有独立测试按钮，不能只看弹窗关闭。</li><li>检查 API Key 是否属于可用账号，系统健康/网络检测是否能访问 TMDB API 和图片域名。</li><li>先用一个已知标题测试发现或小范围整理，再决定是否批量重跑。</li></ol>
+<h3>匹配错误、限流或图片加载失败</h3><ol><li>标题/年份错误先核对媒体识别和 TMDB ID，不要用更换 Key 代替识别校正。</li><li>429/限流时降低并发和重试频率；图片失败单独检查图片域名、代理和缓存。</li><li>豆瓣 Cookie 是可选辅助配置；豆瓣失败但 TMDB 正常时不要误判主链路故障。</li></ol></section>
+
 </article>
       <aside class="doc-aside" aria-label="本页目录">
         <div class="doc-aside-container">

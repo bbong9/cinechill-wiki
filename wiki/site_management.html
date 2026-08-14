@@ -65,7 +65,7 @@
           const normalizedHref = href.startsWith('/') ? href.slice(1) : href;
           return new URL(basePath + normalizedHref, window.location.origin).href;
         };
-        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-flow-guides', window.location.origin + siteBasePath()).href;
+        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-detailed-guides', window.location.origin + siteBasePath()).href;
         const loadSearchIndex = () => {
           if (!searchIndexPromise) {
             searchIndexPromise = fetch(searchIndexUrl())
@@ -313,6 +313,30 @@
     <li><strong>整理入库：</strong>CineChill 识别、重命名、移动 / 写入 STRM 并等待 Emby 刷新。</li>
   </ul>
   <p><strong>出现重复下载：</strong>先暂停监控或相关自动任务，检查订阅记录、候选去重条件和整理记录，确认原因后再恢复。</p>
+</section>
+
+
+<!-- DETAIL-TROUBLESHOOT-SITE-20260814 -->
+<section class="card">
+  <h2>按阶段排查：站点监控与触发下载</h2>
+  <h3>站点全部连接失败</h3>
+  <ol>
+    <li>先去“工具箱 → MoviePilot”测试连接；如果连接失败，不要在站点列表里逐个重置。</li>
+    <li>连接正常但站点失败，检查代理、DNS、站点登录状态和 MoviePilot 外部日志，先判断是单站点还是全局网络。</li>
+    <li>修复一个站点后只刷新一次，确认站点状态恢复，再恢复定时监控。</li>
+  </ol>
+  <h3>候选资源为空</h3>
+  <ol>
+    <li>检查媒体类型、质量、分辨率、季集和严格匹配条件；一次只放宽一个条件。</li>
+    <li>确认媒体标题、年份和 TMDB ID 识别正确；识别错误时回发现推荐或订阅详情修正，不要盲目降低筛选。</li>
+    <li>确认站点确实返回候选后，再保存监控设置；候选为空不等于下载器故障。</li>
+  </ol>
+  <h3>触发后重复下载或没有后续硬链接</h3>
+  <ol>
+    <li>立即暂停监控和重复订阅，记录标题、候选、时间和 MoviePilot 任务 ID。</li>
+    <li>下载成功但没有硬链接，转查 MoviePilot 的下载目录、硬链接规则和同文件系统条件。</li>
+    <li>硬链接出现但 CineChill 没有任务，转查 115 秒传的监听目录映射并手动扫描一次。</li>
+  </ol>
 </section>
 
 </article>

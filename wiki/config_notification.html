@@ -66,7 +66,7 @@
           const normalizedHref = href.startsWith('/') ? href.slice(1) : href;
           return new URL(basePath + normalizedHref, window.location.origin).href;
         };
-        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-flow-guides', window.location.origin + siteBasePath()).href;
+        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-detailed-guides', window.location.origin + siteBasePath()).href;
         const loadSearchIndex = () => {
           if (!searchIndexPromise) {
             searchIndexPromise = fetch(searchIndexUrl())
@@ -361,6 +361,12 @@
     <li>回滚模板时恢复备份或点击“恢复默认”；回滚渠道凭据后再次点击对应渠道的“测试微信”或“测试 Telegram”，再用“发送测试消息”验证实际发送。</li>
   </ul>
 </section>
+<!-- DETAIL-TROUBLESHOOT-NOTIFICATION-20260814 -->
+<section class="card"><h2>按发送结果排查：通知配置</h2>
+<h3>企业微信或 Telegram 测试发送失败</h3><ol><li>先只测试一个渠道，按错误区分地址/Token 错误、网络超时和模板渲染错误。</li><li>检查请求地址、Bot Token、Chat ID 等字段是否完整；真实凭据只在私有环境填写。</li><li>外网渠道失败时到代理配置和系统健康检查实际目标，不要只测试浏览器网络。</li><li>测试成功后再打开业务通知开关，并用一个低风险任务验证。</li></ol>
+<h3>测试成功但业务没有通知</h3><ol><li>确认对应通知类型已启用，且触发的业务确实属于该分类。</li><li>在系统日志按通知模块和任务时间过滤，区分“未触发”“生成失败”和“发送失败”。</li><li>先保留一个渠道和一个通知类型，确认成功后再逐项开启其他通知。</li></ol>
+<h3>通知重复或内容为空</h3><ol><li>检查是否同时启用了多个渠道、重复 Webhook 或同一任务被重复提交。</li><li>模板字段为空时对照触发事件实际提供的字段；修复模板后重新测试一条事件。</li></ol></section>
+
 </article>
       <aside class="doc-aside" aria-label="本页目录">
         <div class="doc-aside-container">

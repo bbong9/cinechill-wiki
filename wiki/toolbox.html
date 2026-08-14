@@ -66,7 +66,7 @@
           const normalizedHref = href.startsWith('/') ? href.slice(1) : href;
           return new URL(basePath + normalizedHref, window.location.origin).href;
         };
-        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-flow-guides', window.location.origin + siteBasePath()).href;
+        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-detailed-guides', window.location.origin + siteBasePath()).href;
         const loadSearchIndex = () => {
           if (!searchIndexPromise) {
             searchIndexPromise = fetch(searchIndexUrl())
@@ -348,6 +348,12 @@
         <li>工具箱只是入口，不提供统一回滚；回滚方式以各子页面教程和实际任务状态为准。</li>
       </ul>
     </section>
+<!-- DETAIL-TROUBLESHOOT-TOOLBOX-20260814 -->
+<section class="card"><h2>按工具边界排查：工具箱</h2>
+<h3>工具卡片找不到或打开为空</h3><ol><li>先清除搜索和分类筛选，确认不是被筛选条件隐藏。</li><li>打开具体工具后按该工具自己的“测试/保存”顺序操作；工具箱只负责入口，不负责统一保存。</li></ol>
+<h3>一个工具正常但下游功能失败</h3><ol><li>连接测试只证明接口可达，不代表订阅、站点、下载、上传或整理全部正常。</li><li>回对应页面用一个小样本验证：TMDB→发现/缺集，MoviePilot→订阅/站点，115→秒传/整理，代理→真实外部请求。</li></ol>
+<h3>保存后凭据状态消失</h3><ol><li>刷新页面确认状态，再查看系统日志中的保存接口结果。</li><li>检查 <code>/app/config</code> 是否持久化；容器重建后状态消失通常是配置挂载错或目录不可写。</li></ol></section>
+
 </article>
       <aside class="doc-aside" aria-label="本页目录">
         <div class="doc-aside-container">

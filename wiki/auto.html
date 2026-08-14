@@ -65,7 +65,7 @@
           const normalizedHref = href.startsWith('/') ? href.slice(1) : href;
           return new URL(basePath + normalizedHref, window.location.origin).href;
         };
-        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-flow-guides', window.location.origin + siteBasePath()).href;
+        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-detailed-guides', window.location.origin + siteBasePath()).href;
         const loadSearchIndex = () => {
           if (!searchIndexPromise) {
             searchIndexPromise = fetch(searchIndexUrl())
@@ -366,6 +366,32 @@
     <li><strong>删除：</strong>删除任务配置，不等于撤销已应用的封面。</li>
   </ul>
   <p><strong>出现异常时：</strong>先停用任务，再从封面备份恢复目标库，最后修改模板或任务；不要连续点击“运行”制造并发任务。</p>
+</section>
+
+
+<!-- DETAIL-TROUBLESHOOT-COVER-AUTO-20260814 -->
+<section class="card">
+  <h2>按现象排查：自动封面</h2>
+  <h3>任务创建了但没有按 Cron 运行</h3>
+  <ol>
+    <li>打开任务卡片确认“启用”状态，检查执行频率是否是有效的五段 Cron，而不是只填写了任务名称。</li>
+    <li>确认目标媒体库至少勾选一个；“自动添加新建库”不会替代固定目标库的首次验证。</li>
+    <li>记录当前时间和时区，等待下一次计划时间；不要用连续点击“运行”代替 Cron 验证。</li>
+    <li>到系统运行日志按任务名称过滤，区分“未触发”“触发后失败”和“触发后没有媒体”。</li>
+  </ol>
+  <h3>立即运行/试运行失败</h3>
+  <ol>
+    <li>先确认手动封面能用同一模板和同一媒体库生成预览；手动都失败时不要查 Cron。</li>
+    <li>检查模板、字体、素材和 Emby 连接，日志中出现哪个资源不存在就先修哪个资源。</li>
+    <li>只选择一个媒体库重新试运行；成功后再增加库，不要直接运行全库。</li>
+  </ol>
+  <h3>重复生成、覆盖范围过大或效果不满意</h3>
+  <ol>
+    <li>立即停用任务，记录任务名称、运行时间和目标媒体库；停用只阻止后续调度，不会撤销已生成封面。</li>
+    <li>检查是否存在重复任务、多个任务选择同一媒体库，或打开了“自动添加新建库”。</li>
+    <li>恢复前先确认封面备份套件和目标库，恢复一个库验证后再处理其他库。</li>
+    <li>修正模板后使用“另存为”建立新版本，再让任务选择新模板。</li>
+  </ol>
 </section>
 
 </article>

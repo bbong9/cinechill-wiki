@@ -66,7 +66,7 @@
           const normalizedHref = href.startsWith('/') ? href.slice(1) : href;
           return new URL(basePath + normalizedHref, window.location.origin).href;
         };
-        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-flow-guides', window.location.origin + siteBasePath()).href;
+        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-detailed-guides', window.location.origin + siteBasePath()).href;
         const loadSearchIndex = () => {
           if (!searchIndexPromise) {
             searchIndexPromise = fetch(searchIndexUrl())
@@ -349,6 +349,12 @@
         <li>保留 115 侧或外部备份，回滚只能通过备份 / 重新转存恢复，不要把“停用任务”误认为撤销。</li>
       </ul>
     </section>
+<!-- DETAIL-TROUBLESHOOT-CLEAR-115-20260814 -->
+<section class="card"><h2>按清理结果排查：115 定时清空</h2>
+<h3>任务没有按计划运行</h3><ol><li>确认任务已启用、Cron 格式有效，并记录服务器时区和下一次执行时间。</li><li>先用“立即运行”在测试目录验证；立即运行也失败时不要继续查 Cron。</li><li>系统日志按任务名过滤，区分未触发、目录读取失败和删除接口失败。</li></ol>
+<h3>清理了不应该删除的目录</h3><ol><li>立即停用任务，记录任务名称和目标目录；不要再次点击立即运行。</li><li>检查目标目录、包含子目录、回收站开关和清理条件，确认是否把根目录选错。</li><li>恢复任务前用空的测试目录运行一次，确认只影响预期文件。</li></ol>
+<h3>清理成功但远端仍能看到文件</h3><ol><li>刷新 115 目录并检查是否只是移动到回收站；清理回收站是另一项破坏性动作。</li><li>查看任务历史和系统日志确认删除接口返回，不要只以页面卡片状态判断。</li></ol></section>
+
 </article>
       <aside class="doc-aside" aria-label="本页目录">
         <div class="doc-aside-container">

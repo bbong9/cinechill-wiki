@@ -66,7 +66,7 @@
           const normalizedHref = href.startsWith('/') ? href.slice(1) : href;
           return new URL(basePath + normalizedHref, window.location.origin).href;
         };
-        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-flow-guides', window.location.origin + siteBasePath()).href;
+        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-detailed-guides', window.location.origin + siteBasePath()).href;
         const loadSearchIndex = () => {
           if (!searchIndexPromise) {
             searchIndexPromise = fetch(searchIndexUrl())
@@ -346,6 +346,11 @@
         <li>不要把真实 CK、二维码截图、账号标识或 Cookie 提交到公开仓库。</li>
       </ul>
     </section>
+<!-- DETAIL-TROUBLESHOOT-SCAN-115-20260814 -->
+<section class="card"><h2>按扫码状态排查：115 CK</h2>
+<h3>二维码不显示、过期或扫码后无变化</h3><ol><li>刷新生成新的二维码会话，确认手机扫码的是当前页面显示的二维码。</li><li>二维码过期后不要继续等待旧会话；重新生成并在有效时间内完成扫码。</li><li>扫码成功但页面不变时查看轮询状态和系统日志，确认浏览器没有阻止请求。</li></ol>
+<h3>读取 CK 失败或复制后不能使用</h3><ol><li>确认扫码账号与目标 115 账号一致，成功状态出现后再点击读取/复制。</li><li>CK 等同账号凭据，只粘贴到私有服务器配置，不要放进 Wiki、Issue 或截图。</li><li>写入服务器配置后回 115 测试连接，不能只以“复制成功”判断可用。</li></ol></section>
+
 </article>
       <aside class="doc-aside" aria-label="本页目录">
         <div class="doc-aside-container">

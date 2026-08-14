@@ -65,7 +65,7 @@
           const normalizedHref = href.startsWith('/') ? href.slice(1) : href;
           return new URL(basePath + normalizedHref, window.location.origin).href;
         };
-        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-flow-guides', window.location.origin + siteBasePath()).href;
+        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-detailed-guides', window.location.origin + siteBasePath()).href;
         const loadSearchIndex = () => {
           if (!searchIndexPromise) {
             searchIndexPromise = fetch(searchIndexUrl())
@@ -463,6 +463,30 @@ docker compose logs --tail 200 cinechill</code></pre>
         <li>网关端口失败：修改 115/Emby 配置后同步更新端口发布；无 Compose 或无可写 Compose 时，不能假设系统能自动写回。</li>
       </ul>
     </section>
+
+<!-- DETAIL-TROUBLESHOOT-INSTALL-20260814 -->
+<section class="card">
+  <h2>部署故障要这样定位</h2>
+  <h3>Compose 校验失败或容器起不来</h3>
+  <ol>
+    <li>先执行 <code>docker compose config</code>，修 YAML 缩进、变量占位符和重复服务名；校验未通过不要执行 <code>up -d</code>。</li>
+    <li>再执行 <code>docker compose ps</code> 和 <code>docker compose logs --tail 200 cinechill</code>，区分端口、权限、挂载和应用启动错误。</li>
+    <li>确认 CineChill 与 Emby 的媒体左侧宿主机路径完全一致、右侧容器路径都为 <code>/media</code>。</li>
+  </ol>
+  <h3>页面能打开但核心功能都失败</h3>
+  <ol>
+    <li>先在服务器配置测试 Emby 和 115，再看系统健康；不要先测试封面、RSS 或 MoviePilot。</li>
+    <li>健康检查路径失败时，检查宿主机目录属主、容器内挂载和只读标记。</li>
+    <li>健康检查通过后运行一个小样本，再看系统日志和整理记录确认应用层链路。</li>
+  </ol>
+  <h3>Emby 和 CineChill 看见的不是同一套媒体</h3>
+  <ol>
+    <li>执行 <code>docker inspect cinechill</code> 和 <code>docker inspect embyserver</code>，逐项对照宿主机源路径和容器目标路径。</li>
+    <li>两边目标路径不同或一边使用匿名 Docker volume 时，先停止业务任务，修正 Compose 后重建容器。</li>
+    <li>修复后在 CineChill 和 Emby 各自列出同一个测试文件，再进行整理。</li>
+  </ol>
+</section>
+
 </article>
       <aside class="doc-aside" aria-label="本页目录">
         <div class="doc-aside-container">

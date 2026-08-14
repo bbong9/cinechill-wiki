@@ -65,7 +65,7 @@
           const normalizedHref = href.startsWith('/') ? href.slice(1) : href;
           return new URL(basePath + normalizedHref, window.location.origin).href;
         };
-        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-flow-guides', window.location.origin + siteBasePath()).href;
+        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-detailed-guides', window.location.origin + siteBasePath()).href;
         const loadSearchIndex = () => {
           if (!searchIndexPromise) {
             searchIndexPromise = fetch(searchIndexUrl())
@@ -347,6 +347,30 @@
     <li>“STRM”代表播放入口处理过，仍需实际打开 Emby 播放验证。</li>
     <li>清理历史只删除记录，不会回滚媒体文件；重新整理可能再次移动或覆盖文件。</li>
   </ul>
+</section>
+
+
+<!-- DETAIL-TROUBLESHOOT-ORGANIZE-HISTORY-20260814 -->
+<section class="card">
+  <h2>按记录状态排查：整理记录</h2>
+  <h3>页面没有记录或找不到刚才的任务</h3>
+  <ol>
+    <li>先刷新并把时间范围扩大到任务开始前后，再按文件名或任务名称搜索。</li>
+    <li>确认你查看的是 CineChill 的整理记录，不是 MoviePilot 下载记录或 Emby 扫描记录。</li>
+    <li>如果仍没有记录，回系统日志查任务是否真正创建；按钮点击成功不等于后台任务已经入队。</li>
+  </ol>
+  <h3>记录显示失败、跳过或重复</h3>
+  <ol>
+    <li>打开详情记录原路径、目标路径、错误摘要和媒体识别结果，不要只看列表颜色。</li>
+    <li>失败查权限、路径、TMDB/ffprobe 和文件变化；跳过查去重、已入库或保护规则；重复查源目录是否包含成品库。</li>
+    <li>修复后只重跑原文件，确认产生一条新的成功记录，再恢复批量任务。</li>
+  </ol>
+  <h3>记录成功但 Emby 看不到或不能播放</h3>
+  <ol>
+    <li>对照记录中的目标路径和 Emby 媒体库路径，确认两者映射到同一个宿主机目录。</li>
+    <li>有 STRM 时打开文件检查地址和 8011 端口；本地文件则检查 Emby 读权限。</li>
+    <li>手动刷新 Emby 对应媒体库，最后实际播放一条文件；只显示海报不算完成验收。</li>
+  </ol>
 </section>
 
 </article>

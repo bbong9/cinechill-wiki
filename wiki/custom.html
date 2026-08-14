@@ -65,7 +65,7 @@
           const normalizedHref = href.startsWith('/') ? href.slice(1) : href;
           return new URL(basePath + normalizedHref, window.location.origin).href;
         };
-        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-flow-guides', window.location.origin + siteBasePath()).href;
+        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-detailed-guides', window.location.origin + siteBasePath()).href;
         const loadSearchIndex = () => {
           if (!searchIndexPromise) {
             searchIndexPromise = fetch(searchIndexUrl())
@@ -366,6 +366,31 @@
     <li><strong>保存当前 / 另存为：</strong>保存当前会影响后续任务，另存为适合试验新版本。</li>
   </ul>
   <p><strong>小白注意：</strong>预览好看不代表批量应用安全。先备份、单库验证、回 Emby 检查，确认后再启用自动封面。</p>
+</section>
+
+
+<!-- DETAIL-TROUBLESHOOT-COVER-DESIGN-20260814 -->
+<section class="card">
+  <h2>按现象排查：封面设计</h2>
+  <h3>布局、预设或模板列表为空</h3>
+  <ol>
+    <li>先去“资源配置”刷新，确认模板数量大于 0；资源为空时不要在本页反复点击生成预览。</li>
+    <li>确认当前布局与预设属于同一组；切换布局后重新选择该布局的预设，不要沿用旧布局参数。</li>
+    <li>如果只有一个浏览器页面异常，强制刷新后再次进入；如果所有页面都为空，查看系统日志和模板挂载目录。</li>
+  </ol>
+  <h3>预览空白、字体缺失或素材不显示</h3>
+  <ol>
+    <li>先只保留默认字体、默认背景和一个媒体库生成预览，判断是模板问题还是素材问题。</li>
+    <li>默认素材正常后，再一次加入自定义字体、背景和小海报；每加一项就生成一次预览。</li>
+    <li>日志出现文件不存在或权限错误时，检查 <code>/app/fonts</code>、<code>/app/templates</code> 挂载和文件名大小写。</li>
+    <li>预览成功后使用“另存为”，不要直接覆盖正在被自动任务使用的模板。</li>
+  </ol>
+  <h3>保存成功但自动封面找不到模板</h3>
+  <ol>
+    <li>记录保存时的模板名称和布局，回“资源配置”刷新确认模板实际出现。</li>
+    <li>自动任务里重新选择同一布局下的模板；不要只修改模板名称就认为任务已更新。</li>
+    <li>用一个测试媒体库试运行，确认模板、字体、素材和目标库全部匹配后再启用 Cron。</li>
+  </ol>
 </section>
 
 </article>

@@ -65,7 +65,7 @@
           const normalizedHref = href.startsWith('/') ? href.slice(1) : href;
           return new URL(basePath + normalizedHref, window.location.origin).href;
         };
-        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-flow-guides', window.location.origin + siteBasePath()).href;
+        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-detailed-guides', window.location.origin + siteBasePath()).href;
         const loadSearchIndex = () => {
           if (!searchIndexPromise) {
             searchIndexPromise = fetch(searchIndexUrl())
@@ -370,6 +370,30 @@
     <li><strong>硬链接数：</strong>最近任务记录到的硬链接数量，不等于媒体库文件总数。</li>
   </ul>
   <p><strong>删除前注意：</strong>任务删除可能询问是否连硬链接和 Emby 媒体一起删除；第一次选择只删订阅或停用任务，先保留文件。</p>
+</section>
+
+
+<!-- DETAIL-TROUBLESHOOT-RSS-20260814 -->
+<section class="card">
+  <h2>按指标排查：真实库 RSS</h2>
+  <h3>RSS 抓取失败或解析数量为 0</h3>
+  <ol>
+    <li>先点击页面预览，记录 HTTP 状态、最后运行时间和错误摘要；不要直接打开同步缺失。</li>
+    <li>超时/连接失败查 RSS 地址、DNS、代理和容器网络；200 但解析为 0 查返回内容是否真的是 RSS/XML。</li>
+    <li>只保留一个 RSS 来源重新预览，确认解析数量大于 0 后再合并其他来源。</li>
+  </ol>
+  <h3>解析有条目但 TMDB 匹配为 0</h3>
+  <ol>
+    <li>展开一条条目核对标题、年份、媒体类型和季集；不要只看总数量。</li>
+    <li>测试 TMDB 配置和代理；标题异常时先人工确认一条，不要批量修改原始条目。</li>
+    <li>匹配成功后再保存低频任务，观察“解析数量、匹配数量、待处理数量”是否按预期变化。</li>
+  </ol>
+  <h3>同步到 MoviePilot 后没有订阅或重复订阅</h3>
+  <ol>
+    <li>先确认 MoviePilot 配置测试成功，再确认“同步缺失到 MP”开关已经保存。</li>
+    <li>回订阅系统查 TMDB ID、季集和创建时间；记录已存在时不要重复点击同步。</li>
+    <li>重复任务先暂停 RSS 或订阅任务，保留一条正确记录，再检查 Cron 频率和去重条件。</li>
+  </ol>
 </section>
 
 </article>

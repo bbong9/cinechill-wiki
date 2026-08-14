@@ -66,7 +66,7 @@
           const normalizedHref = href.startsWith('/') ? href.slice(1) : href;
           return new URL(basePath + normalizedHref, window.location.origin).href;
         };
-        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-flow-guides', window.location.origin + siteBasePath()).href;
+        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-detailed-guides', window.location.origin + siteBasePath()).href;
         const loadSearchIndex = () => {
           if (!searchIndexPromise) {
             searchIndexPromise = fetch(searchIndexUrl())
@@ -361,6 +361,12 @@
     <li>凭据、UserId、头像和活动信息不要公开截图或写入日志附件。</li>
   </ul>
 </section>
+<!-- DETAIL-TROUBLESHOOT-ACCOUNT-20260814 -->
+<section class="card"><h2>按操作排查：账户管理</h2>
+<h3>默认账号不能登录</h3><ol><li>只对“全新配置且没有认证文件”的实例使用 <code>admin / password</code>；已有 <code>config</code> 时以当前配置为准。</li><li>确认访问的是当前容器的 5256 端口，不是旧容器或旧反向代理。</li><li>登录成功后立即修改凭据，并退出后用新凭据重新登录验证。</li></ol>
+<h3>Emby 用户列表为空或操作失败</h3><ol><li>回服务器配置测试主 Emby，确认 API Key 能读取用户和系统信息。</li><li>刷新列表后再按名称搜索；绑定时核对 UserId 属于当前主 Emby。</li><li>新建、禁用、重置密码或删除后，用对应 Emby 用户实际登录验证；删除操作不要用来“修复”绑定错误。</li></ol>
+<h3>修改凭据后仍能用旧会话</h3><ol><li>先退出旧会话并关闭旧标签页，再用新凭据登录。</li><li>如果怀疑凭据泄露，同时更换用户名和密码，并检查反向代理是否仍指向旧实例。</li></ol></section>
+
 </article>
       <aside class="doc-aside" aria-label="本页目录">
         <div class="doc-aside-container">

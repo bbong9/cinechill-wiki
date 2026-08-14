@@ -66,7 +66,7 @@
           const normalizedHref = href.startsWith('/') ? href.slice(1) : href;
           return new URL(basePath + normalizedHref, window.location.origin).href;
         };
-        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-flow-guides', window.location.origin + siteBasePath()).href;
+        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-detailed-guides', window.location.origin + siteBasePath()).href;
         const loadSearchIndex = () => {
           if (!searchIndexPromise) {
             searchIndexPromise = fetch(searchIndexUrl())
@@ -349,6 +349,11 @@
         <li><strong>停止任务：</strong>关闭“启用定时签到”并保存；清空历史只删除本地记录，不会撤销已完成签到。</li>
       </ul>
     </section>
+<!-- DETAIL-TROUBLESHOOT-FNOS-20260814 -->
+<section class="card"><h2>按调度结果排查：飞牛论坛签到</h2>
+<h3>Cookie 无效或签到失败</h3><ol><li>重新获取并保存 Cookie，测试一个手动签到结果；不要在 Cookie 未验证时开启 Cron。</li><li>系统日志按签到模块过滤，区分认证失败、网络超时和站点返回失败。</li><li>成功后检查历史记录，确认当天已有成功状态。</li></ol>
+<h3>Cron 没有触发或重复签到</h3><ol><li>确认任务已启用、Cron 有效、服务器时区正确；先用立即运行验证任务本身。</li><li>历史记录用于当天去重；不要因为页面延迟就重复提交。</li><li>需要通知时先单独测试通知渠道，再开启失败通知，避免把通知问题误判成签到问题。</li></ol></section>
+
 </article>
       <aside class="doc-aside" aria-label="本页目录">
         <div class="doc-aside-container">

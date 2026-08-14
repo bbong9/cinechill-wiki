@@ -65,7 +65,7 @@
           const normalizedHref = href.startsWith('/') ? href.slice(1) : href;
           return new URL(basePath + normalizedHref, window.location.origin).href;
         };
-        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-flow-guides', window.location.origin + siteBasePath()).href;
+        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-detailed-guides', window.location.origin + siteBasePath()).href;
         const loadSearchIndex = () => {
           if (!searchIndexPromise) {
             searchIndexPromise = fetch(searchIndexUrl())
@@ -311,6 +311,22 @@
       <h2>排障流程</h2>
       <ol><li>先记录发生时间、当前页面、操作按钮和错误提示，避免只说“不能用”。</li><li>打开顶部“查看系统日志”，先看错误/警告，再按模块、时间范围和关键词过滤；不要先清空日志。</li><li>从顶部工具栏分别打开“健康检查”和“网络检测”弹层，区分配置缺失、路径权限、Emby 不通、外部网络不通和任务本身失败。</li><li>回对应配置页只测试一个依赖：Emby、115、TMDB、代理、MoviePilot 或通知。</li><li>修复后只重跑同一个小样本，去整理记录/任务中心/Emby 核对结果；确认后再恢复自动任务。</li></ol>
     </section>
+
+<!-- DETAIL-TROUBLESHOOT-WORKFLOW-20260814 -->
+<section class="card">
+  <h2>每一步应该看到什么</h2>
+  <table><thead><tr><th>步骤</th><th>正常信号</th><th>不正常时先看</th></tr></thead><tbody>
+    <tr><td>服务器配置</td><td>Emby 已连接、115 Cookie 有效、标准目录正常</td><td>服务器配置 → 系统健康</td></tr>
+    <tr><td>一条龙整理</td><td>整理记录有源路径、目标路径和成功状态</td><td>一条龙菜单 → 整理记录 → 系统日志</td></tr>
+    <tr><td>封面</td><td>单库预览正确，Emby 实际封面更新</td><td>资源配置 → 封面设计 → 封面备份</td></tr>
+    <tr><td>真实库/订阅</td><td>RSS 有解析和匹配，订阅有正确 TMDB ID/季集</td><td>真实库 → 订阅系统 → MoviePilot</td></tr>
+    <tr><td>站点监控</td><td>候选被筛选，MoviePilot 任务出现</td><td>站点管理 → MoviePilot 外部任务</td></tr>
+    <tr><td>硬链接/115</td><td>硬链接出现，扫描/校验/上传状态推进</td><td>MP 路径 → 115 秒传任务历史</td></tr>
+    <tr><td>最终入库</td><td>整理记录成功，Emby 刷新后可播放</td><td>整理记录 → 系统日志 → Emby</td></tr>
+  </tbody></table>
+  <p><strong>排障规则：</strong>只在一个步骤失败时处理该步骤；前一步没有出现正常信号，就不要跳到后一步反复点击。修复后用同一个测试样本重新走一遍。</p>
+</section>
+
 </article>
       <aside class="doc-aside" aria-label="本页目录">
         <div class="doc-aside-container">

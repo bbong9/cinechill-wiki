@@ -66,7 +66,7 @@
           const normalizedHref = href.startsWith('/') ? href.slice(1) : href;
           return new URL(basePath + normalizedHref, window.location.origin).href;
         };
-        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-flow-guides', window.location.origin + siteBasePath()).href;
+        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-detailed-guides', window.location.origin + siteBasePath()).href;
         const loadSearchIndex = () => {
           if (!searchIndexPromise) {
             searchIndexPromise = fetch(searchIndexUrl())
@@ -349,6 +349,11 @@
         <li>不要把 CK、真实路径、分享链接、口令或资源来源写进公开 Wiki。</li>
       </ul>
     </section>
+<!-- DETAIL-TROUBLESHOOT-115-TRANSFER-20260814 -->
+<section class="card"><h2>按任务状态排查：网盘资源秒传</h2>
+<h3>来源账号或目标账号无法读取</h3><ol><li>分别测试来源和目标 115 配置，确认两个账号 Cookie 都有效。</li><li>来源文件夹和目标目录要先选定具体目录；不要用两个账号的根目录做首次全量迁移。</li><li>只提交一个小文件，观察任务历史中的校验、秒传和目标位置。</li></ol>
+<h3>任务卡住、失败或数量不一致</h3><ol><li>打开任务详情区分权限失败、文件不存在、秒传未命中和远程移动等待。</li><li>降低并发并重新提交失败文件；取消任务不会撤销已经完成的云端迁移。</li><li>到目标 115 刷新目录核对实际文件，再决定是否重试，不要按列表数量盲目重复。</li></ol></section>
+
 </article>
       <aside class="doc-aside" aria-label="本页目录">
         <div class="doc-aside-container">
