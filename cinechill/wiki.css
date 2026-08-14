@@ -1752,6 +1752,21 @@ html.dark .is-home .desktop-carousel .carousel-theme-screenshot[data-screenshot-
   .is-home .desktop-experience{margin-top:38px}
 }
 
+/* 20260814 homepage floating shadow pass
+   Add a little more depth without changing the card surface or layout. */
+.is-home .feature-card{
+  box-shadow:0 13px 28px rgba(15,23,42,.11),0 24px 48px rgba(37,99,235,.08),inset 1px 1px 0 rgba(255,255,255,.82),inset -1px -1px 0 rgba(255,255,255,.42);
+}
+.is-home .desktop-experience{
+  box-shadow:0 30px 82px rgba(15,23,42,.13),0 26px 64px rgba(37,99,235,.07),inset 1px 1px 0 rgba(255,255,255,.72),inset -1px -1px 0 rgba(255,255,255,.32);
+}
+.dark .is-home .feature-card{
+  box-shadow:0 15px 34px rgba(0,0,0,.36),0 0 30px rgba(92,115,231,.09),inset 1px 1px 0 rgba(255,255,255,.10),inset -1px -1px 0 rgba(255,255,255,.05);
+}
+.dark .is-home .desktop-experience{
+  box-shadow:0 32px 88px rgba(0,0,0,.34),0 0 42px rgba(92,115,231,.10),inset 1px 1px 0 rgba(255,255,255,.10),inset -1px -1px 0 rgba(255,255,255,.05);
+}
+
 
 /* 20260615 search shortcut icon optical centering
    Scope: only the right-side filter glyph inside the top search pill. */
