@@ -1704,6 +1704,54 @@ html.dark .is-home .desktop-carousel .carousel-theme-screenshot[data-screenshot-
   }
 }
 
+/* 20260814 homepage background continuity
+   Keep the feature row and the desktop showcase on the same visual surface.
+   The cards previously faded to a transparent glass layer, exposing the page
+   glow underneath and making the first row look like it was stitched to the
+   section below. */
+.is-home .home-features{
+  margin-bottom:52px;
+}
+.is-home .feature-card{
+  background:linear-gradient(145deg,rgba(255,255,255,.94),rgba(248,250,252,.82))!important;
+  border-color:rgba(191,219,254,.42);
+  box-shadow:0 10px 24px rgba(15,23,42,.07),inset 1px 1px 0 rgba(255,255,255,.82),inset -1px -1px 0 rgba(255,255,255,.42);
+}
+.is-home .feature-card::before{
+  background:linear-gradient(145deg,rgba(255,255,255,.34),rgba(255,255,255,0) 62%)!important;
+  opacity:.34!important;
+}
+.is-home .desktop-experience{
+  margin-top:52px;
+  border-color:rgba(191,219,254,.42);
+  background:
+    linear-gradient(145deg,rgba(255,255,255,.70),rgba(248,250,252,.58)),
+    radial-gradient(circle at 18% 0%,rgba(56,189,248,.08),transparent 34%),
+    radial-gradient(circle at 86% 96%,rgba(99,102,241,.08),transparent 36%);
+  box-shadow:0 26px 72px rgba(15,23,42,.10),inset 1px 1px 0 rgba(255,255,255,.72),inset -1px -1px 0 rgba(255,255,255,.32);
+}
+.dark .is-home .feature-card{
+  background:linear-gradient(145deg,rgba(32,33,39,.92),rgba(22,22,26,.82))!important;
+  border-color:rgba(168,177,255,.20);
+  box-shadow:0 12px 30px rgba(0,0,0,.28),inset 1px 1px 0 rgba(255,255,255,.10),inset -1px -1px 0 rgba(255,255,255,.05);
+}
+.dark .is-home .feature-card::before{
+  background:linear-gradient(145deg,rgba(255,255,255,.12),rgba(255,255,255,0) 62%)!important;
+  opacity:.28!important;
+}
+.dark .is-home .desktop-experience{
+  background:
+    linear-gradient(145deg,rgba(32,33,39,.72),rgba(22,22,26,.58)),
+    radial-gradient(circle at 18% 0%,rgba(56,189,248,.08),transparent 34%),
+    radial-gradient(circle at 86% 96%,rgba(99,102,241,.10),transparent 36%);
+  border-color:rgba(168,177,255,.20);
+  box-shadow:0 28px 76px rgba(0,0,0,.28),inset 1px 1px 0 rgba(255,255,255,.10),inset -1px -1px 0 rgba(255,255,255,.05);
+}
+@media(max-width:959px){
+  .is-home .home-features{margin-bottom:38px}
+  .is-home .desktop-experience{margin-top:38px}
+}
+
 
 /* 20260615 search shortcut icon optical centering
    Scope: only the right-side filter glyph inside the top search pill. */
