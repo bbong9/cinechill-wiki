@@ -285,11 +285,10 @@
 <p class="eyebrow">控制台 / 站点管理</p>
 <h1>站点管理</h1>
 <p class="lead">站点管理用于查看 MoviePilot 站点监控、资源统计和自动处理状态。它是“监控与筛选”页面，不是 MoviePilot 连接配置页，也不是手动转存入口。</p>
-<div class="screenshot-pair" role="group" aria-label="站点管理 页面截图 日间与夜间主题截图">
-  <figure class="screenshot screenshot-theme" data-screenshot-theme="light"><img src="/cinechill-wiki/cinechill/screenshots/live/site_management-light.jpg?v=20260814-original" alt="站点管理 页面截图（日间主题）"><figcaption>日间主题</figcaption></figure>
-  <figure class="screenshot screenshot-theme" data-screenshot-theme="dark"><img src="/cinechill-wiki/cinechill/screenshots/live/site_management-dark.jpg?v=20260814-original" alt="站点管理 页面截图（夜间主题）"><figcaption>夜间主题</figcaption></figure>
+<div class="screenshot-pair" role="group" aria-label="站点管理 页面截图">
+  <figure class="screenshot screenshot-theme" data-screenshot-theme="light"><img src="/cinechill-wiki/cinechill/screenshots/live/site_management-light.jpg?v=20260814-original" alt="站点管理 页面截图"></figure>
+  <figure class="screenshot screenshot-theme" data-screenshot-theme="dark"><img src="/cinechill-wiki/cinechill/screenshots/live/site_management-dark.jpg?v=20260814-original" alt="站点管理 页面截图"></figure>
 </div>
-<p class="screenshot-note">截图来自 2026-08-14 本地 CineChill 管理端；站点地址、账号、真实媒体名称、任务参数和内网信息已脱敏。</p>
 <section class="card"><h2>使用前准备</h2><ul><li>先完成“工具箱 → MoviePilot”的地址、API Key 和账号配置，并确认连接测试成功。</li><li>确认 CineChill 容器能访问 MoviePilot 和需要读取的站点服务；浏览器能打开不代表容器网络一定可达。</li><li>首次运行只选择一个站点或一个小范围媒体条件，先确认结果再扩大筛选范围。</li></ul></section>
 <section class="card"><h2>页面区域怎么看</h2><ul><li><strong>顶部统计：</strong>用于快速判断站点数量、监控状态、资源候选和任务结果，不等于所有下载任务都已完成。</li><li><strong>站点状态：</strong>关注已启用、连接失败、暂时跳过等状态；单个站点失败时不要立即重置全部配置。</li><li><strong>资源列表：</strong>用于查看候选资源的站点、质量、编码、季集和匹配结果；严格匹配时，缺少关键元数据的条目可能被过滤。</li><li><strong>处理状态：</strong>下载、上传、整理和跳过属于不同阶段，排障时应结合系统运行日志确认实际停在哪一步。</li></ul></section>
 <section class="card"><h2>推荐操作顺序</h2><ol><li>打开站点管理，先确认统计卡片和站点状态已加载。</li><li>检查站点筛选、质量条件、媒体类型和季集匹配条件。</li><li>先查看候选列表，核对标题、年份、季集、分辨率和站点来源。</li><li>只对一条候选执行后续处理，观察任务日志和整理记录。</li><li>确认下载、上传、识别和入库均正常后，再开启定时或批量处理。</li></ol></section>
@@ -419,5 +418,6 @@
   <script src="/cinechill-wiki/cinechill/code-copy.js?v=20260615-code-copy-v3" defer></script>
   <script src="/cinechill-wiki/cinechill/mouse-gradient-trail.js?v=20260618-perf-pass1" defer></script>
   <script src="/cinechill-wiki/cinechill/top-nav-indicator.js?v=20260615-nav-line-ratio-v2" defer></script>
+  <script src="/cinechill-wiki/cinechill/screenshot-lightbox.js?v=20260814-lightbox" defer></script>
 </body>
 </html>
