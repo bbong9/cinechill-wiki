@@ -1115,6 +1115,60 @@ html.search-open .mouse-gradient-trail-canvas{
   .code-copy-button svg{transition:none!important}
 }
 
+/* 20260814 toolbox step-by-step guides */
+.toolbox-start .toolbox-tip{
+  margin:20px 0 0;
+  padding:12px 14px;
+  border-left:3px solid var(--vp-c-brand-1);
+  background:color-mix(in srgb,var(--vp-c-brand-soft) 72%,transparent);
+}
+.toolbox-quick-index table{font-size:14px}
+.toolbox-quick-index th:first-child,
+.toolbox-quick-index td:first-child{width:25%}
+.toolbox-quick-index td a,
+.tool-guide-link a{color:var(--vp-c-brand-1);font-weight:600}
+.toolbox-quick-index td a:hover,
+.tool-guide-link a:hover{text-decoration:underline}
+.toolbox-guides{margin:48px 0 0}
+.tool-guide{
+  margin:0;
+  padding:38px 0 42px;
+  border-top:1px solid var(--vp-c-divider);
+  scroll-margin-top:88px;
+}
+.tool-guide:first-child{border-top:0;padding-top:8px}
+.tool-guide-title{display:flex;align-items:center;gap:12px}
+.tool-guide-title h2{margin:0!important;padding:0!important;border:0!important;font-size:26px!important;line-height:34px!important}
+.tool-guide-index{
+  display:inline-grid;
+  place-items:center;
+  flex:0 0 auto;
+  width:34px;
+  height:34px;
+  border:1px solid color-mix(in srgb,var(--vp-c-brand-1) 40%,var(--vp-c-divider));
+  border-radius:10px;
+  color:var(--vp-c-brand-1);
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:.04em;
+}
+.tool-guide-summary{margin:14px 0 20px!important;color:var(--vp-c-text-2)!important}
+.tool-guide-columns{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px;margin:20px 0 0}
+.tool-guide-columns h3{margin:0 0 8px!important;font-size:18px!important;line-height:26px!important}
+.tool-guide-columns p{margin:0 0 12px!important}
+.tool-guide-columns ul,
+.tool-guide-columns ol{margin:0!important;padding-left:20px}
+.tool-guide-columns li{line-height:25px!important}
+.tool-guide-link{margin:22px 0 0!important}
+.toolbox-troubleshooting{margin-top:28px}
+@media(max-width:720px){
+  .tool-guide-columns{grid-template-columns:1fr;gap:20px}
+  .tool-guide-title h2{font-size:23px!important;line-height:30px!important}
+  .toolbox-quick-index table{font-size:13px}
+  .toolbox-quick-index th:first-child,
+  .toolbox-quick-index td:first-child{width:auto}
+}
+
 
 /* 20260615 doc outline marker alignment fix */
 .doc-outline-content>.outline-marker{
