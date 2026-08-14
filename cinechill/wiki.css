@@ -1739,7 +1739,7 @@ html.dark .doc-outline-content,
 .screenshot-pair [data-screenshot-theme="dark"]{display:none}
 html.dark .screenshot-pair [data-screenshot-theme="light"]{display:none}
 html.dark .screenshot-pair [data-screenshot-theme="dark"]{display:block}
-.screenshot-pair .screenshot img{aspect-ratio:1977 / 941;object-fit:cover;object-position:top center}
+.screenshot-pair .screenshot img{width:100%;height:auto;object-fit:contain;object-position:center}
 .screenshot-pair .screenshot figcaption{text-align:center;font-weight:600}
 .screenshot-note{margin:0 0 28px;color:var(--vp-c-text-2);font-size:13px;line-height:22px}
 @media(max-width:720px){.screenshot-pair{gap:14px}}

@@ -6,7 +6,7 @@
   <title>AI 助手 | CineChill Wiki</title>
   <meta name="description" content="CineChill AI 助手页面的配置、验证和安全使用说明。">
   <link rel="icon" type="image/png" href="/cinechill-wiki/cinechill/chill.png?v=20260609-logo-v2">
-  <link rel="stylesheet" href="/cinechill-wiki/cinechill/wiki.css?v=20260814-theme-screenshots">
+  <link rel="stylesheet" href="/cinechill-wiki/cinechill/wiki.css?v=20260814-original-screenshots">
   <script>
     (() => {
       const key = 'cinechill-wiki-theme';
@@ -286,10 +286,10 @@
 <h1>AI 助手</h1>
 <p class="lead">AI 助手用于在 CineChill 内调用已配置的 AI 能力，辅助处理媒体识别、校验、提醒和部分运维动作。它不能替代人工确认，也不应直接对全库执行不可逆操作。</p>
 <div class="screenshot-pair" role="group" aria-label="AI 助手 页面截图 日间与夜间主题截图">
-  <figure class="screenshot screenshot-theme" data-screenshot-theme="light"><img src="/cinechill-wiki/cinechill/screenshots/live/ai_assistant-light.jpg" alt="AI 助手 页面截图（日间主题）"><figcaption>日间主题</figcaption></figure>
-  <figure class="screenshot screenshot-theme" data-screenshot-theme="dark"><img src="/cinechill-wiki/cinechill/screenshots/live/ai_assistant-dark.jpg" alt="AI 助手 页面截图（夜间主题）"><figcaption>夜间主题</figcaption></figure>
+  <figure class="screenshot screenshot-theme" data-screenshot-theme="light"><img src="/cinechill-wiki/cinechill/screenshots/live/ai_assistant-light.jpg?v=20260814-original" alt="AI 助手 页面截图（日间主题）"><figcaption>日间主题</figcaption></figure>
+  <figure class="screenshot screenshot-theme" data-screenshot-theme="dark"><img src="/cinechill-wiki/cinechill/screenshots/live/ai_assistant-dark.jpg?v=20260814-original" alt="AI 助手 页面截图（夜间主题）"><figcaption>夜间主题</figcaption></figure>
 </div>
-<p class="screenshot-note">截图来自 2026-08-13 本地 CineChill 管理端；AI 服务地址、密钥、账号、媒体名称和运行结果已脱敏。</p>
+<p class="screenshot-note">截图来自 2026-08-14 本地 CineChill 管理端；AI 服务地址、密钥、账号、媒体名称和运行结果已脱敏。</p>
 <section class="card"><h2>使用前准备</h2><ul><li>先确认当前版本支持的 AI 功能和权限范围，不要把旧版本教程中的字段直接照搬。</li><li>准备由管理员保管的 AI 服务配置；API Key、Token、账号和请求地址不写入公开 Wiki。</li><li>如果 AI 请求需要外网访问，先完成代理配置并在系统健康页确认网络链路。</li></ul></section>
 <section class="card"><h2>页面区域怎么看</h2><ul><li><strong>连接/配置区：</strong>用于维护提供方、模型或访问凭据；保存后只显示状态，不应展开敏感值。</li><li><strong>功能开关：</strong>决定 AI 是否参与识别、校验、提醒等流程；逐项启用，避免一次打开全部自动化。</li><li><strong>测试或验证区：</strong>用一条已知媒体或短文本确认请求成功、结果可读、语言和格式符合预期。</li><li><strong>权限与风险提示：</strong>涉及写入、重命名、整理或通知时，先人工确认结果再执行。</li></ul></section>
 <section class="card"><h2>推荐操作顺序</h2><ol><li>只填写必要的服务配置并保存。</li><li>执行一次连接或模型测试，确认没有认证、网络和配额错误。</li><li>用一个小样本运行识别/校验，手工对比 TMDB、Emby 或原文件信息。</li><li>确认结果可靠后，再开启提醒或低风险自动化；重命名、整理、删除等动作保持人工确认。</li><li>排查完成后回到系统日志检查请求失败、超时和重复执行情况。</li></ol></section>
