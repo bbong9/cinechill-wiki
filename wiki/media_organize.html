@@ -6,7 +6,7 @@
   <title>一条龙菜单 | CineChill Wiki</title>
   <meta name="description" content="新版一条龙菜单保留核心开关：保存整理策略、执行整理、补齐合集、STRM 同步和 ffprobe/刮削相关配置。">
   <link rel="icon" type="image/png" href="/cinechill-wiki/cinechill/chill.png?v=20260609-logo-v2">
-  <link rel="stylesheet" href="/cinechill-wiki/cinechill/wiki.css?v=20260814-lightbox-zoom">
+  <link rel="stylesheet" href="/cinechill-wiki/cinechill/wiki.css?v=20260814-page-guides">
   <script>
     (() => {
       const key = 'cinechill-wiki-theme';
@@ -298,7 +298,17 @@
       </figure>
     </div>
 
-    <section class="card">
+
+<section class="action-guide" id="action-guide-media_organize">
+  <div class="action-guide-heading"><span class="action-guide-kicker">本页怎么用</span><h2>一条龙菜单：实际操作指南</h2></div>
+  <p class="action-guide-summary">这页的关键不是“打开整理”，而是先选对解析模式和拦截条件，再分别执行整理、STRM 同步和元数据补齐。</p>
+  <div class="action-guide-grid">
+    <div class="action-guide-block"><h3>按这个顺序操作</h3><ol><li>在“115事件监听”“整理完成自动同步STRM”“Emby刮削器”等基础开关中只打开需要的功能；解析模式只能选一种：纯文件名、智能ffprobe或全量ffprobe。</li><li>第一次使用建议选智能ffprobe，打开“拦截无有效年份”“拦截无中文名”“拦截无封面”“拦截 TMDb 季集不匹配”，避免错误媒体直接入库。</li><li>点击“保存本页配置”，只放入一个电影或一季剧集，点击“执行整理”；任务运行时不要同时启动另一条整理。</li><li>需要 STRM 时先保存 STRM 配置，再按目标选择“STRM 增量同步”或“STRM 全量同步”；全量只在首次建立或明确需要重建时运行。</li><li>元数据补齐要填写媒体库范围、Cron、并发数和 NFO/图片修复条件，点击“运行元数据补齐”后单独验收。</li></ol></div>
+    <div class="action-guide-block"><h3>完成后看什么</h3><ul><li>整理进度从运行变为完成，整理记录出现源路径、目标路径和成功/失败数量。</li><li>STRM 文件的访问地址包含正确网关端口，Emby 刷新后能看到并播放。</li><li>元数据补齐后对应 NFO、图片或简介发生变化，日志能看到补齐结果。</li></ul></div>
+    <div class="action-guide-block"><h3>小白最容易错在哪里</h3><ul><li>同时勾选三种解析模式；实际只能按一种模式工作。</li><li>全量 STRM 同步和整理同时运行，造成扫描压力和重复任务。</li><li>以为“取消整理”会恢复已移动/重命名文件；取消只停止后续处理。</li></ul></div>
+  </div>
+</section>
+<section class="card">
       <h2>新版入口</h2>
       <p>左侧导航栏“媒体整理 → 一条龙菜单”。高级配置已拆到重命名模板、二级分类、服务器配置和工具箱里的对应配置页。</p>
     </section>

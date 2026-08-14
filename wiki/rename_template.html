@@ -6,7 +6,7 @@
   <title>重命名模板 | CineChill Wiki</title>
   <meta name="description" content="新版重命名模板提供电影和剧集两套可拖拽字段，字段为空时会自动清理对应分隔符。">
   <link rel="icon" type="image/png" href="/cinechill-wiki/cinechill/chill.png?v=20260609-logo-v2">
-  <link rel="stylesheet" href="/cinechill-wiki/cinechill/wiki.css?v=20260814-lightbox-zoom">
+  <link rel="stylesheet" href="/cinechill-wiki/cinechill/wiki.css?v=20260814-page-guides">
   <script>
     (() => {
       const key = 'cinechill-wiki-theme';
@@ -298,7 +298,17 @@
       </figure>
     </div>
 
-    <section class="card">
+
+<section class="action-guide" id="action-guide-rename_template">
+  <div class="action-guide-heading"><span class="action-guide-kicker">本页怎么用</span><h2>重命名模板：实际操作指南</h2></div>
+  <p class="action-guide-summary">模板编辑的是格式，不会立即批量改名。电影和剧集必须分别设置并分别用真实样本验证。</p>
+  <div class="action-guide-grid">
+    <div class="action-guide-block"><h3>按这个顺序操作</h3><ol><li>在电影区域选择“电影文件夹格式”或“电影文件名格式”，在剧集区域选择“剧集文件夹格式”“季文件夹格式”“剧集文件名格式”。</li><li>点击字段库按钮插入中文标题、年份、TMDB、来源、分辨率、编码、音频、制作组等字段；需要分隔符时使用字符库里的空格、点、横杠或括号。</li><li>拖动字段调整顺序，点击字段右侧删除；“文件后缀”是锁定字段，不要移动或删除。剧集必须保留季号和集号。</li><li>核对电影文件夹/文件名预览，以及剧集文件夹/季文件夹/文件名预览；预览是示例结果，不是已经改动的真实文件。</li><li>分别保存电影和剧集模板，再用一部电影和一集剧集执行一条龙，最后到整理记录核对实际路径。</li></ol></div>
+    <div class="action-guide-block"><h3>完成后看什么</h3><ul><li>电影和剧集预览分隔符正常，剧集包含正确季号/集号。</li><li>保存后刷新页面模板仍在，真实整理记录的路径和文件名与预览一致。</li></ul></div>
+    <div class="action-guide-block"><h3>小白最容易错在哪里</h3><ul><li>用电影字段配置剧集，或删除季号/集号。</li><li>只改文件名格式不改文件夹格式，导致目录层级仍然错误。</li><li>把预览当成已经批量重命名；模板保存不会自动处理旧文件。</li></ul></div>
+  </div>
+</section>
+<section class="card">
       <h2>新版入口</h2>
       <p>左侧导航栏“媒体整理 → 重命名模板”。修改后再到“一条龙菜单”小范围验证。</p>
     </section>
@@ -310,7 +320,7 @@
 
     <section class="card">
       <h2>小白第一次怎么用</h2>
-      <ol><li>先按页面当前显示的电影/剧集命名区域逐项编辑，不要只改电影文件名而忽略剧集的季集结构。</li><li>点击下方字段插入，或拖拽已有字段调整顺序；普通字符可以直接作为分隔符。</li><li>电影常用标题/年份/TMDB/分辨率/来源/编码/音频/制作组；剧集必须重点保留季集字段（例如季号、集号或季集组合）。</li><li>文件后缀字段由页面锁定，不能拖到扩展名之前；需要恢复时分别点击电影/剧集的“恢复默认”。</li><li>点击保存后刷新页面，再用一部电影和一集剧集跑一条龙，确认实际路径和文件名。</li></ol>
+      <ol><li>先按页面当前显示的电影/剧集命名区域逐项编辑，不要只改电影文件名而忽略剧集的季集结构。</li><li>点击字段库插入字段，拖拽已有字段调整顺序；分隔符请使用页面字符库提供的空格、点、横杠或括号按钮，当前页面没有任意文本输入框。</li><li>电影常用标题/年份/TMDB/分辨率/来源/编码/音频/制作组；剧集必须重点保留季集字段（例如季号、集号或季集组合）。</li><li>文件后缀字段由页面锁定，不能拖到扩展名之前；需要恢复时分别点击电影/剧集的“恢复默认”。</li><li>点击保存后刷新页面，再用一部电影和一集剧集跑一条龙，确认实际路径和文件名。</li></ol>
     </section>
 
     <section class="card">

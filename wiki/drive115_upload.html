@@ -7,7 +7,7 @@
   <meta name="robots" content="noindex,nofollow">
   <meta name="description" content="新版 115 秒传页是本地监听、SHA1 校验、秒传、真实上传和历史记录的一体化任务工作台。">
   <link rel="icon" type="image/png" href="/cinechill-wiki/cinechill/chill.png?v=20260609-logo-v2">
-  <link rel="stylesheet" href="/cinechill-wiki/cinechill/wiki.css?v=20260814-lightbox-zoom">
+  <link rel="stylesheet" href="/cinechill-wiki/cinechill/wiki.css?v=20260814-page-guides">
   <script>
     (() => {
       const key = 'cinechill-wiki-theme';
@@ -296,7 +296,17 @@
       </figure>
     </div>
 
-    <section class="card">
+
+<section class="action-guide" id="action-guide-drive115_upload">
+  <div class="action-guide-heading"><span class="action-guide-kicker">本页怎么用</span><h2>115 秒传：实际操作指南</h2></div>
+  <p class="action-guide-summary">115 秒传工作台分为本地监听/扫描和云端账号秒传。下载完成后的推荐链路是：MP 硬链接目录 → 本地扫描 → SHA1/秒传 → 115 整理目录 → 一条龙入库。</p>
+  <div class="action-guide-grid">
+    <div class="action-guide-block"><h3>按这个顺序操作</h3><ol><li>在上传任务点击新建，填写任务名称，第一次选择手动扫描而不是实时监听。</li><li>选择本地监听目录和 115 目标目录；先关闭成功后删除、整种子清理等删除项。</li><li>保存任务后点击扫描，观察校验 → 秒传 → 真实上传三个阶段，先只处理一个小文件。</li><li>成功后到 115 目标目录核对文件，再把 115 整理目录交给一条龙整理；目标目录不要直接指向成品库根目录。</li><li>需要云端账号迁移时改用工具箱的网盘资源秒传，不要把本页任务和云端迁移混在一起。</li></ol></div>
+    <div class="action-guide-block"><h3>完成后看什么</h3><ul><li>扫描能发现硬链接文件，SHA1 秒传成功或真实上传完成，115 目标目录有文件。</li><li>整理记录出现该文件，Emby 刷新后可播放。</li></ul></div>
+    <div class="action-guide-block"><h3>小白最容易错在哪里</h3><ul><li>扫描不到文件：先检查 CineChill 容器内路径映射和监听目录，不要只看宿主机路径。</li><li>秒传未命中就一直重试：检查文件是否真的完成、115 目标目录权限和“未命中不上传”开关。</li></ul></div>
+  </div>
+</section>
+<section class="card">
       <h2>适用场景与准备工作</h2>
       <ul>
         <li><strong>本地上传：</strong>监听 NAS 下载目录，将自有合法授权文件上传到个人 115 目录。</li>

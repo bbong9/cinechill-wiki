@@ -6,7 +6,7 @@
   <title>Emby 任务中心 | CineChill Wiki</title>
   <meta name="description" content="新版 Emby 任务中心用于查看 Emby 计划任务、运行动态和任务分类，支持刷新与暂停轮询。">
   <link rel="icon" type="image/png" href="/cinechill-wiki/cinechill/chill.png?v=20260609-logo-v2">
-  <link rel="stylesheet" href="/cinechill-wiki/cinechill/wiki.css?v=20260814-lightbox-zoom">
+  <link rel="stylesheet" href="/cinechill-wiki/cinechill/wiki.css?v=20260814-page-guides">
   <script>
     (() => {
       const key = 'cinechill-wiki-theme';
@@ -298,7 +298,17 @@
       </figure>
     </div>
 
-    <section class="card">
+
+<section class="action-guide" id="action-guide-emby_tasks">
+  <div class="action-guide-heading"><span class="action-guide-kicker">本页怎么用</span><h2>Emby 任务中心：实际操作指南</h2></div>
+  <p class="action-guide-summary">Emby 任务中心用于确认 Emby 是否真正执行扫描、维护和同步。整理完成后先看这里，再到 Emby 原后台确认最终状态。</p>
+  <div class="action-guide-grid">
+    <div class="action-guide-block"><h3>按这个顺序操作</h3><ol><li>进入任务中心点击刷新，等待运行动态和任务分类加载。</li><li>先看是否有同类任务正在运行，再按媒体库扫描、维护、字幕、同步等分类打开目标任务。</li><li>手动运行前确认没有同类任务；需要停止时点击停止，并记住已写入的结果不会自动回滚。</li><li>配置计划时选择每天、每周、按间隔或服务器启动触发器；每周必须选择星期，按间隔小时数必须大于 0。</li><li>保存后重新打开计划确认触发器仍存在，整理后核对最近运行时间和 Emby 实际媒体可见性。</li></ol></div>
+    <div class="action-guide-block"><h3>完成后看什么</h3><ul><li>任务进入运行中并更新最近运行时间，完成后状态明确。</li><li>触发器保存后仍存在，Emby 后台扫描完成且媒体能播放。</li></ul></div>
+    <div class="action-guide-block"><h3>小白最容易错在哪里</h3><ul><li>页面显示运行中就再次点击运行，造成任务堆积；先看运行动态。</li><li>任务中心完成但媒体仍不可见；检查 Emby 库路径、扫描范围和系统日志。</li></ul></div>
+  </div>
+</section>
+<section class="card">
       <h2>新版入口</h2>
       <p>左侧导航栏直接点击“Emby 任务中心”。它是控制台中的独立入口，位于“真实库”之后，与“系统配置”分组并列。</p>
     </section>

@@ -6,7 +6,7 @@
   <title>常用工作流 | CineChill Wiki</title>
   <meta name="description" content="新版 CineChill 常用工作流：入库、封面、缺集和排障。">
   <link rel="icon" type="image/png" href="/cinechill-wiki/cinechill/chill.png?v=20260609-logo-v2">
-  <link rel="stylesheet" href="/cinechill-wiki/cinechill/wiki.css?v=20260814-lightbox-zoom">
+  <link rel="stylesheet" href="/cinechill-wiki/cinechill/wiki.css?v=20260814-page-guides">
   <script>
     (() => {
       const key = 'cinechill-wiki-theme';
@@ -288,7 +288,17 @@
 
     <p class="lead">新版后台入口调整后，常用流程可以按“发现/配置 → 整理 → 验证 → 通知/自动化”串起来。</p>
 
-    <section class="card">
+
+<section class="action-guide" id="action-guide-workflow">
+  <div class="action-guide-heading"><span class="action-guide-kicker">本页怎么用</span><h2>常用工作流：实际操作指南</h2></div>
+  <p class="action-guide-summary">把每条链路拆成可验收的阶段：配置 → 发现/转存 → 下载或上传 → 整理 → Emby 刷新。上一阶段没有正常信号时，不要直接操作下一阶段。</p>
+  <div class="action-guide-grid">
+    <div class="action-guide-block"><h3>按这个顺序操作</h3><ol><li>资源入库：服务器配置确认 Emby/115，TMDB 和模板保存，待处理目录与成品库分开。</li><li>下载完成后：先确认 MP 硬链接目录出现文件，再用 115 秒传进入整理目录；不要把下载目录直接当成成品库。</li><li>媒体整理：一条龙只跑一个样本，去整理记录核对识别、目标路径、命名和 STRM，再等 Emby 刷新。</li><li>缺集补齐：缺集统计核对季集后创建订阅/下载，下载完成重新整理，再重新统计缺集。</li><li>封面流程：资源配置 → 封面设计预览 → 封面备份 → 手动/自动应用 → Emby 核对；不满意先恢复快照。</li></ol></div>
+    <div class="action-guide-block"><h3>完成后看什么</h3><ul><li>每阶段都有对应正常信号：任务记录、目标文件、整理记录、Emby 可见、缺集数量变化。</li><li>失败时能明确停在配置、下载、上传、整理或刷新中的某一步。</li></ul></div>
+    <div class="action-guide-block"><h3>小白最容易错在哪里</h3><ul><li>把通知发送成功当成入库成功；通知只是结果提示。</li><li>前一步没有记录就直接重试后一步，容易造成重复任务和重复文件。</li></ul></div>
+  </div>
+</section>
+<section class="card">
       <h2>资源入库一条龙</h2>
       <p>适用于“待整理目录 → 识别/刮削 → 重命名 → 分类 → STRM/Emby 刷新”的完整链路。每一步都要能单独验证，不要把外部订阅、下载完成和 CineChill 入库混成一个结果。</p>
       <ol><li>先在服务器配置确认 Emby、115 和媒体根目录可用，在 TMDB 配置确认元数据连接可用。</li><li>把自有合法授权媒体放入待整理源目录；源目录与成品媒体库分开，避免重复扫描。</li><li>在重命名模板和二级分类中确认电影/剧集模板、Season 格式、匹配规则和目标路径。</li><li>在一条龙菜单先保存策略，再只选择一个电影或一季剧集执行；需要 STRM 时先验证增量同步，不要先跑全量。</li><li>到整理记录核对识别、目标路径、洗版/STRM 状态，再到 Emby 任务中心或 Emby 后台确认扫描完成。</li><li>最后回缺集统计或仪表盘复查；通知只代表 CineChill 发出了结果，不代表 Emby 一定已入库。</li></ol>

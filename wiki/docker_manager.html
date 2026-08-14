@@ -7,7 +7,7 @@
   <meta name="robots" content="noindex,nofollow">
   <meta name="description" content="新版 Docker 管理展示容器、镜像、运行状态、资源占用、端口映射和更新检查。">
   <link rel="icon" type="image/png" href="/cinechill-wiki/cinechill/chill.png?v=20260609-logo-v2">
-  <link rel="stylesheet" href="/cinechill-wiki/cinechill/wiki.css?v=20260814-lightbox-zoom">
+  <link rel="stylesheet" href="/cinechill-wiki/cinechill/wiki.css?v=20260814-page-guides">
   <script>
     (() => {
       const key = 'cinechill-wiki-theme';
@@ -294,6 +294,16 @@
 <h1>Docker 管理</h1>
 <p class="lead">Docker 管理页通过 Docker Socket读取容器和镜像状态，并提供启动、停止、重启、日志、更新、自动策略和镜像清理操作。它是运维控制面，不是无风险的监控面板。</p>
 
+
+<section class="action-guide" id="action-guide-docker_manager">
+  <div class="action-guide-heading"><span class="action-guide-kicker">本页怎么用</span><h2>Docker 管理：实际操作指南</h2></div>
+  <p class="action-guide-summary">Docker 管理是容器控制面。先确认 Docker Socket 和 Compose 路径可用，再执行单个容器操作；更新镜像前不要直接点击全量写回。</p>
+  <div class="action-guide-grid">
+    <div class="action-guide-block"><h3>按这个顺序操作</h3><ol><li>确认 Compose 挂载了 /var/run/docker.sock；需要写入 Compose 时再挂载可写项目目录，并确保容器内绝对路径一致。</li><li>打开页面先刷新容器列表，选择一个容器查看状态、端口、挂载和环境变量，再执行启动/停止/重启。</li><li>查看日志时先按容器和时间定位错误；不要在没有记录的情况下连续重启。</li><li>更新镜像前记录当前镜像标签和容器配置，先拉取并更新一个非关键容器，再观察日志和健康状态。</li><li>写回 Compose 或清理镜像前确认项目路径、目标容器和磁盘空间；操作后用 docker compose ps 和页面状态双重确认。</li></ol></div>
+    <div class="action-guide-block"><h3>完成后看什么</h3><ul><li>页面能读取容器状态和日志，单个容器操作后状态与 Docker CLI 一致。</li><li>更新后容器重新运行、配置挂载仍在、管理端和核心功能可访问。</li></ul></div>
+    <div class="action-guide-block"><h3>小白最容易错在哪里</h3><ul><li>页面显示 Docker 不可用：检查 Socket 挂载和权限，而不是重装容器。</li><li>更新镜像后配置丢失：检查 config 挂载和 Compose 写回路径，配置目录必须持久化。</li></ul></div>
+  </div>
+</section>
 <section class="card">
   <h2>适用场景与前置条件</h2>
   <ul>
@@ -371,7 +381,7 @@
 <!-- DETAIL-TROUBLESHOOT-DOCKER-20260814 -->
 <section class="card"><h2>按操作排查：Docker 管理</h2>
 <h3>页面显示未启用或读不到容器</h3><ol><li>确认 Compose 挂载了 <code>/var/run/docker.sock:/var/run/docker.sock</code>，并重新创建 CineChill 容器。</li><li>检查 Socket 权限和容器日志；没有 Socket 时，核心媒体整理不一定受影响，但 Docker 管理功能不可用。</li><li>刷新页面确认能看到当前容器，先不要执行更新或清理。</li></ol>
-<h3>启动、停止、重启或日志操作失败</h3><ol><li>记录容器名和操作时间，去系统运行日志及 <code>docker logs --tail 200 cinechill</code> 查第一条错误。</li><li>确认目标容器名称不是旧服务名，且 Docker daemon 正常；页面操作成功不代表应用已经健康。</li><li>修复后只操作一个测试容器，确认状态和日志恢复后再批量处理。</li></ol>
+<h3>启动、停止、重启或日志操作失败</h3><ol><li>记录容器名和操作时间，去系统运行日志及 <code>docker logs --tail 200 &lt;页面显示的容器名&gt;</code> 查第一条错误。</li><li>确认目标容器名称不是旧服务名，且 Docker daemon 正常；页面操作成功不代表应用已经健康。</li><li>修复后只操作一个测试容器，确认状态和日志恢复后再批量处理。</li></ol>
 <h3>更新镜像后服务异常</h3><ol><li>先确认镜像拉取成功、容器已重建，再检查端口、挂载和环境变量是否仍存在。</li><li>不要立即清理旧镜像；先确认 CineChill、Emby、115 测试和小样本任务均正常。</li><li>Compose 写回失败时检查 Compose 文件挂载和权限，不要手工删掉正在运行的配置文件。</li></ol></section>
 
 </article>

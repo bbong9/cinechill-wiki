@@ -7,7 +7,7 @@
   <meta name="robots" content="noindex,nofollow">
   <meta name="description" content="新版日志入口移动到顶部工具栏，是排查 500、连接失败和任务异常的第一入口。">
   <link rel="icon" type="image/png" href="/cinechill-wiki/cinechill/chill.png?v=20260609-logo-v2">
-  <link rel="stylesheet" href="/cinechill-wiki/cinechill/wiki.css?v=20260814-lightbox-zoom">
+  <link rel="stylesheet" href="/cinechill-wiki/cinechill/wiki.css?v=20260814-page-guides">
   <script>
     (() => {
       const key = 'cinechill-wiki-theme';
@@ -299,7 +299,17 @@
       </figure>
     </div>
 
-    <section class="card">
+
+<section class="action-guide" id="action-guide-operations_console">
+  <div class="action-guide-heading"><span class="action-guide-kicker">本页怎么用</span><h2>系统运行日志：实际操作指南</h2></div>
+  <p class="action-guide-summary">日志要按“时间 → 级别 → 业务分类 → 关键词”逐步缩小范围。先记录原操作和时间，再筛选，不要一上来清空日志。</p>
+  <div class="action-guide-grid">
+    <div class="action-guide-block"><h3>按这个顺序操作</h3><ol><li>任意后台页面点击顶部“查看系统日志”，先刷新读取最近日志并确认实时连接状态。</li><li>先选择错误/警告和近 1 小时，再按业务分类筛选 115、媒体整理、Emby、Webhook、Docker 等模块。</li><li>在搜索框输入任务名、文件名、接口、状态码或错误关键词，打开相邻几条日志判断事件前后顺序。</li><li>需要更细线索时临时打开 DEBUG，复现一次问题后关闭 DEBUG 回到 INFO。</li><li>修复后用同一条操作重试，观察是否出现成功日志；清空只删除日志，不会修复任务。</li></ol></div>
+    <div class="action-guide-block"><h3>完成后看什么</h3><ul><li>筛选结果能对应实际操作时间和模块，实时日志能继续追加。</li><li>修复后同一关键词不再出现原错误，或出现明确成功结果。</li></ul></div>
+    <div class="action-guide-block"><h3>小白最容易错在哪里</h3><ul><li>只复制最后一行日志，缺少前置错误；至少保留同一时间段的上下文。</li><li>打开 DEBUG 后长期不关闭，导致日志噪声过大；定位完成立即恢复 INFO。</li></ul></div>
+  </div>
+</section>
+<section class="card">
       <h2>新版入口</h2>
       <p>任意后台页面顶部工具栏点击“查看系统日志”。它是弹层，不再是左侧独立主菜单页。</p>
     </section>

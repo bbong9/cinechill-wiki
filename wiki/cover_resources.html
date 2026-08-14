@@ -6,7 +6,7 @@
   <title>资源配置 | CineChill Wiki</title>
   <meta name="description" content="新版资源配置集中展示封面布局模式和预设资源，是封面设计、手动封面、自动封面的素材基础。">
   <link rel="icon" type="image/png" href="/cinechill-wiki/cinechill/chill.png?v=20260609-logo-v2">
-  <link rel="stylesheet" href="/cinechill-wiki/cinechill/wiki.css?v=20260814-lightbox-zoom">
+  <link rel="stylesheet" href="/cinechill-wiki/cinechill/wiki.css?v=20260814-page-guides">
   <script>
     (() => {
       const key = 'cinechill-wiki-theme';
@@ -295,7 +295,17 @@
       </figure>
     </div>
 
-    <section class="card">
+
+<section class="action-guide" id="action-guide-cover_resources">
+  <div class="action-guide-heading"><span class="action-guide-kicker">本页怎么用</span><h2>资源配置：实际操作指南</h2></div>
+  <p class="action-guide-summary">资源配置只管理布局、模板和数量，不直接生成封面。它是封面设计和自动封面的资源入口。</p>
+  <div class="action-guide-grid">
+    <div class="action-guide-block"><h3>按这个顺序操作</h3><ol><li>进入资源配置，等待模板分组和布局模式加载，先确认预设数量不是 0。</li><li>点击预览检查模板能否正常打开；预览失败先刷新并查看系统日志。</li><li>新建模板要回封面设计保存，保存后返回本页刷新确认模板出现。</li><li>删除前先检查封面设计和自动任务是否正在使用该模板；确认后再点击删除。</li><li>批量应用模板前到封面备份创建快照，应用后回本页确认资源仍可读取。</li></ol></div>
+    <div class="action-guide-block"><h3>完成后看什么</h3><ul><li>布局分组、模板预览和数量加载正常。</li><li>封面设计下拉和自动封面任务能读取同一模板。</li></ul></div>
+    <div class="action-guide-block"><h3>小白最容易错在哪里</h3><ul><li>模板分组为空就删除/重建；先查资源目录、权限和日志。</li><li>删除仍被自动任务使用的模板，导致下次任务找不到预设。</li></ul></div>
+  </div>
+</section>
+<section class="card">
       <h2>适用场景与准备工作</h2>
       <ul>
         <li>检查当前布局模式是否有模板，确认手动 / 自动封面能够读取预设。</li>

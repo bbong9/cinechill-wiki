@@ -6,7 +6,7 @@
   <title>部署与首次配置 | CineChill Wiki</title>
   <meta name="description" content="CineChill 部署后的新版首次配置、验证和回滚路径。">
   <link rel="icon" type="image/png" href="/cinechill-wiki/cinechill/chill.png?v=20260609-logo-v2">
-  <link rel="stylesheet" href="/cinechill-wiki/cinechill/wiki.css?v=20260814-lightbox-zoom">
+  <link rel="stylesheet" href="/cinechill-wiki/cinechill/wiki.css?v=20260814-page-guides">
   <script>
     (() => {
       const key = 'cinechill-wiki-theme';
@@ -285,7 +285,17 @@
     <h1>部署与首次配置</h1>
     <p class="lead">本页把部署、持久化目录、首次配置、验证、升级和回滚串成一条可执行流程。生产环境优先 Docker；源码运行适合本地开发和问题复现。</p>
 
-    <section class="card">
+
+<section class="action-guide" id="action-guide-install">
+  <div class="action-guide-heading"><span class="action-guide-kicker">本页怎么用</span><h2>部署与首次配置：实际操作指南</h2></div>
+  <p class="action-guide-summary">不要直接照抄 Compose。先建立持久化目录、替换必须修改的变量、校验 YAML，再启动并逐项验收。</p>
+  <div class="action-guide-grid">
+    <div class="action-guide-block"><h3>按这个顺序操作</h3><ol><li>在 NAS/服务器创建项目目录，例如 /volume1/docker/cinechill，并创建 config、fonts、templates、backups、emby/config；进入该目录保存 docker-compose.yml。</li><li>修改媒体宿主机路径、NAS IP、管理端口/网关端口和代理地址；CineChill 与 Emby 必须把同一个宿主机媒体目录映射成相同的容器内路径。</li><li>执行 docker compose config 检查配置，再执行 docker compose up -d；用 docker compose ps 确认 cinechill 和 emby 都是 Up/运行中。</li><li>访问 http://NAS_IP:5256，使用 admin / password 登录，立即到账户管理修改初始凭据。</li><li>依次配置 Emby、115、TMDB、代理；每项都先测试再保存，最后用一个文件跑整理和 Emby 播放验证。</li></ol></div>
+    <div class="action-guide-block"><h3>完成后看什么</h3><ul><li>容器运行，管理端可登录，重启容器后 config 中的配置仍保留。</li><li>docker compose logs --tail 200 cinechill/emby 没有持续启动错误，系统健康关键项正常。</li></ul></div>
+    <div class="action-guide-block"><h3>小白最容易错在哪里</h3><ul><li>只改 CineChill 媒体映射，Emby 仍使用另一条路径。</li><li>Compose 能启动但功能全失败：检查 /app/config、/media、Docker Socket 和代理挂载。</li><li>使用 Host 网络的 Emby 仍把 ports 当成普通映射来改端口；以宿主机实际监听端口为准。</li></ul></div>
+  </div>
+</section>
+<section class="card">
       <h2>适用场景与前置条件</h2>
       <ul>
         <li><strong>Docker/NAS：</strong>适合长期运行，需 Docker、Docker Compose、可写持久化目录和能访问外部服务/Emby/115 的网络。</li>
@@ -391,7 +401,7 @@ docker compose logs -f emby</code></pre>
 
     <section class="card">
       <h2>源码运行</h2>
-      <p>源码运行不需要 Docker Socket；如果要用 Docker 管理功能，仍需运行在能访问 Docker Socket 的环境中。</p>
+      <p>Docker 是推荐的长期部署方式。源码运行命令取决于 CineChill 源码仓库对应版本；本 Wiki 不包含应用源码，以下命令只能作为源码仓库 README 的检查清单，实际执行前请以对应版本的 README、依赖文件和目录结构为准。</p>
       <pre><code class="language-bash">source .venv/bin/activate
 pip install -r requirements.txt
 

@@ -6,7 +6,7 @@
   <title>登录页 | CineChill Wiki</title>
   <meta name="description" content="打开 CineChill 管理端后的第一屏，用于输入管理员分配的账号密码并进入新版后台。">
   <link rel="icon" type="image/png" href="/cinechill-wiki/cinechill/chill.png?v=20260609-logo-v2">
-  <link rel="stylesheet" href="/cinechill-wiki/cinechill/wiki.css?v=20260814-lightbox-zoom">
+  <link rel="stylesheet" href="/cinechill-wiki/cinechill/wiki.css?v=20260814-page-guides">
   <script>
     (() => {
       const key = 'cinechill-wiki-theme';
@@ -293,6 +293,16 @@
 <h1>登录页</h1>
 <p class="lead">登录页只负责验证 CineChill 管理员身份并建立后台会话。截图中的登录卡片标题为“登录账号”，业务配置从登录后的新版后台完成。</p>
 
+
+<section class="action-guide" id="action-guide-login">
+  <div class="action-guide-heading"><span class="action-guide-kicker">本页怎么用</span><h2>登录页：实际操作指南</h2></div>
+  <p class="action-guide-summary">登录页只做一件事：建立 CineChill 管理员会话。登录成功后不要停留在这里，下一步直接进入账户管理修改初始凭据。</p>
+  <div class="action-guide-grid">
+    <div class="action-guide-block"><h3>按这个顺序操作</h3><ol><li>在“登录账号”中填写管理员用户名和密码；全新部署先使用 admin / password 登录。</li><li>点击“登录”，等待页面跳转到仪表盘；如果仍停留在登录页，不要连续点击，先记录错误提示。</li><li>首次登录成功后进入“系统配置 → 账户管理”，修改用户名和密码并重新登录一次。</li><li>修改后再次刷新仪表盘，确认会话、用户名显示和左侧菜单都正常。</li></ol></div>
+    <div class="action-guide-block"><h3>完成后看什么</h3><ul><li>能从登录页跳转到仪表盘。</li><li>账户管理显示新的登录凭据状态，旧密码无法继续登录。</li></ul></div>
+    <div class="action-guide-block"><h3>小白最容易错在哪里</h3><ul><li>把“还没有账号？请联系管理员创建”当成自助注册入口；当前页面没有注册表单。</li><li>密码正确但反复回到登录页：先清除站点 Cookie 再登录，并查看系统日志中的认证错误。</li></ul></div>
+  </div>
+</section>
 <section class="card">
   <h2>适用场景与前置条件</h2>
   <ul>

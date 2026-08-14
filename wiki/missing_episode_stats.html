@@ -6,7 +6,7 @@
   <title>缺集统计 | CineChill Wiki</title>
   <meta name="description" content="新版缺集统计用于按媒体库扫描剧集完整性，筛选缺集、异常入库、完整入库和已标记完整状态。">
   <link rel="icon" type="image/png" href="/cinechill-wiki/cinechill/chill.png?v=20260609-logo-v2">
-  <link rel="stylesheet" href="/cinechill-wiki/cinechill/wiki.css?v=20260814-lightbox-zoom">
+  <link rel="stylesheet" href="/cinechill-wiki/cinechill/wiki.css?v=20260814-page-guides">
   <script>
     (() => {
       const key = 'cinechill-wiki-theme';
@@ -298,7 +298,17 @@
       </figure>
     </div>
 
-    <section class="card">
+
+<section class="action-guide" id="action-guide-missing_episode_stats">
+  <div class="action-guide-heading"><span class="action-guide-kicker">本页怎么用</span><h2>缺集统计：实际操作指南</h2></div>
+  <p class="action-guide-summary">缺集统计必须等索引完成后再判断。展开剧集对照本地季集和 TMDB 季集，再选择补缺、校准或手动标记。</p>
+  <div class="action-guide-grid">
+    <div class="action-guide-block"><h3>按这个顺序操作</h3><ol><li>选择一个电视剧媒体库和“单季模式”或“全季模式”，点击“开始统计”；索引构建/统计进行中时不要重复点击。</li><li>统计完成后再用媒体库、缺集类型、日期、缺集数量/比例和标题排序筛选，点击剧集卡片展开详情。</li><li>对照本地已入库季集、TMDB 季集、缺失集号、TMDB ID 和 Emby ID；识别错误先点“校准索引”。</li><li>确认真缺集后点“搜索资源”或“MoviePilot 订阅”，选择单集补缺/全剧补缺；下载整理完成后重新统计。</li><li>“标记为完整”只改变统计状态，不会生成文件；“删除剧集”会调用 Emby 删除，必须先确认 Emby ID。</li></ol></div>
+    <div class="action-guide-block"><h3>完成后看什么</h3><ul><li>统计进度完成，详情能显示具体缺失集号。</li><li>补缺/整理后重新统计，缺集数量按预期减少；手动完整条目进入对应筛选。</li></ul></div>
+    <div class="action-guide-block"><h3>小白最容易错在哪里</h3><ul><li>索引还没完成就判断页面没有数据。</li><li>Emby 尚未刷新就重新统计，导致旧结果继续显示。</li><li>把手动完整当成补文件，或未核对 Emby ID 就删除剧集。</li></ul></div>
+  </div>
+</section>
+<section class="card">
       <h2>新版入口</h2>
       <p>左侧导航栏点击“缺集统计”。页面顶部提供媒体库选择、全季/单季模式、开始统计、校准索引和 MoviePilot 补缺入口；列表中的条目展开后还能查看季集、搜索资源、标记完整或删除 Emby 剧集。</p>
     </section>

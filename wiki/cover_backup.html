@@ -6,7 +6,7 @@
   <title>封面备份 | CineChill Wiki</title>
   <meta name="description" content="新版封面备份用于保存和查看媒体库封面快照，批量应用封面前应先建立恢复点。">
   <link rel="icon" type="image/png" href="/cinechill-wiki/cinechill/chill.png?v=20260609-logo-v2">
-  <link rel="stylesheet" href="/cinechill-wiki/cinechill/wiki.css?v=20260814-lightbox-zoom">
+  <link rel="stylesheet" href="/cinechill-wiki/cinechill/wiki.css?v=20260814-page-guides">
   <script>
     (() => {
       const key = 'cinechill-wiki-theme';
@@ -295,7 +295,17 @@
       </figure>
     </div>
 
-    <section class="card">
+
+<section class="action-guide" id="action-guide-cover_backup">
+  <div class="action-guide-heading"><span class="action-guide-kicker">本页怎么用</span><h2>封面备份：实际操作指南</h2></div>
+  <p class="action-guide-summary">封面备份以快照套件保存媒体库当前封面。批量应用、切换模板或启用自动任务前先创建快照，恢复时优先恢复选中的媒体库。</p>
+  <div class="action-guide-grid">
+    <div class="action-guide-block"><h3>按这个顺序操作</h3><ol><li>进入封面备份，等待媒体库和当前封面加载。</li><li>填写“备份名称”，例如“应用新模板前”，点击保存并等待快照完成。</li><li>点击快照“浏览”，确认套件包含目标媒体库和预期封面。</li><li>回滚时勾选目标媒体库点击“恢复选中”；只有确认整套都要恢复时才点击“恢复全部”。</li><li>恢复后回 Emby/仪表盘检查封面，确认无误后再删除过期快照。</li></ol></div>
+    <div class="action-guide-block"><h3>完成后看什么</h3><ul><li>快照浏览能看到目标库封面缩略图，恢复后 Emby 封面回到快照状态。</li><li>删除前仍保留至少一个可用恢复点。</li></ul></div>
+    <div class="action-guide-block"><h3>小白最容易错在哪里</h3><ul><li>快照为空就继续应用；先检查 Emby 连接和媒体库加载。</li><li>误点恢复全部覆盖其他库；优先使用恢复选中。</li></ul></div>
+  </div>
+</section>
+<section class="card">
       <h2>适用场景与准备工作</h2>
       <ul>
         <li>批量应用封面、覆盖模板或启用自动任务前创建恢复点。</li>

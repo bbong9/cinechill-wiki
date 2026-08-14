@@ -6,7 +6,7 @@
   <title>翻译配置 | CineChill Wiki</title>
   <meta name="description" content="新版翻译配置用于维护媒体库展示名称，主标题为空时默认使用媒体库原名。">
   <link rel="icon" type="image/png" href="/cinechill-wiki/cinechill/chill.png?v=20260609-logo-v2">
-  <link rel="stylesheet" href="/cinechill-wiki/cinechill/wiki.css?v=20260814-lightbox-zoom">
+  <link rel="stylesheet" href="/cinechill-wiki/cinechill/wiki.css?v=20260814-page-guides">
   <script>
     (() => {
       const key = 'cinechill-wiki-theme';
@@ -295,7 +295,17 @@
       </figure>
     </div>
 
-    <section class="card">
+
+<section class="action-guide" id="action-guide-cover_translations">
+  <div class="action-guide-heading"><span class="action-guide-kicker">本页怎么用</span><h2>翻译配置：实际操作指南</h2></div>
+  <p class="action-guide-summary">翻译配置只改变封面展示标题和英文副标题，不会重命名 Emby 媒体库。修改后要回封面预览确认模板确实读取了新文字。</p>
+  <div class="action-guide-grid">
+    <div class="action-guide-block"><h3>按这个顺序操作</h3><ol><li>进入翻译配置点击刷新，等待媒体库列表和已有翻译加载。</li><li>找到目标媒体库，填写“封面主标题”和“英文副标题”；留空主标题表示使用原库名。</li><li>只保存需要修改的行，保存后刷新页面确认内容仍在。</li><li>回封面设计/手动封面生成一个预览，确认主标题和副标题位置、语言和长度正常。</li><li>需要恢复时使用行内恢复/清空操作，再保存并重新生成预览。</li></ol></div>
+    <div class="action-guide-block"><h3>完成后看什么</h3><ul><li>刷新后翻译仍保存，封面预览显示新标题。</li><li>Emby 媒体库原名称没有被改写。</li></ul></div>
+    <div class="action-guide-block"><h3>小白最容易错在哪里</h3><ul><li>保存后封面没变化就反复保存；先确认模板启用了翻译字段并重新生成预览。</li><li>把翻译配置当成媒体库重命名；它只影响封面文字。</li></ul></div>
+  </div>
+</section>
+<section class="card">
       <h2>适用场景与准备工作</h2>
       <ul>
         <li>统一封面显示标题、英文副标题或多语言展示名称。</li>

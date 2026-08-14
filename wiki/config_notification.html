@@ -7,7 +7,7 @@
   <meta name="robots" content="noindex,nofollow">
   <meta name="description" content="新版通知配置集中维护企业微信、Telegram、通知类型和模板，用于后台任务完成、失败和播放事件提醒。">
   <link rel="icon" type="image/png" href="/cinechill-wiki/cinechill/chill.png?v=20260609-logo-v2">
-  <link rel="stylesheet" href="/cinechill-wiki/cinechill/wiki.css?v=20260814-lightbox-zoom">
+  <link rel="stylesheet" href="/cinechill-wiki/cinechill/wiki.css?v=20260814-page-guides">
   <script>
     (() => {
       const key = 'cinechill-wiki-theme';
@@ -294,6 +294,16 @@
 <h1>通知配置</h1>
 <p class="lead">本页配置企业微信和 Telegram 的消息渠道、逐类通知开关、测试发送和模板。先完成一个渠道，再启用需要的通知类型，避免一次性打开所有自动提醒。</p>
 
+
+<section class="action-guide" id="action-guide-config_notification">
+  <div class="action-guide-heading"><span class="action-guide-kicker">本页怎么用</span><h2>通知配置：实际操作指南</h2></div>
+  <p class="action-guide-summary">先完成一个渠道，再测试通知，再打开通知类型。当前按钮要按“测试通知 → 发送测试消息 → 保存渠道”理解。</p>
+  <div class="action-guide-grid">
+    <div class="action-guide-block"><h3>按这个顺序操作</h3><ol><li>企业微信填写企业 ID、AgentId、Secret、Token、EncodingAESKey，可选渠道代理、管理员白名单和 CineChill 公网地址；Telegram 填 Bot Token 和 Chat ID。</li><li>企业微信/Telegram 各自点击“保存微信”或“保存 Telegram”，再点击对应卡片的“测试通知”，确认配置检查通过。</li><li>点击“发送测试消息”确认消息真正到达；“测试通知”是检查配置，“发送测试消息”是实际发消息，两个结果分开看。</li><li>在通知类型中只打开一个需要验证的类型，例如整理通知或签到通知；模板中保留页面“可用变量”。</li><li>产生一个对应的真实事件，再到系统日志按通知模块确认是未触发、生成失败还是发送失败。</li></ol></div>
+    <div class="action-guide-block"><h3>完成后看什么</h3><ul><li>测试通知通过，发送测试消息实际到达目标会话。</li><li>真实任务完成后对应通知类型开关生效，模板变量被替换成实际内容。</li></ul></div>
+    <div class="action-guide-block"><h3>小白最容易错在哪里</h3><ul><li>把 Telegram 监听的手机号/验证码填到 Telegram 通知卡片。</li><li>只点测试通知不点发送测试消息，误以为消息渠道已验证。</li><li>开启所有通知类型后无法判断是哪一类重复或失败；一次只开一类。</li></ul></div>
+  </div>
+</section>
 <section class="card">
   <h2>适用场景与前置条件</h2>
   <ul>
@@ -311,7 +321,7 @@
     <li>按企业微信回调要求填写“Token”和“EncodingAESKey”。页面显示的回调 URL 是 <code>公网地址/api/wechat-notify/callback</code>。</li>
     <li>按需填写渠道专用“代理地址”和“管理员白名单”。</li>
     <li>填写“CineChill 公网地址”，保存后再回企业微信后台完成回调校验。</li>
-    <li>点击“保存微信”，再点“测试微信”和“发送测试消息”；两者分别验证连接和实际发送。</li>
+    <li>点击“保存微信”，再点“测试通知”和“发送测试消息”；两者分别验证连接和实际发送。</li>
   </ol>
 </section>
 
@@ -320,7 +330,7 @@
   <ol>
     <li>打开“Telegram 通知”开关。</li>
     <li>填写“Bot Token”和“Chat ID”。</li>
-    <li>点击“保存 Telegram”，再点击“测试 Telegram”和“发送测试消息”。</li>
+    <li>点击“保存 Telegram”，再点击“测试通知”和“发送测试消息”。</li>
     <li>Telegram 通知会复用全局代理配置；如果消息发送失败，同时检查代理页和系统健康中的 Telegram Bot API 目标。</li>
   </ol>
   <p>Telegram 账号监听、验证码登录和群组/频道选择属于“Telegram 监听”模块，不要把账号监听字段误填到通知卡片。</p>
@@ -355,7 +365,7 @@
     <li>通知测试失败：先确认开关、凭据、目标 Chat ID/白名单和网络目标，再查看系统运行日志。</li>
     <li>企业微信图片无法显示：检查公网地址是否从外部可达、HTTPS/反代是否正确，以及回调路径是否保留。</li>
     <li>消息重复或过多：检查通知类型开关和模板，不要先修改核心整理任务。</li>
-    <li>回滚模板时恢复备份或点击“恢复默认”；回滚渠道凭据后再次点击对应渠道的“测试微信”或“测试 Telegram”，再用“发送测试消息”验证实际发送。</li>
+    <li>回滚模板时恢复备份或点击“恢复默认”；回滚渠道凭据后再次点击对应渠道的“测试通知”，再用“发送测试消息”验证实际发送。</li>
   </ul>
 </section>
 <!-- DETAIL-TROUBLESHOOT-NOTIFICATION-20260814 -->

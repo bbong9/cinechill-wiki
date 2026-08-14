@@ -6,7 +6,7 @@
   <title>站点管理 | CineChill Wiki</title>
   <meta name="description" content="CineChill 站点管理页面的使用说明、验证方法和排障边界。">
   <link rel="icon" type="image/png" href="/cinechill-wiki/cinechill/chill.png?v=20260609-logo-v2">
-  <link rel="stylesheet" href="/cinechill-wiki/cinechill/wiki.css?v=20260814-lightbox-zoom">
+  <link rel="stylesheet" href="/cinechill-wiki/cinechill/wiki.css?v=20260814-page-guides">
   <script>
     (() => {
       const key = 'cinechill-wiki-theme';
@@ -289,29 +289,38 @@
   <figure class="screenshot screenshot-theme" data-screenshot-theme="light"><img src="/cinechill-wiki/cinechill/screenshots/live/site_management-light.jpg?v=20260814-original" alt="站点管理 页面截图"></figure>
   <figure class="screenshot screenshot-theme" data-screenshot-theme="dark"><img src="/cinechill-wiki/cinechill/screenshots/live/site_management-dark.jpg?v=20260814-original" alt="站点管理 页面截图"></figure>
 </div>
+
+<section class="action-guide" id="action-guide-site_management">
+  <div class="action-guide-heading"><span class="action-guide-kicker">本页怎么用</span><h2>站点管理：实际操作指南</h2></div>
+  <p class="action-guide-summary">站点管理当前页面是监控控制面，不是候选资源搜索页。按“保存监控设置 → 单站健康检查 → 单站立即执行 → 查看监控结果”操作。</p>
+  <div class="action-guide-grid">
+    <div class="action-guide-block"><h3>按这个顺序操作</h3><ol><li>先在工具箱测试 MoviePilot，进入站点管理等待站点列表加载；确认轮询间隔至少 15 分钟。</li><li>按需设置“启用定时监控”“自动下载缺失媒体”“全局允许洗版”“排除 H&R”，需要洗版时同时检查全局和单站“允许洗版”。</li><li>点击“保存监控设置”，再对一个站点点击“健康检查”；健康正常后点击该站点“立即执行”。</li><li>查看“发现新种、种子任务、媒体项、洗版媒体、识别失败、错误”和结果中的站点、种子标题、媒体标识、体积、决策、原因。</li><li>到“最近添加到下载器”确认 MoviePilot 任务，再转到硬链接目录、115 秒传、整理记录和 Emby 验收入库。</li></ol></div>
+    <div class="action-guide-block"><h3>完成后看什么</h3><ul><li>站点健康检查成功，最近执行时间和下次执行时间更新。</li><li>监控结果出现明确决策/原因，最近添加到下载器出现任务；后续整理记录出现入库结果。</li></ul></div>
+    <div class="action-guide-block"><h3>小白最容易错在哪里</h3><ul><li>寻找当前页面不存在的质量/媒体类型/季集候选筛选框。</li><li>只打开单站允许洗版，没有打开全局允许洗版。</li><li>把发现新种、下载任务或硬链接出现误认为已经整理入库。</li></ul></div>
+  </div>
+</section>
 <section class="card"><h2>使用前准备</h2><ul><li>先完成“工具箱 → MoviePilot”的地址、API Key 和账号配置，并确认连接测试成功。</li><li>确认 CineChill 容器能访问 MoviePilot 和需要读取的站点服务；浏览器能打开不代表容器网络一定可达。</li><li>首次运行只选择一个站点或一个小范围媒体条件，先确认结果再扩大筛选范围。</li></ul></section>
-<section class="card"><h2>页面区域怎么看</h2><ul><li><strong>顶部统计：</strong>用于快速判断站点数量、监控状态、资源候选和任务结果，不等于所有下载任务都已完成。</li><li><strong>站点状态：</strong>关注已启用、连接失败、暂时跳过等状态；单个站点失败时不要立即重置全部配置。</li><li><strong>资源列表：</strong>用于查看候选资源的站点、质量、编码、季集和匹配结果；严格匹配时，缺少关键元数据的条目可能被过滤。</li><li><strong>处理状态：</strong>下载、上传、整理和跳过属于不同阶段，排障时应结合系统运行日志确认实际停在哪一步。</li></ul></section>
-<section class="card"><h2>推荐操作顺序</h2><ol><li>打开站点管理，先确认统计卡片和站点状态已加载。</li><li>检查站点筛选、质量条件、媒体类型和季集匹配条件。</li><li>先查看候选列表，核对标题、年份、季集、分辨率和站点来源。</li><li>只对一条候选执行后续处理，观察任务日志和整理记录。</li><li>确认下载、上传、识别和入库均正常后，再开启定时或批量处理。</li></ol></section>
-<section class="card"><h2>常见问题与回滚</h2><ul><li><strong>站点全部失败：</strong>先检查 MoviePilot 连接、代理、DNS 和容器网络，再判断是否是单站点问题。</li><li><strong>候选很多但没有自动处理：</strong>核对严格匹配、质量筛选、媒体库状态和季集信息，不要直接降低所有保护条件。</li><li><strong>重复下载或重复入库：</strong>立即暂停自动任务，检查订阅、站点监控和整理记录，确认去重条件后再恢复。</li><li><strong>误触发处理：</strong>停止当前任务并保留日志；已经提交到外部服务的任务不会因为关闭页面自动回滚，需要到对应任务页单独取消。</li></ul></section>
+<section class="card"><h2>页面区域怎么看</h2><ul><li><strong>顶部统计：</strong>用于快速判断站点数量、监控状态、监控结果和任务结果，不等于所有下载任务都已完成。</li><li><strong>站点状态：</strong>关注已启用、连接失败、暂时跳过等状态；单个站点失败时不要立即重置全部配置。</li><li><strong>监控结果：</strong>查看发现新种、种子任务、媒体项、洗版媒体、识别失败、错误、站点、种子标题、媒体标识、体积、决策和原因。</li><li><strong>处理状态：</strong>下载、上传、整理和跳过属于不同阶段，排障时应结合系统运行日志确认实际停在哪一步。</li></ul></section>
+<section class="card"><h2>推荐操作顺序</h2><ol><li>打开站点管理，确认站点列表、顶部统计和监控状态已加载。</li><li>设置轮询间隔（最小 15 分钟），按需打开定时监控、自动下载缺失媒体、全局允许洗版和排除 H&amp;R，点击“保存监控设置”。</li><li>只选一个站点点击“健康检查”，确认正常后点击“立即执行”。</li><li>查看监控结果中的决策和原因，再到“最近添加到下载器”确认 MoviePilot 是否创建任务。</li><li>确认下载、硬链接、115 秒传和整理记录逐步出现后，再扩大站点范围或启用长期监控。</li></ol></section>
+<section class="card"><h2>常见问题与回滚</h2><ul><li><strong>站点全部失败：</strong>先在工具箱测试 MoviePilot，再区分全局网络和单站点登录问题。</li><li><strong>没有监控结果：</strong>检查定时监控开关、轮询间隔、站点健康状态和最近执行时间；当前页面没有独立候选质量筛选。</li><li><strong>重复下载：</strong>先停用定时监控和重复订阅，查看监控结果的决策/原因与 MoviePilot 任务。</li><li><strong>误触发处理：</strong>关闭监控只停止后续轮询，已提交到 MoviePilot 的任务要到外部任务页单独取消。</li></ul></section>
 <!-- FLOW-SITE-MONITOR-20260814 -->
 <section class="card">
   <h2>开启站点监控并触发一次下载</h2>
-  <p>站点管理是 MoviePilot 下载链路的监控和筛选入口。MoviePilot 连接配置必须先在“工具箱 → MoviePilot”完成，站点管理本身不负责保存 API Key。</p>
+  <p>当前页面用监控设置和单站操作控制 MoviePilot 链路，不提供候选资源搜索筛选。</p>
   <ol>
-    <li>先确认 MoviePilot 连接、代理、站点和下载器在外部服务中可用。</li>
-    <li>打开站点管理，确认站点状态和统计卡片已加载。</li>
-    <li>设置媒体类型、质量、分辨率、季集和严格匹配条件。</li>
-    <li>在候选列表核对标题、年份、季集、来源和质量，只选择一条候选触发处理。</li>
-    <li>提交后不要重复点击；分别到 MoviePilot 任务、系统运行日志和整理记录核对下一阶段。</li>
+    <li>确认“工具箱 → MoviePilot”连接测试成功，进入站点管理等待站点状态加载。</li>
+    <li>设置轮询间隔（不低于 15 分钟），按需打开“启用定时监控”“自动下载缺失媒体”“全局允许洗版”“排除 H&amp;R”，点击“保存监控设置”。</li>
+    <li>只对一个站点点击“健康检查”，成功后点击该站点“立即执行”。</li>
+    <li>在监控结果中查看发现新种、种子任务、媒体项、洗版媒体、识别失败、错误、决策和原因。</li>
+    <li>到“最近添加到下载器”确认 MoviePilot 任务，再继续检查硬链接目录、115 秒传、整理记录和 Emby。</li>
   </ol>
-  <h3>“发现、下载、入库”不是一个状态</h3>
+  <h3>“发现、下载、硬链接、入库”是四个状态</h3>
   <ul>
-    <li><strong>发现：</strong>站点有候选资源。</li>
-    <li><strong>下载：</strong>MoviePilot 已创建任务，文件仍可能没有完成。</li>
-    <li><strong>硬链接：</strong>下载完成后，MP 按配置把文件链接到 CineChill 监控目录。</li>
-    <li><strong>整理入库：</strong>CineChill 识别、重命名、移动 / 写入 STRM 并等待 Emby 刷新。</li>
+    <li><strong>发现：</strong>监控结果出现种子或媒体项。</li>
+    <li><strong>下载：</strong>MoviePilot 已创建任务，但文件可能还没有完成。</li>
+    <li><strong>硬链接：</strong>下载完成后，MP 把文件链接到 CineChill 监听目录。</li>
+    <li><strong>入库：</strong>CineChill 完成识别/整理，Emby 刷新后才能播放。</li>
   </ul>
-  <p><strong>出现重复下载：</strong>先暂停监控或相关自动任务，检查订阅记录、候选去重条件和整理记录，确认原因后再恢复。</p>
 </section>
 
 
@@ -324,15 +333,15 @@
     <li>连接正常但站点失败，检查代理、DNS、站点登录状态和 MoviePilot 外部日志，先判断是单站点还是全局网络。</li>
     <li>修复一个站点后只刷新一次，确认站点状态恢复，再恢复定时监控。</li>
   </ol>
-  <h3>候选资源为空</h3>
+  <h3>监控结果为空</h3>
   <ol>
-    <li>检查媒体类型、质量、分辨率、季集和严格匹配条件；一次只放宽一个条件。</li>
-    <li>确认媒体标题、年份和 TMDB ID 识别正确；识别错误时回发现推荐或订阅详情修正，不要盲目降低筛选。</li>
-    <li>确认站点确实返回候选后，再保存监控设置；候选为空不等于下载器故障。</li>
+    <li>检查定时监控开关、轮询间隔、站点健康和 MoviePilot 连接；当前页面没有独立候选质量筛选。</li>
+    <li>确认订阅标题、年份和 TMDB ID 识别正确；识别错误时回发现推荐或订阅详情修正。</li>
+    <li>保存监控设置后再点单站“立即执行”，查看监控结果和决策原因；没有结果不等于下载器故障。</li>
   </ol>
   <h3>触发后重复下载或没有后续硬链接</h3>
   <ol>
-    <li>立即暂停监控和重复订阅，记录标题、候选、时间和 MoviePilot 任务 ID。</li>
+    <li>立即暂停监控和重复订阅，记录标题、种子标题、时间和 MoviePilot 任务 ID。</li>
     <li>下载成功但没有硬链接，转查 MoviePilot 的下载目录、硬链接规则和同文件系统条件。</li>
     <li>硬链接出现但 CineChill 没有任务，转查 115 秒传的监听目录映射并手动扫描一次。</li>
   </ol>

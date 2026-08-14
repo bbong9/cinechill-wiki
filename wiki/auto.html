@@ -6,7 +6,7 @@
   <title>自动封面 | CineChill Wiki</title>
   <meta name="description" content="新版自动封面按 Cron 任务执行，可配置取图模式、布局预设、目标媒体库和启停状态。">
   <link rel="icon" type="image/png" href="/cinechill-wiki/cinechill/chill.png?v=20260609-logo-v2">
-  <link rel="stylesheet" href="/cinechill-wiki/cinechill/wiki.css?v=20260814-lightbox-zoom">
+  <link rel="stylesheet" href="/cinechill-wiki/cinechill/wiki.css?v=20260814-page-guides">
   <script>
     (() => {
       const key = 'cinechill-wiki-theme';
@@ -295,7 +295,17 @@
       </figure>
     </div>
 
-    <section class="card">
+
+<section class="action-guide" id="action-guide-auto">
+  <div class="action-guide-heading"><span class="action-guide-kicker">本页怎么用</span><h2>自动封面：实际操作指南</h2></div>
+  <p class="action-guide-summary">自动封面是定时任务，不是实时预览。必须先用手动封面验证模板，再创建单库、低频、停用状态的任务。</p>
+  <div class="action-guide-grid">
+    <div class="action-guide-block"><h3>按这个顺序操作</h3><ol><li>确认模板、字体、素材和 Emby 连接正常，先在封面备份创建快照。</li><li>点击添加任务，填写任务名称和 Cron，选择取图模式、布局、预设和一个测试媒体库。</li><li>首次关闭“自动添加新建库”，关闭任务启用，先点击试运行查看效果。</li><li>试运行确认成功后创建任务，再用任务卡片的运行按钮手动执行一次。</li><li>确认 Emby 封面正确后再启用 Cron；调整任务时先停用，删除任务只删除调度，不会自动恢复已应用封面。</li></ol></div>
+    <div class="action-guide-block"><h3>完成后看什么</h3><ul><li>试运行和手动运行都有完成记录，目标库封面正确。</li><li>启用后页面显示下次运行时间，任务历史能看到每次结果。</li></ul></div>
+    <div class="action-guide-block"><h3>小白最容易错在哪里</h3><ul><li>一创建就启用全库任务，导致一次覆盖范围过大；先单库试运行。</li><li>停用任务就以为封面自动恢复；恢复要到封面备份执行。</li></ul></div>
+  </div>
+</section>
+<section class="card">
       <h2>适用场景与准备工作</h2>
       <ul>
         <li>模板已经在手动封面中验证，需要按计划更新一个或多个媒体库。</li>

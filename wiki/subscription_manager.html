@@ -6,7 +6,7 @@
   <title>订阅系统 | CineChill Wiki</title>
   <meta name="description" content="CineChill 订阅系统页面的使用说明、生命周期管理和排障方法。">
   <link rel="icon" type="image/png" href="/cinechill-wiki/cinechill/chill.png?v=20260609-logo-v2">
-  <link rel="stylesheet" href="/cinechill-wiki/cinechill/wiki.css?v=20260814-lightbox-zoom">
+  <link rel="stylesheet" href="/cinechill-wiki/cinechill/wiki.css?v=20260814-page-guides">
   <script>
     (() => {
       const key = 'cinechill-wiki-theme';
@@ -289,10 +289,20 @@
   <figure class="screenshot screenshot-theme" data-screenshot-theme="light"><img src="/cinechill-wiki/cinechill/screenshots/live/subscription_manager-light.jpg?v=20260814-original" alt="订阅系统 页面截图"></figure>
   <figure class="screenshot screenshot-theme" data-screenshot-theme="dark"><img src="/cinechill-wiki/cinechill/screenshots/live/subscription_manager-dark.jpg?v=20260814-original" alt="订阅系统 页面截图"></figure>
 </div>
-<section class="card"><h2>什么时候使用</h2><ul><li>发现页订阅后，确认订阅是否已建立或是否重复。</li><li>需要暂停、恢复、删除订阅，或查看电视剧的季集进度时使用。</li><li>MoviePilot 显示已订阅但 CineChill 页面状态不一致时，用这里和系统日志交叉核对。</li></ul></section>
-<section class="card"><h2>页面信息怎么看</h2><ul><li><strong>订阅卡片：</strong>通常包含标题、媒体类型、海报、订阅来源和当前状态。</li><li><strong>生命周期状态：</strong>区分启用、暂停、完成、失败或已删除；状态变化应结合时间和历史记录判断。</li><li><strong>剧集进度：</strong>电视剧要看季号、已处理集数和待处理集数，不能只看整部剧的总状态。</li><li><strong>历史记录：</strong>用于确认创建、更新、暂停、恢复、去重和删除动作是否真的落库。</li></ul></section>
-<section class="card"><h2>推荐操作顺序</h2><ol><li>先搜索标题或按状态筛选，找到目标订阅。</li><li>打开详情，核对 TMDB 标识、媒体类型、季号和来源。</li><li>需要暂停时先暂停，不要直接删除；确认不再需要时再删除。</li><li>电视剧订阅先核对季集范围，再恢复或调整。</li><li>操作后刷新页面，并查看历史记录或系统运行日志确认结果。</li></ol></section>
-<section class="card"><h2>排障与回滚</h2><ul><li><strong>看不到刚创建的订阅：</strong>先刷新，再检查 MoviePilot 配置和发现页返回的 TMDB ID。</li><li><strong>出现重复订阅：</strong>保留一条有效记录，暂停或删除重复项，并检查是否存在多个来源重复提交。</li><li><strong>状态长期不变：</strong>查看系统运行日志、站点管理和外部 MoviePilot 任务，不要仅反复刷新页面。</li><li><strong>误删除：</strong>删除通常不会自动恢复外部任务；按历史记录重新建立前先确认当前 MoviePilot 状态。</li></ul></section>
+
+<section class="action-guide" id="action-guide-subscription_manager">
+  <div class="action-guide-heading"><span class="action-guide-kicker">本页怎么用</span><h2>订阅系统：实际操作指南</h2></div>
+  <p class="action-guide-summary">订阅库和 RSS 自动化是两套功能：订阅库查看媒体订阅，自动化规则才有启用/停用和立即同步。</p>
+  <div class="action-guide-grid">
+    <div class="action-guide-block"><h3>按这个顺序操作</h3><ol><li>在“订阅库”按标题/年份、来源、电影/电视剧、需要关注和排序筛选，打开卡片查看当前状态、来源、TMDB、季集和入库明细。</li><li>点击详情中的“刷新”确认最新状态；删除前先查看 MoviePilot 外部任务，删除订阅不会删除已经下载或入库的文件。</li><li>进入“自动化”点击新建规则，填写规则名称、类型、运行周期、榜单来源、内置榜单或 RSS 地址，先点击“预览”。</li><li>预览解析正常后创建规则，手动点击一次“立即同步”，检查解析、新增、跳过和失败数量；确认后再启用规则。</li><li>在“历史记录”和“已删除”核对自动化结果和已删除订阅；需要停用的是自动化规则，不要在订阅库寻找暂停按钮。</li></ol></div>
+    <div class="action-guide-block"><h3>完成后看什么</h3><ul><li>订阅库详情的来源、年份、类型和季集正确，历史记录能看到创建/更新/删除。</li><li>自动化预览能解析条目，立即同步后数量有变化且没有重复订阅。</li></ul></div>
+    <div class="action-guide-block"><h3>小白最容易错在哪里</h3><ul><li>把订阅卡片当成有暂停/恢复按钮；当前主要操作是查看、刷新和删除。</li><li>RSS 地址/类型不匹配就创建规则，或没预览就启用。</li><li>删除订阅后误以为外部下载任务和媒体文件也会撤销。</li></ul></div>
+  </div>
+</section>
+<section class="card"><h2>什么时候使用</h2><ul><li>发现页订阅后，确认订阅是否已建立或是否重复。</li><li>需要查看订阅详情、季集进度、来源和历史变化，或删除不再需要的订阅时使用。</li><li>MoviePilot 显示已订阅但 CineChill 页面状态不一致时，用这里和系统日志交叉核对。</li></ul></section>
+<section class="card"><h2>页面信息怎么看</h2><ul><li><strong>订阅库：</strong>按标题/年份、来源、类型、需要关注和排序筛选媒体订阅。</li><li><strong>订阅详情：</strong>查看当前状态、类型、年份、媒体库、来源、状态时间线和入库明细。</li><li><strong>自动化：</strong>单独维护 RSS 规则，包含规则名称、运行周期、来源、预览、启用/停用和立即同步。</li><li><strong>历史记录/已删除：</strong>用于确认规则同步、订阅创建和删除结果；它们不是文件回滚入口。</li></ul></section>
+<section class="card"><h2>推荐操作顺序</h2><ol><li>进入订阅库，按来源、类型和关注状态筛选，打开卡片详情。</li><li>核对 TMDB、年份、媒体类型、季号和入库明细；点击详情“刷新”确认最新状态。</li><li>不再需要时先查看 MoviePilot 外部任务，再删除订阅；删除不会撤销已经下载或入库的文件。</li><li>进入自动化新建 RSS 规则，填写字段后点击“预览”，确认能解析条目再创建。</li><li>创建后手动点击“立即同步”，查看解析/新增/跳过/失败数量，确认后再启用长期规则。</li></ol></section>
+<section class="card"><h2>排障与回滚</h2><ul><li><strong>看不到刚创建的订阅：</strong>刷新并按标题、年份和来源筛选，再检查 MoviePilot 配置与系统日志。</li><li><strong>重复订阅：</strong>按 TMDB ID、季号和创建时间比对，只保留一条正确记录，确认外部任务后删除重复项。</li><li><strong>规则不运行：</strong>到自动化检查启用状态、Cron/运行周期、RSS 预览和立即同步结果。</li><li><strong>误删除：</strong>删除订阅不会自动恢复外部任务或媒体文件；重新创建前先查历史和 MoviePilot 状态。</li></ul></section>
 <!-- FLOW-SUBSCRIPTION-20260814 -->
 <section class="card">
   <h2>订阅系统在完整流程中的位置</h2>
@@ -300,15 +310,14 @@
   <ol>
     <li>在发现推荐核对标题、年份、TMDB ID 和季集，再发送一次 MP 订阅。</li>
     <li>回到本页确认订阅已建立、季集范围正确且没有重复记录。</li>
-    <li>需要暂停时优先暂停，不要直接删除；需要继续时再恢复。</li>
+    <li>当前订阅库没有暂停/恢复按钮；需要停用的是自动化规则，请到“自动化”中关闭规则。</li>
     <li>下载和整理过程中，结合站点管理、整理记录和系统日志看状态。</li>
   </ol>
   <h3>状态判断</h3>
   <ul>
-    <li><strong>启用：</strong>订阅仍会参与后续处理。</li>
-    <li><strong>暂停：</strong>保留订阅记录，但暂时停止后续推进。</li>
+    <li><strong>当前状态：</strong>以订阅卡片和详情页实际显示为准；订阅库与 RSS 自动化规则的启停是两套功能。</li>
     <li><strong>完成 / 失败：</strong>只代表外部流程当前状态，仍要检查硬链接、整理和 Emby 入库。</li>
-    <li><strong>删除：</strong>删除订阅记录，不会自动撤销已经下载或整理完成的文件。</li>
+    <li><strong>删除：</strong>删除订阅记录，不会自动撤销已经下载、硬链接或整理完成的文件。</li>
   </ul>
   <p><strong>小白注意：</strong>看到“订阅成功”不要马上重复点击；先刷新、看历史和系统日志，避免重复订阅或重复下载。</p>
 </section>
@@ -327,11 +336,11 @@
   <ol>
     <li>先打开详情确认季集范围和来源，再到站点管理看是否有候选资源。</li>
     <li>有候选但没有下载：查 MoviePilot 下载器和任务；没有候选：查站点状态、过滤条件和严格匹配。</li>
-    <li>系统日志出现认证/网络错误时先修连接，修好后只恢复一条订阅验证。</li>
+    <li>系统日志出现认证/网络错误时先修连接，修好后只重新提交一条订阅验证。</li>
   </ol>
   <h3>重复订阅或误删除</h3>
   <ol>
-    <li>按 TMDB ID、季号和创建时间比对，保留一条正确记录，先暂停重复项再处理。</li>
+    <li>按 TMDB ID、季号和创建时间比对，保留一条正确记录，先确认外部任务再删除重复项。</li>
     <li>删除订阅不会自动删除已经下载、硬链接或入库的文件；删除前先确认外部 MoviePilot 任务状态。</li>
     <li>误删后重新建立订阅前，先查历史和外部任务，避免同一季再次重复下载。</li>
   </ol>

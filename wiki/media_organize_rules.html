@@ -6,7 +6,7 @@
   <title>二级分类 | CineChill Wiki</title>
   <meta name="description" content="新版二级分类把电影规则、剧集规则、Emby 同步和子分类集中维护，决定最终目录和媒体库归属。">
   <link rel="icon" type="image/png" href="/cinechill-wiki/cinechill/chill.png?v=20260609-logo-v2">
-  <link rel="stylesheet" href="/cinechill-wiki/cinechill/wiki.css?v=20260814-lightbox-zoom">
+  <link rel="stylesheet" href="/cinechill-wiki/cinechill/wiki.css?v=20260814-page-guides">
   <script>
     (() => {
       const key = 'cinechill-wiki-theme';
@@ -298,7 +298,17 @@
       </figure>
     </div>
 
-    <section class="card">
+
+<section class="action-guide" id="action-guide-media_organize_rules">
+  <div class="action-guide-heading"><span class="action-guide-kicker">本页怎么用</span><h2>二级分类：实际操作指南</h2></div>
+  <p class="action-guide-summary">规则从上到下匹配，分类路径和条件共同决定目录；子分类是追加目录层级，不是新的匹配条件。</p>
+  <div class="action-guide-grid">
+    <div class="action-guide-block"><h3>按这个顺序操作</h3><ol><li>先点“刷新缓存”，确认 Emby 媒体库已经读取；再分别进入电影规则和剧集规则。</li><li>点击“新增电影规则”或“新增剧集规则”，填写“分类路径”；点击“新增条件”，选择逻辑 AND/OR、字段和值，多个值用英文逗号分隔。</li><li>字段可选类型 ID、关键字、原始语言、国家/地区、评分、上映日期、首播日期等；先用一条具体规则，再保留“默认规则”作为兜底。</li><li>按年代、年份、评分段、国家、类型配置子分类，查看实时“目录预览”；用上移/下移调整规则顺序。</li><li>点击“保存规则”，用一个电影和一部剧集执行一条龙，再到整理记录核对实际目标路径；需要重新读取媒体库时再点刷新缓存。</li></ol></div>
+    <div class="action-guide-block"><h3>完成后看什么</h3><ul><li>规则保存后刷新页面仍存在，目录预览符合预期。</li><li>电影和剧集样本分别进入预期分类，整理记录路径与规则一致。</li><li>Emby 合并级别改变后，媒体库数量/归属按预期变化。</li></ul></div>
+    <div class="action-guide-block"><h3>小白最容易错在哪里</h3><ul><li>把 AND 当 OR，导致规则命中过多或过少。</li><li>宽泛规则放在具体规则前，所有媒体先被默认规则接管。</li><li>把子分类当成条件，或修改规则后忘记点击“保存规则”。</li></ul></div>
+  </div>
+</section>
+<section class="card">
       <h2>新版入口</h2>
       <p>左侧导航栏“媒体整理 → 二级分类”。规则修改后要先保存，再用少量媒体验证。</p>
     </section>
@@ -315,7 +325,7 @@
 
     <section class="card">
       <h2>页面区域怎么看</h2>
-      <ul><li>Emby 同步与规则维护：刷新媒体库、选择合并级别，并把规则目标与 Emby 媒体库关联。</li><li>电影规则：维护电影分类路径、启用状态和匹配条件。</li><li>剧集规则：维护剧集分类路径、启用状态和匹配条件。</li><li>条件行：选择字段、逻辑（AND/OR）和值；空条件不要当成“匹配全部”使用，先看页面提示。</li><li>子分类：在基础分类下追加年代、年份、评分、国家或类型等目录层级。</li><li>规则预览/期望库数量：用于检查配置结果，不代表文件已经整理完成。</li></ul>
+      <ul><li>Emby 同步与规则维护：刷新媒体库、选择合并级别，并把规则目标与 Emby 媒体库关联。</li><li>电影规则：维护电影分类路径、匹配条件和规则顺序；具体规则放在默认规则之前。</li><li>剧集规则：维护剧集分类路径、匹配条件和规则顺序；剧集规则要单独测试。</li><li>条件行：选择字段、逻辑（AND/OR）和值；空条件不要当成“匹配全部”使用，先看页面提示。</li><li>子分类：在基础分类下追加年代、年份、评分、国家或类型等目录层级。</li><li>规则预览/期望库数量：用于检查配置结果，不代表文件已经整理完成。</li></ul>
     </section>
 
     <section class="card">

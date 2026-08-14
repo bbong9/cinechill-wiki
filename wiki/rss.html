@@ -6,7 +6,7 @@
   <title>真实库 | CineChill Wiki</title>
   <meta name="description" content="新版真实库用于管理订阅任务，把自用订阅规则转换成可跟踪、可预览、可整理的任务来源。">
   <link rel="icon" type="image/png" href="/cinechill-wiki/cinechill/chill.png?v=20260609-logo-v2">
-  <link rel="stylesheet" href="/cinechill-wiki/cinechill/wiki.css?v=20260814-lightbox-zoom">
+  <link rel="stylesheet" href="/cinechill-wiki/cinechill/wiki.css?v=20260814-page-guides">
   <script>
     (() => {
       const key = 'cinechill-wiki-theme';
@@ -295,7 +295,17 @@
       </figure>
     </div>
 
-    <section class="card">
+
+<section class="action-guide" id="action-guide-rss">
+  <div class="action-guide-heading"><span class="action-guide-kicker">本页怎么用</span><h2>真实库：实际操作指南</h2></div>
+  <p class="action-guide-summary">真实库 RSS 的完整链路是“添加订阅 → 生成/填写地址 → 预览解析 → 保存 Cron → 手动运行 → 查看指标 → 再决定是否同步 MP”。</p>
+  <div class="action-guide-grid">
+    <div class="action-guide-block"><h3>按这个顺序操作</h3><ol><li>进入真实库点击添加订阅，填写订阅名称，选择生成来源或直接逐行填写 RSS 地址。</li><li>使用内置榜单时按页面出现的字段生成并填入；不要照旧教程添加不存在的参数。</li><li>先预览 RSS，确认解析条目、展示数量和 TMDB 匹配，再选择电影/电视剧和 Cron。</li><li>首次关闭“同步真实库缺失到 MP”，保存后点击手动运行，观察解析数量、匹配数量和待处理数量。</li><li>单条结果确认无误后再启用同步 MP；运行超时只代表页面停止轮询，要到系统日志确认后台是否仍在执行。</li></ol></div>
+    <div class="action-guide-block"><h3>完成后看什么</h3><ul><li>预览能解析条目，TMDB 匹配不是 0；任务卡片显示上次运行和下一次运行时间。</li><li>同步 MP 后订阅系统出现对应记录，没有重复创建。</li></ul></div>
+    <div class="action-guide-block"><h3>小白最容易错在哪里</h3><ul><li>RSS 解析为 0 就打开同步 MP；先修地址、类型和代理。</li><li>把真实库 RSS 的“已同步”当成下载/入库完成；后续还要看 MoviePilot、整理记录和 Emby。</li></ul></div>
+  </div>
+</section>
+<section class="card">
       <h2>适用场景与准备工作</h2>
       <ul>
         <li>为自有合法授权媒体建立周期性 RSS 订阅，并把结果交给后续媒体库整理。</li>

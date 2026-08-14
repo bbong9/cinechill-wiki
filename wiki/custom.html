@@ -6,7 +6,7 @@
   <title>封面设计 | CineChill Wiki</title>
   <meta name="description" content="新版封面设计用于维护封面布局、模板、字体、角标和素材组合，是自动封面和手动封面的设计基础。">
   <link rel="icon" type="image/png" href="/cinechill-wiki/cinechill/chill.png?v=20260609-logo-v2">
-  <link rel="stylesheet" href="/cinechill-wiki/cinechill/wiki.css?v=20260814-lightbox-zoom">
+  <link rel="stylesheet" href="/cinechill-wiki/cinechill/wiki.css?v=20260814-page-guides">
   <script>
     (() => {
       const key = 'cinechill-wiki-theme';
@@ -295,7 +295,17 @@
       </figure>
     </div>
 
-    <section class="card">
+
+<section class="action-guide" id="action-guide-custom">
+  <div class="action-guide-heading"><span class="action-guide-kicker">本页怎么用</span><h2>封面设计：实际操作指南</h2></div>
+  <p class="action-guide-summary">封面设计是模板制作工作台。字段要按“目标库/布局 → 素材 → 角标与字体 → 预览 → 保存模板”的顺序调整，不能直接跳到自动任务。</p>
+  <div class="action-guide-grid">
+    <div class="action-guide-block"><h3>按这个顺序操作</h3><ol><li>选择封面目标媒体库、布局模式、预设参数和取图模式，先确认基础画布能生成。</li><li>在素材组合中选择随机池、搜索或上传背景/小海报；素材加载失败先回资源配置检查。</li><li>调整统计角标的样式、字体、大小、颜色、透明度和当前布局提供的高级参数。</li><li>填写模板名称；覆盖旧模板用“保存当前”，保留旧版用另存为新模板。</li><li>生成预览并保存后，回资源配置刷新确认模板存在，再到手动封面单库应用。</li></ol></div>
+    <div class="action-guide-block"><h3>完成后看什么</h3><ul><li>预览中的标题、海报、角标和字体都正确，保存后资源配置能看到模板。</li><li>手动封面能读取该模板，自动封面任务下拉也能选到。</li></ul></div>
+    <div class="action-guide-block"><h3>小白最容易错在哪里</h3><ul><li>模板保存成功但自动任务找不到：先回资源配置刷新并检查布局模式是否一致。</li><li>一次改太多参数无法定位问题；先只改素材，再改文字和角标。</li></ul></div>
+  </div>
+</section>
+<section class="card">
       <h2>适用场景与准备工作</h2>
       <ul>
         <li>统一多个媒体库的视觉风格，或为手动 / 自动封面准备可复用模板。</li>

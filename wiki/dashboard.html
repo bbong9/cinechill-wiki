@@ -6,7 +6,7 @@
   <title>仪表盘 | CineChill Wiki</title>
   <meta name="description" content="新版仪表盘集中展示媒体库、任务动态、服务器状态、入库趋势、继续观看和最近入库。">
   <link rel="icon" type="image/png" href="/cinechill-wiki/cinechill/chill.png?v=20260609-logo-v2">
-  <link rel="stylesheet" href="/cinechill-wiki/cinechill/wiki.css?v=20260814-lightbox-zoom">
+  <link rel="stylesheet" href="/cinechill-wiki/cinechill/wiki.css?v=20260814-page-guides">
   <script>
     (() => {
       const key = 'cinechill-wiki-theme';
@@ -298,7 +298,17 @@
       </figure>
     </div>
 
-    <section class="card">
+
+<section class="action-guide" id="action-guide-dashboard">
+  <div class="action-guide-heading"><span class="action-guide-kicker">本页怎么用</span><h2>仪表盘：实际操作指南</h2></div>
+  <p class="action-guide-summary">仪表盘是验收页，不是任务执行页。先看在线状态和任务动态，再用趋势和底部卡片核对 Emby 数据。</p>
+  <div class="action-guide-grid">
+    <div class="action-guide-block"><h3>按这个顺序操作</h3><ol><li>登录后等待自动刷新，先看媒体库总览中的电影、电视剧、剧集、用户、Emby Server、CineChill 实例和在线状态。</li><li>查看任务动态中的媒体整理、STRM 同步和自动化任务；已有运行任务时回对应页面查看，不要在仪表盘重复启动。</li><li>查看服务器状态的 CPU、内存、硬盘、网络和使用率；入库趋势切换 7 天/30 天/全部，再分别看电影和剧集。</li><li>向下滚动查看继续观看、最近入库和媒体库，随机打开一条与 Emby 对照；无内容可能只是当前库没有数据。</li><li>数据异常时先等待自动刷新或重新加载页面，再回服务器配置、整理记录和系统日志定位。</li></ol></div>
+    <div class="action-guide-block"><h3>完成后看什么</h3><ul><li>Emby 在线，媒体库总览有数据并与 Emby 大致一致。</li><li>任务状态/更新时间会变化，趋势切换只改变统计范围，底部卡片能读到 Emby 数据。</li></ul></div>
+    <div class="action-guide-block"><h3>小白最容易错在哪里</h3><ul><li>把仪表盘统计当成任务执行按钮，重复启动同类任务。</li><li>看到 0 就重建容器；先检查 Emby 连接和页面更新时间。</li><li>把“任务完成”当成文件已入库；必须到整理记录和 Emby 实际播放验证。</li></ul></div>
+  </div>
+</section>
+<section class="card">
       <h2>新版入口</h2>
       <p>左侧导航栏点击“仪表盘”；登录成功后通常也会默认进入这里。</p>
     </section>
@@ -315,23 +325,23 @@
 
     <section class="card">
       <h2>页面区域怎么看</h2>
-      <ul><li>媒体库总览：来自 Emby 的库数量、媒体数量、用户数量和服务状态。</li><li>任务动态：媒体整理、STRM 同步、Webhook/RSS 等后台任务进度；不要在已有运行任务时重复点击同类操作。</li><li>服务器状态：CPU、内存、硬盘、网络上传/下载，以及读写吞吐的实时摘要。</li><li>入库趋势：按最近数据展示新增媒体趋势；这是统计图，不是任务队列。</li><li>继续观看、最近入库、媒体库：用于确认 Emby 数据读取结果。</li><li>网络带宽设置：只填写你希望仪表盘用于估算显示的带宽参数，保存后刷新验证；不要把它当成限速开关。</li></ul>
+      <ul><li>媒体库总览：来自 Emby 的库数量、媒体数量、用户数量和服务状态。</li><li>任务动态：媒体整理、STRM 同步、Webhook/RSS 等后台任务进度；不要在已有运行任务时重复点击同类操作。</li><li>服务器状态：CPU、内存、硬盘、网络上传/下载，以及读写吞吐的实时摘要。</li><li>入库趋势：按最近数据展示新增媒体趋势；这是统计图，不是任务队列。</li><li>继续观看、最近入库、媒体库：用于确认 Emby 数据读取结果。</li><li>入库趋势筛选：7 天适合看近期结果，30 天适合看阶段变化，全部适合看长期趋势；图表是统计结果，不是任务进度。</li></ul>
     </section>
 
     <section class="card">
       <h2>验证方式</h2>
-      <ol><li>打开仪表盘后等待一次自动刷新；该页面会周期性重新读取数据，不要仅凭首次缓存判断。</li><li>Emby 状态显示在线，媒体库数量不为 0，且与 Emby 后台大致一致。</li><li>任务动态中的运行数量能随任务开始和结束变化；没有长期卡在运行中。</li><li>服务器资源、带宽显示随实际负载变化；保存网络带宽设置后重新打开页面确认仍保留。</li></ol>
+      <ol><li>打开仪表盘后等待一次自动刷新；该页面会周期性重新读取数据，不要仅凭首次缓存判断。</li><li>Emby 状态显示在线，媒体库数量不为 0，且与 Emby 后台大致一致。</li><li>任务动态中的运行数量能随任务开始和结束变化；没有长期卡在运行中。</li><li>服务器资源显示随实际负载变化；趋势切换后图表范围和更新时间应同步变化。</li></ol>
     </section>
 
     <section class="card">
       <h2>常见问题和风险</h2>
-      <ul><li>媒体库全部为 0 时，优先检查“服务器配置”的 Emby 地址、API Key 和容器网络可达性；浏览器能访问不代表 CineChill 容器能访问。</li><li>数据停留在旧值时，先点击刷新或等待自动刷新，再检查浏览器 Network 和系统运行日志。</li><li>任务长期运行时，不要从仪表盘重复启动；先打开顶部“查看系统日志”和“整理记录”。</li><li>仪表盘只做总览，具体修复要回到对应配置页；网络带宽设置不会改变系统实际网络速度。</li></ul>
+      <ul><li>媒体库全部为 0 时，优先检查“服务器配置”的 Emby 地址、API Key 和容器网络可达性；浏览器能访问不代表 CineChill 容器能访问。</li><li>数据停留在旧值时，先等待页面自动刷新或重新加载浏览器页面，再检查系统运行日志。</li><li>任务长期运行时，不要从仪表盘重复启动；先打开顶部“查看系统日志”和“整理记录”。</li><li>仪表盘只做总览，具体修复要回到对应配置页；统计筛选不会改变系统实际网络速度。</li></ul>
     </section>
 <!-- DETAIL-TROUBLESHOOT-DASHBOARD-20260814 -->
 <section class="card"><h2>按卡片结果排查：仪表盘</h2>
-<h3>媒体库数量为 0 或统计一直不变</h3><ol><li>先点刷新并记录更新时间；再回服务器配置测试 Emby。</li><li>Emby 正常但仪表盘旧值，查看系统日志和浏览器请求是否返回 401/500；不要重复启动任务。</li><li>确认 Emby 连接的是当前实例，媒体库路径和权限正确后再等待下一次刷新。</li></ol>
+<h3>媒体库数量为 0 或统计一直不变</h3><ol><li>先等待自动刷新并记录更新时间；再回服务器配置测试 Emby。</li><li>Emby 正常但仪表盘旧值，查看系统日志和浏览器请求是否返回 401/500；不要重复启动任务。</li><li>确认 Emby 连接的是当前实例，媒体库路径和权限正确后再等待下一次刷新。</li></ol>
 <h3>任务动态显示完成但文件找不到</h3><ol><li>仪表盘只做总览，打开整理记录确认源路径、目标路径和实际状态。</li><li>下载类任务还要看 MoviePilot/115 任务历史；不要把“任务完成”当成 Emby 已入库。</li></ol>
-<h3>服务器状态异常</h3><ol><li>打开系统健康，按配置、路径、Emby、网关、网络顺序检查。</li><li>只修复报告异常的项目，再回仪表盘刷新验证；带宽显示不等于实际网络故障。</li></ol></section>
+<h3>服务器状态异常</h3><ol><li>打开系统健康，按配置、路径、Emby、网关、网络顺序检查。</li><li>只修复报告异常的项目，再回仪表盘刷新验证；仪表盘统计不等于实际网络故障。</li></ol></section>
 
 </article>
       <aside class="doc-aside" aria-label="本页目录">

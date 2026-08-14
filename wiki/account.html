@@ -7,7 +7,7 @@
   <meta name="robots" content="noindex,nofollow">
   <meta name="description" content="新版账户管理用于修改当前 CineChill 登录凭据，并查看 Emby 用户绑定和基础状态。">
   <link rel="icon" type="image/png" href="/cinechill-wiki/cinechill/chill.png?v=20260609-logo-v2">
-  <link rel="stylesheet" href="/cinechill-wiki/cinechill/wiki.css?v=20260814-lightbox-zoom">
+  <link rel="stylesheet" href="/cinechill-wiki/cinechill/wiki.css?v=20260814-page-guides">
   <script>
     (() => {
       const key = 'cinechill-wiki-theme';
@@ -294,6 +294,16 @@
 <h1>账户管理</h1>
 <p class="lead">账户管理包含两部分：CineChill 管理员登录凭据，以及基于主 Emby 服务器的用户查看、绑定和维护。先处理管理员凭据，再操作 Emby 用户。</p>
 
+
+<section class="action-guide" id="action-guide-account">
+  <div class="action-guide-heading"><span class="action-guide-kicker">本页怎么用</span><h2>账户管理：实际操作指南</h2></div>
+  <p class="action-guide-summary">先修改 CineChill 管理员凭据，再维护 Emby 用户。两套账号分开保存，不能把 Emby 用户操作当成管理员设置。</p>
+  <div class="action-guide-grid">
+    <div class="action-guide-block"><h3>按这个顺序操作</h3><ol><li>在当前账户卡片确认用户名、账户类型和密码保存状态；进入“修改登录凭据”填写旧密码、新用户名和新密码，点击“保存账户”。</li><li>退出并用新凭据重新登录，确认旧密码无法继续使用，再刷新账户管理。</li><li>确认服务器配置的 Emby 已测试通过后，到账户管理的 Emby 用户卡片搜索用户名/UserId，点击刷新读取列表。</li><li>对一个用户打开行内操作菜单，执行编辑、禁用/启用、重置密码、头像或绑定操作；每次操作后刷新表格确认状态列变化。</li><li>删除用户前确认删除对象和二次确认内容；操作后回 Emby 用户列表核对，不能只看 CineChill 弹窗。</li></ol></div>
+    <div class="action-guide-block"><h3>完成后看什么</h3><ul><li>管理员凭据可以重新登录，Emby 用户列表能读取。</li><li>单个用户操作后状态、最后活动或绑定列变化与 Emby 侧一致。</li></ul></div>
+    <div class="action-guide-block"><h3>小白最容易错在哪里</h3><ul><li>管理员密码和 Emby 用户密码混为一谈。</li><li>Emby 用户列表为空时反复操作；先查服务器配置、API Key 和 Emby 网络。</li><li>未确认删除对象就点击删除；先打开详情/菜单并完成二次确认。</li></ul></div>
+  </div>
+</section>
 <section class="card">
   <h2>适用场景与前置条件</h2>
   <ul>

@@ -7,7 +7,7 @@
   <meta name="robots" content="noindex,nofollow">
   <meta name="description" content="新版服务器配置把 Emby 和 115 基础连接集中到同一页，是媒体库读取、封面、整理和上传流程的基础。">
   <link rel="icon" type="image/png" href="/cinechill-wiki/cinechill/chill.png?v=20260609-logo-v2">
-  <link rel="stylesheet" href="/cinechill-wiki/cinechill/wiki.css?v=20260814-lightbox-zoom">
+  <link rel="stylesheet" href="/cinechill-wiki/cinechill/wiki.css?v=20260814-page-guides">
   <script>
     (() => {
       const key = 'cinechill-wiki-theme';
@@ -294,6 +294,16 @@
 <h1>服务器配置</h1>
 <p class="lead">服务器配置页同时维护 Emby 和 115 主账号。Emby 保存负责媒体库连接；115 保存除了凭据外，还会触发标准目录创建和相关模块绑定。</p>
 
+
+<section class="action-guide" id="action-guide-server">
+  <div class="action-guide-heading"><span class="action-guide-kicker">本页怎么用</span><h2>服务器配置：实际操作指南</h2></div>
+  <p class="action-guide-summary">Emby 和 115 是两张独立卡片。每张卡片都按“填写 → 测试连接 → 保存”的顺序操作。</p>
+  <div class="action-guide-grid">
+    <div class="action-guide-block"><h3>按这个顺序操作</h3><ol><li>Emby 卡片填写配置名称、Emby 地址、可选外网地址、Emby 密钥（API Key）和反代端口号；Emby 地址给 CineChill 容器使用，外网地址只用于图片/跳转。</li><li>点击 Emby“测试连接”，看到已连接并读取到媒体库数量后，再点击“保存 Emby”；反代端口要和 Docker/反向代理/防火墙使用同一个实际端口。</li><li>115 卡片填写名称和完整 Cookie，或点击“扫码登录”完成扫码后写入；需要回收站清理时再填写回收站安全码。</li><li>点击 115“测试连接”确认 Cookie 有效，再按需打开“启用同播复制”，最后点击“保存配置”。</li><li>保存后打开系统健康确认标准目录、媒体库本地路径、真实库路径和网关；再到 115 秒传或整理做小文件验证。</li></ol></div>
+    <div class="action-guide-block"><h3>完成后看什么</h3><ul><li>Emby 状态显示已连接并有媒体库数量，115 状态显示 Cookie 有效。</li><li>保存 115 后标准目录可浏览，容器重启后配置仍保留。</li></ul></div>
+    <div class="action-guide-block"><h3>小白最容易错在哪里</h3><ul><li>Emby 地址填 127.0.0.1，容器内会指向自己而不是宿主机。</li><li>外网地址能打开但后端连接失败；外网地址和容器内部 Emby 地址不是一回事。</li><li>测试成功后没有点保存，导致刷新/重启后回到旧配置。</li></ul></div>
+  </div>
+</section>
 <section class="card">
   <h2>适用场景与前置条件</h2>
   <ul>
@@ -310,7 +320,7 @@
     <li>填写“Emby 地址”，例如使用容器网络时可填写页面占位符所示的服务地址形式。</li>
     <li>按需填写“外网地址（用于图片展示 / Emby 跳转）”。它不是容器内部连接地址。</li>
     <li>填写“Emby 密钥（API Key）”。</li>
-    <li>填写“反代端口号”，必须是 <code>1-65535</code> 的数字；默认值为 <code>8011</code>。</li>
+    <li>填写“反代端口号”，必须是 <code>1-65535</code> 的数字；页面初始值可能为 <code>8011</code>；以实际 Compose、反向代理和防火墙发布的网关端口为准，不能把它当成固定值。</li>
     <li>先点击“测试连接”，确认返回媒体库数量，再点击“保存 Emby”。测试不会替代保存。</li>
   </ol>
   <p>保存 Emby 只更新 Emby 配置；如果反代端口发生变化，后端会尝试通过 Docker/Compose 同步并重启当前容器，但前提是 Docker Socket 和可写 Compose 条件满足。</p>

@@ -6,7 +6,7 @@
   <title>手动封面 | CineChill Wiki</title>
   <meta name="description" content="新版手动封面用于选择布局、媒体库、素材和参数，先预览单个封面效果，再决定是否保存或应用。">
   <link rel="icon" type="image/png" href="/cinechill-wiki/cinechill/chill.png?v=20260609-logo-v2">
-  <link rel="stylesheet" href="/cinechill-wiki/cinechill/wiki.css?v=20260814-lightbox-zoom">
+  <link rel="stylesheet" href="/cinechill-wiki/cinechill/wiki.css?v=20260814-page-guides">
   <script>
     (() => {
       const key = 'cinechill-wiki-theme';
@@ -286,7 +286,17 @@
 
 <p class="lead">手动封面工作台用于选择媒体库、布局模式、预设、取图方式和素材，先生成预览，再决定应用。它最适合单库、单次或少量目标验证。</p>
 
-    <section class="card">
+
+<section class="action-guide" id="action-guide-manual">
+  <div class="action-guide-heading"><span class="action-guide-kicker">本页怎么用</span><h2>手动封面：实际操作指南</h2></div>
+  <p class="action-guide-summary">当前版本的模板配置已并入封面设计；本页重点是单库预览和应用验收。先预览，后备份，最后应用。</p>
+  <div class="action-guide-grid">
+    <div class="action-guide-block"><h3>按这个顺序操作</h3><ol><li>先到资源配置确认布局、模板和字体存在；到封面设计调整模板并保存。</li><li>进入手动封面区域，选择一个媒体库、布局模式、预设和取图方式。</li><li>点击生成预览，核对媒体库、模板、取图、标题和角标；预览不满意就回设计页修改。</li><li>确认后先到封面备份创建快照，再点击应用封面并在确认框检查目标媒体库。</li><li>回 Emby 打开一两个媒体核对封面，确认后才扩大到其他库。</li></ol></div>
+    <div class="action-guide-block"><h3>完成后看什么</h3><ul><li>预览与应用后的 Emby 封面一致，目标库没有误覆盖。</li><li>封面备份能浏览并恢复目标库。</li></ul></div>
+    <div class="action-guide-block"><h3>小白最容易错在哪里</h3><ul><li>预览成功就认为 Emby 已更新；应用后还要回 Emby 验证。</li><li>没有备份就批量应用；不满意时只能人工恢复，先创建快照。</li></ul></div>
+  </div>
+</section>
+<section class="card">
       <h2>当前版本说明</h2>
       <p>当前管理端未再提供独立的“手动封面”顶层入口。原手动封面流程已并入封面设计、资源配置和自动封面相关能力；请优先查看下面的新版页面。</p>
       <ul>

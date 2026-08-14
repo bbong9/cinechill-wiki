@@ -6,7 +6,7 @@
   <title>AI 助手 | CineChill Wiki</title>
   <meta name="description" content="CineChill AI 助手页面的配置、验证和安全使用说明。">
   <link rel="icon" type="image/png" href="/cinechill-wiki/cinechill/chill.png?v=20260609-logo-v2">
-  <link rel="stylesheet" href="/cinechill-wiki/cinechill/wiki.css?v=20260814-lightbox-zoom">
+  <link rel="stylesheet" href="/cinechill-wiki/cinechill/wiki.css?v=20260814-page-guides">
   <script>
     (() => {
       const key = 'cinechill-wiki-theme';
@@ -289,6 +289,16 @@
   <figure class="screenshot screenshot-theme" data-screenshot-theme="light"><img src="/cinechill-wiki/cinechill/screenshots/live/ai_assistant-light.jpg?v=20260814-original" alt="AI 助手 页面截图"></figure>
   <figure class="screenshot screenshot-theme" data-screenshot-theme="dark"><img src="/cinechill-wiki/cinechill/screenshots/live/ai_assistant-dark.jpg?v=20260814-original" alt="AI 助手 页面截图"></figure>
 </div>
+
+<section class="action-guide" id="action-guide-ai_assistant">
+  <div class="action-guide-heading"><span class="action-guide-kicker">本页怎么用</span><h2>AI 助手：实际操作指南</h2></div>
+  <p class="action-guide-summary">AI 助手的实际配置由“模型配置、工具列表、本地记忆、提醒任务、调用审计”组成；先连通模型，再逐项打开能力。</p>
+  <div class="action-guide-grid">
+    <div class="action-guide-block"><h3>按这个顺序操作</h3><ol><li>在“模型配置”填写 Base URL、API Key，点击“获取模型列表”，选择模型并确认上下文长度；按需打开代理后点击“测试连接”和“保存”。</li><li>在自动策略中逐项开启媒体辅助识别、TMDB 条目校验、工具调用或上下文压缩，修改后保存并刷新确认。</li><li>在“工具列表”逐个启用工具；出现“编辑配置”时按弹窗 schema 填写并点击“保存配置”，不要一次全开。</li><li>在“本地记忆”分别填写机器人预设、用户预设和笔记，点击“保存记忆”；在“提醒任务”填写标题、执行时间、接收用户 ID和任务类型后创建。</li><li>到“调用审计”按时间、工具名和结果核对 AI 实际调用；最后用一个媒体做识别/校验，不要直接批量写入。</li></ol></div>
+    <div class="action-guide-block"><h3>完成后看什么</h3><ul><li>模型列表能加载，测试连接显示成功和延迟，保存后开关仍保持。</li><li>提醒任务出现待执行状态，调用审计出现工具和结果摘要，单条识别结果可人工核对。</li></ul></div>
+    <div class="action-guide-block"><h3>小白最容易错在哪里</h3><ul><li>API Key 填好后没有获取模型列表，或 Base URL 多写一层路径。</li><li>模型/工具配置改完没保存，或启用代理但代理配置为空。</li><li>AI 返回成功就直接批量整理；先对照 TMDB、Emby 和原文件。</li></ul></div>
+  </div>
+</section>
 <section class="card"><h2>使用前准备</h2><ul><li>先确认当前版本支持的 AI 功能和权限范围，不要把旧版本教程中的字段直接照搬。</li><li>准备由管理员保管的 AI 服务配置；API Key、Token、账号和请求地址不写入公开 Wiki。</li><li>如果 AI 请求需要外网访问，先完成代理配置并在系统健康页确认网络链路。</li></ul></section>
 <section class="card"><h2>页面区域怎么看</h2><ul><li><strong>连接/配置区：</strong>用于维护提供方、模型或访问凭据；保存后只显示状态，不应展开敏感值。</li><li><strong>功能开关：</strong>决定 AI 是否参与识别、校验、提醒等流程；逐项启用，避免一次打开全部自动化。</li><li><strong>测试或验证区：</strong>用一条已知媒体或短文本确认请求成功、结果可读、语言和格式符合预期。</li><li><strong>权限与风险提示：</strong>涉及写入、重命名、整理或通知时，先人工确认结果再执行。</li></ul></section>
 <section class="card"><h2>推荐操作顺序</h2><ol><li>只填写必要的服务配置并保存。</li><li>执行一次连接或模型测试，确认没有认证、网络和配额错误。</li><li>用一个小样本运行识别/校验，手工对比 TMDB、Emby 或原文件信息。</li><li>确认结果可靠后，再开启提醒或低风险自动化；重命名、整理、删除等动作保持人工确认。</li><li>排查完成后回到系统日志检查请求失败、超时和重复执行情况。</li></ol></section>

@@ -6,7 +6,7 @@
   <title>整理记录 | CineChill Wiki</title>
   <meta name="description" content="新版整理记录按状态汇总完整流水，可查看整理成功、失败、洗版、SHA1 重复、STRM 生成和跳过记录。">
   <link rel="icon" type="image/png" href="/cinechill-wiki/cinechill/chill.png?v=20260609-logo-v2">
-  <link rel="stylesheet" href="/cinechill-wiki/cinechill/wiki.css?v=20260814-lightbox-zoom">
+  <link rel="stylesheet" href="/cinechill-wiki/cinechill/wiki.css?v=20260814-page-guides">
   <script>
     (() => {
       const key = 'cinechill-wiki-theme';
@@ -298,7 +298,17 @@
       </figure>
     </div>
 
-    <section class="card">
+
+<section class="action-guide" id="action-guide-organize_history">
+  <div class="action-guide-heading"><span class="action-guide-kicker">本页怎么用</span><h2>整理记录：实际操作指南</h2></div>
+  <p class="action-guide-summary">整理记录默认展示历史结果，不是当前任务队列；要先按分类和搜索定位记录，再打开详情判断问题。</p>
+  <div class="action-guide-grid">
+    <div class="action-guide-block"><h3>按这个顺序操作</h3><ol><li>先看“整理成功、整理失败、AI整理、洗版成功、洗版失败、SHA1重复、STRM生成、跳过”分类卡片，确认本次任务落在哪一类。</li><li>用搜索框按标题、TMDB ID、路径或失败原因定位，批量操作前先勾选当前页记录。</li><li>打开记录详情核对源路径、目标路径、识别结果、质量参数、处理决策和失败原因；列表状态不够时不要直接重跑。</li><li>需要修正识别时点击“重新整理”或“AI重新整理”；指定信息弹窗中填写媒体类型、TMDb ID、剧集组、标题、年份、季和集，再点击“开始重新整理”。</li><li>删除选中/清理记录只影响历史，不会删除媒体文件；修复后先重新处理一条，再观察新记录。</li></ol></div>
+    <div class="action-guide-block"><h3>完成后看什么</h3><ul><li>新任务完成后对应分类数量增加，详情中的源/目标路径与实际文件一致。</li><li>重新整理后出现新的结果记录；Emby 是否可播放要单独回 Emby 验证。</li></ul></div>
+    <div class="action-guide-block"><h3>小白最容易错在哪里</h3><ul><li>把“跳过”当成失败，或只看列表不看详情。</li><li>源文件已不存在仍点击重新整理；先确认源路径可读。</li><li>清理记录后以为文件被撤销；历史删除不会回滚媒体。</li></ul></div>
+  </div>
+</section>
+<section class="card">
       <h2>新版入口</h2>
       <p>左侧导航栏“媒体整理 → 整理记录”。执行一条龙后优先到这里核对结果。</p>
     </section>
