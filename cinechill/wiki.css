@@ -1330,18 +1330,7 @@ html.dark .doc-outline-content,
   padding:0;
 }
 .is-home .home-features::before{
-  content:"";
-  position:absolute;
-  inset:-34px -34px -30px;
-  z-index:-1;
-  border-radius:34px;
-  background:
-    radial-gradient(circle at 18% 18%,rgba(59,130,246,.12),transparent 34%),
-    radial-gradient(circle at 82% 70%,rgba(168,85,247,.10),transparent 32%),
-    linear-gradient(145deg,rgba(255,255,255,.035),rgba(255,255,255,.012));
-  border:1px solid rgba(255,255,255,.055);
-  box-shadow:0 28px 90px rgba(0,0,0,.16),inset 1px 1px 0 rgba(255,255,255,.045);
-  pointer-events:none;
+  display:none;
 }
 .is-home .feature-grid{
   gap:26px;
