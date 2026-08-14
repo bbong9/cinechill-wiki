@@ -6,7 +6,7 @@
   <title>快速开始 | CineChill Wiki</title>
   <meta name="description" content="CineChill 快速开始">
   <link rel="icon" type="image/png" href="/cinechill-wiki/cinechill/chill.png?v=20260609-logo-v2">
-  <link rel="stylesheet" href="/cinechill-wiki/cinechill/wiki.css?v=20260618-perf-pass1">
+  <link rel="stylesheet" href="/cinechill-wiki/cinechill/wiki.css?v=20260813-live-screenshots">
   <script>
     (() => {
       const key = 'cinechill-wiki-theme';
@@ -65,7 +65,7 @@
           const normalizedHref = href.startsWith('/') ? href.slice(1) : href;
           return new URL(basePath + normalizedHref, window.location.origin).href;
         };
-        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260618-perf-pass1', window.location.origin + siteBasePath()).href;
+        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260813-live-screenshots', window.location.origin + siteBasePath()).href;
         const loadSearchIndex = () => {
           if (!searchIndexPromise) {
             searchIndexPromise = fetch(searchIndexUrl())
@@ -277,7 +277,7 @@
     <aside class="sidebar" aria-label="侧边栏导航">
       <nav class="sidebar-tree" id="VPSidebarNav" aria-label="文档导航">
         <section class="sidebar-item level-0 has-active"><div class="sidebar-entry"><div class="indicator"></div><h2 class="text">入门</h2></div><div class="items"><div class="sidebar-item level-1 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/"><p class="text">总览</p></a></div></div><div class="sidebar-item level-1 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/login.html"><p class="text">登录页</p></a></div></div><div class="sidebar-item level-1 is-link is-active has-active"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/quickstart.html"><p class="text">快速开始</p></a></div></div><div class="sidebar-item level-1 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/install.html"><p class="text">部署与首次配置</p></a></div></div><div class="sidebar-item level-1 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/workflow.html"><p class="text">常用工作流</p></a></div></div><div class="sidebar-item level-1 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/changelog.html"><p class="text">更新日志</p></a></div></div></div></section>
-        <section class="sidebar-item level-0"><div class="sidebar-entry"><div class="indicator"></div><h2 class="text">页面教程</h2></div><div class="items"><section class="sidebar-item level-1"><div class="sidebar-entry"><div class="indicator"></div><h3 class="text">首页</h3></div><div class="items"><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/dashboard.html"><p class="text">仪表盘</p></a></div></div></div></section><section class="sidebar-item level-1"><div class="sidebar-entry"><div class="indicator"></div><h3 class="text">发现与统计</h3></div><div class="items"><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/media_subscribe.html"><p class="text">发现推荐</p></a></div></div><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/missing_episode_stats.html"><p class="text">缺集统计</p></a></div></div><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/rss.html"><p class="text">真实库</p></a></div></div></div></section><section class="sidebar-item level-1"><div class="sidebar-entry"><div class="indicator"></div><h3 class="text">媒体整理</h3></div><div class="items"><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/media_organize.html"><p class="text">一条龙菜单</p></a></div></div><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/organize_history.html"><p class="text">整理记录</p></a></div></div><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/rename_template.html"><p class="text">重命名模板</p></a></div></div><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/media_organize_rules.html"><p class="text">二级分类</p></a></div></div></div></section><section class="sidebar-item level-1"><div class="sidebar-entry"><div class="indicator"></div><h3 class="text">封面系统</h3></div><div class="items"><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/manual.html"><p class="text">手动封面</p></a></div></div><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/custom.html"><p class="text">封面设计</p></a></div></div><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/auto.html"><p class="text">自动封面</p></a></div></div><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/cover_backup.html"><p class="text">封面备份</p></a></div></div><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/cover_resources.html"><p class="text">资源配置</p></a></div></div><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/cover_translations.html"><p class="text">翻译配置</p></a></div></div></div></section><section class="sidebar-item level-1"><div class="sidebar-entry"><div class="indicator"></div><h3 class="text">系统配置</h3></div><div class="items"><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/server.html"><p class="text">服务器配置</p></a></div></div><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/config_115.html"><p class="text">115 配置说明</p></a></div></div><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/config_notification.html"><p class="text">通知配置</p></a></div></div><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/account.html"><p class="text">账户管理</p></a></div></div><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/toolbox.html"><p class="text">工具箱</p></a></div></div><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/drive115_upload.html"><p class="text">115秒传</p></a></div></div><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/emby_tasks.html"><p class="text">Emby 任务中心</p></a></div></div><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/docker_manager.html"><p class="text">Docker 管理</p></a></div></div></div></section><section class="sidebar-item level-1"><div class="sidebar-entry"><div class="indicator"></div><h3 class="text">工具箱</h3></div><div class="items"><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/scan_115_ck.html"><p class="text">扫码获取115CK</p></a></div></div><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/clear_115_schedule.html"><p class="text">115 定时清空</p></a></div></div><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/drive115_transfer.html"><p class="text">网盘资源秒传</p></a></div></div><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/resource_transfer.html"><p class="text">资源转存</p></a></div></div><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/forward_aiying.html"><p class="text">Forward 模块</p></a></div></div><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/webhook.html"><p class="text">Webhook</p></a></div></div><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/fnos_checkin.html"><p class="text">飞牛论坛签到</p></a></div></div><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/telegram_monitor.html"><p class="text">Telegram 监听</p></a></div></div><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/config_moviepilot.html"><p class="text">MoviePilot</p></a></div></div><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/config_proxy.html"><p class="text">代理配置</p></a></div></div><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/config_tmdb.html"><p class="text">TMDB 配置</p></a></div></div></div></section><section class="sidebar-item level-1"><div class="sidebar-entry"><div class="indicator"></div><h3 class="text">排障</h3></div><div class="items"><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/operations_console.html"><p class="text">系统运行日志</p></a></div></div><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/system_health.html"><p class="text">系统健康</p></a></div></div></div></section></div></section>
+        <section class="sidebar-item level-0"><div class="sidebar-entry"><div class="indicator"></div><h2 class="text">页面教程</h2></div><div class="items"><section class="sidebar-item level-1"><div class="sidebar-entry"><div class="indicator"></div><h3 class="text">首页</h3></div><div class="items"><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/dashboard.html"><p class="text">仪表盘</p></a></div></div></div></section><section class="sidebar-item level-1"><div class="sidebar-entry"><div class="indicator"></div><h3 class="text">新增功能</h3></div><div class="items"><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/subscription_manager.html"><p class="text">订阅系统</p></a></div></div><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/site_management.html"><p class="text">站点管理</p></a></div></div><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/ai_assistant.html"><p class="text">AI 助手</p></a></div></div></div></section><section class="sidebar-item level-1"><div class="sidebar-entry"><div class="indicator"></div><h3 class="text">发现与统计</h3></div><div class="items"><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/media_subscribe.html"><p class="text">发现推荐</p></a></div></div><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/missing_episode_stats.html"><p class="text">缺集统计</p></a></div></div><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/rss.html"><p class="text">真实库</p></a></div></div></div></section><section class="sidebar-item level-1"><div class="sidebar-entry"><div class="indicator"></div><h3 class="text">媒体整理</h3></div><div class="items"><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/media_organize.html"><p class="text">一条龙菜单</p></a></div></div><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/organize_history.html"><p class="text">整理记录</p></a></div></div><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/rename_template.html"><p class="text">重命名模板</p></a></div></div><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/media_organize_rules.html"><p class="text">二级分类</p></a></div></div></div></section><section class="sidebar-item level-1"><div class="sidebar-entry"><div class="indicator"></div><h3 class="text">封面系统</h3></div><div class="items"><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/manual.html"><p class="text">手动封面</p></a></div></div><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/custom.html"><p class="text">封面设计</p></a></div></div><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/auto.html"><p class="text">自动封面</p></a></div></div><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/cover_backup.html"><p class="text">封面备份</p></a></div></div><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/cover_resources.html"><p class="text">资源配置</p></a></div></div><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/cover_translations.html"><p class="text">翻译配置</p></a></div></div></div></section><section class="sidebar-item level-1"><div class="sidebar-entry"><div class="indicator"></div><h3 class="text">系统配置</h3></div><div class="items"><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/server.html"><p class="text">服务器配置</p></a></div></div><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/config_115.html"><p class="text">115 配置说明</p></a></div></div><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/config_notification.html"><p class="text">通知配置</p></a></div></div><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/account.html"><p class="text">账户管理</p></a></div></div><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/toolbox.html"><p class="text">工具箱</p></a></div></div><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/drive115_upload.html"><p class="text">115秒传</p></a></div></div><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/emby_tasks.html"><p class="text">Emby 任务中心</p></a></div></div><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/docker_manager.html"><p class="text">Docker 管理</p></a></div></div></div></section><section class="sidebar-item level-1"><div class="sidebar-entry"><div class="indicator"></div><h3 class="text">工具箱</h3></div><div class="items"><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/scan_115_ck.html"><p class="text">扫码获取115CK</p></a></div></div><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/clear_115_schedule.html"><p class="text">115 定时清空</p></a></div></div><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/drive115_transfer.html"><p class="text">网盘资源秒传</p></a></div></div><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/resource_transfer.html"><p class="text">资源转存</p></a></div></div><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/forward_aiying.html"><p class="text">Forward 模块</p></a></div></div><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/webhook.html"><p class="text">Webhook</p></a></div></div><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/fnos_checkin.html"><p class="text">飞牛论坛签到</p></a></div></div><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/telegram_monitor.html"><p class="text">Telegram 监听</p></a></div></div><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/config_moviepilot.html"><p class="text">MoviePilot</p></a></div></div><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/config_proxy.html"><p class="text">代理配置</p></a></div></div><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/config_tmdb.html"><p class="text">TMDB 配置</p></a></div></div></div></section><section class="sidebar-item level-1"><div class="sidebar-entry"><div class="indicator"></div><h3 class="text">排障</h3></div><div class="items"><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/operations_console.html"><p class="text">系统运行日志</p></a></div></div><div class="sidebar-item level-2 is-link"><div class="sidebar-entry"><div class="indicator"></div><a class="link" href="/cinechill-wiki/wiki/system_health.html"><p class="text">系统健康</p></a></div></div></div></section></div></section>
       </nav>
     </aside>
     <main id="VPContent" class="content">
@@ -299,17 +299,27 @@
       <h2>最短上手顺序</h2>
       <ol>
         <li>部署 CineChill，管理端默认监听容器内 <code>5256</code>；网关默认端口为 <code>8011</code>。</li>
-        <li>浏览器打开管理端，登录后立即进入“系统配置 → 账户管理”修改登录凭据。</li>
+        <li>浏览器打开管理端：首次部署默认使用账号 <code>admin</code>、密码 <code>password</code> 登录；成功后立即进入“系统配置 → 账户管理”改密。</li>
         <li>进入“系统配置 → 服务器配置”，先测试 Emby，再填写并测试 115 Cookie。</li>
         <li>保存 115 配置；这一步会按源码规则创建或校验标准目录，并绑定媒体整理、STRM 和相关任务。</li>
         <li>按需配置“工具箱 → TMDB 配置”和“工具箱 → 代理配置”。</li>
-        <li>用少量自有合法授权媒体做一次整理或元数据测试，最后查看“系统健康”和顶部“系统运行日志”。</li>
+        <li>用少量自有合法授权媒体做一次整理或元数据测试，最后从顶部工具栏打开“健康检查”和“查看系统日志”。</li>
       </ol>
     </section>
 
     <section class="card">
+      <h2>首次登录凭据</h2>
+      <p>全新部署且持久化配置中还没有 <code>auth.json</code> 时，初始登录信息为：</p>
+      <ul>
+        <li><strong>账号：</strong><code>admin</code></li>
+        <li><strong>密码：</strong><code>password</code></li>
+      </ul>
+      <p><strong>安全要求：</strong>这组信息只用于首次进入管理端。登录后马上打开“系统配置 → 账户管理”，填写旧密码并设置新的用户名和密码；不要把默认密码用于长期运行或公网访问。</p>
+    </section>
+
+    <section class="card">
       <h2>Docker run：先启动管理端</h2>
-      <p>左侧变量是宿主机值；右侧 <code>/app/...</code> 和 <code>/media</code> 是容器内路径。首次使用保留默认端口，后续如果在“服务器配置”修改网关端口，必须同步修改 Docker 端口映射并重启容器。</p>
+      <p>左侧变量是宿主机值；右侧 <code>/app/...</code> 和 <code>/media</code> 是容器内路径。首次使用保留默认端口，后续如果在“服务器配置”修改网关端口，必须同步修改 Docker 端口映射并重启容器。下面的单容器示例也使用当前服务名 <code>cinechill</code> 和最新环境变量。</p>
       <pre><code class="language-bash"># 改成你的宿主机目录；不要把真实凭据写进脚本或公开仓库
 CINECHILL_DIR="/path/to/cinechill"
 MEDIA_DIR="/path/to/media"
@@ -317,71 +327,138 @@ WEB_HOST_PORT="5256"
 GATEWAY_HOST_PORT="8011"
 STRM_HOST="your-nas-host-or-ip"
 
-mkdir -p "$CINECHILL_DIR"/{config,fonts,templates,layouts,backups,media}
+mkdir -p "$CINECHILL_DIR"/{config,fonts,templates,backups}
 
 docker run -d \
   --name cinechill \
-  --restart unless-stopped \
+  --restart always \
   -p "${WEB_HOST_PORT}:5256" \
   -p "${GATEWAY_HOST_PORT}:8011" \
   -v "$CINECHILL_DIR/config:/app/config" \
   -v "$CINECHILL_DIR/fonts:/app/fonts" \
   -v "$CINECHILL_DIR/templates:/app/templates" \
-  -v "$CINECHILL_DIR/layouts:/app/layouts" \
   -v "$CINECHILL_DIR/backups:/app/backups" \
   -v "$MEDIA_DIR:/media" \
   -v /var/run/docker.sock:/var/run/docker.sock \
+  -v /vol2/1000/docker:/vol2/1000/docker:rw \
   -e TZ=Asia/Shanghai \
   -e CHILLPOSTER_LOCAL_MEDIA_ROOT=/media \
   -e CHILLPOSTER_STRM_HOST="$STRM_HOST" \
+  -e CHILLPOSTER_MEDIA_METADATA_WORKERS=15 \
+  -e CHILLPOSTER_MEDIA_ORGANIZE_CONCURRENCY=4 \
   chillne/cinechill:latest</code></pre>
       <ul>
         <li><code>/app/config</code>：登录凭据、服务器配置、任务和外部服务配置，必须持久化。</li>
-        <li><code>/app/fonts</code>、<code>/app/templates</code>、<code>/app/layouts</code>：封面资源和布局，按需持久化。</li>
+        <li><code>/app/fonts</code>、<code>/app/templates</code>：封面字体和模板资源，按需持久化。</li>
         <li><code>/app/backups</code>：封面及迁移备份，建议持久化。</li>
         <li><code>/media</code>：标准目录会在这里创建；<code>CHILLPOSTER_LOCAL_MEDIA_ROOT=/media</code> 必须与挂载路径一致。</li>
         <li><code>/var/run/docker.sock</code>：只为 Docker 管理和部分端口/Compose 检查提供能力，是高权限挂载；不用这些功能时可以不挂载。</li>
+        <li><code>/vol2/1000/docker</code>：用于让 CineChill 读取或修改其他容器的 Compose 文件；只有确实使用此功能时才挂载，并确认目录权限和安全边界。</li>
       </ul>
     </section>
 
     <section class="card">
       <h2>Docker Compose：长期运行推荐</h2>
-      <p>把以下内容保存为你自己的 Compose 文件，并将左侧宿主机路径替换为实际目录。Compose 服务名不是固定 API 名称；下面示例使用 <code>cinechill</code>，日志命令也按此服务名书写。</p>
-      <p><strong>必须修改：</strong><code>./media</code> 只是示例宿主机目录；请改成实际媒体路径，并保证 CineChill 与 Emby 看到的容器内媒体路径完全一致。若只使用 CineChill 的 STRM/整理功能，可不把 Emby 写进同一份 Compose，但 Emby 仍必须能访问同一媒体映射。</p>
-      <pre><code class="language-yaml">services:
+      <p>下面按你提供的最新文件整理为 CineChill + Emby 一体化 Compose。服务名和容器名已经统一为 <code>cinechill</code>；Emby 的 Compose 服务名是 <code>emby</code>，容器名是 <code>embyserver</code>。</p>
+      <p><strong>必须修改：</strong><code>/path/to/your/media</code>、<code>YOUR_NAS_IP</code> 和 <code>YOUR_PROXY_IP:PORT</code> 都是占位符。CineChill 与 Emby 的媒体挂载左侧宿主机路径必须完全相同，右侧容器路径都必须是 <code>/media</code>。示例中的 <code>/vol2/1000/docker:/vol2/1000/docker:rw</code> 会授予容器修改其他 Compose 文件的能力，只在确实需要时保留。</p>
+      <pre><code class="language-yaml"># CineChill + Emby 服务集合
+services:
+  # CineChill 主服务：管理端、媒体整理、STRM 和相关任务
   cinechill:
+    # CineChill 最新正式镜像；升级前建议先备份并验证版本
     image: chillne/cinechill:latest
+    # CineChill 容器名称；docker logs 等命令按此名称排障
     container_name: cinechill
-    restart: unless-stopped
+    # NAS 或 Docker 重启后自动拉起 CineChill
+    restart: always
+    # 端口映射
     ports:
+      # 管理端：宿主机 5256 映射到容器内固定端口 5256
       - "5256:5256"
+      # 302 / STRM 相关网关：宿主机 8011 映射到容器内固定端口 8011
       - "8011:8011"
+    # 数据和媒体目录挂载
     volumes:
+      # CineChill 核心配置、登录凭据、任务状态和外部服务配置
       - ./config:/app/config
+      # 封面字体资源
       - ./fonts:/app/fonts
+      # 封面模板资源
       - ./templates:/app/templates
-      - ./layouts:/app/layouts
+      # 封面、配置和迁移备份
       - ./backups:/app/backups
-      - ./media:/media
+      # 本地媒体库：左侧必须改成你的实际路径，并且必须与 Emby 的媒体映射完全一致
+      - /path/to/your/media:/media
+      # Docker 管理页读取本机 Docker 状态所需的 Socket；不用 Docker 管理功能时可移除
       - /var/run/docker.sock:/var/run/docker.sock
-      # 只有需要“写入 Compose”时才挂载；左右路径要保持为容器内可见的同一绝对路径
-      # - /path/to/compose-project:/path/to/compose-project:rw
+      # 允许 CineChill 读取或修改其他容器 Compose 文件；仅在需要时挂载，属于高权限映射
+      - /vol2/1000/docker:/vol2/1000/docker:rw
+    # CineChill 环境变量
     environment:
+      # 时区
       - TZ=Asia/Shanghai
+      # 容器内媒体根目录；必须与上方媒体挂载的右侧路径一致
       - CHILLPOSTER_LOCAL_MEDIA_ROOT=/media
-      - CHILLPOSTER_STRM_HOST=your-nas-host-or-ip</code></pre>
-      <pre><code class="language-bash">docker compose up -d
+      # STRM 访问主机地址；改成 NAS 或服务器在局域网中的地址，不要填 127.0.0.1
+      - CHILLPOSTER_STRM_HOST=YOUR_NAS_IP
+      # 媒体元数据处理并发数；性能较弱的机器可适当降低
+      - CHILLPOSTER_MEDIA_METADATA_WORKERS=15
+      # 媒体整理并发数；机械硬盘或低性能 NAS 可适当降低
+      - CHILLPOSTER_MEDIA_ORGANIZE_CONCURRENCY=4
+
+  # Emby 媒体服务器：与 CineChill 共用同一宿主机媒体目录
+  emby:
+    # Emby Beta 镜像；如果你已验证其他标签，可按实际环境替换
+    image: emby/embyserver:beta
+    # Emby 容器名称
+    container_name: embyserver
+    # 使用宿主机网络；Emby 直接监听宿主机网络栈
+    network_mode: host
+    # 端口说明；Host 网络模式下实际监听以宿主机状态为准
+    ports:
+      # Host 网络模式下实际监听以宿主机状态为准；保留端口说明方便核对
+      - "8096:8096"
+      # Emby HTTPS 默认端口
+      - "8920:8920"
+    # Emby 环境变量
+    environment:
+      # 容器内运行用户 ID；按提供的配置使用 root
+      - UID=0
+      # 容器内运行组 ID
+      - GID=0
+      # 附加组 ID 列表
+      - GIDLIST=0
+      # 时区
+      - TZ=Asia/Shanghai
+      # HTTP 代理；改成你自己的代理地址和端口，不要把真实地址提交到公开仓库
+      - HTTP_PROXY=http://YOUR_PROXY_IP:PORT
+      # HTTPS 代理；改成你自己的代理地址和端口
+      - HTTPS_PROXY=http://YOUR_PROXY_IP:PORT
+      # 不经过代理的本机、局域网、Emby/CineChill 访问地址；按你的网络补充实际地址
+      - NO_PROXY=localhost,127.0.0.1,YOUR_NAS_IP,192.168.0.0/16,cinechill
+    # Emby 配置和媒体目录挂载
+    volumes:
+      # Emby 配置、数据库和元数据；必须持久化
+      - ./emby/config:/config
+      # 媒体库目录：左侧必须与 CineChill 完全相同，右侧必须同为 /media
+      - /path/to/your/media:/media</code></pre>
+      <pre><code class="language-bash"># 在保存 Compose 文件的目录执行
+docker compose config
+docker compose up -d
 docker compose ps
-docker compose logs -f cinechill</code></pre>
+
+# 分别查看 CineChill 和 Emby 日志
+docker compose logs -f cinechill
+docker compose logs -f emby</code></pre>
     </section>
 
     <section class="card">
       <h2>首次验证</h2>
       <ol>
         <li>访问 <code>http://你的主机地址:5256</code>；反向代理场景则访问你配置的 HTTPS 地址。</li>
-        <li>登录后进入账户管理修改凭据。</li>
+        <li>首次部署使用账号 <code>admin</code>、密码 <code>password</code> 登录；进入“系统配置 → 账户管理”后立即修改凭据。</li>
         <li>打开“服务器配置”，Emby 测试应能返回媒体库数量；115 测试应显示 Cookie 有效。</li>
-        <li>保存 115 配置后，打开“系统健康”，确认标准目录、媒体路径和网关状态。</li>
+        <li>保存 115 配置后，从顶部工具栏打开“健康检查”，确认标准目录、媒体路径和网关状态。</li>
         <li>运行一次小范围任务，去“整理记录”和“系统运行日志”确认结果。</li>
         <li>用 <code>/api/version</code> 核对实际运行版本；Wiki 已同步的最近发布记录为 <code>v1.0.0.69</code>（2026-08-04）；实际运行版本仍以你的 CineChill 页面或 <code>/api/version</code> 返回值为准，不要只根据镜像标签猜版本。</li>
       </ol>
@@ -401,7 +478,7 @@ docker compose logs -f cinechill</code></pre>
     <section class="card">
       <h2>备份、升级与回滚</h2>
       <ol>
-        <li>升级前停止或暂停高风险任务，备份挂载的 <code>config</code>、<code>fonts</code>、<code>templates</code>、<code>layouts</code> 和 <code>backups</code>。</li>
+        <li>升级前停止或暂停高风险任务，备份挂载的 <code>config</code>、<code>fonts</code>、<code>templates</code>、<code>backups</code> 和 <code>emby/config</code>。</li>
         <li>生产环境不要长期依赖 <code>latest</code>；把 Compose 镜像改为已经验证过的版本标签后再执行 <code>docker compose pull &amp;&amp; docker compose up -d</code>。</li>
         <li>升级后重复“首次验证”。</li>
         <li>回滚时把镜像改回上一个已验证标签，先恢复容器；只有确认配置文件被新版本改坏时，才在停容器后恢复备份目录。</li>
