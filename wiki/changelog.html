@@ -65,7 +65,7 @@
           const normalizedHref = href.startsWith('/') ? href.slice(1) : href;
           return new URL(basePath + normalizedHref, window.location.origin).href;
         };
-        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260815-release-72', window.location.origin + siteBasePath()).href;
+        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260815-release-72-no-ops', window.location.origin + siteBasePath()).href;
         const loadSearchIndex = () => {
           if (!searchIndexPromise) {
             searchIndexPromise = fetch(searchIndexUrl())
@@ -356,10 +356,6 @@
           <p>删除缺集条目前会以明确的超时和错误处理读取 Emby 条目；批量删除按条目返回成功或失败结果，失败原因和耗时会写入结果及运行日志。</p>
           <p>删除完成后的缺集统计更新改为排队交给 Webhook 与延迟兜底处理，避免删除请求被统计修补阻塞。</p>
         </article>
-        <article class="update-column">
-          <h3><span class="update-icon">OPS</span>镜像与验证</h3>
-          <p>两种架构通过 39 项镜像回归测试、286 路径/324 路由 OpenAPI 检查、74 项版本化前端资源检查，以及源文件保护、远程摘要、容器启动和 <code>/api/version</code> 验证。</p>
-        </article>
       </div>
       </div>
     </details>
@@ -385,10 +381,6 @@
           <h3><span class="update-icon">UI</span>封面加载与 AI 助手</h3>
           <p>仪表盘媒体列表减少首屏一次性加载量，封面改为按需加载并加入后台预热缓存，进入页面更快。</p><p>AI 助手中的整理识别模式说明与可用选项同步更新，只保留智能/全量 ffprobe。</p>
         </article>
-        <article class="update-column">
-          <h3><span class="update-icon">OPS</span>镜像与验证</h3>
-          <p>amd64、arm64 镜像层从 126 层压缩为 5 层，改善 Docker Hub 拉取可靠性。</p><p>两种架构通过 56 项镜像回归测试、324 路由 OpenAPI 检查、前端版本检查及容器启动和 <code>/api/version</code> 验证。</p>
-        </article>
       </div>
       </div>
     </details>
@@ -409,10 +401,6 @@
         <article class="update-column">
           <h3><span class="inline-new">FIX</span>MoviePilot 站点监控统计</h3>
           <p>清理过时的累计监控统计和旧摘要字段，页面改为围绕当前轮次监控结果展示。</p><p>下载任务、防重复任务等仍保留，便于确认本轮监控是否真正触发下载。</p>
-        </article>
-        <article class="update-column">
-          <h3><span class="update-icon">OPS</span>镜像与验证</h3>
-          <p>支持 amd64、arm64 双架构发布。</p><p>通过 83 项镜像回归测试、286 路由 OpenAPI 检查、74 项前端资源版本检查，以及容器启动和 <code>/api/version</code> 冒烟验证。</p>
         </article>
       </div>
       </div>
