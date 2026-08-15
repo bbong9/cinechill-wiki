@@ -92,7 +92,7 @@
           const normalizedHref = href.startsWith('/') ? href.slice(1) : href;
           return new URL(basePath + normalizedHref, window.location.origin).href;
         };
-        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260815-release-71-badges', window.location.origin + siteBasePath()).href;
+        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260815-release-72', window.location.origin + siteBasePath()).href;
         const loadSearchIndex = () => {
           if (!searchIndexPromise) {
             searchIndexPromise = fetch(searchIndexUrl())
@@ -610,23 +610,23 @@
     <div class="recent-version">
       <span class="new-badge">NEW</span>
       <div>
-        <h2>v1.0.0.71</h2>
+        <h2>v1.0.0.72</h2>
         <time datetime="2026-08-15">2026-08-15</time>
       </div>
     </div>
     <div class="update-grid">
       <article class="update-column">
-        <h3><span class="inline-new">NEW</span>仪表盘首屏与刷新</h3>
-        <p><strong>首屏：</strong>优先恢复轻量缓存，减少进入后台时的等待和整页加载转圈。</p>
-        <p><strong>刷新：</strong>运行态数据快速刷新，媒体库概览等完整数据后台定时刷新。</p>
+        <h3><span class="inline-new">UI</span>缺集统计连续分页</h3>
+        <p><strong>浏览：</strong>缺集统计改为自动滚动加载，连续查看时不需要反复点击分页。</p>
+        <p><strong>加载：</strong>分页请求更紧凑，减少首屏和继续加载时的等待。</p>
       </article><article class="update-column">
-        <h3><span class="update-icon">FIX</span>媒体解析与洗版判断</h3>
-        <p><strong>整理模式：</strong>保留智能 ffprobe、全量 ffprobe，旧的纯文件名模式不再使用。</p>
-        <p><strong>加载体验：</strong>媒体封面按需加载并使用后台预热缓存，减少首屏资源竞争。</p>
+        <h3><span class="update-icon">FIX</span>Emby 缺集删除</h3>
+        <p><strong>删除结果：</strong>批量删除返回逐条成功或失败结果，并记录失败原因与耗时。</p>
+        <p><strong>统计更新：</strong>删除后的缺集统计改为异步排队更新，避免阻塞删除请求。</p>
       </article><article class="update-column">
         <h3><span class="update-icon">REL</span>发布与升级</h3>
-        <p><strong>当前记录：</strong>本地已同步的 CineChill 源仓库发布记录更新到 <code>v1.0.0.71</code>，v1.0.0.70 的统计清理也已补入更新日志。</p>
-        <p><strong>升级后检查：</strong>重点确认仪表盘、媒体整理识别模式和 AI 助手中的整理模式选项是否正常。</p>
+        <p><strong>当前记录：</strong>本地已同步的 CineChill 源仓库发布记录更新到 <code>v1.0.0.72</code>，本次重点涉及缺集统计和 Emby 删除流程。</p>
+        <p><strong>升级后检查：</strong>打开“发现与统计 → 缺集统计”，测试连续滚动加载和一条 Emby 删除，确认删除结果与统计回写正常。</p>
       </article>
     </div>
   </section>

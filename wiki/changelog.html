@@ -65,7 +65,7 @@
           const normalizedHref = href.startsWith('/') ? href.slice(1) : href;
           return new URL(basePath + normalizedHref, window.location.origin).href;
         };
-        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260815-release-71-badges', window.location.origin + siteBasePath()).href;
+        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260815-release-72', window.location.origin + siteBasePath()).href;
         const loadSearchIndex = () => {
           if (!searchIndexPromise) {
             searchIndexPromise = fetch(searchIndexUrl())
@@ -284,7 +284,7 @@
       <article class="doc update-log-page">
     <p class="eyebrow">更新日志</p>
     <h1>更新日志</h1>
-    <p class="lead">这里记录 CineChill 正式发布版本的主要变化。点击版本标题即可在当前页面展开或收起，不会跳转到其他页面。当前更新到 v1.0.0.71（2026-08-15）。v1.0.0.10–v1.0.0.54 来自本地正式 Git tag；v1.0.0.55–v1.0.0.71 按本地发布基线整理，源仓库未发现对应正式 tag。</p>
+    <p class="lead">这里记录 CineChill 正式发布版本的主要变化。点击版本标题即可在当前页面展开或收起，不会跳转到其他页面。当前更新到 v1.0.0.72（2026-08-15）。v1.0.0.10–v1.0.0.54 来自本地正式 Git tag；v1.0.0.55–v1.0.0.72 按本地发布基线整理，源仓库未发现对应正式 tag。</p>
     <style>
       .version-accordion > summary {
         display: flex;
@@ -339,6 +339,32 @@
     <details class="card update-log-card version-accordion" open>
       <summary class="log-title-row">
         <span class="new-badge">NEW</span>
+        <div>
+          <h2 id="v1-0-0-72">v1.0.0.72</h2>
+          <time datetime="2026-08-15">2026-08-15</time>
+        </div>
+        <span class="accordion-hint" aria-hidden="true"></span>
+      </summary>
+      <div class="version-content">
+<div class="log-grid">
+        <article class="update-column">
+          <h3><span class="inline-new">UI</span>缺集统计连续分页</h3>
+          <p>缺集统计列表改为自动滚动加载，继续浏览下一页时不需要反复点击分页按钮；分页请求采用更紧凑的数据返回方式，减少首屏和连续加载等待。</p>
+        </article>
+        <article class="update-column">
+          <h3><span class="inline-new">FIX</span>Emby 缺集删除</h3>
+          <p>删除缺集条目前会以明确的超时和错误处理读取 Emby 条目；批量删除按条目返回成功或失败结果，失败原因和耗时会写入结果及运行日志。</p>
+          <p>删除完成后的缺集统计更新改为排队交给 Webhook 与延迟兜底处理，避免删除请求被统计修补阻塞。</p>
+        </article>
+        <article class="update-column">
+          <h3><span class="update-icon">OPS</span>镜像与验证</h3>
+          <p>两种架构通过 39 项镜像回归测试、286 路径/324 路由 OpenAPI 检查、74 项版本化前端资源检查，以及源文件保护、远程摘要、容器启动和 <code>/api/version</code> 验证。</p>
+        </article>
+      </div>
+      </div>
+    </details>
+    <details class="card update-log-card version-accordion">
+      <summary class="log-title-row">
         <div>
           <h2 id="v1-0-0-71">v1.0.0.71</h2>
           <time datetime="2026-08-15">2026-08-15</time>
