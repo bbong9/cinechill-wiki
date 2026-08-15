@@ -92,7 +92,7 @@
           const normalizedHref = href.startsWith('/') ? href.slice(1) : href;
           return new URL(basePath + normalizedHref, window.location.origin).href;
         };
-        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260814-toolbox-guides', window.location.origin + siteBasePath()).href;
+        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260815-release-71', window.location.origin + siteBasePath()).href;
         const loadSearchIndex = () => {
           if (!searchIndexPromise) {
             searchIndexPromise = fetch(searchIndexUrl())
@@ -610,23 +610,23 @@
     <div class="recent-version">
       <span class="new-badge">NEW</span>
       <div>
-        <h2>v1.0.0.69</h2>
-        <time datetime="2026-08-04">2026-08-04</time>
+        <h2>v1.0.0.71</h2>
+        <time datetime="2026-08-15">2026-08-15</time>
       </div>
     </div>
     <div class="update-grid">
       <article class="update-column">
-        <h3><span class="inline-new">NEW</span>上传工作台与管理控制</h3>
-        <p><strong>任务状态：</strong>上传、重试、批次和复查信息展示更清楚，便于确认当前处理阶段。</p>
-        <p><strong>历史统计：</strong>持续补充上传历史和失败记录，方便回看长期运行效果。</p>
+        <h3><span class="inline-new">NEW</span>仪表盘首屏与刷新</h3>
+        <p><strong>首屏：</strong>优先恢复轻量缓存，减少进入后台时的等待和整页加载转圈。</p>
+        <p><strong>刷新：</strong>运行态数据快速刷新，媒体库概览等完整数据后台定时刷新。</p>
       </article><article class="update-column">
-        <h3><span class="update-icon">FIX</span>上传与媒体识别稳定性</h3>
-        <p><strong>异常恢复：</strong>增强上传重试、任务清理和失败复查，减少状态残留。</p>
-        <p><strong>媒体选择：</strong>改进 VP9 识别、洗版排序和站点监控下载稳定性。</p>
+        <h3><span class="update-icon">FIX</span>媒体解析与洗版判断</h3>
+        <p><strong>整理模式：</strong>保留智能 ffprobe、全量 ffprobe，旧的纯文件名模式不再使用。</p>
+        <p><strong>加载体验：</strong>媒体封面按需加载并使用后台预热缓存，减少首屏资源竞争。</p>
       </article><article class="update-column">
         <h3><span class="update-icon">REL</span>发布与升级</h3>
-        <p><strong>当前记录：</strong>本地已同步的 CineChill 源仓库发布记录更新到 <code>v1.0.0.69</code>。</p>
-        <p><strong>升级建议：</strong>使用 115 上传、站点监控、VP9 媒体识别或任务日志的用户建议先备份配置后升级。</p>
+        <p><strong>当前记录：</strong>本地已同步的 CineChill 源仓库发布记录更新到 <code>v1.0.0.71</code>，v1.0.0.70 的统计清理也已补入更新日志。</p>
+        <p><strong>升级后检查：</strong>重点确认仪表盘、媒体整理识别模式和 AI 助手中的整理模式选项是否正常。</p>
       </article>
     </div>
   </section>
