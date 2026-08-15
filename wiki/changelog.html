@@ -65,7 +65,7 @@
           const normalizedHref = href.startsWith('/') ? href.slice(1) : href;
           return new URL(basePath + normalizedHref, window.location.origin).href;
         };
-        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260815-release-71', window.location.origin + siteBasePath()).href;
+        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260815-release-71-fix', window.location.origin + siteBasePath()).href;
         const loadSearchIndex = () => {
           if (!searchIndexPromise) {
             searchIndexPromise = fetch(searchIndexUrl())
@@ -393,7 +393,6 @@
     </details>
     <details class="card update-log-card version-accordion">
       <summary class="log-title-row">
-        <span class="new-badge">NEW</span>
         <div>
           <h2 id="v1-0-0-69">v1.0.0.69</h2>
           <time datetime="2026-08-04">2026-08-04</time>
