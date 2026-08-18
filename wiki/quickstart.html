@@ -65,7 +65,7 @@
           const normalizedHref = href.startsWith('/') ? href.slice(1) : href;
           return new URL(basePath + normalizedHref, window.location.origin).href;
         };
-        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260815-release-72-no-ops', window.location.origin + siteBasePath()).href;
+        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260818-release-73', window.location.origin + siteBasePath()).href;
         const loadSearchIndex = () => {
           if (!searchIndexPromise) {
             searchIndexPromise = fetch(searchIndexUrl())
@@ -634,7 +634,7 @@ docker compose logs -f emby</code></pre>
         <li>打开“服务器配置”，Emby 测试应能返回媒体库数量；115 测试应显示 Cookie 有效。</li>
         <li>保存 115 配置后，从顶部工具栏打开“健康检查”，确认标准目录、媒体路径和网关状态。</li>
         <li>运行一次小范围任务，去“整理记录”和“系统运行日志”确认结果。</li>
-        <li>用 <code>/api/version</code> 核对实际运行版本；Wiki 已同步的最近发布记录为 <code>v1.0.0.72</code>（2026-08-15）；实际运行版本仍以你的 CineChill 页面或 <code>/api/version</code> 返回值为准，不要只根据镜像标签猜版本。</li>
+        <li>用 <code>/api/version</code> 核对实际运行版本；Wiki 已同步的最近发布记录为 <code>v1.0.0.73</code>（2026-08-16）；实际运行版本仍以你的 CineChill 页面或 <code>/api/version</code> 返回值为准，不要只根据镜像标签猜版本。</li>
       </ol>
     </section>
 

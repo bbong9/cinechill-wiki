@@ -65,7 +65,7 @@
           const normalizedHref = href.startsWith('/') ? href.slice(1) : href;
           return new URL(basePath + normalizedHref, window.location.origin).href;
         };
-        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260815-release-72-no-ops', window.location.origin + siteBasePath()).href;
+        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260818-release-73', window.location.origin + siteBasePath()).href;
         const loadSearchIndex = () => {
           if (!searchIndexPromise) {
             searchIndexPromise = fetch(searchIndexUrl())
@@ -284,7 +284,7 @@
       <article class="doc update-log-page">
     <p class="eyebrow">更新日志</p>
     <h1>更新日志</h1>
-    <p class="lead">这里记录 CineChill 正式发布版本的主要变化。点击版本标题即可在当前页面展开或收起，不会跳转到其他页面。当前更新到 v1.0.0.72（2026-08-15）。v1.0.0.10–v1.0.0.54 来自本地正式 Git tag；v1.0.0.55–v1.0.0.72 按本地发布基线整理，源仓库未发现对应正式 tag。</p>
+    <p class="lead">这里记录 CineChill 正式发布版本的主要变化。点击版本标题即可在当前页面展开或收起，不会跳转到其他页面。当前更新到 v1.0.0.73（2026-08-16）。v1.0.0.10–v1.0.0.54 来自本地正式 Git tag；v1.0.0.55–v1.0.0.73 按本地发布基线整理，源仓库未发现对应正式 tag。</p>
     <style>
       .version-accordion > summary {
         display: flex;
@@ -339,6 +339,28 @@
     <details class="card update-log-card version-accordion" open>
       <summary class="log-title-row">
         <span class="new-badge">NEW</span>
+        <div>
+          <h2 id="v1-0-0-73">v1.0.0.73</h2>
+          <time datetime="2026-08-16">2026-08-16</time>
+        </div>
+        <span class="accordion-hint" aria-hidden="true"></span>
+      </summary>
+      <div class="version-content">
+<div class="log-grid">
+        <article class="update-column">
+          <h3><span class="update-icon">UI</span>品牌图标与管理端标识</h3>
+          <p>更新 CineChill 品牌图标，统一侧边栏品牌样式、favicon 和 Web App manifest 使用的品牌资源。</p>
+        </article>
+        <article class="update-column">
+          <h3><span class="inline-new">FIX</span>自动封面任务修改</h3>
+          <p>修复自动封面任务编辑后配置不生效的问题；任务保存、定时调度和重启恢复都会保留选中的媒体库与排除项。</p>
+          <p>开启“自动包含新媒体库”时，被排除的媒体库不会被再次自动加入；手动运行和定时运行使用同一套排除规则。</p>
+        </article>
+      </div>
+      </div>
+    </details>
+    <details class="card update-log-card version-accordion">
+      <summary class="log-title-row">
         <div>
           <h2 id="v1-0-0-72">v1.0.0.72</h2>
           <time datetime="2026-08-15">2026-08-15</time>
