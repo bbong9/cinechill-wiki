@@ -92,7 +92,7 @@
           const normalizedHref = href.startsWith('/') ? href.slice(1) : href;
           return new URL(basePath + normalizedHref, window.location.origin).href;
         };
-        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260818-release-73', window.location.origin + siteBasePath()).href;
+        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260914-release-74', window.location.origin + siteBasePath()).href;
         const loadSearchIndex = () => {
           if (!searchIndexPromise) {
             searchIndexPromise = fetch(searchIndexUrl())
@@ -607,26 +607,11 @@
     </div>
   </section>
   <section class="recent-updates" id="recent-updates">
-    <div class="recent-version">
-      <span class="new-badge">NEW</span>
-      <div>
-        <h2>v1.0.0.73</h2>
-        <time datetime="2026-08-16">2026-08-16</time>
-      </div>
-    </div>
+    <div class="recent-version"><span class="new-badge">NEW</span><div><h2>v1.0.0.74</h2><time datetime="2026-09-08">2026-09-08</time></div></div>
     <div class="update-grid">
-      <article class="update-column">
-        <h3><span class="update-icon">UI</span>品牌图标与管理端标识</h3>
-        <p><strong>统一：</strong>更新 CineChill 品牌图标，侧边栏、favicon 和 Web App manifest 使用同一套品牌资源。</p>
-      </article><article class="update-column">
-        <h3><span class="update-icon">FIX</span>自动封面任务修改</h3>
-        <p><strong>保存：</strong>编辑任务后，选中的媒体库与排除项会正确保存，并在重新打开任务后保留。</p>
-        <p><strong>运行：</strong>自动包含新媒体库时，被排除的媒体库不会再次自动加入。</p>
-      </article><article class="update-column">
-        <h3><span class="update-icon">REL</span>发布与升级</h3>
-        <p><strong>当前记录：</strong>本地已同步的 CineChill 源仓库发布记录更新到 <code>v1.0.0.73</code>，随后补充了自动封面任务排除项修复。</p>
-        <p><strong>升级后检查：</strong>打开“封面系统 → 自动封面”，编辑一条任务并设置排除媒体库，保存后重新打开确认设置仍然生效。</p>
-      </article>
+      <article class="update-column"><h3><span class="update-icon">NEW</span>上传任务定时扫描</h3><p>新增“自动扫描 Cron”，可定时检查新增或变化的文件，也可搭配实时监听补查。留空关闭定时扫描。</p></article>
+      <article class="update-column"><h3><span class="update-icon">FIX</span>自动封面任务保存</h3><p>修复编辑后配置不生效，保留媒体库选择和排除项；自动添加新库不再重新加入已排除的库。</p></article>
+      <article class="update-column"><h3><span class="update-icon">DOC</span>如何设置</h3><p>每小时扫描填 <code>0 * * * *</code>；新任务默认的 <code>* */1 * * *</code> 是每分钟。首次测试请清空 Cron，确认小文件处理成功再启用。</p><p><a href="/cinechill-wiki/wiki/drive115_upload.html#scheduled-scan">查看定时扫描步骤</a> · <a href="/cinechill-wiki/wiki/changelog.html#v1-0-0-74">完整更新日志</a></p></article>
     </div>
   </section>
     </main>

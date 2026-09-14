@@ -65,7 +65,7 @@
           const normalizedHref = href.startsWith('/') ? href.slice(1) : href;
           return new URL(basePath + normalizedHref, window.location.origin).href;
         };
-        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260818-release-73', window.location.origin + siteBasePath()).href;
+        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260914-release-74', window.location.origin + siteBasePath()).href;
         const loadSearchIndex = () => {
           if (!searchIndexPromise) {
             searchIndexPromise = fetch(searchIndexUrl())
@@ -326,7 +326,13 @@
       </ol>
     </section>
 
-    <section class="card">
+    <section class="card" id="saved-library-selection">
+  <h2>修改任务后，确认选库和排除项真的保存</h2>
+  <p>v1.0.0.74 已包含自动封面配置保存修复。旧版本出现“保存后恢复原样”时，先核对运行版本，不要反复重建任务。</p>
+  <ol><li>编辑一条测试任务，先停用定时执行，核对目标媒体库、布局和预设。</li><li>使用“自动添加新建库”时，把不想处理的库从选择中排除；自动扩展范围不应把这些库重新加入。</li><li>保存后关闭弹窗，再次编辑，逐项核对选择和排除状态；刷新页面后再检查一次。</li><li>先运行一个测试库，到 Emby 确认目标库更新而排除库未被处理，再恢复定时执行。正常重启后也应保留配置。</li></ol>
+  <p>若 v1.0.0.74 仍保存失败，先查保存操作时的错误提示及系统日志，确认访问的不是旧容器，并核对 <code>/app/config</code> 持久化挂载；不要删除配置目录来尝试修复。</p>
+</section>
+<section class="card">
       <h2>字段与生命周期</h2>
       <ul>
         <li><strong>执行频率 (Cron)：</strong>后台调度表达式；不要设置得比媒体库变化更频繁。</li>

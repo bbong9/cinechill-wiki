@@ -66,7 +66,7 @@
           const normalizedHref = href.startsWith('/') ? href.slice(1) : href;
           return new URL(basePath + normalizedHref, window.location.origin).href;
         };
-        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260818-release-73', window.location.origin + siteBasePath()).href;
+        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260914-release-74', window.location.origin + siteBasePath()).href;
         const loadSearchIndex = () => {
           if (!searchIndexPromise) {
             searchIndexPromise = fetch(searchIndexUrl())
@@ -443,6 +443,11 @@
   </div>
 </section>
 
+<section class="card" id="upload-scan-troubleshooting">
+  <h2>上传任务定时扫描没有执行</h2>
+  <ol><li>先确认运行版本为 v1.0.0.74 或后续版本，再检查上传任务是否启用、“自动扫描 Cron”是否保存。</li><li>系统日志搜索任务名称与“已注册自动扫描”。出现注册失败时使用五段 Cron 示例重新保存；想每小时一次填写 <code>0 * * * *</code>，不是 <code>* */1 * * *</code>。</li><li>到期后查“自动扫描触发完成”：入队为 0 可能只是没有新增或变化文件。放入写入完成的小文件，然后手动扫描判断是否为挂载或权限问题。</li><li>手动扫描成功但触发时间不符，核对容器时区；手动也失败，按扫描日志检查路径、读取权限和过滤条件。</li></ol>
+  <p><strong>通过标准：</strong>指定时间能看到同一任务的触发日志，新测试文件进入处理并出现在目标目录。完整字段说明见<a href="/cinechill-wiki/wiki/drive115_upload.html#scheduled-scan">定时扫描教程</a>。</p>
+</section>
 </article>
       <aside class="doc-aside" aria-label="本页目录">
         <div class="doc-aside-container">

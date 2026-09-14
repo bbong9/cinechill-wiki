@@ -65,7 +65,7 @@
           const normalizedHref = href.startsWith('/') ? href.slice(1) : href;
           return new URL(basePath + normalizedHref, window.location.origin).href;
         };
-        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260818-release-73', window.location.origin + siteBasePath()).href;
+        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260914-release-74', window.location.origin + siteBasePath()).href;
         const loadSearchIndex = () => {
           if (!searchIndexPromise) {
             searchIndexPromise = fetch(searchIndexUrl())
@@ -284,7 +284,7 @@
       <article class="doc update-log-page">
     <p class="eyebrow">更新日志</p>
     <h1>更新日志</h1>
-    <p class="lead">这里记录 CineChill 正式发布版本的主要变化。点击版本标题即可在当前页面展开或收起，不会跳转到其他页面。当前更新到 v1.0.0.73（2026-08-16）。v1.0.0.10–v1.0.0.54 来自本地正式 Git tag；v1.0.0.55–v1.0.0.73 按本地发布基线整理，源仓库未发现对应正式 tag。</p>
+    <p class="lead">这里记录 CineChill 正式发布版本的主要变化。点击版本标题即可在当前页面展开或收起，不会跳转到其他页面。当前更新到 v1.0.0.74（2026-09-08）。v1.0.0.10–v1.0.0.54 来自本地正式 Git tag；v1.0.0.55–v1.0.0.74 按本地发布基线整理，源仓库未发现对应正式 tag。</p>
     <style>
       .version-accordion > summary {
         display: flex;
@@ -339,6 +339,25 @@
     <details class="card update-log-card version-accordion" open>
       <summary class="log-title-row">
         <span class="new-badge">NEW</span>
+        <div><h2 id="v1-0-0-74">v1.0.0.74</h2><time datetime="2026-09-08">2026-09-08</time></div>
+        <span class="accordion-hint" aria-hidden="true"></span>
+      </summary>
+      <div class="version-content"><div class="log-grid">
+        <article class="update-column">
+          <h3><span class="inline-new">NEW</span>上传任务定时扫描</h3>
+          <p>115 上传任务新增“自动扫描 Cron”，支持按容器时区使用五段表达式扫描本地目录；留空可关闭定时扫描。实时监听也能搭配定时扫描补查遗漏文件。</p>
+          <p>原“手动扫描”模式改为“定时 / 手动扫描”。只想手动运行时，需同时清空 Cron；新建任务默认表达式 <code>* */1 * * *</code> 实际为每分钟执行，不是每小时。</p>
+          <p>定时扫描只处理新增或发生变化的文件，不重复上传已成功且未变化的文件；同一任务扫描重叠时会跳过，停用或删除任务会移除定时扫描。设置示例见<a href="/cinechill-wiki/wiki/drive115_upload.html#scheduled-scan">定时扫描教程</a>。</p>
+        </article>
+        <article class="update-column">
+          <h3><span class="inline-new">FIX</span>自动封面配置保存与排除项</h3>
+          <p>正式纳入自动封面任务编辑修复：保存、定时执行和重启恢复时保留媒体库选择及排除项，自动包含新媒体库不会重新加入已排除的库。</p>
+          <p>升级后编辑一条任务，保存并重新打开核对选库，再单库运行验证。具体步骤见<a href="/cinechill-wiki/wiki/auto.html#saved-library-selection">自动封面教程</a>。</p>
+        </article>
+      </div></div>
+    </details>
+    <details class="card update-log-card version-accordion">
+      <summary class="log-title-row">
         <div>
           <h2 id="v1-0-0-73">v1.0.0.73</h2>
           <time datetime="2026-08-16">2026-08-16</time>
@@ -352,7 +371,8 @@
           <p>更新 CineChill 品牌图标，统一侧边栏品牌样式、favicon 和 Web App manifest 使用的品牌资源。</p>
         </article>
         <article class="update-column">
-          <h3><span class="inline-new">FIX</span>自动封面任务修改</h3>
+          <h3><span class="inline-new">FIX</span>发布后修复：自动封面任务修改</h3>
+          <p>此项于 2026-08-17 提交，正式随 v1.0.0.74 发布；仅运行 v1.0.0.73 镜像不代表已包含该修复。</p>
           <p>修复自动封面任务编辑后配置不生效的问题；任务保存、定时调度和重启恢复都会保留选中的媒体库与排除项。</p>
           <p>开启“自动包含新媒体库”时，被排除的媒体库不会被再次自动加入；手动运行和定时运行使用同一套排除规则。</p>
         </article>
