@@ -65,7 +65,7 @@
           const normalizedHref = href.startsWith('/') ? href.slice(1) : href;
           return new URL(basePath + normalizedHref, window.location.origin).href;
         };
-        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260914-release-74', window.location.origin + siteBasePath()).href;
+        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260928-release-75', window.location.origin + siteBasePath()).href;
         const loadSearchIndex = () => {
           if (!searchIndexPromise) {
             searchIndexPromise = fetch(searchIndexUrl())
@@ -595,7 +595,7 @@ docker compose logs -f emby</code></pre>
   <ol>
     <li>在 MoviePilot 中确认下载目录和硬链接输出目录都是真实可写路径。</li>
     <li>在 CineChill“115秒传”新建任务：本地监听目录选择 MP 硬链接目录，115 目标目录选择服务器配置创建的整理 / 秒传目录。</li>
-    <li>第一次选“定时 / 手动扫描”，清空“自动扫描 Cron”并关闭“启动时包含已有文件”，保存后手动扫描一个小文件。确认校验 → 秒传 → 上传正常后，再切换实时监听或设置 Cron；每小时扫描填 <code>0 * * * *</code>。详见<a href="/cinechill-wiki/wiki/drive115_upload.html#scheduled-scan">定时扫描设置</a>。</li>
+    <li>第一次选“定时 / 手动扫描”，清空“自动扫描 Cron”并关闭“启动时包含已有文件”，保存后手动扫描一个小文件。确认校验 → 秒传 → 上传正常后，再切换实时监听或设置 Cron；每小时扫描填 <code>0 * * * *</code>。v1.0.0.75 会强制重扫并重试失败文件，留在目录中的成功文件也可能重新处理；旧任务需自行核对频率，不需要定时重扫就清空 Cron。详见<a href="/cinechill-wiki/wiki/drive115_upload.html#scheduled-scan">定时扫描设置</a>。</li>
   </ol>
   <div class="screenshot-pair" role="group" aria-label="115 秒传与本地监听">
   <figure class="screenshot screenshot-theme" data-screenshot-theme="light">
@@ -634,7 +634,7 @@ docker compose logs -f emby</code></pre>
         <li>打开“服务器配置”，Emby 测试应能返回媒体库数量；115 测试应显示 Cookie 有效。</li>
         <li>保存 115 配置后，从顶部工具栏打开“健康检查”，确认标准目录、媒体路径和网关状态。</li>
         <li>运行一次小范围任务，去“整理记录”和“系统运行日志”确认结果。</li>
-        <li>用 <code>/api/version</code> 核对实际运行版本；Wiki 已同步的最近发布记录为 <code>v1.0.0.74</code>（2026-09-08）；实际运行版本仍以你的 CineChill 页面或 <code>/api/version</code> 返回值为准，不要只根据镜像标签猜版本。</li>
+        <li>用 <code>/api/version</code> 核对实际运行版本；Wiki 已同步的最近发布记录为 <code>v1.0.0.75</code>（2026-09-25）；实际运行版本仍以你的 CineChill 页面或 <code>/api/version</code> 返回值为准，不要只根据镜像标签猜版本。</li>
       </ol>
     </section>
 

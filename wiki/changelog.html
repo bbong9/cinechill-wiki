@@ -65,7 +65,7 @@
           const normalizedHref = href.startsWith('/') ? href.slice(1) : href;
           return new URL(basePath + normalizedHref, window.location.origin).href;
         };
-        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260914-release-74', window.location.origin + siteBasePath()).href;
+        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260928-release-75', window.location.origin + siteBasePath()).href;
         const loadSearchIndex = () => {
           if (!searchIndexPromise) {
             searchIndexPromise = fetch(searchIndexUrl())
@@ -284,7 +284,7 @@
       <article class="doc update-log-page">
     <p class="eyebrow">更新日志</p>
     <h1>更新日志</h1>
-    <p class="lead">这里记录 CineChill 正式发布版本的主要变化。点击版本标题即可在当前页面展开或收起，不会跳转到其他页面。当前更新到 v1.0.0.74（2026-09-08）。v1.0.0.10–v1.0.0.54 来自本地正式 Git tag；v1.0.0.55–v1.0.0.74 按本地发布基线整理，源仓库未发现对应正式 tag。</p>
+    <p class="lead">这里记录 CineChill 正式发布版本的主要变化。点击版本标题即可在当前页面展开或收起，不会跳转到其他页面。当前更新到 v1.0.0.75（2026-09-25）。v1.0.0.10–v1.0.0.54 来自本地正式 Git tag；v1.0.0.55–v1.0.0.75 按本地发布基线整理，源仓库未发现对应正式 tag。</p>
     <style>
       .version-accordion > summary {
         display: flex;
@@ -339,6 +339,29 @@
     <details class="card update-log-card version-accordion" open>
       <summary class="log-title-row">
         <span class="new-badge">NEW</span>
+        <div><h2 id="v1-0-0-75">v1.0.0.75</h2><time datetime="2026-09-25">2026-09-25</time></div>
+        <span class="accordion-hint" aria-hidden="true"></span>
+      </summary>
+      <div class="version-content"><div class="log-grid">
+        <article class="update-column">
+          <h3><span class="inline-new">FIX</span>定时扫描与手动扫描行为一致</h3>
+          <p>115 上传任务定时触发时，改为与“扫描”按钮相同的强制重扫流程，可重新处理失败文件，不再只检查新增或变化的文件。</p>
+          <p>仍保留在监听目录中的成功文件也可能被重新处理。需要避免周期性重扫时，可清空 Cron；实时监听模式仍可接收文件事件，不必为了避免重复而开启自动删除。</p>
+        </article>
+        <article class="update-column">
+          <h3><span class="update-icon">UPD</span>默认每小时扫描</h3>
+          <p>新建任务默认 Cron 改为 <code>0 * * * *</code>，按容器时区每小时整点执行；原默认 <code>* */1 * * *</code> 实际是每分钟。</p>
+          <p>升级后逐条检查已有任务：旧表达式不会仅因默认值变化就自动替换。需要每小时运行的任务请编辑并保存为 <code>0 * * * *</code>。</p>
+        </article>
+        <article class="update-column">
+          <h3><span class="update-icon">DOC</span>升级后怎么验证</h3>
+          <p>保存任务后查看“已注册自动扫描”；到计划时间查看“自动扫描触发完成”，日志应包含 <code>force=true</code> 和入队数。失败文件重试后，还要核对处理结果和目标目录。</p>
+          <p>完整步骤见<a href="/cinechill-wiki/wiki/drive115_upload.html#scheduled-scan">定时扫描教程</a>，未触发时按<a href="/cinechill-wiki/wiki/system_health.html#upload-scan-troubleshooting">定时扫描排障</a>检查。</p>
+        </article>
+      </div></div>
+    </details>
+    <details class="card update-log-card version-accordion">
+      <summary class="log-title-row">
         <div><h2 id="v1-0-0-74">v1.0.0.74</h2><time datetime="2026-09-08">2026-09-08</time></div>
         <span class="accordion-hint" aria-hidden="true"></span>
       </summary>
@@ -347,7 +370,7 @@
           <h3><span class="inline-new">NEW</span>上传任务定时扫描</h3>
           <p>115 上传任务新增“自动扫描 Cron”，支持按容器时区使用五段表达式扫描本地目录；留空可关闭定时扫描。实时监听也能搭配定时扫描补查遗漏文件。</p>
           <p>原“手动扫描”模式改为“定时 / 手动扫描”。只想手动运行时，需同时清空 Cron；新建任务默认表达式 <code>* */1 * * *</code> 实际为每分钟执行，不是每小时。</p>
-          <p>定时扫描只处理新增或发生变化的文件，不重复上传已成功且未变化的文件；同一任务扫描重叠时会跳过，停用或删除任务会移除定时扫描。设置示例见<a href="/cinechill-wiki/wiki/drive115_upload.html#scheduled-scan">定时扫描教程</a>。</p>
+          <p>v1.0.0.74 的定时扫描只处理新增或发生变化的文件，不重复上传已成功且未变化的文件（v1.0.0.75 已改为强制重扫）；同一任务扫描重叠时会跳过，停用或删除任务会移除定时扫描。设置示例见<a href="/cinechill-wiki/wiki/drive115_upload.html#scheduled-scan">定时扫描教程</a>。</p>
         </article>
         <article class="update-column">
           <h3><span class="inline-new">FIX</span>自动封面配置保存与排除项</h3>

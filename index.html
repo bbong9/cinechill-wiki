@@ -92,7 +92,7 @@
           const normalizedHref = href.startsWith('/') ? href.slice(1) : href;
           return new URL(basePath + normalizedHref, window.location.origin).href;
         };
-        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260914-release-74', window.location.origin + siteBasePath()).href;
+        const searchIndexUrl = () => new URL('cinechill/search-index.json?v=20260928-release-75', window.location.origin + siteBasePath()).href;
         const loadSearchIndex = () => {
           if (!searchIndexPromise) {
             searchIndexPromise = fetch(searchIndexUrl())
@@ -607,11 +607,11 @@
     </div>
   </section>
   <section class="recent-updates" id="recent-updates">
-    <div class="recent-version"><span class="new-badge">NEW</span><div><h2>v1.0.0.74</h2><time datetime="2026-09-08">2026-09-08</time></div></div>
+    <div class="recent-version"><span class="new-badge">NEW</span><div><h2>v1.0.0.75</h2><time datetime="2026-09-25">2026-09-25</time></div></div>
     <div class="update-grid">
-      <article class="update-column"><h3><span class="update-icon">NEW</span>上传任务定时扫描</h3><p>新增“自动扫描 Cron”，可定时检查新增或变化的文件，也可搭配实时监听补查。留空关闭定时扫描。</p></article>
-      <article class="update-column"><h3><span class="update-icon">FIX</span>自动封面任务保存</h3><p>修复编辑后配置不生效，保留媒体库选择和排除项；自动添加新库不再重新加入已排除的库。</p></article>
-      <article class="update-column"><h3><span class="update-icon">DOC</span>如何设置</h3><p>每小时扫描填 <code>0 * * * *</code>；新任务默认的 <code>* */1 * * *</code> 是每分钟。首次测试请清空 Cron，确认小文件处理成功再启用。</p><p><a href="/cinechill-wiki/wiki/drive115_upload.html#scheduled-scan">查看定时扫描步骤</a> · <a href="/cinechill-wiki/wiki/changelog.html#v1-0-0-74">完整更新日志</a></p></article>
+      <article class="update-column"><h3><span class="update-icon">FIX</span>定时扫描强制重扫</h3><p>定时触发与“扫描”按钮使用同一流程，会重试失败文件；仍留在目录中的成功文件也可能重新处理。</p></article>
+      <article class="update-column"><h3><span class="update-icon">UPD</span>默认每小时执行</h3><p>新建任务默认 <code>0 * * * *</code>，每小时整点扫描。已有任务要自行核对并保存频率，旧的每分钟表达式不会自动替换。</p></article>
+      <article class="update-column"><h3><span class="update-icon">DOC</span>升级后检查</h3><p>检查每条任务的 Cron，保存后查注册日志；到期确认 <code>force=true</code>、入队数和文件处理结果。不需要定时重扫时清空 Cron。</p><p><a href="/cinechill-wiki/wiki/drive115_upload.html#scheduled-scan">定时扫描教程</a> · <a href="/cinechill-wiki/wiki/changelog.html#v1-0-0-75">完整更新日志</a></p></article>
     </div>
   </section>
     </main>
