@@ -1912,3 +1912,4 @@ html.cinechill-lightbox-open{overflow:hidden}
 @media(min-width:960px){.has-sidebar + .friend-links{padding-left:calc(var(--vp-sidebar-width) + 32px)}}
 @media(min-width:1440px){.has-sidebar + .friend-links{padding-left:calc((100% - var(--vp-layout-max-width)) / 2 + var(--vp-sidebar-width) + 32px)}}
 @media(max-width:520px){.friend-links{padding-right:16px;padding-left:16px}}
+@media(max-width:520px){.friend-links small{word-break:keep-all}}
