@@ -1903,3 +1903,12 @@ html.cinechill-lightbox-open{overflow:hidden}
 .health-symptom{color:var(--vp-c-text-2)!important}
 .health-pass{margin-top:16px!important;margin-bottom:0!important;padding:12px 14px;border-left:3px solid var(--vp-c-brand-1);border-radius:8px;background:var(--vp-c-brand-soft);color:var(--vp-c-text-1)!important}
 @media(max-width:720px){.doc table,.card table{display:block;overflow-x:auto;table-layout:auto;white-space:normal}.doc th,.doc td,.card th,.card td{min-width:170px;padding:12px 14px}.health-issue{padding:16px}.health-issue h3{font-size:18px}}
+
+.friend-links{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 24px;padding:24px 32px;border-top:1px solid var(--vp-c-divider);color:var(--vp-c-text-2);font-size:14px;line-height:24px}
+.friend-links-title{color:var(--vp-c-text-1);font-weight:600}
+.friend-links a{min-width:0;color:var(--vp-c-text-1);overflow-wrap:anywhere;transition:color .2s}
+.friend-links a:hover{color:var(--vp-c-brand-1)}
+.friend-links small{margin-left:4px;color:var(--vp-c-text-2);font-size:13px}
+@media(min-width:960px){.has-sidebar + .friend-links{padding-left:calc(var(--vp-sidebar-width) + 32px)}}
+@media(min-width:1440px){.has-sidebar + .friend-links{padding-left:calc((100% - var(--vp-layout-max-width)) / 2 + var(--vp-sidebar-width) + 32px)}}
+@media(max-width:520px){.friend-links{padding-right:16px;padding-left:16px}}
